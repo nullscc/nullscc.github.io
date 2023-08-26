@@ -344,7 +344,7 @@
       }
 
       cBody.append(cWeekHead);
-      // cBody.append(cFoot);
+      cBody.append(cFoot);
       cBody.append(cMainPad);
 
       $(instance).html(cHead);
