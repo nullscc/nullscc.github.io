@@ -88,8 +88,10 @@
      */
     function loadPosts() {
       if (settings.single) {
+        console.log("1111111111")
         loadAllPosts();
       } else {
+        console.log("2222222222")
         loadPostsByMonth();
       }
     }
