@@ -1,0 +1,798 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.AI - 2023-07-15 20:00:00 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MixupExplainer: Generalizing Explanations for Graph Neural Networks with Data Augmentation paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2307.07832 repo_url: https:&#x2F;&#x2F;github.com&#x2F;jz48&#x2F;mixupexplainer paper_authors: Ji">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.AI - 2023-07-15 20:00:00">
+<meta property="og:url" content="https://nullscc.github.io/2023/07/15/cs.AI_2023_07_15/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="MixupExplainer: Generalizing Explanations for Graph Neural Networks with Data Augmentation paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2307.07832 repo_url: https:&#x2F;&#x2F;github.com&#x2F;jz48&#x2F;mixupexplainer paper_authors: Ji">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-27T10:02:15.351Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.AI_2023_07_15" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/07/15/cs.AI_2023_07_15/" class="article-date">
+  <time datetime="2023-07-14T16:00:00.000Z" itemprop="datePublished">2023-07-15</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-AI/">cs.AI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.AI - 2023-07-15 20:00:00
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="MixupExplainer-Generalizing-Explanations-for-Graph-Neural-Networks-with-Data-Augmentation"><a href="#MixupExplainer-Generalizing-Explanations-for-Graph-Neural-Networks-with-Data-Augmentation" class="headerlink" title="MixupExplainer: Generalizing Explanations for Graph Neural Networks with Data Augmentation"></a>MixupExplainer: Generalizing Explanations for Graph Neural Networks with Data Augmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07832">http://arxiv.org/abs/2307.07832</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/jz48/mixupexplainer">https://github.com/jz48/mixupexplainer</a></li>
+<li>paper_authors: Jiaxing Zhang, Dongsheng Luo, Hua Wei</li>
+<li>for: 本文旨在探讨Graph Neural Networks（GNN）的预测结果是否可解释，并提出一种基于Graph Information Bottleneck（GIB）的mixup方法来解决分布Shift问题。</li>
+<li>methods: 本文提出了一种基于GIB的mixup方法，称为MixupExplainer，其具有理论保证，能够解决分布Shift问题。</li>
+<li>results: 经过广泛的实验 validate MixupExplainer方法的效果，并提供了分布Shift问题的解决方案。<details>
+<summary>Abstract</summary>
+Graph Neural Networks (GNNs) have received increasing attention due to their ability to learn from graph-structured data. However, their predictions are often not interpretable. Post-hoc instance-level explanation methods have been proposed to understand GNN predictions. These methods seek to discover substructures that explain the prediction behavior of a trained GNN. In this paper, we shed light on the existence of the distribution shifting issue in existing methods, which affects explanation quality, particularly in applications on real-life datasets with tight decision boundaries. To address this issue, we introduce a generalized Graph Information Bottleneck (GIB) form that includes a label-independent graph variable, which is equivalent to the vanilla GIB. Driven by the generalized GIB, we propose a graph mixup method, MixupExplainer, with a theoretical guarantee to resolve the distribution shifting issue. We conduct extensive experiments on both synthetic and real-world datasets to validate the effectiveness of our proposed mixup approach over existing approaches. We also provide a detailed analysis of how our proposed approach alleviates the distribution shifting issue.
+</details>
+<details>
+<summary>摘要</summary>
+图 нейрон网络（GNN）因其能够学习图结构数据而受到了越来越多的关注。然而，它们的预测结果通常不可解释。后续的实例级别解释方法已经被提出来了解 GNN 预测结果。这些方法寻找可以解释训练过的 GNN 预测行为的子结构。在这篇文章中，我们指出了现有方法中的分布转移问题，这会影响解释质量，特别是在实际数据集上面临着紧张的决策边界。为解决这个问题，我们引入一种通用的图信息瓶颈（GIB）形式，该形式包括一个独立于标签的图变量，与普通的 GIB 相同。驱动于通用 GIB，我们提出了一种图混合方法，叫做 MixupExplainer，具有解决分布转移问题的理论保证。我们在 synthetic 和实际数据集上进行了广泛的实验，证明了我们的提议的混合方法比现有方法更有效。我们还提供了对我们的提议方法如何缓解分布转移问题的详细分析。
+</details></li>
+</ul>
+<hr>
+<h2 id="text-EFO-k-CQA-Towards-Knowledge-Graph-Complex-Query-Answering-beyond-Set-Operation"><a href="#text-EFO-k-CQA-Towards-Knowledge-Graph-Complex-Query-Answering-beyond-Set-Operation" class="headerlink" title="$\text{EFO}_{k}$-CQA: Towards Knowledge Graph Complex Query Answering beyond Set Operation"></a>$\text{EFO}_{k}$-CQA: Towards Knowledge Graph Complex Query Answering beyond Set Operation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.13701">http://arxiv.org/abs/2307.13701</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/hkust-knowcomp/efok-cqa">https://github.com/hkust-knowcomp/efok-cqa</a></li>
+<li>paper_authors: Hang Yin, Zihao Wang, Weizhi Fei, Yangqiu Song</li>
+<li>for: 提供了一个框架，用于 Answering Existential First-order Queries with multiple variables（EFO），并评估这些方法在这个框架下的性能。</li>
+<li>methods: 使用了学习基本的方法来掌握不完整的知识，以应对开放世界假设下的查询。</li>
+<li>results: 建立了一个具有741种查询的数据集（EFO-CQA），并通过实验证明了这些查询的难度对于查询方法的影响。<details>
+<summary>Abstract</summary>
+To answer complex queries on knowledge graphs, logical reasoning over incomplete knowledge is required due to the open-world assumption. Learning-based methods are essential because they are capable of generalizing over unobserved knowledge. Therefore, an appropriate dataset is fundamental to both obtaining and evaluating such methods under this paradigm. In this paper, we propose a comprehensive framework for data generation, model training, and method evaluation that covers the combinatorial space of Existential First-order Queries with multiple variables ($\text{EFO}_{k}$). The combinatorial query space in our framework significantly extends those defined by set operations in the existing literature. Additionally, we construct a dataset, $\text{EFO}_{k}$-CQA, with 741 types of query for empirical evaluation, and our benchmark results provide new insights into how query hardness affects the results. Furthermore, we demonstrate that the existing dataset construction process is systematically biased that hinders the appropriate development of query-answering methods, highlighting the importance of our work. Our code and data are provided in~\url{https://github.com/HKUST-KnowComp/EFOK-CQA}.
+</details>
+<details>
+<summary>摘要</summary>
+“为了回答知识图中的复杂查询，因为开放世界假设，需要逻辑推理 sobre 未完整的知识。学习型方法是必要的，因为它们可以泛化到未观察到的知识。因此，一个合适的数据集是知识检索方法的基础和评估的重要组成部分。在这篇论文中，我们提出了一个完整的框架，包括数据生成、模型训练和方法评估，对多变量Existential First-order Queries（EFO）的 combinatorial 查询空间进行覆盖。我们的框架中的查询空间比现有文献中的set操作定义的更加广泛。此外，我们还构建了741种类型的查询集，并对其进行实验评估。我们的研究结果提供了新的思路，描述了查询难度如何影响结果。此外，我们还发现了现有数据集构建过程存在系统性的偏见，这阻碍了合适的查询回答方法的发展，高亮了我们的工作的重要性。我们的代码和数据可以在https://github.com/HKUST-KnowComp/EFOK-CQA中获取。”Note: The translation is in Simplified Chinese, which is the standard form of Chinese used in mainland China and Singapore. If you prefer Traditional Chinese, please let me know and I can provide the translation in that form instead.
+</details></li>
+</ul>
+<hr>
+<h2 id="Improving-Trace-Link-Recommendation-by-Using-Non-Isotropic-Distances-and-Combinations"><a href="#Improving-Trace-Link-Recommendation-by-Using-Non-Isotropic-Distances-and-Combinations" class="headerlink" title="Improving Trace Link Recommendation by Using Non-Isotropic Distances and Combinations"></a>Improving Trace Link Recommendation by Using Non-Isotropic Distances and Combinations</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07781">http://arxiv.org/abs/2307.07781</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Christof Tinnes</li>
+<li>for: 本研究旨在提高软件开发、维护和运维中 Trace 链的效率，尤其是通过自动计算Trace链来减少人工干预。</li>
+<li>methods: 本研究使用了自然语言处理工具来自动计算Trace链，并通过 geometric viewpoint on semantic similarity 来提高 Trace 链的准确率。</li>
+<li>results: 研究在四个开源项目和两个企业项目上进行了实验，结果表明， geometric viewpoint on semantic similarity 可以帮助提高 Trace 链的准确率，并且这些发现可以用于其他信息检索问题。<details>
+<summary>Abstract</summary>
+The existence of trace links between artifacts of the software development life cycle can improve the efficiency of many activities during software development, maintenance and operations. Unfortunately, the creation and maintenance of trace links is time-consuming and error-prone. Research efforts have been spent to automatically compute trace links and lately gained momentum, e.g., due to the availability of powerful tools in the area of natural language processing. In this paper, we report on some observations that we made during studying non-linear similarity measures for computing trace links. We argue, that taking a geometric viewpoint on semantic similarity can be helpful for future traceability research. We evaluated our observations on a dataset of four open source projects and two industrial projects. We furthermore point out that our findings are more general and can build the basis for other information retrieval problems as well.
+</details>
+<details>
+<summary>摘要</summary>
+软件开发生命周期中的trace链可以提高软件开发、维护和运维的效率。然而，创建和维护trace链却是时间consuming和容易出错的。研究者们已经投入大量时间和精力来自动计算trace链，最近又得到了新的动力，例如自然语言处理领域的强大工具的出现。本文报告了我们在非线性相似度测量中所作出的观察，我们认为从 geometric 视角来看 semantic 相似度可以对未来的traceability研究提供帮助。我们对四个开源项目和两个industrial项目进行了评估，并指出我们的发现不仅限于traceability问题，还可以应用于其他信息检索问题。
+</details></li>
+</ul>
+<hr>
+<h2 id="Explaining-and-visualizing-black-box-models-through-counterfactual-paths"><a href="#Explaining-and-visualizing-black-box-models-through-counterfactual-paths" class="headerlink" title="Explaining and visualizing black-box models through counterfactual paths"></a>Explaining and visualizing black-box models through counterfactual paths</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07764">http://arxiv.org/abs/2307.07764</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/pievos101/cpath">https://github.com/pievos101/cpath</a></li>
+<li>paper_authors: Bastian Pfeifer, Mateusz Krzyzinski, Hubert Baniecki, Anna Saranti, Andreas Holzinger, Przemyslaw Biecek</li>
+<li>for: 该论文旨在提出一种基于 conditional permutation 的 Explainable AI（XAI）方法，使黑盒模型变得透明和可解释。</li>
+<li>methods: 该方法使用 conditional permutation 生成的 counterfactual paths，测量特征的重要性通过Sequential permutations of features 的影响对模型预测变化。</li>
+<li>results: 实验表明，该方法可以准确地解释和视觉化黑盒模型，并在 synthetic 和医疗数据上得到了实际应用。<details>
+<summary>Abstract</summary>
+Explainable AI (XAI) is an increasingly important area of machine learning research, which aims to make black-box models transparent and interpretable. In this paper, we propose a novel approach to XAI that uses the so-called counterfactual paths generated by conditional permutations of features. The algorithm measures feature importance by identifying sequential permutations of features that most influence changes in model predictions. It is particularly suitable for generating explanations based on counterfactual paths in knowledge graphs incorporating domain knowledge. Counterfactual paths introduce an additional graph dimension to current XAI methods in both explaining and visualizing black-box models. Experiments with synthetic and medical data demonstrate the practical applicability of our approach.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>用于机器学习研究的可解释AI（XAI）是一个日益重要的领域，旨在让黑盒模型变得透明和可解释。在这篇论文中，我们提出了一种新的XAI方法，使用叫做条件 permutation的feature counterfactual paths来衡量特征重要性。这个算法可以基于知识图 incorporating domain knowledge中的counterfactual paths来生成解释。counterfactual paths增加了现有XAI方法的一个新的维度，可以对黑盒模型的解释和可视化进行更好的支持。实验结果显示了我们的方法在synthetic和医疗数据上的实际可行性。Translation notes:* "可解释AI" (XAI) is translated as "可解释AI" (XAI), which is the standard term used in Simplified Chinese.* "黑盒模型" (black-box model) is translated as "黑盒模型" (black-box model), which is the standard term used in Simplified Chinese.* "counterfactual paths" is translated as "counterfactual paths" (counterfactual paths), which is the standard term used in Simplified Chinese.* "knowledge graph" is translated as "知识图" (knowledge graph), which is the standard term used in Simplified Chinese.* "domain knowledge" is translated as "领域知识" (domain knowledge), which is the standard term used in Simplified Chinese.I hope this helps! Let me know if you have any further questions.
+</details></li>
+</ul>
+<hr>
+<h2 id="Bidirectionally-Deformable-Motion-Modulation-For-Video-based-Human-Pose-Transfer"><a href="#Bidirectionally-Deformable-Motion-Modulation-For-Video-based-Human-Pose-Transfer" class="headerlink" title="Bidirectionally Deformable Motion Modulation For Video-based Human Pose Transfer"></a>Bidirectionally Deformable Motion Modulation For Video-based Human Pose Transfer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07754">http://arxiv.org/abs/2307.07754</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/rocketappslab/bdmm">https://github.com/rocketappslab/bdmm</a></li>
+<li>paper_authors: Wing-Yin Yu, Lai-Man Po, Ray C. C. Cheung, Yuzhi Zhao, Yu Xue, Kun Li</li>
+<li>For: 动作人体图像做pose转换，即将原始图像动作转换为目标人体pose中的动作。* Methods: 提出了一种新的弹性动作修饰（DMM）方法，通过几何核OFFSET和自适应重量调整来同时实现特征对Alignment和样式传递。* Results: 与现有方法相比，提出的方法可以更好地处理衣物上的复杂结构和不连续的姿势，并且可以更好地保持图像的稳定性和视觉连续性。<details>
+<summary>Abstract</summary>
+Video-based human pose transfer is a video-to-video generation task that animates a plain source human image based on a series of target human poses. Considering the difficulties in transferring highly structural patterns on the garments and discontinuous poses, existing methods often generate unsatisfactory results such as distorted textures and flickering artifacts. To address these issues, we propose a novel Deformable Motion Modulation (DMM) that utilizes geometric kernel offset with adaptive weight modulation to simultaneously perform feature alignment and style transfer. Different from normal style modulation used in style transfer, the proposed modulation mechanism adaptively reconstructs smoothed frames from style codes according to the object shape through an irregular receptive field of view. To enhance the spatio-temporal consistency, we leverage bidirectional propagation to extract the hidden motion information from a warped image sequence generated by noisy poses. The proposed feature propagation significantly enhances the motion prediction ability by forward and backward propagation. Both quantitative and qualitative experimental results demonstrate superiority over the state-of-the-arts in terms of image fidelity and visual continuity. The source code is publicly available at github.com/rocketappslab/bdmm.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>translate text into Simplified ChineseVideo-based human pose transfer是一种视频到视频生成任务，把平板的源人像图像基于一系列目标人 pose 动作。由于衣物上的结构很复杂，以及各种异常的姿势，现有方法通常会生成不满意的结果，如扭曲的 тексту涂抹和闪烁 artifacts。为解决这些问题，我们提出了一种新的减少动作模ulation（DMM）技术，利用几何kernel偏移以及适应加权修正来同时进行特征对齐和样式传递。与普通的样式修饰用于样式传递不同，我们的修饰机制可以根据对象形状自适应重建缓和frames从样式代码中。为了提高空间-时间一致性，我们利用双向传播来提取隐藏的运动信息从扭曲的图像序列，并且通过前向和后向传播来增强运动预测能力。实验结果表明，我们的特征传播方法可以明显提高图像准确性和视觉连续性，而且在量化和质量两个方面都超过了现有技术。源代码可以在github.com/rocketappslab/bdmm 中获取。Note: The translation is in Simplified Chinese, which is the standard writing system used in mainland China. If you need Traditional Chinese, please let me know.
+</details></li>
+</ul>
+<hr>
+<h2 id="Learning-Expressive-Priors-for-Generalization-and-Uncertainty-Estimation-in-Neural-Networks"><a href="#Learning-Expressive-Priors-for-Generalization-and-Uncertainty-Estimation-in-Neural-Networks" class="headerlink" title="Learning Expressive Priors for Generalization and Uncertainty Estimation in Neural Networks"></a>Learning Expressive Priors for Generalization and Uncertainty Estimation in Neural Networks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07753">http://arxiv.org/abs/2307.07753</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/dlr-rm/bpnn">https://github.com/dlr-rm/bpnn</a></li>
+<li>paper_authors: Dominik Schnaus, Jongseok Lee, Daniel Cremers, Rudolph Triebel</li>
+<li>for: 提高深度神经网络的通用化和不确定性估计</li>
+<li>methods: 利用可扩展的结构 posteriors 作为帮助神经网络通用化和不确定性估计的快速学习方法，并提供可靠的泛化证明</li>
+<li>results: 实验表明，该方法可以有效地提高神经网络的不确定性估计和通用化性，并且在不断学习框架中实现了良好的性能<details>
+<summary>Abstract</summary>
+In this work, we propose a novel prior learning method for advancing generalization and uncertainty estimation in deep neural networks. The key idea is to exploit scalable and structured posteriors of neural networks as informative priors with generalization guarantees. Our learned priors provide expressive probabilistic representations at large scale, like Bayesian counterparts of pre-trained models on ImageNet, and further produce non-vacuous generalization bounds. We also extend this idea to a continual learning framework, where the favorable properties of our priors are desirable. Major enablers are our technical contributions: (1) the sums-of-Kronecker-product computations, and (2) the derivations and optimizations of tractable objectives that lead to improved generalization bounds. Empirically, we exhaustively show the effectiveness of this method for uncertainty estimation and generalization.
+</details>
+<details>
+<summary>摘要</summary>
+在这项工作中，我们提出了一种新的先学习方法，用于提高深度神经网络的通用化和不确定性估计。关键思想是利用可扩展和结构化的神经网络 posterior 作为有效的先学习模型，具有通用化保证。我们学习的先学习模型可以在大规模上提供表达性的概率表示，类似于 bayesian 对 ImageNet 预训练模型的counterpart，并且生成非虚无效的通用化误差 bound。我们还将这个想法扩展到 continual learning 框架中，其中我们的先学习模型具有恰当的特性。主要实现方法包括：(1)  kronecker 乘积计算，以及对这些计算的Derivation和优化，以实现改进的通用化误差 bound。我们在实验中证明了这种方法的有效性，用于 uncertainty estimation 和通用化。
+</details></li>
+</ul>
+<hr>
+<h2 id="Combining-model-predictive-control-and-predictive-reinforcement-learning-for-stable-quadrupedal-robot-locomotion"><a href="#Combining-model-predictive-control-and-predictive-reinforcement-learning-for-stable-quadrupedal-robot-locomotion" class="headerlink" title="Combining model-predictive control and predictive reinforcement learning for stable quadrupedal robot locomotion"></a>Combining model-predictive control and predictive reinforcement learning for stable quadrupedal robot locomotion</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07752">http://arxiv.org/abs/2307.07752</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Vyacheslav Kovalev, Anna Shkromada, Henni Ouerdane, Pavel Osinenko</li>
+<li>For: 这篇论文旨在研究如何通过模型预测和预测学习控制器来获得四肢机器人稳定的步行。* Methods: 本文使用了模型预测控制（MPC）和预测学习（RL）两种控制方法来解决四肢机器人稳定步行问题。MPC是一种已知的控制方法，但是它不使用线上学习，只有一些适应型的变化。RL则是一种基于体验的学习方法，但是在高复杂的机器人中可能不太适用。本文的混合方法结合了MPC和RL，使用了成本滚动算法和一个对应的Q函数预测器，以缓解MPC的计算复杂性。* Results: 本文的实验结果显示，使用了混合控制的四肢机器人可以在短时间内获得稳定的步行，而nominal MP控制器则在较长时间内失败。此外，本文的控制器不需要前期训练，可以进行现场操作。结果显示，混合MPC和RL的控制方法可以实现四肢机器人稳定步行的平衡。<details>
+<summary>Abstract</summary>
+Stable gait generation is a crucial problem for legged robot locomotion as this impacts other critical performance factors such as, e.g. mobility over an uneven terrain and power consumption. Gait generation stability results from the efficient control of the interaction between the legged robot's body and the environment where it moves. Here, we study how this can be achieved by a combination of model-predictive and predictive reinforcement learning controllers. Model-predictive control (MPC) is a well-established method that does not utilize any online learning (except for some adaptive variations) as it provides a convenient interface for state constraints management. Reinforcement learning (RL), in contrast, relies on adaptation based on pure experience. In its bare-bone variants, RL is not always suitable for robots due to their high complexity and expensive simulation/experimentation. In this work, we combine both control methods to address the quadrupedal robot stable gate generation problem. The hybrid approach that we develop and apply uses a cost roll-out algorithm with a tail cost in the form of a Q-function modeled by a neural network; this allows to alleviate the computational complexity, which grows exponentially with the prediction horizon in a purely MPC approach. We demonstrate that our RL gait controller achieves stable locomotion at short horizons, where a nominal MP controller fails. Further, our controller is capable of live operation, meaning that it does not require previous training. Our results suggest that the hybridization of MPC with RL, as presented here, is beneficial to achieve a good balance between online control capabilities and computational complexity.
+</details>
+<details>
+<summary>摘要</summary>
+稳定步态生成是四肢机器人行走中的关键问题，这会影响其他重要性能因素，如覆盖不平地形和功率消耗。稳定步态生成的稳定性来自四肢机器人身体和运动环境之间的有效控制。在这里，我们研究如何通过组合模型预测和预测学习控制器来实现稳定步态生成。模型预测控制（MPC）是一种已知的方法，不使用线上学习（除了一些适应变化），它提供了一个方便的状态约束管理界面。学习控制（RL），相比之下，基于经验学习，不适用于机器人，因为它们的复杂性和临界实验/仿真成本高。在这个工作中，我们将这两种控制方法结合使用，以解决四肢机器人稳定步态生成问题。我们开发的混合方法使用一个成本滚动算法，其中的尾成本是一个模拟网络模型的Q函数；这使得计算复杂性减少，在完全MPC方法中计算复杂性呈指数增长的情况下。我们的RL步态控制器可以在短预测时间内实现稳定行走，而一个准确MP控制器则无法实现。此外，我们的控制器可以进行实时操作，不需要先期训练。我们的结果表明，在MPC和RL之间的混合，如我们所提出的，可以实现一个良好的平衡，以提高在线控制能力和计算复杂性。
+</details></li>
+</ul>
+<hr>
+<h2 id="SINC-Self-Supervised-In-Context-Learning-for-Vision-Language-Tasks"><a href="#SINC-Self-Supervised-In-Context-Learning-for-Vision-Language-Tasks" class="headerlink" title="SINC: Self-Supervised In-Context Learning for Vision-Language Tasks"></a>SINC: Self-Supervised In-Context Learning for Vision-Language Tasks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07742">http://arxiv.org/abs/2307.07742</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yi-Syuan Chen, Yun-Zhu Song, Cheng Yu Yeo, Bei Liu, Jianlong Fu, Hong-Han Shuai<br>for: 这个论文的目的是探讨如何实现无 gradient 学习的情况下，大型 transformer 模型在视觉语言领域中进行增Context 学习。methods: 这个论文使用的方法是引入视觉信息到大型语言模型中，以便在输入上进行增Context 预测。results: 实验结果表明，SINC 方法在多种视觉语言任务下，在几个shot Setting 下表现出色，而且可以在实时进行增Context 预测。此外，SINC 方法的设计也帮助我们了解视觉语言领域中增Context 学习的好处，以及这种学习方式在不同任务中的发展。<details>
+<summary>Abstract</summary>
+Large Pre-trained Transformers exhibit an intriguing capacity for in-context learning. Without gradient updates, these models can rapidly construct new predictors from demonstrations presented in the inputs. Recent works promote this ability in the vision-language domain by incorporating visual information into large language models that can already make in-context predictions. However, these methods could inherit issues in the language domain, such as template sensitivity and hallucination. Also, the scale of these language models raises a significant demand for computations, making learning and operating these models resource-intensive. To this end, we raise a question: ``How can we enable in-context learning without relying on the intrinsic in-context ability of large language models?". To answer it, we propose a succinct and general framework, Self-supervised IN-Context learning (SINC), that introduces a meta-model to learn on self-supervised prompts consisting of tailored demonstrations. The learned models can be transferred to downstream tasks for making in-context predictions on-the-fly. Extensive experiments show that SINC outperforms gradient-based methods in various vision-language tasks under few-shot settings. Furthermore, the designs of SINC help us investigate the benefits of in-context learning across different tasks, and the analysis further reveals the essential components for the emergence of in-context learning in the vision-language domain.
+</details>
+<details>
+<summary>摘要</summary>
+大型预训Transformer显示了有趣的 Context Learning能力。无需梯度更新，这些模型可快速从输入中提取示例构建新预测器。最近的工作在视觉语言领域把视觉信息 integrate到可以在输入中进行预测的大语言模型中，以提高Context Learning能力。然而，这些方法可能会继承语言领域的问题，如模板敏感和幻觉。此外，这些语言模型的大规模需要巨量的计算资源，使学习和运行这些模型成为资源占用。因此，我们提出了问题：“如何启用Context Learning无需大语言模型的内在能力？”为回答这个问题，我们提出了一种简洁且通用的框架，Self-supervised IN-Context learning（SINC）。SINC引入了一个元模型，用于在自我超visuelle示例上学习。学习后，这些模型可以被转移到下游任务中进行实时预测。广泛的实验显示，SINC在视觉语言任务下的几个shot设定下表现出色，超过了梯度更新方法。此外，SINC的设计帮助我们调查在不同任务中Context Learning的好处，并且分析还揭示了视觉语言领域Context Learning的发展的关键组成部分。
+</details></li>
+</ul>
+<hr>
+<h2 id="Intuitive-Access-to-Smartphone-Settings-Using-Relevance-Model-Trained-by-Contrastive-Learning"><a href="#Intuitive-Access-to-Smartphone-Settings-Using-Relevance-Model-Trained-by-Contrastive-Learning" class="headerlink" title="Intuitive Access to Smartphone Settings Using Relevance Model Trained by Contrastive Learning"></a>Intuitive Access to Smartphone Settings Using Relevance Model Trained by Contrastive Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.09177">http://arxiv.org/abs/2307.09177</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Joonyoung Kim, Kangwook Lee, Haebin Shin, Hurnjoo Lee, Sechun Kang, Byunguk Choi, Dong Shin, Joohyung Lee<br>for: 该论文 targets 智能手机中的功能搜索问题，即用户难以找到功能的问题。methods: 该论文提出了一种新的搜索系统，使用了对比学习来训练一个拥有Contextual relevance的相关性模型，以及应用了知识填充来压缩模型，使其在设备上运行高效。results: 测试结果显示，该系统在 contextual sentence 查询和 usual keyword-based 查询中表现出色，超过了现有的搜索基准。<details>
+<summary>Abstract</summary>
+The more new features that are being added to smartphones, the harder it becomes for users to find them. This is because the feature names are usually short, and there are just too many to remember. In such a case, the users may want to ask contextual queries that describe the features they are looking for, but the standard term frequency-based search cannot process them. This paper presents a novel retrieval system for mobile features that accepts intuitive and contextual search queries. We trained a relevance model via contrastive learning from a pre-trained language model to perceive the contextual relevance between query embeddings and indexed mobile features. Also, to make it run efficiently on-device using minimal resources, we applied knowledge distillation to compress the model without degrading much performance. To verify the feasibility of our method, we collected test queries and conducted comparative experiments with the currently deployed search baselines. The results show that our system outperforms the others on contextual sentence queries and even on usual keyword-based queries.
+</details>
+<details>
+<summary>摘要</summary>
+随着智能手机中新增功能的数量的增加，用户找到这些功能越来越Difficult.这是因为功能名称通常很短，而且有太多了，用户可能会想要提问 Contextual queries 描述所需的功能，但标准的 terme frequency-based search 系统无法处理这些查询。本文介绍了一种新的手机功能检索系统，该系统可以接受用户提出的Intuitive和Contextual search queries。我们通过对预先训练的语言模型进行对比学习来训练一个 relevance 模型，以便在查询embeddings中感知Contextual relevance。此外，为了在设备上运行效率高并使用 minimal resources，我们应用了知识填充技术来压缩模型。为了证明我们的方法的可行性，我们收集了测试查询并进行了相对 эксперименты。结果表明，我们的系统在Contextual sentence queries 和一般键 palab 查询中都高于其他基elines。
+</details></li>
+</ul>
+<hr>
+<h2 id="Safe-Formulas-in-the-General-Theory-of-Stable-Models"><a href="#Safe-Formulas-in-the-General-Theory-of-Stable-Models" class="headerlink" title="Safe Formulas in the General Theory of Stable Models"></a>Safe Formulas in the General Theory of Stable Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.09166">http://arxiv.org/abs/2307.09166</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Joohyung Lee, Vladimir Lifschitz, Ravi Palla</li>
+<li>for: 本研究探讨了安全首项公式的概念，它们可以视为答案集解释器的设计中的一个重要组成部分。</li>
+<li>methods: 本研究使用了安全句子的概念，并证明任何安全句子都等价于其归grounding的结果 – 即将所有量词替换为多重 conjunctions 和 disjunctions 后得到的变量自由句子。</li>
+<li>results: 根据本研究结果，安全句子和其归grounding结果具有相同的稳定模型，而稳定模型的描述可以用一种简单的语法形式来表示。<details>
+<summary>Abstract</summary>
+Safe first-order formulas generalize the concept of a safe rule, which plays an important role in the design of answer set solvers. We show that any safe sentence is equivalent, in a certain sense, to the result of its grounding -- to the variable-free sentence obtained from it by replacing all quantifiers with multiple conjunctions and disjunctions. It follows that a safe sentence and the result of its grounding have the same stable models, and that the stable models of a safe sentence can be characterized by a formula of a simple syntactic form.
+</details>
+<details>
+<summary>摘要</summary>
+安全的首项式式表示安全规则的概念，这种概念在答案集解决器的设计中发挥着重要作用。我们证明任何安全句子都等价于其归根结构 -- 将它中的全量化器替换为多个并 conjunctions 和 disjunctions 后得到的变量自由句子。因此，安全句子和它的归根结构具有相同的稳定模型，并且安全句子的稳定模型可以通过一个简单的语法结构来描述。
+</details></li>
+</ul>
+<hr>
+<h2 id="Measuring-Perceived-Trust-in-XAI-Assisted-Decision-Making-by-Eliciting-a-Mental-Model"><a href="#Measuring-Perceived-Trust-in-XAI-Assisted-Decision-Making-by-Eliciting-a-Mental-Model" class="headerlink" title="Measuring Perceived Trust in XAI-Assisted Decision-Making by Eliciting a Mental Model"></a>Measuring Perceived Trust in XAI-Assisted Decision-Making by Eliciting a Mental Model</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.11765">http://arxiv.org/abs/2307.11765</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mohsen Abbaspour Onari, Isel Grau, Marco S. Nobile, Yingqian Zhang</li>
+<li>for: 本研究用了一种新的方法来测量用户对可解释人工智能（XAI）模型的信任感。</li>
+<li>methods: 这种方法利用了可解释机器学习（ML）模型来分类可能患有 COVID-19 的病人为正或负。然后，医疗专家（ME）根据他们的知识和 XAI 模型的预测和解释进行诊断决策任务。</li>
+<li>results: 研究发现，对于每个 ME，可以获得一个量化的信任值，以确定他们对 XAI 模型的信任程度。这些量化值可以判断 ME 是否对 XAI 模型有信任或不信任。此外，研究还发现，MEs 的心理主观性会影响他们对 XAI 模型的信任程度。<details>
+<summary>Abstract</summary>
+This empirical study proposes a novel methodology to measure users' perceived trust in an Explainable Artificial Intelligence (XAI) model. To do so, users' mental models are elicited using Fuzzy Cognitive Maps (FCMs). First, we exploit an interpretable Machine Learning (ML) model to classify suspected COVID-19 patients into positive or negative cases. Then, Medical Experts' (MEs) conduct a diagnostic decision-making task based on their knowledge and then prediction and interpretations provided by the XAI model. In order to evaluate the impact of interpretations on perceived trust, explanation satisfaction attributes are rated by MEs through a survey. Then, they are considered as FCM's concepts to determine their influences on each other and, ultimately, on the perceived trust. Moreover, to consider MEs' mental subjectivity, fuzzy linguistic variables are used to determine the strength of influences. After reaching the steady state of FCMs, a quantified value is obtained to measure the perceived trust of each ME. The results show that the quantified values can determine whether MEs trust or distrust the XAI model. We analyze this behavior by comparing the quantified values with MEs' performance in completing diagnostic tasks.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Elementary-Sets-for-Logic-Programs"><a href="#Elementary-Sets-for-Logic-Programs" class="headerlink" title="Elementary Sets for Logic Programs"></a>Elementary Sets for Logic Programs</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.09168">http://arxiv.org/abs/2307.09168</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/Aryia-Behroziuan/References">https://github.com/Aryia-Behroziuan/References</a></li>
+<li>paper_authors: Martin Gebser, Joohyung Lee, Yuliya Lierler</li>
+<li>for: 本文研究了非逻辑程序的答案集和 Clark 完善的模型之间的关系。</li>
+<li>methods: 本文使用了林和赵的定理，以及 Gebser 和 Schaub 的 restrict loop 方法。</li>
+<li>results: 本文提出了一种更加简单和普适的 elementary set 概念，并证明了其与非逻辑程序相关的最大不充足 elementary set 是非逻辑程序的所有非空不充足集之最小集。此外，本文还提供了一种图理学方法来Characterize elementary sets for nondisjunctive programs。在 contrast to nondisjunctive programs, 本文显示了对于分配程序，确定 elementary set 是 coNP-complete。<details>
+<summary>Abstract</summary>
+By introducing the concepts of a loop and a loop formula, Lin and Zhao showed that the answer sets of a nondisjunctive logic program are exactly the models of its Clark's completion that satisfy the loop formulas of all loops. Recently, Gebser and Schaub showed that the Lin-Zhao theorem remains correct even if we restrict loop formulas to a special class of loops called ``elementary loops.'' In this paper, we simplify and generalize the notion of an elementary loop, and clarify its role. We propose the notion of an elementary set, which is almost equivalent to the notion of an elementary loop for nondisjunctive programs, but is simpler, and, unlike elementary loops, can be extended to disjunctive programs without producing unintuitive results. We show that the maximal unfounded elementary sets for the ``relevant'' part of a program are exactly the minimal sets among the nonempty unfounded sets. We also present a graph-theoretic characterization of elementary sets for nondisjunctive programs, which is simpler than the one proposed in (Gebser & Schaub 2005). Unlike the case of nondisjunctive programs, we show that the problem of deciding an elementary set is coNP-complete for disjunctive programs.
+</details>
+<details>
+<summary>摘要</summary>
+林和赵通过引入循环和循环公式，表明答案集合的非逻辑程序是完全 Clark 完成的模型，满足所有循环公式的循环。最近，格卜和瑞布 показа了林-赵定理仍然正确，只要限制循环公式为特殊类循环 called “元素循环”。在这篇文章中，我们简化和推广元素循环的概念，并解释其作用。我们提出了元素集的概念，它与元素循环对非逻辑程序几乎等价，但更简单，而且与元素循环不同的是可以扩展到分支程序无需生成不自然的结果。我们证明了最大不定元素集的“相关”部分的程序是非空不定集中的最小集。我们还提出了非逻辑程序的元素集的图学特征化，这比 Gebser 和 Schaub （2005）提出的特征化更简单。不同于非逻辑程序，我们证明了决定元素集的问题是 coNP-完全的 для分支程序。
+</details></li>
+</ul>
+<hr>
+<h2 id="Abstracting-Concept-Changing-Rules-for-Solving-Raven’s-Progressive-Matrix-Problems"><a href="#Abstracting-Concept-Changing-Rules-for-Solving-Raven’s-Progressive-Matrix-Problems" class="headerlink" title="Abstracting Concept-Changing Rules for Solving Raven’s Progressive Matrix Problems"></a>Abstracting Concept-Changing Rules for Solving Raven’s Progressive Matrix Problems</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07734">http://arxiv.org/abs/2307.07734</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/fudanvi/generative-abstract-reasoning">https://github.com/fudanvi/generative-abstract-reasoning</a></li>
+<li>paper_authors: Fan Shi, Bin Li, Xiangyang Xue</li>
+<li>for: 这种研究旨在提高机器智能的抽象能力，以便在新环境中发现底层规则。</li>
+<li>methods: 这种方法使用了Raven’s Progressive Matrix（RPM）测试，并使用深度隐藏变量模型来抽象概念改变规则。</li>
+<li>results: 这种方法可以自动抽象全局规则，并且在无外部监督下达到了同级或更高的准确率。<details>
+<summary>Abstract</summary>
+The abstract visual reasoning ability in human intelligence benefits discovering underlying rules in the novel environment. Raven's Progressive Matrix (RPM) is a classic test to realize such ability in machine intelligence by selecting from candidates. Recent studies suggest that solving RPM in an answer-generation way boosts a more in-depth understanding of rules. However, existing generative solvers cannot discover the global concept-changing rules without auxiliary supervision (e.g., rule annotations and distractors in candidate sets). To this end, we propose a deep latent variable model for Concept-changing Rule ABstraction (CRAB) by learning interpretable concepts and parsing concept-changing rules in the latent space. With the iterative learning process, CRAB can automatically abstract global rules shared on the dataset on each concept and form the learnable prior knowledge of global rules. CRAB outperforms the baselines trained without auxiliary supervision in the arbitrary-position answer generation task and achieves comparable and even higher accuracy than the compared models trained with auxiliary supervision. Finally, we conduct experiments to illustrate the interpretability of CRAB in concept learning, answer selection, and global rule abstraction.
+</details>
+<details>
+<summary>摘要</summary>
+人类智能中的抽象视觉理解能力可以帮助发现新环境中的底层规则。Raven's Progressive Matrix (RPM) 是一种经典的测试，用于评测机器智能中的这种能力。Recent studies 表明，通过answer-generation的方式解决RPM可以提高对规则的更深入的理解。然而，现有的生成解决方案无法自动发现全局概念变化的规则，需要 auxiliary supervision（例如，规则注释和distractors在候选集中）。为此，我们提出了一种深入学习的秘密变量模型，即Concept-changing Rule ABstraction (CRAB)，可以学习可读的概念和解析概念变化规则在隐藏空间中。通过迭代学习过程，CRAB可以自动抽象数据集中的全局规则，并将这些规则形成可学习的先验知识。CRAB在无auxiliary supervision的arbitrary-position answer generation任务中表现出色，并与包括auxiliary supervision的比较模型相比，达到了相同或更高的准确率。最后，我们进行了实验，以示CRAB在概念学习、答案选择和全局规则抽象方面的解释性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Causal-Laws-and-Multi-Valued-Fluents"><a href="#Causal-Laws-and-Multi-Valued-Fluents" class="headerlink" title="Causal Laws and Multi-Valued Fluents"></a>Causal Laws and Multi-Valued Fluents</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.10227">http://arxiv.org/abs/2307.10227</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/Aryia-Behroziuan/References">https://github.com/Aryia-Behroziuan/References</a></li>
+<li>paper_authors: Enrico Giunchiglia, Joohyung Lee, Vladimir Lifschitz, Hudson Turner</li>
+<li>for: 本研究继续 investigate 非 monotonic  formalism 表示行为属性的工作，特别是 отлича между “真” 和 “被引起”，如 McCain 和 Turner 提出的 causal logic 和 Giunchiglia 和 Lifschitz 提出的 action language C。</li>
+<li>methods: 本文使用 extension 方法，使得 language C+ 可以表示非空集值。此外，本文还描述了 actions 的 attribute 的描述，这对 elaboration tolerance 非常重要。</li>
+<li>results: 本文显示了 causal theories 中 multi-valued constants 的 eliminating，并将 C+ 与 Pednault 提出的 action language ADL 进行比较。<details>
+<summary>Abstract</summary>
+This paper continues the line of work on representing properties of actions in nonmonotonic formalisms that stresses the distinction between being "true" and being "caused", as in the system of causal logic introduced by McCain and Turner and in the action language C proposed by Giunchiglia and Lifschitz. The only fluents directly representable in language C+ are truth-valued fluents, which is often inconvenient. We show that both causal logic and language C can be extended to allow values from arbitrary nonempty sets. Our extension of language C, called C+, also makes it possible to describe actions in terms of their attributes, which is important from the perspective of elaboration tolerance. We describe an embedding of C+ in causal theories with multi-valued constants, relate C+ to Pednault's action language ADL, and show how multi-valued constants can be eliminated in favor of Boolean constants.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="On-Loop-Formulas-with-Variables"><a href="#On-Loop-Formulas-with-Variables" class="headerlink" title="On Loop Formulas with Variables"></a>On Loop Formulas with Variables</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.10226">http://arxiv.org/abs/2307.10226</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/SOYJUN/FTP-implement-based-on-UDP">https://github.com/SOYJUN/FTP-implement-based-on-UDP</a></li>
+<li>paper_authors: Joohyung Lee, Yunsong Meng</li>
+<li>for: 这个论文是为了推广 Ferraris et al. 的稳定模型定义，不再基于固定点，可应用于任意首选论 sentences 的 syntax。</li>
+<li>methods: 这篇论文使用 Chen, Lin, Wang, Zhang 的 loop formulas with variables，并将其推广到分支计划和任意首选论 sentences。它还扩展了逻辑计划的语法，允许显式Quantifier，并定义其 semantics 为 Ferraris et al. 的稳定模型语言的一个 subclass。</li>
+<li>results: 这篇论文显示了这种扩展的逻辑计划可以在稳定模型 semantics 下进行非 monotonic reasoning，而且在不假设唯一名称和Domain closure 的情况下仍然能够处理非 Herbrand 稳定模型。此外，它还显示了一些语法条件，使得查询答案可以通过 first-order 逻辑推理来实现，从而可以使用 first-order 证明器进行非 Herbrand 稳定模型的推理。<details>
+<summary>Abstract</summary>
+Recently Ferraris, Lee and Lifschitz proposed a new definition of stable models that does not refer to grounding, which applies to the syntax of arbitrary first-order sentences. We show its relation to the idea of loop formulas with variables by Chen, Lin, Wang and Zhang, and generalize their loop formulas to disjunctive programs and to arbitrary first-order sentences. We also extend the syntax of logic programs to allow explicit quantifiers, and define its semantics as a subclass of the new language of stable models by Ferraris et al. Such programs inherit from the general language the ability to handle nonmonotonic reasoning under the stable model semantics even in the absence of the unique name and the domain closure assumptions, while yielding more succinct loop formulas than the general language due to the restricted syntax. We also show certain syntactic conditions under which query answering for an extended program can be reduced to entailment checking in first-order logic, providing a way to apply first-order theorem provers to reasoning about non-Herbrand stable models.
+</details>
+<details>
+<summary>摘要</summary>
+最近，菲律数、李和里夫斯提出了一个新的定义方式，不受地面影响，可以应用于任意首项关系文法中的语法。我们展示了这个定义与陈等人的循环式关系式的联系，并将其扩展到分类程式和任意首项关系文法中。我们还将逻辑程式的 syntax 扩展为允许显式量词，并定义其 semantics 为一个基于新的稳定模型语言的子集。这些程式继承了稳定模型语言中的非对称逻辑推理能力，但是具有更短的循环式关系式，因为其 restrictive syntax。我们还展示了一些语法条件，使得问题回答可以与首项关系逻辑推理相同，并且可以运用首项关系逻辑推理器进行非HERBRAND稳定模型的推理。
+</details></li>
+</ul>
+<hr>
+<h2 id="First-Order-Stable-Model-Semantics-with-Intensional-Functions"><a href="#First-Order-Stable-Model-Semantics-with-Intensional-Functions" class="headerlink" title="First-Order Stable Model Semantics with Intensional Functions"></a>First-Order Stable Model Semantics with Intensional Functions</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.10225">http://arxiv.org/abs/2307.10225</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Michael Bartholomew, Joohyung Lee</li>
+<li>for: 该论文旨在扩展answer set programming（ASP）中的函数支持，以便在ASP中执行first-order reasoning。</li>
+<li>methods: 该论文使用了 Ferraris、Lee、Lifschitz的first-order stable model semantics，并将函数与前置定义的 predicate 一样地处理。</li>
+<li>results: 该论文显示了多种已知的ASP性质可以自然地扩展到该形式中，并与其他相关的方法进行比较。此外，该论文还基于这种扩展定义了Answer Set Programming Modulo Theories（ASPMT），可以在含有实数的领域中进行有效的first-orderreasoning。<details>
+<summary>Abstract</summary>
+In classical logic, nonBoolean fluents, such as the location of an object, can be naturally described by functions. However, this is not the case in answer set programs, where the values of functions are pre-defined, and nonmonotonicity of the semantics is related to minimizing the extents of predicates but has nothing to do with functions. We extend the first-order stable model semantics by Ferraris, Lee, and Lifschitz to allow intensional functions -- functions that are specified by a logic program just like predicates are specified. We show that many known properties of the stable model semantics are naturally extended to this formalism and compare it with other related approaches to incorporating intensional functions. Furthermore, we use this extension as a basis for defining Answer Set Programming Modulo Theories (ASPMT), analogous to the way that Satisfiability Modulo Theories (SMT) is defined, allowing for SMT-like effective first-order reasoning in the context of ASP. Using SMT solving techniques involving functions, ASPMT can be applied to domains containing real numbers and alleviates the grounding problem. We show that other approaches to integrating ASP and CSP/SMT can be related to special cases of ASPMT in which functions are limited to non-intensional ones.
+</details>
+<details>
+<summary>摘要</summary>
+在经典逻辑中，非布尔流变量，如物体的位置，可以自然地被函数描述。然而，在答案集程序中，函数的值是预先定义的，并且非 monotonicity 的 semantics 与函数没有直接关系。我们将 Ferraris、Lee 和 Lifschitz 的第一阶stable model semantics 扩展以允许内在函数 -- 函数被逻辑程序所定义，与 predicates 一样。我们表明了许多已知的 stable model semantics 的属性被自然地扩展到这种 формалиズмом，并与其他相关的方法进行比较。此外，我们使用这种扩展为基础，定义了 Answer Set Programming Modulo Theories（ASPMT），类似于 Satisfiability Modulo Theories（SMT）的定义，允许在 ASP 中进行有效的第一阶逻辑推理。使用 SMT 解决方法 involving functions，ASPMT 可以应用于含有实数的Domain中，并alleviate the grounding problem。我们还证明了其他将 ASP 和 CSP/SMT 集成的方法可以被看作 ASPMT 中函数的特殊情况。
+</details></li>
+</ul>
+<hr>
+<h2 id="RL-ViGen-A-Reinforcement-Learning-Benchmark-for-Visual-Generalization"><a href="#RL-ViGen-A-Reinforcement-Learning-Benchmark-for-Visual-Generalization" class="headerlink" title="RL-ViGen: A Reinforcement Learning Benchmark for Visual Generalization"></a>RL-ViGen: A Reinforcement Learning Benchmark for Visual Generalization</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.10224">http://arxiv.org/abs/2307.10224</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/gemcollector/rl-vigen">https://github.com/gemcollector/rl-vigen</a></li>
+<li>paper_authors: Zhecheng Yuan, Sizhe Yang, Pu Hua, Can Chang, Kaizhe Hu, Xiaolong Wang, Huazhe Xu<br>for:* 这篇论文旨在解决视觉学习中的扩展性问题，即RL Agent在不同任务和扩展类别下的扩展性能力的评估。methods:* 本论文提出了RL-ViGen，一个新的视觉学习评价 benchmark，其包含了多种任务和扩展类别，以便更好地评估RL Agent的扩展性能力。results:* 实验结果表明，现有的视觉RL算法中没有一个 universally 适用于所有任务，RL-ViGen 可以作为一个 catalyst，促进未来创造出适用于实际场景的通用视觉RL Agent。<details>
+<summary>Abstract</summary>
+Visual Reinforcement Learning (Visual RL), coupled with high-dimensional observations, has consistently confronted the long-standing challenge of out-of-distribution generalization. Despite the focus on algorithms aimed at resolving visual generalization problems, we argue that the devil is in the existing benchmarks as they are restricted to isolated tasks and generalization categories, undermining a comprehensive evaluation of agents' visual generalization capabilities. To bridge this gap, we introduce RL-ViGen: a novel Reinforcement Learning Benchmark for Visual Generalization, which contains diverse tasks and a wide spectrum of generalization types, thereby facilitating the derivation of more reliable conclusions. Furthermore, RL-ViGen incorporates the latest generalization visual RL algorithms into a unified framework, under which the experiment results indicate that no single existing algorithm has prevailed universally across tasks. Our aspiration is that RL-ViGen will serve as a catalyst in this area, and lay a foundation for the future creation of universal visual generalization RL agents suitable for real-world scenarios. Access to our code and implemented algorithms is provided at https://gemcollector.github.io/RL-ViGen/.
+</details>
+<details>
+<summary>摘要</summary>
+visual reinforcement learning (Visual RL)  coupled with high-dimensional observations, has consistently confronted the long-standing challenge of out-of-distribution generalization. Despite the focus on algorithms aimed at resolving visual generalization problems, we argue that the devil is in the existing benchmarks as they are restricted to isolated tasks and generalization categories, undermining a comprehensive evaluation of agents' visual generalization capabilities. To bridge this gap, we introduce RL-ViGen: a novel Reinforcement Learning Benchmark for Visual Generalization, which contains diverse tasks and a wide spectrum of generalization types, thereby facilitating the derivation of more reliable conclusions. Furthermore, RL-ViGen incorporates the latest generalization visual RL algorithms into a unified framework, under which the experiment results indicate that no single existing algorithm has prevailed universally across tasks. Our aspiration is that RL-ViGen will serve as a catalyst in this area, and lay a foundation for the future creation of universal visual generalization RL agents suitable for real-world scenarios. Access to our code and implemented algorithms is provided at https://gemcollector.github.io/RL-ViGen/.Here's the word-for-word translation of the text into Simplified Chinese:视觉强化学习（Visual RL），结合高维度观察，一直面临着 OUT-OF-distribution 泛化挑战。尽管关注在解决视觉泛化问题上的算法，但我们认为存在的 benchmarks 是隔离任务和泛化类别的，这会妨碍对代理人的视觉泛化能力进行全面评估。为了bridging这个差距，我们介绍 RL-ViGen：一个新的强化学习 benchmark  для视觉泛化，包含多种任务和广泛的泛化类型，从而促进更可靠的结论。此外， RL-ViGen 还将 latest visual RL 泛化算法集成到一个统一的框架中，实验结果表明，无论任务，任何一个现有算法都没有在所有任务上 universal 适用。我们希望 RL-ViGen 能成为这一领域的 catalyst，并为实际场景中的 universal 视觉泛化 RL 代理人提供基础。可以在https://gemcollector.github.io/RL-ViGen/ 获取我们的代码和实现算法。
+</details></li>
+</ul>
+<hr>
+<h2 id="NeurASP-Embracing-Neural-Networks-into-Answer-Set-Programming"><a href="#NeurASP-Embracing-Neural-Networks-into-Answer-Set-Programming" class="headerlink" title="NeurASP: Embracing Neural Networks into Answer Set Programming"></a>NeurASP: Embracing Neural Networks into Answer Set Programming</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07700">http://arxiv.org/abs/2307.07700</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zhun Yang, Adam Ishay, Joohyung Lee</li>
+<li>for: 用于结合符号计算和低水平计算的简单扩展</li>
+<li>methods: 使用神经网络输出作为答案集计算中的概率分布</li>
+<li>results: 可以使用预训练神经网络进行符号计算，并通过应用符号逻辑来改善神经网络的感知结果，同时可以通过训练ASP规则来使神经网络更好地学习。<details>
+<summary>Abstract</summary>
+We present NeurASP, a simple extension of answer set programs by embracing neural networks. By treating the neural network output as the probability distribution over atomic facts in answer set programs, NeurASP provides a simple and effective way to integrate sub-symbolic and symbolic computation. We demonstrate how NeurASP can make use of a pre-trained neural network in symbolic computation and how it can improve the neural network's perception result by applying symbolic reasoning in answer set programming. Also, NeurASP can be used to train a neural network better by training with ASP rules so that a neural network not only learns from implicit correlations from the data but also from the explicit complex semantic constraints expressed by the rules.
+</details>
+<details>
+<summary>摘要</summary>
+我团队今天宣布了一个简单的扩展项目，即NeurASP，它通过将神经网络输出视为答案集程序中的概率分布来实现。通过将子符号计算和符号计算结合起来，NeurASP提供了一个简单有效的方式来整合子符号计算和符号计算。我们展示了如何使用预训练神经网络进行符号计算，以及如何通过应用答案集程序的 символиック逻辑来改进神经网络的识别结果。此外，NeurASP还可以用来训练神经网络，使其不仅从数据中学习隐式相关性，还从答案集程序中表达的复杂 semantic constraints中学习明确的符号逻辑。
+</details></li>
+</ul>
+<hr>
+<h2 id="Leveraging-Large-Language-Models-to-Generate-Answer-Set-Programs"><a href="#Leveraging-Large-Language-Models-to-Generate-Answer-Set-Programs" class="headerlink" title="Leveraging Large Language Models to Generate Answer Set Programs"></a>Leveraging Large Language Models to Generate Answer Set Programs</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07699">http://arxiv.org/abs/2307.07699</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/azreasoners/gpt-asp-rules">https://github.com/azreasoners/gpt-asp-rules</a></li>
+<li>paper_authors: Adam Ishay, Zhun Yang, Joohyung Lee</li>
+<li>for: 该论文旨在探讨大型自然语言处理模型（LLM）如何帮助创建答案集程序（Answer Set Program），以便解决复杂的逻辑问题。</li>
+<li>methods: 该论文提出了一种 neuromorphic 方法，即使用 LLM 将自然语言描述转换为答案集程序。该方法首先使用 LLM 转换自然语言描述为一系列的句子，然后使用答案集程序语言来描述问题。</li>
+<li>results: 研究发现，只需要几个受Context learning示例，LLM 就可以生成相对复杂的答案集程序。大多数错误都是相对简单的，可以由人类轻松 corrrect。因此，LLM 可以有效地帮助创建答案集程序。<details>
+<summary>Abstract</summary>
+Large language models (LLMs), such as GPT-3 and GPT-4, have demonstrated exceptional performance in various natural language processing tasks and have shown the ability to solve certain reasoning problems. However, their reasoning capabilities are limited and relatively shallow, despite the application of various prompting techniques. In contrast, formal logic is adept at handling complex reasoning, but translating natural language descriptions into formal logic is a challenging task that non-experts struggle with. This paper proposes a neuro-symbolic method that combines the strengths of large language models and answer set programming. Specifically, we employ an LLM to transform natural language descriptions of logic puzzles into answer set programs. We carefully design prompts for an LLM to convert natural language descriptions into answer set programs in a step by step manner. Surprisingly, with just a few in-context learning examples, LLMs can generate reasonably complex answer set programs. The majority of errors made are relatively simple and can be easily corrected by humans, thus enabling LLMs to effectively assist in the creation of answer set programs.
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型（LLM），如GPT-3和GPT-4，在不同的自然语言处理任务中表现出色，并且能够解决一些推理问题。然而，它们的推理能力相对较浅，即使使用了不同的推问技巧。相比之下，正式逻辑能够处理复杂的推理，但将自然语言描述转换为正式逻辑是一个困难的任务，非专家通常难以进行。这篇论文提议了一个神经符号方法，将大型语言模型和答案集计算结合在一起。具体来说，我们使用一个LLM将自然语言描述逻辑题目转换为答案集程式。我们严格设计了对LLM的推问示例，以步骤地方式将自然语言描述转换为答案集程式。 surprisingly，仅需几个内容学习示例，LLM可以生成相对复杂的答案集程式。大多数错误都是相对简单的，可以轻松地由人类更正，因此LLM可以有效地协助创建答案集程式。
+</details></li>
+</ul>
+<hr>
+<h2 id="The-Growth-of-E-Bike-Use-A-Machine-Learning-Approach"><a href="#The-Growth-of-E-Bike-Use-A-Machine-Learning-Approach" class="headerlink" title="The Growth of E-Bike Use: A Machine Learning Approach"></a>The Growth of E-Bike Use: A Machine Learning Approach</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02034">http://arxiv.org/abs/2308.02034</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Aditya Gupta, Samarth Chitgopekar, Alexander Kim, Joseph Jiang, Megan Wang, Christopher Grattoni</li>
+<li>for: 这项研究是为了帮助政策制定者更好地理解电动自行车（e-bike）的发展和影响。</li>
+<li>methods: 这项研究使用了ARIMA模型和一种监管式机器学习算法来预测电动自行车销售量的增长。此外，研究还使用了Random Forest回归模型来分析电动自行车销售增长的因素。</li>
+<li>results: 研究发现，电动自行车在美国的使用带来了15,737.82公斤的二氧化碳排放减少和716,630.727千卡路里的热量燃烧。此外，研究还发现了电动自行车销售增长的主要影响因素，包括可 dispose的人均收入和受欢迎程度。<details>
+<summary>Abstract</summary>
+We present our work on electric bicycles (e-bikes) and their implications for policymakers in the United States. E-bikes have gained significant popularity as a fast and eco-friendly transportation option. As we strive for a sustainable energy plan, understanding the growth and impact of e-bikes is crucial for policymakers. Our mathematical modeling offers insights into the value of e-bikes and their role in the future. Using an ARIMA model, a supervised machine-learning algorithm, we predicted the growth of e-bike sales in the U.S. Our model, trained on historical sales data from January 2006 to December 2022, projected sales of 1.3 million units in 2025 and 2.113 million units in 2028. To assess the factors contributing to e-bike usage, we employed a Random Forest regression model. The most significant factors influencing e-bike sales growth were disposable personal income and popularity. Furthermore, we examined the environmental and health impacts of e-bikes. Through Monte Carlo simulations, we estimated the reduction in carbon emissions due to e-bike use and the calories burned through e-biking. Our findings revealed that e-bike usage in the U.S. resulted in a reduction of 15,737.82 kilograms of CO2 emissions in 2022. Additionally, e-bike users burned approximately 716,630.727 kilocalories through their activities in the same year. Our research provides valuable insights for policymakers, emphasizing the potential of e-bikes as a sustainable transportation solution. By understanding the growth factors and quantifying the environmental and health benefits, policymakers can make informed decisions about integrating e-bikes into future energy and transportation strategies.
+</details>
+<details>
+<summary>摘要</summary>
+我们在美国的电动自行车（e-bike）方面进行了研究，并对政策制定者提供了有价值的信息。电动自行车在快速和环保的交通方式上受到了广泛的欢迎，因此理解电动自行车的增长和影响对于政策制定者是非常重要的。我们使用ARIMA模型和一种监管的机器学习算法来预测美国电动自行车销售的增长。我们的模型，基于2006年1月至2022年12月的历史销售数据，预测到2025年的销售量将达130万台，而到2028年将达2113万台。为了了解电动自行车使用的因素，我们使用Random Forest回归模型。我们发现，个人废弃收入和流行度是电动自行车销售增长的最重要因素。此外，我们还对电动自行车的环境和健康影响进行了分析。通过蒙特卡罗 simulate，我们计算了因电动自行车使用而减少的二氧化碳排放量和通过电动自行车活动烧取的卡路里。我们的发现表明，在2022年，美国的电动自行车使用已经减少了15737.82公斤的二氧化碳排放量，同时电动自行车用户通过其活动烧取了约716630.727公斤的卡路里。我们的研究为政策制定者提供了有价值的信息，证明了电动自行车的可持续性，并且可以作为未来能源和交通战略的一部分。通过理解电动自行车增长的因素和量化电动自行车对环境和健康的影响，政策制定者可以做出有知识的决策。
+</details></li>
+</ul>
+<hr>
+<h2 id="Coupling-Large-Language-Models-with-Logic-Programming-for-Robust-and-General-Reasoning-from-Text"><a href="#Coupling-Large-Language-Models-with-Logic-Programming-for-Robust-and-General-Reasoning-from-Text" class="headerlink" title="Coupling Large Language Models with Logic Programming for Robust and General Reasoning from Text"></a>Coupling Large Language Models with Logic Programming for Robust and General Reasoning from Text</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07696">http://arxiv.org/abs/2307.07696</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/azreasoners/llm-asp">https://github.com/azreasoners/llm-asp</a></li>
+<li>paper_authors: Zhun Yang, Adam Ishay, Joohyung Lee</li>
+<li>for: 这个论文主要目标是提高大语言模型（LLM）的逻辑能力，使其能够与专门为逻辑语言理解问题训练的模型竞争。</li>
+<li>methods: 该论文使用了一种基于 ASP（answer set programming）的逻辑知识表示形式，将自然语言句子转换为逻辑形式，并将这些逻辑形式作为 LLM 的输入。这种方法可以在不需要重新训练的情况下，让 LLM 适应不同的问题。</li>
+<li>results: 该论文实验表明，这种方法可以在多个 NLP 评估 benchmark 上实现state-of-the-art 性能，包括 bAbI、StepGame、CLUTRR 和 gSCAN。此外，这种方法还可以成功解决了一些 LLM 无法解决的机器人规划任务。<details>
+<summary>Abstract</summary>
+While large language models (LLMs), such as GPT-3, appear to be robust and general, their reasoning ability is not at a level to compete with the best models trained for specific natural language reasoning problems. In this study, we observe that a large language model can serve as a highly effective few-shot semantic parser. It can convert natural language sentences into a logical form that serves as input for answer set programs, a logic-based declarative knowledge representation formalism. The combination results in a robust and general system that can handle multiple question-answering tasks without requiring retraining for each new task. It only needs a few examples to guide the LLM's adaptation to a specific task, along with reusable ASP knowledge modules that can be applied to multiple tasks. We demonstrate that this method achieves state-of-the-art performance on several NLP benchmarks, including bAbI, StepGame, CLUTRR, and gSCAN. Additionally, it successfully tackles robot planning tasks that an LLM alone fails to solve.
+</details>
+<details>
+<summary>摘要</summary>
+大型自然语言模型（LLM），如GPT-3，看起来具有坚固的基础和通用性，但它们的理解能力并没有与专门设计的自然语言理解问题模型相比。在这个研究中，我们发现了一种使用大型自然语言模型来实现几次例示semantic parser的方法。它可以将自然语言句子转换成逻辑形式，该逻辑形式可以作为答案集程序的输入，这种逻辑基于的知识表示形式。这种组合系统可以处理多个问题回答任务，无需为每个新任务进行重新训练。它只需要几个示例来导引LLM的适应特定任务，以及可重用的ASP知识模块，可以应用于多个任务。我们 demonstated 这种方法在多个 NLP 标准准测试上达到了现状最佳性能，包括 bAbI、StepGame、CLUTRR 和 gSCAN。此外，它还成功解决了一些 LLM 无法解决的机器人规划任务。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Survey-on-Change-Detection-Techniques-in-Document-Images"><a href="#A-Survey-on-Change-Detection-Techniques-in-Document-Images" class="headerlink" title="A Survey on Change Detection Techniques in Document Images"></a>A Survey on Change Detection Techniques in Document Images</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07691">http://arxiv.org/abs/2307.07691</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Abhinandan Kumar Pun, Mohammed Javed, David S. Doermann</li>
+<li>for: 本文主要针对文档图像中的变化检测问题，其应用于医学、Remote Sensing 等领域。</li>
+<li>methods: 本文对文档图像中的变化检测方法进行了报告和分析，包括内容基于的方法和结构基于的方法。</li>
+<li>results: 本文对文档图像中的变化检测方法进行了总结和评价，并报告了现有的数据集和评价指标，以及现有方法的缺点和挑战。<details>
+<summary>Abstract</summary>
+The problem of change detection in images finds application in different domains like diagnosis of diseases in the medical field, detecting growth patterns of cities through remote sensing, and finding changes in legal documents and contracts. However, this paper presents a survey on core techniques and rules to detect changes in different versions of a document image. Our discussions on change detection focus on two categories -- content-based and layout-based. The content-based techniques intelligently extract and analyze the image contents (text or non-text) to show the possible differences, whereas the layout-based techniques use structural information to predict document changes. We also summarize the existing datasets and evaluation metrics used in change detection experiments. The shortcomings and challenges the existing methods face are reported, along with some pointers for future research work.
+</details>
+<details>
+<summary>摘要</summary>
+该问题在不同领域都有应用，如医疗领域的疾病诊断、通过远程感知获取城市增长趋势，以及法律文档和合同中的变化检测。然而，本文主要介绍了文档版本之间的变化检测技术和规则。我们的讨论关注内容基于和布局基于的两个类别。内容基于的技术通过智能EXTRACT和分析图像内容（文本或非文本）来显示可能的差异，而布局基于的技术使用结构信息预测文档变化。我们还总结了已有的数据集和评价标准，并报告现有方法的缺陷和挑战，以及未来研究的指向。
+</details></li>
+</ul>
+<hr>
+<h2 id="Creating-a-Dataset-for-High-Performance-Computing-Code-Translation-A-Bridge-Between-HPC-Fortran-and-C"><a href="#Creating-a-Dataset-for-High-Performance-Computing-Code-Translation-A-Bridge-Between-HPC-Fortran-and-C" class="headerlink" title="Creating a Dataset for High-Performance Computing Code Translation: A Bridge Between HPC Fortran and C++"></a>Creating a Dataset for High-Performance Computing Code Translation: A Bridge Between HPC Fortran and C++</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07686">http://arxiv.org/abs/2307.07686</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/bin123apple/fortran-cpp-hpc-code-translation-dataset">https://github.com/bin123apple/fortran-cpp-hpc-code-translation-dataset</a></li>
+<li>paper_authors: Bin Lei, Caiwen Ding, Le Chen, Pei-Hung Lin, Chunhua Liao</li>
+<li>for: 这个论文是为了提供一个用于训练机器学习模型翻译OpenMP Fortran和C++代码的新数据集而写的。</li>
+<li>methods: 该论文使用了一种精心制定的代码相似性测试来初步准备数据集，以确保其可靠性和可应用性。然后，通过量化（CodeBLEU）和质量（人员评估）方法评估数据集的效果。</li>
+<li>results: 研究表明，使用该数据集可以大幅提高大规模语言模型的翻译能力，具体提高$\times 5.1$（无前期编程知识）和$\times 9.9$（有些编程familiarity）。这种数据集的出现有助于提高高性计算代码翻译的领域进步。数据集可以在<a target="_blank" rel="noopener" href="https://github.com/bin123apple/Fortran-CPP-HPC-code-translation-dataset%E4%B8%AD%E4%B8%8B%E8%BD%BD%E3%80%82">https://github.com/bin123apple/Fortran-CPP-HPC-code-translation-dataset中下载。</a><details>
+<summary>Abstract</summary>
+In this study, we present a novel dataset for training machine learning models translating between OpenMP Fortran and C++ code. To ensure reliability and applicability, the dataset is initially refined using a meticulous code similarity test. The effectiveness of our dataset is assessed using both quantitative (CodeBLEU) and qualitative (human evaluation) methods. We demonstrate how this dataset can significantly improve the translation capabilities of large-scale language models, with improvements of $\mathbf{\times 5.1}$ for models with no prior coding knowledge and $\mathbf{\times 9.9}$ for models with some coding familiarity. Our work highlights the potential of this dataset to advance the field of code translation for high-performance computing. The dataset is available at https://github.com/bin123apple/Fortran-CPP-HPC-code-translation-dataset
+</details>
+<details>
+<summary>摘要</summary>
+在这项研究中，我们提供了一个新的代码集合用于训练机器学习模型翻译OpenMP Fortran和C++代码。为确保可靠性和可应用性，我们首先使用仔细的代码相似性测试进行初步约束。我们使用代码BLEU和人类评估方法进行评估效果，并证明这些数据可以帮助大规模语言模型提高翻译能力，其中模型没有编程知识时提高$\times 5.1$，而具有一定编程经验时提高$\times 9.9$。我们的工作表明这个数据集可以推动高性能计算领域代码翻译的发展。这个数据集可以在https://github.com/bin123apple/Fortran-CPP-HPC-code-translation-dataset中下载。
+</details></li>
+</ul>
+<hr>
+<h2 id="Bound-by-the-Bounty-Collaboratively-Shaping-Evaluation-Processes-for-Queer-AI-Harms"><a href="#Bound-by-the-Bounty-Collaboratively-Shaping-Evaluation-Processes-for-Queer-AI-Harms" class="headerlink" title="Bound by the Bounty: Collaboratively Shaping Evaluation Processes for Queer AI Harms"></a>Bound by the Bounty: Collaboratively Shaping Evaluation Processes for Queer AI Harms</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.10223">http://arxiv.org/abs/2307.10223</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Organizers of QueerInAI, Nathan Dennler, Anaelia Ovalle, Ashwin Singh, Luca Soldaini, Arjun Subramonian, Huy Tu, William Agnew, Avijit Ghosh, Kyra Yee, Irene Font Peradejordi, Zeerak Talat, Mayra Russo, Jess de Jesus de Pinho Pinhal</li>
+<li>for: This paper aims to understand the perspectives of queer communities on bias evaluation benchmarks and dataset and model documentation for AI systems, and to redesign these processes from queer perspectives.</li>
+<li>methods: The paper uses a participatory workshop to gather feedback from queer communities on bias bounties and to critique and redesign these processes.</li>
+<li>results: The paper finds that queer communities have concerns about the ownership, incentives, and efficacy of bias bounties, and advocates for community ownership of bounties and the use of participatory processes (e.g., co-creation) to complement bias bounties.<details>
+<summary>Abstract</summary>
+Bias evaluation benchmarks and dataset and model documentation have emerged as central processes for assessing the biases and harms of artificial intelligence (AI) systems. However, these auditing processes have been criticized for their failure to integrate the knowledge of marginalized communities and consider the power dynamics between auditors and the communities. Consequently, modes of bias evaluation have been proposed that engage impacted communities in identifying and assessing the harms of AI systems (e.g., bias bounties). Even so, asking what marginalized communities want from such auditing processes has been neglected. In this paper, we ask queer communities for their positions on, and desires from, auditing processes. To this end, we organized a participatory workshop to critique and redesign bias bounties from queer perspectives. We found that when given space, the scope of feedback from workshop participants goes far beyond what bias bounties afford, with participants questioning the ownership, incentives, and efficacy of bounties. We conclude by advocating for community ownership of bounties and complementing bounties with participatory processes (e.g., co-creation).
+</details>
+<details>
+<summary>摘要</summary>
+人工智能（AI）系统的偏见和伤害评估过程和数据集已成为评估AI系统偏见和伤害的中心过程。然而，这些审核过程受到了社会弱势群体知识不包括和审核人员与社区力量不均衡的批评。因此，一些偏见评估模式被提出，通过与受影响社区合作来识别和评估AI系统的伤害（例如，偏见报酬）。然而，寻求社会弱势群体想要从审核过程中获得的问题仍然被忽略。在这篇论文中，我们问到了LGBTQ+社区对审核过程的看法和期望。为此，我们组织了参与式工作坊，批判和重新设计偏见报酬从Queer perspective。我们发现，当给予参与者空间时，参与者的反馈范围超出了偏见报酬的范围，参与者质疑报酬的所有权、动机和有效性。我们 conclude by advocating for community ownership of bounties and complementing bounties with participatory processes (e.g., co-creation).
+</details></li>
+</ul>
+<hr>
+<h2 id="Efficient-Adversarial-Attacks-on-Online-Multi-agent-Reinforcement-Learning"><a href="#Efficient-Adversarial-Attacks-on-Online-Multi-agent-Reinforcement-Learning" class="headerlink" title="Efficient Adversarial Attacks on Online Multi-agent Reinforcement Learning"></a>Efficient Adversarial Attacks on Online Multi-agent Reinforcement Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07670">http://arxiv.org/abs/2307.07670</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Guanlin Liu, Lifeng Lai</li>
+<li>For: 本研究探讨了多智能体强化学习（MARL）模型面临恶意攻击的影响。* Methods: 我们 investigate the impact of adversarial attacks on MARL models, including action poisoning and reward poisoning attacks, as well as a mixed attack strategy that combines both.* Results: 我们发现，混合攻击策略可以高效地攻击 MARL 模型，即使攻击者没有对环境和代理人算法的任何先前信息。<details>
+<summary>Abstract</summary>
+Due to the broad range of applications of multi-agent reinforcement learning (MARL), understanding the effects of adversarial attacks against MARL model is essential for the safe applications of this model. Motivated by this, we investigate the impact of adversarial attacks on MARL. In the considered setup, there is an exogenous attacker who is able to modify the rewards before the agents receive them or manipulate the actions before the environment receives them. The attacker aims to guide each agent into a target policy or maximize the cumulative rewards under some specific reward function chosen by the attacker, while minimizing the amount of manipulation on feedback and action. We first show the limitations of the action poisoning only attacks and the reward poisoning only attacks. We then introduce a mixed attack strategy with both the action poisoning and the reward poisoning. We show that the mixed attack strategy can efficiently attack MARL agents even if the attacker has no prior information about the underlying environment and the agents' algorithms.
+</details>
+<details>
+<summary>摘要</summary>
+We first show the limitations of action poisoning only attacks and reward poisoning only attacks. We then introduce a mixed attack strategy that combines both action poisoning and reward poisoning. We demonstrate that the mixed attack strategy can effectively attack MARL agents even if the attacker has no prior knowledge of the underlying environment and the agents' algorithms.
+</details></li>
+</ul>
+<hr>
+<h2 id="Efficient-Action-Robust-Reinforcement-Learning-with-Probabilistic-Policy-Execution-Uncertainty"><a href="#Efficient-Action-Robust-Reinforcement-Learning-with-Probabilistic-Policy-Execution-Uncertainty" class="headerlink" title="Efficient Action Robust Reinforcement Learning with Probabilistic Policy Execution Uncertainty"></a>Efficient Action Robust Reinforcement Learning with Probabilistic Policy Execution Uncertainty</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07666">http://arxiv.org/abs/2307.07666</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Guanlin Liu, Zhihan Zhou, Han Liu, Lifeng Lai</li>
+<li>for: 这 paper 的目的是提出一种可靠的 reinforcement learning 算法，可以在行动不确定性的情况下优化最坏情况性能。</li>
+<li>methods: 这 paper 使用了 probablistic policy execution uncertainty，并提出了 action robust Bellman optimality equation 来解决这类 MDP 中的优化问题。</li>
+<li>results: 该 paper 的 Action Robust Reinforcement Learning with Certificates (ARRLC) 算法可以 дости到 minimax 优化的 regret 和样本复杂度，并且在实验中证明了其在行动偏移情况下的稳定性和更快的 converges 速度。<details>
+<summary>Abstract</summary>
+Robust reinforcement learning (RL) aims to find a policy that optimizes the worst-case performance in the face of uncertainties. In this paper, we focus on action robust RL with the probabilistic policy execution uncertainty, in which, instead of always carrying out the action specified by the policy, the agent will take the action specified by the policy with probability $1-\rho$ and an alternative adversarial action with probability $\rho$. We establish the existence of an optimal policy on the action robust MDPs with probabilistic policy execution uncertainty and provide the action robust Bellman optimality equation for its solution. Furthermore, we develop Action Robust Reinforcement Learning with Certificates (ARRLC) algorithm that achieves minimax optimal regret and sample complexity. Furthermore, we conduct numerical experiments to validate our approach's robustness, demonstrating that ARRLC outperforms non-robust RL algorithms and converges faster than the robust TD algorithm in the presence of action perturbations.
+</details>
+<details>
+<summary>摘要</summary>
+中文简体版Robust reinforcement learning（RL）目的是找到面对不确定性时的最佳策略。在这篇论文中，我们关注行动稳健RL，即在执行策略时存在可能性的情况下，agent将按照策略指定的行动执行的可能性为$1-\rho$，而剩下的可能性为$\rho$。我们证明了action robust Markov decision process（MDP）中的优化策略的存在，并提供了action robust Bellman优化方程的解。此外，我们开发了Action Robust Reinforcement Learning with Certificates（ARRLC）算法，实现了最小最大 regret和样本复杂度的优化。此外，我们进行了数值实验，证明了ARRLC在行动偏移下的 robustness，并证明它在存在行动偏移时比非稳健RL算法和robust TD算法更快 converges。Traditional Chinese versionRobust reinforcement learning（RL）的目的是找到面对不确定性时的最佳策略。在这篇论文中，我们关注行动稳健RL，即在执行策略时存在可能性的情况下，agent将按照策略指定的行动执行的可能性为$1-\rho$，而剩下的可能性为$\rho$。我们证明了action robust Markov decision process（MDP）中的优化策略的存在，并提供了action robust Bellman优化方程的解。此外，我们开发了Action Robust Reinforcement Learning with Certificates（ARRLC）算法，实现了最小最大 regret和样本复杂度的优化。此外，我们进行了数值实验，证明了ARRLC在行动偏移下的 robustness，并证明它在存在行动偏移时比非稳健RL算法和robust TD算法更快 converges。
+</details></li>
+</ul>
+<hr>
+<h2 id="MPDIoU-A-Loss-for-Efficient-and-Accurate-Bounding-Box-Regression"><a href="#MPDIoU-A-Loss-for-Efficient-and-Accurate-Bounding-Box-Regression" class="headerlink" title="MPDIoU: A Loss for Efficient and Accurate Bounding Box Regression"></a>MPDIoU: A Loss for Efficient and Accurate Bounding Box Regression</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07662">http://arxiv.org/abs/2307.07662</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ma Siliang, Xu Yong</li>
+<li>for: 本研究旨在解决现有 bounding box regression loss function 无法优化 predicted box 和 groundtruth box 尺寸相同但是宽高值不同的问题。</li>
+<li>methods: 本研究提出了一种基于 minimum point distance 的 bounding box similarity comparison metric MPDIoU，包括了现有 loss functions 中考虑的所有相关因素，如 overlap 或 non-overlapping 面积、中心点距离、宽高差异，而简化计算过程。基于 MPDIoU 的 bounding box regression loss function 被称为 LMPDIoU。</li>
+<li>results: 实验结果表明，基于 MPDIoU 的 loss function 在 state-of-the-art instance segmentation 和 object detection 模型（例如 YOLACT 和 YOLOv7）上，对 PASCAL VOC、MS COCO 和 IIIT5k 进行训练后，与现有 loss functions 相比，具有更高的精度和效果。<details>
+<summary>Abstract</summary>
+Bounding box regression (BBR) has been widely used in object detection and instance segmentation, which is an important step in object localization. However, most of the existing loss functions for bounding box regression cannot be optimized when the predicted box has the same aspect ratio as the groundtruth box, but the width and height values are exactly different. In order to tackle the issues mentioned above, we fully explore the geometric features of horizontal rectangle and propose a novel bounding box similarity comparison metric MPDIoU based on minimum point distance, which contains all of the relevant factors considered in the existing loss functions, namely overlapping or non-overlapping area, central points distance, and deviation of width and height, while simplifying the calculation process. On this basis, we propose a bounding box regression loss function based on MPDIoU, called LMPDIoU . Experimental results show that the MPDIoU loss function is applied to state-of-the-art instance segmentation (e.g., YOLACT) and object detection (e.g., YOLOv7) model trained on PASCAL VOC, MS COCO, and IIIT5k outperforms existing loss functions.
+</details>
+<details>
+<summary>摘要</summary>
+bounding box regression (BBR) 广泛应用于物体检测和实例分割，是物体Localization的重要步骤。然而，现有的 bounding box regression 损失函数无法优化预测框与实际框的尺寸值不同，但宽高比相同的情况。为解决以上问题，我们彻底探讨直方框的几何特征，并提出一种基于最小点距离的 bounding box 相似比较度量 MPDIoU，该度量包含现有损失函数中考虑的所有因素，包括重叠或非重叠区域、中心点距离、宽高差异，而简化计算过程。基于 MPDIoU 度量，我们提出了一种基于 MPDIoU 的 bounding box regression 损失函数 LMPDIoU。实验结果表明，MPDIoU 损失函数在 state-of-the-art 实例分割（如 YOLACT）和物体检测（如 YOLOv7）模型在 PASCAL VOC、MS COCO 和 IIIT5k 上训练后，与现有损失函数相比，具有更高的性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="SALC-Skeleton-Assisted-Learning-Based-Clustering-for-Time-Varying-Indoor-Localization"><a href="#SALC-Skeleton-Assisted-Learning-Based-Clustering-for-Time-Varying-Indoor-Localization" class="headerlink" title="SALC: Skeleton-Assisted Learning-Based Clustering for Time-Varying Indoor Localization"></a>SALC: Skeleton-Assisted Learning-Based Clustering for Time-Varying Indoor Localization</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07650">http://arxiv.org/abs/2307.07650</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: An-Hung Hsiao, Li-Hsiang Shen, Chen-Yi Chang, Chun-Jie Chiu, Kai-Ten Feng<br>for: 本研究旨在提高室内地位系统的精度和可靠性，透过对室内 WiFi 接点点 (AP) 的接收信号强度 (RSS) 进行建立 fingerprinting 数据库。methods: 本研究提出了一个基于 skeleton-assisted learning-based clustering (SALC) 系统，包括 RSS-oriented map-assisted clustering (ROMAC)、cluster-based online database establishment (CODE) 和 cluster-scaled location estimation (CsLE)。SALC 系统结合了骨架基于最短路 (SSP) 的相似性和时间变化的 RSS 测量 across reference points (RPs)。results:  simulation 和实验结果表明，提出的 SALC 系统可以有效地重建 fingerprint 数据库，提高地位估计精度，比较出色于现有Literature中的其他方法。<details>
+<summary>Abstract</summary>
+Wireless indoor localization has attracted significant amount of attention in recent years. Using received signal strength (RSS) obtained from WiFi access points (APs) for establishing fingerprinting database is a widely utilized method in indoor localization. However, the time-variant problem for indoor positioning systems is not well-investigated in existing literature. Compared to conventional static fingerprinting, the dynamicallyreconstructed database can adapt to a highly-changing environment, which achieves sustainability of localization accuracy. To deal with the time-varying issue, we propose a skeleton-assisted learning-based clustering localization (SALC) system, including RSS-oriented map-assisted clustering (ROMAC), cluster-based online database establishment (CODE), and cluster-scaled location estimation (CsLE). The SALC scheme jointly considers similarities from the skeleton-based shortest path (SSP) and the time-varying RSS measurements across the reference points (RPs). ROMAC clusters RPs into different feature sets and therefore selects suitable monitor points (MPs) for enhancing location estimation. Moreover, the CODE algorithm aims for establishing adaptive fingerprint database to alleviate the timevarying problem. Finally, CsLE is adopted to acquire the target position by leveraging the benefits of clustering information and estimated signal variations in order to rescale the weights fromweighted k-nearest neighbors (WkNN) method. Both simulation and experimental results demonstrate that the proposed SALC system can effectively reconstruct the fingerprint database with an enhanced location estimation accuracy, which outperforms the other existing schemes in the open literature.
+</details>
+<details>
+<summary>摘要</summary>
+无线内部位置已引起过去几年的广泛关注。使用WiFi接入点（AP）接收信号强度（RSS）建立指本库是内部位置系统中广泛使用的方法。然而，现有文献中对内部位置系统的时间变化问题并未得到充分研究。与传统静止指本相比，动态重建库可以适应高度变化的环境，实现位置准确性的持续稳定。为解决时间变化问题，我们提出了骨架帮助学习基本的集成位置系统（SALC），包括RSS方向的地图帮助集成（ROMAC）、集成在线数据库建立（CODE）和集群扩大位置估计（CsLE）。SALC方案同时考虑骨架基于最短路（SSP）的相似性和时间变化的RSS测量值。ROMAC将RP集成到不同的特征集中，选择合适的监测点（MP）以提高位置估计。此外，CODE算法旨在建立适应时间变化的指本库，以解决时间变化问题。最后，CsLE方法通过利用集群信息和估计信号变化来重新调整WkNN方法中的权重，以获得更高的位置估计精度。实验和 simulations结果表明，提出的SALC系统可以有效地重建指本库，并提高位置估计精度，超过现有文献中的其他方案。
+</details></li>
+</ul>
+<hr>
+<h2 id="Othering-and-low-prestige-framing-of-immigrant-cuisines-in-US-restaurant-reviews-and-large-language-models"><a href="#Othering-and-low-prestige-framing-of-immigrant-cuisines-in-US-restaurant-reviews-and-large-language-models" class="headerlink" title="Othering and low prestige framing of immigrant cuisines in US restaurant reviews and large language models"></a>Othering and low prestige framing of immigrant cuisines in US restaurant reviews and large language models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07645">http://arxiv.org/abs/2307.07645</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/yiweiluo/immigrant-food-framing">https://github.com/yiweiluo/immigrant-food-framing</a></li>
+<li>paper_authors: Yiwei Luo, Kristina Gligorić, Dan Jurafsky</li>
+<li>for: This paper aims to understand implicit attitudes toward food and how they can perpetuate social prejudice, specifically in the context of immigrant cuisines.</li>
+<li>methods: The authors use linguistic analyses of over 2.1 million English language Yelp reviews of restaurants in 14 US states to evaluate social theories about attitudes toward immigrant cuisine. They control for factors such as restaurant price and neighborhood racial diversity.</li>
+<li>results: The authors find that immigrant cuisines are more likely to be framed in objectifying and othering terms of authenticity, exoticism, and prototypicality, and that non-Western immigrant cuisines receive more othering than European cuisines. Additionally, they find that non-Western immigrant cuisines are framed less positively and as lower status, being evaluated in terms of affordability and hygiene. Finally, they show that reviews generated by large language models (LLMs) reproduce many of the same framing tendencies.<details>
+<summary>Abstract</summary>
+Identifying and understanding implicit attitudes toward food can help efforts to mitigate social prejudice due to food's pervasive role as a marker of cultural and ethnic identity. Stereotypes about food are a form of microaggression that contribute to harmful public discourse that may in turn perpetuate prejudice toward ethnic groups and negatively impact economic outcomes for restaurants. Through careful linguistic analyses, we evaluate social theories about attitudes toward immigrant cuisine in a large-scale study of framing differences in 2.1M English language Yelp reviews of restaurants in 14 US states. Controlling for factors such as restaurant price and neighborhood racial diversity, we find that immigrant cuisines are more likely to be framed in objectifying and othering terms of authenticity (e.g., authentic, traditional), exoticism (e.g., exotic, different), and prototypicality (e.g., typical, usual), but that non-Western immigrant cuisines (e.g., Indian, Mexican) receive more othering than European cuisines (e.g., French, Italian). We further find that non-Western immigrant cuisines are framed less positively and as lower status, being evaluated in terms of affordability and hygiene. Finally, we show that reviews generated by large language models (LLMs) reproduce many of the same framing tendencies. Our results empirically corroborate social theories of taste and gastronomic stereotyping, and reveal linguistic processes by which such attitudes are reified.
+</details>
+<details>
+<summary>摘要</summary>
+认识和理解食物的隐式态度可以帮助减少基于食物的文化和民族身份 marker 的社会偏见。食物的刻板印象是一种微侵略，它们可能在社会公共讨论中产生有害的影响，从而导致对少数民族的偏见和不良经济效益。通过精心的语言分析，我们在大规模的英语 Yelp 评论数据集中评估社会理论对移民菜系的态度。控制因素包括餐厅价格和邻里种族多样性，我们发现移民菜系更有可能被归类为真实、传统、特色、外国、不同、常见等词汇，但非西方移民菜系（如印度、墨西哥）被其他化比欧洲菜系（如法国、意大利）更多。此外，我们发现非西方移民菜系在评价中受到负面评价，被评价为便宜和卫生。最后，我们发现由大语言模型（LLMs）生成的评论也存在类似的归类倾向。我们的结果经验证了社会理论的味蕾和文化刻板印象，并揭示了语言过程如何固化这些态度。
+</details></li>
+</ul>
+<hr>
+<h2 id="It-is-currently-hodgepodge’’-Examining-AI-ML-Practitioners’-Challenges-during-Co-production-of-Responsible-AI-Values"><a href="#It-is-currently-hodgepodge’’-Examining-AI-ML-Practitioners’-Challenges-during-Co-production-of-Responsible-AI-Values" class="headerlink" title="&#96;It is currently hodgepodge’’: Examining AI&#x2F;ML Practitioners’ Challenges during Co-production of Responsible AI Values"></a>&#96;It is currently hodgepodge’’: Examining AI&#x2F;ML Practitioners’ Challenges during Co-production of Responsible AI Values</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.10221">http://arxiv.org/abs/2307.10221</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Rama Adithya Varanasi, Nitesh Goyal</li>
+<li>for: 本研究旨在探讨AI&#x2F;ML实践者在实施责任AI（RAI）价值观时遇到的挑战，以及这些挑战如何影响实践者的工作。</li>
+<li>methods: 本研究采用了采访方法，问问23名参与者，来自10家组织，他们在实施AI&#x2F;ML产品时如何保持RAI价值观。</li>
+<li>results: 研究发现，实施RAI价值观会由于组织结构和价值观念的冲突而带来挑战，这些挑战会影响实践者的工作。研究还发现了多种解决这些挑战的策略，包括在组织结构和价值观念方面进行调整。<details>
+<summary>Abstract</summary>
+Recently, the AI/ML research community has indicated an urgent need to establish Responsible AI (RAI) values and practices as part of the AI/ML lifecycle. Several organizations and communities are responding to this call by sharing RAI guidelines. However, there are gaps in awareness, deliberation, and execution of such practices for multi-disciplinary ML practitioners. This work contributes to the discussion by unpacking co-production challenges faced by practitioners as they align their RAI values. We interviewed 23 individuals, across 10 organizations, tasked to ship AI/ML based products while upholding RAI norms and found that both top-down and bottom-up institutional structures create burden for different roles preventing them from upholding RAI values, a challenge that is further exacerbated when executing conflicted values. We share multiple value levers used as strategies by the practitioners to resolve their challenges. We end our paper with recommendations for inclusive and equitable RAI value-practices, creating supportive organizational structures and opportunities to further aid practitioners.
+</details>
+<details>
+<summary>摘要</summary>
+We interviewed 23 individuals from 10 organizations that are tasked with shipping AI/ML-based products while upholding RAI norms. We found that both top-down and bottom-up institutional structures create burdens for different roles, preventing them from upholding RAI values. This challenge is further exacerbated when executing conflicting values.To address these challenges, we share multiple value levers used by practitioners as strategies to resolve their challenges. These include:1. Inclusive and equitable value-practices: Practitioners must prioritize inclusive and equitable value-practices that take into account the needs and perspectives of diverse stakeholders.2. Supportive organizational structures: Organizations must create supportive structures and opportunities to further aid practitioners in upholding RAI values.3. Ongoing education and training: Practitioners must receive ongoing education and training on RAI values and practices to ensure they are equipped to handle the challenges they face.We end our paper with recommendations for inclusive and equitable RAI value-practices, creating supportive organizational structures, and providing ongoing education and training to practitioners. By addressing these challenges, we can ensure that RAI values are upheld in the development and deployment of AI/ML-based products.
+</details></li>
+</ul>
+<hr>
+<h2 id="Exploring-Link-Prediction-over-Hyper-Relational-Temporal-Knowledge-Graphs-Enhanced-with-Time-Invariant-Relational-Knowledge"><a href="#Exploring-Link-Prediction-over-Hyper-Relational-Temporal-Knowledge-Graphs-Enhanced-with-Time-Invariant-Relational-Knowledge" class="headerlink" title="Exploring Link Prediction over Hyper-Relational Temporal Knowledge Graphs Enhanced with Time-Invariant Relational Knowledge"></a>Exploring Link Prediction over Hyper-Relational Temporal Knowledge Graphs Enhanced with Time-Invariant Relational Knowledge</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.10219">http://arxiv.org/abs/2307.10219</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zifeng Ding, Jingcheng Wu, Jingpei Wu, Yan Xia, Volker Tresp</li>
+<li>for: This paper focuses on filling the gap between temporal knowledge graph (TKG) reasoning and hyper-relational knowledge graph (HKG) reasoning, by developing a new benchmark dataset and a reasoning model that can efficiently handle both temporal and qualifier information.</li>
+<li>methods: The proposed reasoning model leverages both temporal and time-invariant relational knowledge from the Wikidata knowledge base to improve the performance of HTKG reasoning.</li>
+<li>results: The experimental results show that the proposed model outperforms previous related methods on HTKG link prediction, and can be further enhanced by jointly leveraging both temporal and time-invariant relational knowledge.Here’s the simplified Chinese text version of the three information points:</li>
+<li>for: 这篇论文主要是填补知识图论理和超 relate 知识图论理之间的空白，通过开发新的benchmark数据集和一种能够有效处理时间和资格信息的reasoning模型。</li>
+<li>methods: 提出的reasoning模型利用知识图中的时间不变的关系知识和Wikidata知识库中的时间不变关系知识来提高HTKG论理的性能。</li>
+<li>results: 实验结果表明，提出的模型在HTKG链接预测 task上表现出色，并且可以通过共同利用时间不变和资格信息来进一步提高性能。<details>
+<summary>Abstract</summary>
+Stemming from traditional knowledge graphs (KGs), hyper-relational KGs (HKGs) provide additional key-value pairs (i.e., qualifiers) for each KG fact that help to better restrict the fact validity. In recent years, there has been an increasing interest in studying graph reasoning over HKGs. In the meantime, due to the ever-evolving nature of world knowledge, extensive parallel works have been focusing on reasoning over temporal KGs (TKGs), where each TKG fact can be viewed as a KG fact coupled with a timestamp (or time period) specifying its time validity. The existing HKG reasoning approaches do not consider temporal information because it is not explicitly specified in previous benchmark datasets. Besides, all the previous TKG reasoning methods only lay emphasis on temporal reasoning and have no way to learn from qualifiers. To this end, we aim to fill the gap between TKG reasoning and HKG reasoning. We develop two new benchmark hyper-relational TKG (HTKG) datasets, i.e., Wiki-hy and YAGO-hy, and propose a HTKG reasoning model that efficiently models both temporal facts and qualifiers. We further exploit additional time-invariant relational knowledge from the Wikidata knowledge base and study its effectiveness in HTKG reasoning. Time-invariant relational knowledge serves as the knowledge that remains unchanged in time (e.g., Sasha Obama is the child of Barack Obama), and it has never been fully explored in previous TKG reasoning benchmarks and approaches. Experimental results show that our model substantially outperforms previous related methods on HTKG link prediction and can be enhanced by jointly leveraging both temporal and time-invariant relational knowledge.
+</details>
+<details>
+<summary>摘要</summary>
+traditional知识 graphs（KGs）的扩展，hyper-relational知识 graphs（HKGs）提供每个KG事实的额外关键值对（i.e., 资格），以更好地限定事实的有效性。近年来，研究graph reasoning over HKGs的兴趣在增长。同时，由于世界知识的不断演进，大量并发的工作在研究temporal知识 graphs（TKGs）上进行reasoning，每个TKG事实可以视为KG事实加上时间戳（或时间段），指定其时间有效性。现有的HKGreasoning方法不考虑时间信息，因为之前的benchmark dataset不Explicitly specified。此外，所有前一些TKGreasoning方法只是强调时间reasoning，没有考虑学习资格。为此，我们希望填补HKGreasoning和TKGreasoning之间的空白。我们开发了两个新的benchmark hyper-relational TKG（HTKG）数据集，即Wiki-hy和YAGO-hy，并提出了一种HTKGreasoning模型，可以效率地模型时间事实和资格。此外，我们还利用Wikidata知识库中的静止关系知识，并研究其在HTKGreasoning中的效果。静止关系知识是指不变于时间的知识（例如，萨沙·奥巴马是巴拉克·奥巴马的孩子），在前一些TKGreasoningbenchmark和方法中从未得到过全面的探索。实验结果表明，我们的模型在HTKGlink prediction中具有明显的优势，并可以通过结合时间和静止关系知识来进一步提高性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="Dissenting-Explanations-Leveraging-Disagreement-to-Reduce-Model-Overreliance"><a href="#Dissenting-Explanations-Leveraging-Disagreement-to-Reduce-Model-Overreliance" class="headerlink" title="Dissenting Explanations: Leveraging Disagreement to Reduce Model Overreliance"></a>Dissenting Explanations: Leveraging Disagreement to Reduce Model Overreliance</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07636">http://arxiv.org/abs/2307.07636</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Omer Reingold, Judy Hanwen Shen, Aditi Talati</li>
+<li>for: 该文章的目的是提出了一种新的解释方法，即“分裂解释”，以帮助人们从解释中获得更多的启示，而不仅仅是依靠模型的预测。</li>
+<li>methods: 该文章提出了一种基于多模型的分裂解释方法，包括全局和本地的方法。这些方法可以在模型之间的不同预测时提供不同的解释，以便帮助人们更好地理解模型的决策过程。</li>
+<li>results: 经过一个小样本研究，authors发现，通过提供分裂解释，可以减少人们对模型预测的过重依赖，同时不会降低总准确率。这表明，分裂解释可以帮助人们更好地理解模型的决策过程，并减少模型预测的不确定性。<details>
+<summary>Abstract</summary>
+While explainability is a desirable characteristic of increasingly complex black-box models, modern explanation methods have been shown to be inconsistent and contradictory. The semantics of explanations is not always fully understood - to what extent do explanations "explain" a decision and to what extent do they merely advocate for a decision? Can we help humans gain insights from explanations accompanying correct predictions and not over-rely on incorrect predictions advocated for by explanations? With this perspective in mind, we introduce the notion of dissenting explanations: conflicting predictions with accompanying explanations. We first explore the advantage of dissenting explanations in the setting of model multiplicity, where multiple models with similar performance may have different predictions. In such cases, providing dissenting explanations could be done by invoking the explanations of disagreeing models. Through a pilot study, we demonstrate that dissenting explanations reduce overreliance on model predictions, without reducing overall accuracy. Motivated by the utility of dissenting explanations we present both global and local methods for their generation.
+</details>
+<details>
+<summary>摘要</summary>
+“ explainnability 是复杂黑盒模型的一个欲具备的特点，但现代解释方法有时会被视为不一致和矛盾。解释的 semantics 不 sempre fully understood - 解释是否真的解释了一个决策，或者仅仅是支持一个决策？我们可以帮助人们从解释中获得启发，而不是仅仅依赖错误的预测和解释？以此角度，我们引入了不同的解释： conflicting predictions with accompanying explanations。在模型多样性的设定中，多个模型具有相似的表现可能会有不同的预测。在这种情况下，提供不同的解释可以通过邀请不同的模型的解释。我们通过一个小试验示出，提供不同的解释可以对抗预测的过度依赖，而不减少整体准确性。驱动了不同解释的 utility，我们提出了全球和本地的生成方法。”Note that Simplified Chinese is used in mainland China, while Traditional Chinese is used in Taiwan and Hong Kong.
+</details></li>
+</ul>
+<hr>
+<h2 id="Value-based-Fast-and-Slow-AI-Nudging"><a href="#Value-based-Fast-and-Slow-AI-Nudging" class="headerlink" title="Value-based Fast and Slow AI Nudging"></a>Value-based Fast and Slow AI Nudging</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07628">http://arxiv.org/abs/2307.07628</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Marianna B. Ganapini, Francesco Fabiano, Lior Horesh, Andrea Loreggia, Nicholas Mattei, Keerthiram Murugesan, Vishal Pallagani, Francesca Rossi, Biplav Srivastava, Brent Venable<br>for: 这项研究旨在开发一个基于人工智能和人类协作的决策框架，该框架通过提供决策建议来引导人类做出决策。methods: 该研究使用了三种决策激励模式，这些模式根据决策建议是在什么时候提供给人类，以便激励人类快速思考、慢速思考或自reflective思考。results: 研究人员通过使用不同的价值来决定何时和如何使用各种决策激励模式，以实现更好的决策效果。例如，在做出决策时，可以考虑decision quality、speed、human upskilling和learning、human agency和隐私等价值。<details>
+<summary>Abstract</summary>
+Nudging is a behavioral strategy aimed at influencing people's thoughts and actions. Nudging techniques can be found in many situations in our daily lives, and these nudging techniques can targeted at human fast and unconscious thinking, e.g., by using images to generate fear or the more careful and effortful slow thinking, e.g., by releasing information that makes us reflect on our choices. In this paper, we propose and discuss a value-based AI-human collaborative framework where AI systems nudge humans by proposing decision recommendations. Three different nudging modalities, based on when recommendations are presented to the human, are intended to stimulate human fast thinking, slow thinking, or meta-cognition. Values that are relevant to a specific decision scenario are used to decide when and how to use each of these nudging modalities. Examples of values are decision quality, speed, human upskilling and learning, human agency, and privacy. Several values can be present at the same time, and their priorities can vary over time. The framework treats values as parameters to be instantiated in a specific decision environment.
+</details>
+<details>
+<summary>摘要</summary>
+推动（nudging）是一种行为战略，旨在影响人们的思想和行为。推动技巧可以在我们日常生活中找到很多的应用，这些推动技巧可以 targets 人们的快速和不自觉的思维，例如使用图像引发恐惧或更加细致和努力的慢思考。在这篇论文中，我们提出了一种基于人工智能和人类合作的价值基于推动框架。这个框架中的三种推动模式，基于建议给人时的 WHEN 和 HOW，用于刺激人们的快速思维、慢思考或者元认知。在具体的决策场景中，根据相关的价值来决定使用哪种推动模式。例如，决策质量、快速响应、人类技能和学习、人类自主权和隐私等价值。在这个框架中，价值被视为实例化在特定决策环境中的参数。
+</details></li>
+</ul>
+<hr>
+<h2 id="Interactive-Spatiotemporal-Token-Attention-Network-for-Skeleton-based-General-Interactive-Action-Recognition"><a href="#Interactive-Spatiotemporal-Token-Attention-Network-for-Skeleton-based-General-Interactive-Action-Recognition" class="headerlink" title="Interactive Spatiotemporal Token Attention Network for Skeleton-based General Interactive Action Recognition"></a>Interactive Spatiotemporal Token Attention Network for Skeleton-based General Interactive Action Recognition</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07469">http://arxiv.org/abs/2307.07469</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/Necolizer/ISTA-Net">https://github.com/Necolizer/ISTA-Net</a></li>
+<li>paper_authors: Yuhang Wen, Zixuan Tang, Yunsheng Pang, Beichen Ding, Mengyuan Liu</li>
+<li>for: 本研究旨在提高人机交互行为识别的精度和效率，以便更好地实现人机合作。</li>
+<li>methods: 本文提出了一种Interactive Spatiotemporal Token Attention Network（ISTA-Net），该网络同时模型了空间、时间和交互关系。具体来说，ISTA-Net使用了Tokenizer将Interactive Spatiotemporal Tokens（IST）分割成多个多样化实体的动作。通过扩展实体维度，IST提供了更好的交互表示。为了同时学习三个维度，ISTA-Net使用了多头自注意блоック和3D卷积来捕捉间Token的相关性。</li>
+<li>results: EXTensive experiments on four datasets show that ISTA-Net outperforms state-of-the-art methods in recognizing interactive actions, demonstrating the effectiveness of the proposed approach.<details>
+<summary>Abstract</summary>
+Recognizing interactive action plays an important role in human-robot interaction and collaboration. Previous methods use late fusion and co-attention mechanism to capture interactive relations, which have limited learning capability or inefficiency to adapt to more interacting entities. With assumption that priors of each entity are already known, they also lack evaluations on a more general setting addressing the diversity of subjects. To address these problems, we propose an Interactive Spatiotemporal Token Attention Network (ISTA-Net), which simultaneously model spatial, temporal, and interactive relations. Specifically, our network contains a tokenizer to partition Interactive Spatiotemporal Tokens (ISTs), which is a unified way to represent motions of multiple diverse entities. By extending the entity dimension, ISTs provide better interactive representations. To jointly learn along three dimensions in ISTs, multi-head self-attention blocks integrated with 3D convolutions are designed to capture inter-token correlations. When modeling correlations, a strict entity ordering is usually irrelevant for recognizing interactive actions. To this end, Entity Rearrangement is proposed to eliminate the orderliness in ISTs for interchangeable entities. Extensive experiments on four datasets verify the effectiveness of ISTA-Net by outperforming state-of-the-art methods. Our code is publicly available at https://github.com/Necolizer/ISTA-Net
+</details>
+<details>
+<summary>摘要</summary>
+Recognizing interactive action plays an important role in human-robot interaction and collaboration. Previous methods use late fusion and co-attention mechanism to capture interactive relations, which have limited learning capability or inefficiency to adapt to more interacting entities. With assumption that priors of each entity are already known, they also lack evaluations on a more general setting addressing the diversity of subjects. To address these problems, we propose an Interactive Spatiotemporal Token Attention Network (ISTA-Net), which simultaneously models spatial, temporal, and interactive relations. Specifically, our network contains a tokenizer to partition Interactive Spatiotemporal Tokens (ISTs), which is a unified way to represent motions of multiple diverse entities. By extending the entity dimension, ISTs provide better interactive representations. To jointly learn along three dimensions in ISTs, multi-head self-attention blocks integrated with 3D convolutions are designed to capture inter-token correlations. When modeling correlations, a strict entity ordering is usually irrelevant for recognizing interactive actions. To this end, Entity Rearrangement is proposed to eliminate the orderliness in ISTs for interchangeable entities. Extensive experiments on four datasets verify the effectiveness of ISTA-Net by outperforming state-of-the-art methods. Our code is publicly available at https://github.com/Necolizer/ISTA-Net.Here's the text with some notes on the translation:* "Recognizing interactive action" is translated as "认识人机交互行为" (règng shí yǔ jì xìng zhì xíng)* "Interactive Spatiotemporal Token Attention Network" is translated as "交互空时token注意网络" (jiāo xì kōng shí zhōng zhì wǎng wǎn)* "Interactive Spatiotemporal Tokens" is translated as "交互空时token" (jiāo xì kōng shí zhōng zhì)* "Entity Rearrangement" is translated as "实体重新排序" (shí tǐ zhòng xīn pinyīn)Note that the translation is in Simplified Chinese, which is the standard writing system used in mainland China. If you need Traditional Chinese, please let me know.
+</details></li>
+</ul>
+<hr>
+<h2 id="Structured-Pruning-of-Neural-Networks-for-Constraints-Learning"><a href="#Structured-Pruning-of-Neural-Networks-for-Constraints-Learning" class="headerlink" title="Structured Pruning of Neural Networks for Constraints Learning"></a>Structured Pruning of Neural Networks for Constraints Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07457">http://arxiv.org/abs/2307.07457</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Matteo Cacciola, Antonio Frangioni, Andrea Lodi<br>for: 这篇论文主要关注在机器学习（ML）模型与运筐学（OR）工具的集成方面，具体来说是使用混合整数编程（MIP）表述ML模型输出的问题。methods: 本论文使用了束缚（pruning）技术来缩减人工神经网络（ANNs）中的参数数量，从而提高MIP表述的效率。results:  experiments 表明，使用束缚技术可以在ML模型的解决过程中提供显著的加速，而无需妥协解决质量。<details>
+<summary>Abstract</summary>
+In recent years, the integration of Machine Learning (ML) models with Operation Research (OR) tools has gained popularity across diverse applications, including cancer treatment, algorithmic configuration, and chemical process optimization. In this domain, the combination of ML and OR often relies on representing the ML model output using Mixed Integer Programming (MIP) formulations. Numerous studies in the literature have developed such formulations for many ML predictors, with a particular emphasis on Artificial Neural Networks (ANNs) due to their significant interest in many applications. However, ANNs frequently contain a large number of parameters, resulting in MIP formulations that are impractical to solve, thereby impeding scalability. In fact, the ML community has already introduced several techniques to reduce the parameter count of ANNs without compromising their performance, since the substantial size of modern ANNs presents challenges for ML applications as it significantly impacts computational efforts during training and necessitates significant memory resources for storage. In this paper, we showcase the effectiveness of pruning, one of these techniques, when applied to ANNs prior to their integration into MIPs. By pruning the ANN, we achieve significant improvements in the speed of the solution process. We discuss why pruning is more suitable in this context compared to other ML compression techniques, and we identify the most appropriate pruning strategies. To highlight the potential of this approach, we conduct experiments using feed-forward neural networks with multiple layers to construct adversarial examples. Our results demonstrate that pruning offers remarkable reductions in solution times without hindering the quality of the final decision, enabling the resolution of previously unsolvable instances.
+</details>
+<details>
+<summary>摘要</summary>
+近年来，机器学习（ML）模型与运筐学（OR）工具的集成在多种应用中得到了广泛的推广，包括肿瘤治疗、算法配置和化学过程优化。在这个领域，ML和OR的结合常常通过表示ML模型输出的混合整数编程（MIP）形式来实现。文献中有许多研究发展了这种形式，尤其是人工神经网络（ANNs），因为它们在许多应用中具有广泛的 интерес。然而，ANNs经常具有较大的参数数量，导致MIP形式成为实际不可解决的，从而阻碍了扩展性。事实上，ML社区已经开发了许多技术来减少ANNs中参数的数量，以避免降低性能。在这篇论文中，我们展示了对ANNs进行剪裁后，在MIP中的速度解决过程中的显著改善。我们解释了为什么剪裁在这种上下文中比其他ML压缩技术更适合，并确定了最佳剪裁策略。为了强调这种方法的潜力，我们在多层扩散神经网络中构建了反对例。我们的结果表明，剪裁可以在解决之前不可解决的实例中提供了很大的改善，而不会影响最终决策的质量。
+</details></li>
+</ul>
+<hr>
+<h2 id="Can-Large-Language-Models-Empower-Molecular-Property-Prediction"><a href="#Can-Large-Language-Models-Empower-Molecular-Property-Prediction" class="headerlink" title="Can Large Language Models Empower Molecular Property Prediction?"></a>Can Large Language Models Empower Molecular Property Prediction?</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.07443">http://arxiv.org/abs/2307.07443</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/chnq/llm4mol">https://github.com/chnq/llm4mol</a></li>
+<li>paper_authors: Chen Qian, Huayi Tang, Zhirui Yang, Hong Liang, Yong Liu</li>
+<li>for: 这篇论文旨在探讨大语言模型（LLM）在分子性质预测中的应用。</li>
+<li>methods: 作者采用了两个视角：零&#x2F;几 shot分子分类和使用 LL.M 生成的新解释作为分子表示。</li>
+<li>results: 实验结果表明，文本解释作为分子表示在多个 benchmark 数据集上具有优势，并证明 LL.M 在分子性质预测任务中具有潜在的潜力。<details>
+<summary>Abstract</summary>
+Molecular property prediction has gained significant attention due to its transformative potential in multiple scientific disciplines. Conventionally, a molecule graph can be represented either as a graph-structured data or a SMILES text. Recently, the rapid development of Large Language Models (LLMs) has revolutionized the field of NLP. Although it is natural to utilize LLMs to assist in understanding molecules represented by SMILES, the exploration of how LLMs will impact molecular property prediction is still in its early stage. In this work, we advance towards this objective through two perspectives: zero/few-shot molecular classification, and using the new explanations generated by LLMs as representations of molecules. To be specific, we first prompt LLMs to do in-context molecular classification and evaluate their performance. After that, we employ LLMs to generate semantically enriched explanations for the original SMILES and then leverage that to fine-tune a small-scale LM model for multiple downstream tasks. The experimental results highlight the superiority of text explanations as molecular representations across multiple benchmark datasets, and confirm the immense potential of LLMs in molecular property prediction tasks. Codes are available at \url{https://github.com/ChnQ/LLM4Mol}.
+</details>
+<details>
+<summary>摘要</summary>
+摩尔电子性预测已经受到了广泛关注，因为它在多种科学领域的变革性很大。传统上，摩尔图可以被表示为图structured data或SMILES文本。在最近的几年中，大型自然语言模型（LLMs）的快速发展对涉及到NLP领域的研究带来了革命性的变革。虽然可以使用LLMs来帮助理解表示by SMILES的分子，但是研究如何使用LLMs进行分子性预测的阶段仍处于初期阶段。在这项工作中，我们通过两个视角进行推进：零/几个shot分子分类，和使用LLMs生成的新的解释来代表分子。具体来说，我们首先让LLMs在上下文中进行分子分类，并评估其性能。然后，我们使用LLMs生成Semantically enriched explanations for the original SMILES，并使用该解释来精化一个小规模LM模型以进行多个下游任务。实验结果表明，文本解释作为分子表示的 superiority across multiple benchmark datasets，并证明了LLMs在分子性预测任务中的巨大潜力。代码可以在 \url{https://github.com/ChnQ/LLM4Mol} 上获取。
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/07/15/cs.AI_2023_07_15/" data-id="clltaagme000lr888f424dm0n" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/07/16/eess.IV_2023_07_16/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          eess.IV - 2023-07-16 17:00:00
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/07/15/cs.CL_2023_07_15/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.CL - 2023-07-15 19:00:00</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">21</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">22</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">21</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">54</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">54</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">29</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">56</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">92</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">165</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
