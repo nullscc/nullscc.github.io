@@ -1,0 +1,692 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.AI - 2023-07-23 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Right for the Wrong Reason: Can Interpretable ML Techniques Detect Spurious Correlations? paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2307.12344 repo_url: https:&#x2F;&#x2F;github.com&#x2F;ss-sun&#x2F;right-for-the-wrong-reason pape">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.AI - 2023-07-23">
+<meta property="og:url" content="https://nullscc.github.io/2023/07/23/cs.AI_2023_07_23/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="Right for the Wrong Reason: Can Interpretable ML Techniques Detect Spurious Correlations? paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2307.12344 repo_url: https:&#x2F;&#x2F;github.com&#x2F;ss-sun&#x2F;right-for-the-wrong-reason pape">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-23T12:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-23T08:39:40.991Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.AI_2023_07_23" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/07/23/cs.AI_2023_07_23/" class="article-date">
+  <time datetime="2023-07-23T12:00:00.000Z" itemprop="datePublished">2023-07-23</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-AI/">cs.AI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.AI - 2023-07-23
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Right-for-the-Wrong-Reason-Can-Interpretable-ML-Techniques-Detect-Spurious-Correlations"><a href="#Right-for-the-Wrong-Reason-Can-Interpretable-ML-Techniques-Detect-Spurious-Correlations" class="headerlink" title="Right for the Wrong Reason: Can Interpretable ML Techniques Detect Spurious Correlations?"></a>Right for the Wrong Reason: Can Interpretable ML Techniques Detect Spurious Correlations?</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12344">http://arxiv.org/abs/2307.12344</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ss-sun/right-for-the-wrong-reason">https://github.com/ss-sun/right-for-the-wrong-reason</a></li>
+<li>paper_authors: Susu Sun, Lisa M. Koch, Christian F. Baumgartner</li>
+<li>for: 本研究旨在评估不同半结构化解释技术的检测潜在的假 correlate 能力。</li>
+<li>methods: 本研究使用了 five 种post-hoc解释技术和一种自然语言解释技术来检测在胸部X射影诊断任务中 искусificially添加的三种干扰因素。</li>
+<li>results: 研究发现，使用 SHAP 技术和自然语言解释技术 Attri-Net 可以准确地检测到胸部X射影诊断中的假 correlate，并且这些技术可以被用来可靠地检测模型的异常行为。<details>
+<summary>Abstract</summary>
+While deep neural network models offer unmatched classification performance, they are prone to learning spurious correlations in the data. Such dependencies on confounding information can be difficult to detect using performance metrics if the test data comes from the same distribution as the training data. Interpretable ML methods such as post-hoc explanations or inherently interpretable classifiers promise to identify faulty model reasoning. However, there is mixed evidence whether many of these techniques are actually able to do so. In this paper, we propose a rigorous evaluation strategy to assess an explanation technique's ability to correctly identify spurious correlations. Using this strategy, we evaluate five post-hoc explanation techniques and one inherently interpretable method for their ability to detect three types of artificially added confounders in a chest x-ray diagnosis task. We find that the post-hoc technique SHAP, as well as the inherently interpretable Attri-Net provide the best performance and can be used to reliably identify faulty model behavior.
+</details>
+<details>
+<summary>摘要</summary>
+深度神经网络模型具有无可比的分类性能，但它们容易学习潜在的 correlate 信息。这些依赖于潜在信息的关系可能难以通过性能指标来探测，尤其如果测试数据来自同一个分布。可解释的机器学习方法，如后期解释或内置可解释的分类器，承诺可以识别模型的错误思维。然而，有混合的证据表明许多这些技术是否能够做到这一点。在这篇论文中，我们提出了一种严格的评估策略，用于评估一种解释技术的能力 Correctly 识别人工添加的三种隐藏因素在胸部X射影诊断任务中。我们发现，使用 SHAP 和 Attri-Net 的 Post-hoc 解释技术，以及内置可解释的 Attri-Net 可以准确地识别模型的错误行为。
+</details></li>
+</ul>
+<hr>
+<h2 id="Towards-Generic-and-Controllable-Attacks-Against-Object-Detection"><a href="#Towards-Generic-and-Controllable-Attacks-Against-Object-Detection" class="headerlink" title="Towards Generic and Controllable Attacks Against Object Detection"></a>Towards Generic and Controllable Attacks Against Object Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12342">http://arxiv.org/abs/2307.12342</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/liguopeng0923/LGP">https://github.com/liguopeng0923/LGP</a></li>
+<li>paper_authors: Guopeng Li, Yue Xu, Jian Ding, Gui-Song Xia</li>
+<li>for: 这个论文的目的是设计一种可控的攻击方法来攻击主流的物件探测器（Object Detectors，OD），以实现对OD的攻击。</li>
+<li>methods: 这个论文使用了一种称为LGP（Local Perturbations with Adaptively Global Attacks）的白盒攻击方法，它可以对OD进行攻击，并且可以控制攻击的方向和大小。LGP使用了高品质的提案和三种不同的损失函数来实现攻击。</li>
+<li>results: 实验结果显示，LGP可以成功攻击十六种主流的物件探测器，包括MS-COCO和DOTA datasets。此外，LGP也可以实现了不可见和传递性的攻击。codes可以在<a target="_blank" rel="noopener" href="https://github.com/liguopeng0923/LGP.git%E4%B8%AD%E5%8F%96%E5%BE%97%E3%80%82">https://github.com/liguopeng0923/LGP.git中取得。</a><details>
+<summary>Abstract</summary>
+Existing adversarial attacks against Object Detectors (ODs) suffer from two inherent limitations. Firstly, ODs have complicated meta-structure designs, hence most advanced attacks for ODs concentrate on attacking specific detector-intrinsic structures, which makes it hard for them to work on other detectors and motivates us to design a generic attack against ODs. Secondly, most works against ODs make Adversarial Examples (AEs) by generalizing image-level attacks from classification to detection, which brings redundant computations and perturbations in semantically meaningless areas (e.g., backgrounds) and leads to an emergency for seeking controllable attacks for ODs. To this end, we propose a generic white-box attack, LGP (local perturbations with adaptively global attacks), to blind mainstream object detectors with controllable perturbations. For a detector-agnostic attack, LGP tracks high-quality proposals and optimizes three heterogeneous losses simultaneously. In this way, we can fool the crucial components of ODs with a part of their outputs without the limitations of specific structures. Regarding controllability, we establish an object-wise constraint that exploits foreground-background separation adaptively to induce the attachment of perturbations to foregrounds. Experimentally, the proposed LGP successfully attacked sixteen state-of-the-art object detectors on MS-COCO and DOTA datasets, with promising imperceptibility and transferability obtained. Codes are publicly released in https://github.com/liguopeng0923/LGP.git
+</details>
+<details>
+<summary>摘要</summary>
+现有的对象检测器（OD）的敌对攻击受到两种内在的限制。首先，OD有复杂的元结构设计，因此大多数对OD的高级攻击都是针对特定的检测器结构，这使得它们难以在其他检测器上工作，激励我们设计一种通用的攻击方法。其次，大多数对OD的攻击是将图像级别的攻击扩展到检测，这会带来 redundant computations和在意义不明的区域（如背景）中的扰动，从而导致对OD的攻击控制不足。为此，我们提出了一种通用的白盒攻击方法——本地加工攻击（LGP），可以让主流的对象检测器感受到控制的扰动。为了实现检测器无关的攻击，LGP跟踪高质量的提案并同时优化三种多元损失。这样，我们可以使对OD的核心组件的输出中的一部分被扰动，而不是特定的结构。在控制性方面，我们建立了一种对象强制约束，以便随时 Adaptively 调整扰动的分布。实验结果表明，我们提出的LGP方法成功地击败了MS-COCO和DOTA数据集上十六个状态对象检测器，并且在透明度和传输性方面取得了惊人的成绩。代码在https://github.com/liguopeng0923/LGP.git中公开发布。
+</details></li>
+</ul>
+<hr>
+<h2 id="Tackling-the-Curse-of-Dimensionality-with-Physics-Informed-Neural-Networks"><a href="#Tackling-the-Curse-of-Dimensionality-with-Physics-Informed-Neural-Networks" class="headerlink" title="Tackling the Curse of Dimensionality with Physics-Informed Neural Networks"></a>Tackling the Curse of Dimensionality with Physics-Informed Neural Networks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12306">http://arxiv.org/abs/2307.12306</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zheyuan Hu, Khemraj Shukla, George Em Karniadakis, Kenji Kawaguchi</li>
+<li>for: 解决高维精度数学模型的计算问题，提高计算效率和可扩展性。</li>
+<li>methods: 使用Stochastic Dimension Gradient Descent（SDGD）方法，即将梯度分解成不同维度的部分，然后随机选择这些维度的部分进行每次训练。</li>
+<li>results: 能够快速解决许多困难高维度精度数学问题，如 Hamilton-Jacobi-Bellman 方程和Schrödinger方程，并且可以在单个GPU上进行计算。例如，在100,000维度中解决了一个非线性HJB方程和一个Black-Scholes方程，并且在6小时内完成了计算。<details>
+<summary>Abstract</summary>
+The curse-of-dimensionality (CoD) taxes computational resources heavily with exponentially increasing computational cost as the dimension increases. This poses great challenges in solving high-dimensional PDEs as Richard Bellman first pointed out over 60 years ago. While there has been some recent success in solving numerically partial differential equations (PDEs) in high dimensions, such computations are prohibitively expensive, and true scaling of general nonlinear PDEs to high dimensions has never been achieved. In this paper, we develop a new method of scaling up physics-informed neural networks (PINNs) to solve arbitrary high-dimensional PDEs. The new method, called Stochastic Dimension Gradient Descent (SDGD), decomposes a gradient of PDEs into pieces corresponding to different dimensions and samples randomly a subset of these dimensional pieces in each iteration of training PINNs. We theoretically prove the convergence guarantee and other desired properties of the proposed method. We experimentally demonstrate that the proposed method allows us to solve many notoriously hard high-dimensional PDEs, including the Hamilton-Jacobi-Bellman (HJB) and the Schr\"{o}dinger equations in thousands of dimensions very fast on a single GPU using the PINNs mesh-free approach. For instance, we solve nontrivial nonlinear PDEs (one HJB equation and one Black-Scholes equation) in 100,000 dimensions in 6 hours on a single GPU using SDGD with PINNs. Since SDGD is a general training methodology of PINNs, SDGD can be applied to any current and future variants of PINNs to scale them up for arbitrary high-dimensional PDEs.
+</details>
+<details>
+<summary>摘要</summary>
+科学研究中的困难（CoD）会使计算资源受到极大的挑战，计算成本随着维度的增加而呈指数增长。这在60多年前，理查德·贝尔曼首次提出的高维度 partial differential equations（PDEs）解决问题中 pose great challenges. Although there has been some recent success in numerically solving PDEs in high dimensions, such computations are prohibitively expensive, and true scaling of general nonlinear PDEs to high dimensions has never been achieved.在这篇论文中，我们开发了一种新的方法，即随机维度加速（SDGD），用于扩展物理学信息神经网络（PINNs）解决任意高维度 PDEs。SDGD方法将 PDE 的梯度分解成不同维度的部分，然后在训练 PINNs 时随机选择这些维度的部分。我们证明了该方法的收敛保证和其他愿望的性质。我们通过实验表明，使用 SDGD 方法可以很快地解决许多知名度很高的高维度 PDEs，例如 Hamilton-Jacobi-Bellman 方程和 Schrödinger 方程在千个维度中。例如，我们在6个小时内使用单个 GPU 解决了一个非线性 HJB 方程和一个黑色-肖勒斯方程在10,000个维度中。由于 SDGD 是一种通用的 PINNs 训练方法，因此可以应用于任何当前和未来的 PINNs 变体，以扩展它们的应用范围。
+</details></li>
+</ul>
+<hr>
+<h2 id="Controller-Synthesis-for-Timeline-based-Games"><a href="#Controller-Synthesis-for-Timeline-based-Games" class="headerlink" title="Controller Synthesis for Timeline-based Games"></a>Controller Synthesis for Timeline-based Games</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12289">http://arxiv.org/abs/2307.12289</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Renato Acampora, Luca Geatti, Nicola Gigante, Angelo Montanari, Valentino Picotti</li>
+<li>for: 这篇论文旨在提供一种有效和计算优化的控制器生成方法来解决时间轴基于游戏中的游戏策略问题。</li>
+<li>methods: 该论文使用的方法包括时间轴基于游戏和控制器生成。</li>
+<li>results: 该论文提出的控制器生成方法可以有效地解决时间轴基于游戏中的游戏策略问题，并且computational complexity是2EXPTIME-complete。<details>
+<summary>Abstract</summary>
+In the timeline-based approach to planning, the evolution over time of a set of state variables (the timelines) is governed by a set of temporal constraints. Traditional timeline-based planning systems excel at the integration of planning with execution by handling temporal uncertainty. In order to handle general nondeterminism as well, the concept of timeline-based games has been recently introduced. It has been proved that finding whether a winning strategy exists for such games is 2EXPTIME-complete. However, a concrete approach to synthesize controllers implementing such strategies is missing. This paper fills this gap, by providing an effective and computationally optimal approach to controller synthesis for timeline-based games.
+</details>
+<details>
+<summary>摘要</summary>
+在时间轴基本方法中，时间变量集（时间轴）的演化遵循一组时间约束。传统的时间轴基本方法具有融合规划与执行的能力，可以处理时间不确定性。为了处理通用非决定性，时间轴基本方法中的游戏概念被最近引入。已证明找到赢家策略的存在是2EXPTIME-完善。但是，实现这种策略的控制器合成方法缺失。这篇论文填补了这个空白，提供了有效和计算优化的控制器合成方法 для时间轴基本方法中的游戏。
+</details></li>
+</ul>
+<hr>
+<h2 id="Decentralized-Adaptive-Formation-via-Consensus-Oriented-Multi-Agent-Communication"><a href="#Decentralized-Adaptive-Formation-via-Consensus-Oriented-Multi-Agent-Communication" class="headerlink" title="Decentralized Adaptive Formation via Consensus-Oriented Multi-Agent Communication"></a>Decentralized Adaptive Formation via Consensus-Oriented Multi-Agent Communication</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12287">http://arxiv.org/abs/2307.12287</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yuming Xiang, Sizhao Li, Rongpeng Li, Zhifeng Zhao, Honggang Zhang</li>
+<li>for: 这 paper 的目的是提出一种适应多 аген特式控制方法，以适应多 аген系统中 agent 的数量变化，并在有限通信环境下实现高速稳定的formation control.</li>
+<li>methods: 该 paper 使用了一种新的 multi-agent reinforcement learning 方法，即 consensus-oriented multi-agent communication (ConsMAC)，以使 agents 能够 perceive 全局信息并在本地状态下达成 consensus。此外，paper 还使用了 policy distillation 来实现 Adaptive formation adjustment.</li>
+<li>results: 实验结果表明，提出的方法在高速稳定性方面具有出色的表现，并且可以快速适应多 аген系统中 agent 的数量变化。<details>
+<summary>Abstract</summary>
+Adaptive multi-agent formation control, which requires the formation to flexibly adjust along with the quantity variations of agents in a decentralized manner, belongs to one of the most challenging issues in multi-agent systems, especially under communication-limited constraints. In this paper, we propose a novel Consensus-based Decentralized Adaptive Formation (Cons-DecAF) framework. Specifically, we develop a novel multi-agent reinforcement learning method, Consensus-oriented Multi-Agent Communication (ConsMAC), to enable agents to perceive global information and establish the consensus from local states by effectively aggregating neighbor messages. Afterwards, we leverage policy distillation to accomplish the adaptive formation adjustment. Meanwhile, instead of pre-assigning specific positions of agents, we employ a displacement-based formation by Hausdorff distance to significantly improve the formation efficiency. The experimental results through extensive simulations validate that the proposed method has achieved outstanding performance in terms of both speed and stability.
+</details>
+<details>
+<summary>摘要</summary>
+《适应多智能体formation控制》是多智能体系统中最为复杂的问题之一，尤其是在有限通信环境下。在这篇论文中，我们提出了一种新的Consensus-based Decentralized Adaptive Formation（Cons-DecAF）框架。具体来说，我们开发了一种新的多智能体学习方法——Consensus-oriented Multi-Agent Communication（ConsMAC），使智能体能够从本地状态中获得全局信息并达成一致。接着，我们通过策略填充来实现形态调整。而不是先行指定智能体的具体位置，我们employs a displacement-based formation by Hausdorff distance，以大幅提高形态效率。实验结果表明，我们提出的方法在速度和稳定性两个方面具有出色的表现。
+</details></li>
+</ul>
+<hr>
+<h2 id="Towards-Automatic-Boundary-Detection-for-Human-AI-Collaborative-Hybrid-Essay-in-Education"><a href="#Towards-Automatic-Boundary-Detection-for-Human-AI-Collaborative-Hybrid-Essay-in-Education" class="headerlink" title="Towards Automatic Boundary Detection for Human-AI Collaborative Hybrid Essay in Education"></a>Towards Automatic Boundary Detection for Human-AI Collaborative Hybrid Essay in Education</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12267">http://arxiv.org/abs/2307.12267</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/douglashiwo/BoundaryDetectionFromHybridText">https://github.com/douglashiwo/BoundaryDetectionFromHybridText</a></li>
+<li>paper_authors: Zijie Zeng, Lele Sha, Yuheng Li, Kaixun Yang, Dragan Gašević, Guanliang Chen</li>
+<li>for: 本研究旨在探讨AI生成文本检测在 hybrid 文本中的应用，即检测人类和生成LLMs共同写作的文本中的AI生成部分。</li>
+<li>methods: 本研究提出了一种两步方法，包括在encoder训练过程中分离AI生成内容和人类写作内容，然后计算每两个相邻的聚合函数间的距离，并假设存在两个聚合函数间最远的距离处的边界。</li>
+<li>results: 实验结果表明，提出的方法在不同的实验设置下 consistently 超过基eline方法的性能，并且 encoder 训练过程可以明显提高方法的性能。 在检测单边 hybrid 文本中的边界时，可以采用一定的 prototype 大小来进一步提高方法的性能，升师22% 在 Domain 评估中和18% 在 Out-of-Domain 评估中。<details>
+<summary>Abstract</summary>
+The recent large language models (LLMs), e.g., ChatGPT, have been able to generate human-like and fluent responses when provided with specific instructions. While admitting the convenience brought by technological advancement, educators also have concerns that students might leverage LLMs to complete their writing assignments and pass them off as their original work. Although many AI content detection studies have been conducted as a result of such concerns, most of these prior studies modeled AI content detection as a classification problem, assuming that a text is either entirely human-written or entirely AI-generated. In this study, we investigated AI content detection in a rarely explored yet realistic setting where the text to be detected is collaboratively written by human and generative LLMs (i.e., hybrid text). We first formalized the detection task as identifying the transition points between human-written content and AI-generated content from a given hybrid text (boundary detection). Then we proposed a two-step approach where we (1) separated AI-generated content from human-written content during the encoder training process; and (2) calculated the distances between every two adjacent prototypes and assumed that the boundaries exist between the two adjacent prototypes that have the furthest distance from each other. Through extensive experiments, we observed the following main findings: (1) the proposed approach consistently outperformed the baseline methods across different experiment settings; (2) the encoder training process can significantly boost the performance of the proposed approach; (3) when detecting boundaries for single-boundary hybrid essays, the proposed approach could be enhanced by adopting a relatively large prototype size, leading to a 22% improvement in the In-Domain evaluation and an 18% improvement in the Out-of-Domain evaluation.
+</details>
+<details>
+<summary>摘要</summary>
+Recent large language models (LLMs), such as ChatGPT, have been able to generate human-like and fluent responses when provided with specific instructions. However, educators have concerns that students may use LLMs to complete their writing assignments and pass them off as their own work. To address this issue, many AI content detection studies have been conducted, but most of these prior studies modeled AI content detection as a classification problem, assuming that a text is either entirely human-written or entirely AI-generated.In this study, we investigated AI content detection in a realistic setting where the text to be detected is collaboratively written by humans and generative LLMs (hybrid text). We formalized the detection task as identifying the transition points between human-written content and AI-generated content in a given hybrid text (boundary detection).To solve this problem, we proposed a two-step approach:1. Separate AI-generated content from human-written content during the encoder training process.2. Calculate the distances between every two adjacent prototypes and assume that the boundaries exist between the two adjacent prototypes with the furthest distance from each other.Through extensive experiments, we found the following main findings:1. Our proposed approach consistently outperformed baseline methods across different experiment settings.2. The encoder training process can significantly boost the performance of our proposed approach.3. When detecting boundaries for single-boundary hybrid essays, our proposed approach can be enhanced by adopting a relatively large prototype size, leading to a 22% improvement in the In-Domain evaluation and an 18% improvement in the Out-of-Domain evaluation.
+</details></li>
+</ul>
+<hr>
+<h2 id="Building-road-Collaborative-Extraction-from-Remotely-Sensed-Images-via-Cross-Interaction"><a href="#Building-road-Collaborative-Extraction-from-Remotely-Sensed-Images-via-Cross-Interaction" class="headerlink" title="Building-road Collaborative Extraction from Remotely Sensed Images via Cross-Interaction"></a>Building-road Collaborative Extraction from Remotely Sensed Images via Cross-Interaction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12256">http://arxiv.org/abs/2307.12256</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Haonan Guo, Xin Su, Chen Wu, Bo Du, Liangpei Zhang</li>
+<li>for: 本研究旨在提高从高分辨率遥感图像中提取建筑和道路的精度和效率，通过建筑和道路之间的协同抽取方法。</li>
+<li>methods: 本研究提出了一种基于多任务和跨比例特征互动的建筑-道路共同抽取方法，通过交互信息 между任务和自适应收发场所来提高每个任务的准确性。</li>
+<li>results: 实验表明，提出的方法可以在各种城市和农村场景下实现出色的建筑-道路抽取性能和效率。<details>
+<summary>Abstract</summary>
+Buildings are the basic carrier of social production and human life; roads are the links that interconnect social networks. Building and road information has important application value in the frontier fields of regional coordinated development, disaster prevention, auto-driving, etc. Mapping buildings and roads from very high-resolution (VHR) remote sensing images have become a hot research topic. However, the existing methods often ignore the strong spatial correlation between roads and buildings and extract them in isolation. To fully utilize the complementary advantages between buildings and roads, we propose a building-road collaborative extraction method based on multi-task and cross-scale feature interaction to improve the accuracy of both tasks in a complementary way. A multi-task interaction module is proposed to interact information across tasks and preserve the unique information of each task, which tackle the seesaw phenomenon in multitask learning. By considering the variation in appearance and structure between buildings and roads, a cross-scale interaction module is designed to automatically learn the optimal reception field for different tasks. Compared with many existing methods that train each task individually, the proposed collaborative extraction method can utilize the complementary advantages between buildings and roads by the proposed inter-task and inter-scale feature interactions, and automatically select the optimal reception field for different tasks. Experiments on a wide range of urban and rural scenarios show that the proposed algorithm can achieve building-road extraction with outstanding performance and efficiency.
+</details>
+<details>
+<summary>摘要</summary>
+建筑和路径是社会生产和人类生活的基础载体，路径是社会网络之间的连接。建筑和路径信息在前沿领域的区域协调发展、灾害预防、自动驾驶等领域有重要应用价值。从very high-resolution（VHR）Remote sensing图像中提取建筑和路径信息已成为热点研究话题。然而，现有方法 часто忽略了道路和建筑之间的强相关性，单独提取它们。为了充分利用建筑和道路之间的补做优势，我们提议一种建筑道路共同提取方法，基于多任务和跨比例特征互动来提高两个任务的准确率。我们提出的多任务互动模块可以在不同任务之间交换信息，保持每个任务的独特信息，解决多任务学习中的摇摆现象。通过考虑建筑和道路之间的外观和结构变化，我们设计了一种跨比例互动模块，自动学习不同任务的最佳接收频率。与许多现有方法不同，我们的共同提取方法可以利用建筑和道路之间的补做优势，通过我们提出的交互特征互动和自动选择最佳接收频率，提高两个任务的准确率。在各种都市和农村场景下进行了广泛的实验，我们的算法可以实现出色的建筑道路提取和高效率。
+</details></li>
+</ul>
+<hr>
+<h2 id="Nature-and-the-Machines"><a href="#Nature-and-the-Machines" class="headerlink" title="Nature and the Machines"></a>Nature and the Machines</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.04440">http://arxiv.org/abs/2308.04440</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/face-analysis/emonet">https://github.com/face-analysis/emonet</a></li>
+<li>paper_authors: Huw Price, Matthew Connolly</li>
+<li>for: 这篇论文是关于人工智能（AI）对人类是否 pose existential risk 的问题，而critics认为这个问题 receiving 太多关注，希望把其推迟到一边，Focus on 当前 AI poses 的风险。</li>
+<li>methods: 论文使用的方法是 argument 和 persuasion，指出 Nature 期刊在这个问题上的错误判断，并阐述了 AI 的风险和 Its potential consequences.</li>
+<li>results: 论文的结论是，Nature 期刊的 error  judgement 是 serious，因为 AI 的风险不仅是今天的问题，也是未来的问题。论文 argues that we should not ignore the potential risks of AI, but instead, we should consider the consequences of error and take appropriate measures to mitigate them.<details>
+<summary>Abstract</summary>
+Does artificial intelligence (AI) pose existential risks to humanity? Some critics feel this question is getting too much attention, and want to push it aside in favour of conversations about the immediate risks of AI. These critics now include the journal Nature, where a recent editorial urges us to 'stop talking about tomorrow's AI doomsday when AI poses risks today.' We argue that this is a serious failure of judgement, on Nature's part. In science, as in everyday life, we expect influential actors to consider the consequences of error. As the world's leading scientific journal, Nature is certainly an influential actor, especially so in the absence of robust global regulation of AI. Yet it has manifestly failed to consider the cost of error in this case.
+</details>
+<details>
+<summary>摘要</summary>
+人类是否面临人工智能（AI）的极大风险？一些批评者认为这个问题Receiving too much attention，希望把其推迟到一Side和讨论当前AI的风险。这些批评者现在包括《Nature》杂志，其latest editorial呼吁我们“停止讨论明天的AIArmageddon，因为AI今天已经存在风险”。我们认为，《Nature》在这个问题上manifestly failed to consider the cost of error。In science, as in everyday life, we expect influential actors to consider the consequences of error. As the world's leading scientific journal, Nature is certainly an influential actor, especially so in the absence of robust global regulation of AI. Yet it has manifestly failed to consider the cost of error in this case.
+</details></li>
+</ul>
+<hr>
+<h2 id="MARS-Exploiting-Multi-Level-Parallelism-for-DNN-Workloads-on-Adaptive-Multi-Accelerator-Systems"><a href="#MARS-Exploiting-Multi-Level-Parallelism-for-DNN-Workloads-on-Adaptive-Multi-Accelerator-Systems" class="headerlink" title="MARS: Exploiting Multi-Level Parallelism for DNN Workloads on Adaptive Multi-Accelerator Systems"></a>MARS: Exploiting Multi-Level Parallelism for DNN Workloads on Adaptive Multi-Accelerator Systems</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12234">http://arxiv.org/abs/2307.12234</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Guan Shen, Jieru Zhao, Zeke Wang, Zhe Lin, Wenchao Ding, Chentao Wu, Quan Chen, Minyi Guo</li>
+<li>for: 这个研究旨在提出一个名为 MARS 的新的映射框架，用于在多个加速器系统中选择适当的加速器设计，并对 DNN 进行有效的分割策略，以最大化并行度。</li>
+<li>methods: 这个研究使用了 computation-aware 加速器选择策略和 communication-aware 分割策略，以提高 DNN 的执行效率。</li>
+<li>results: 实验结果显示，MARS 可以在常见的 DNN 负载中实现32.2% 的延迟增加，并在多核心模型中实现59.4% 的延迟增加，较基eline方法和相关的现有方法更高。<details>
+<summary>Abstract</summary>
+Along with the fast evolution of deep neural networks, the hardware system is also developing rapidly. As a promising solution achieving high scalability and low manufacturing cost, multi-accelerator systems widely exist in data centers, cloud platforms, and SoCs. Thus, a challenging problem arises in multi-accelerator systems: selecting a proper combination of accelerators from available designs and searching for efficient DNN mapping strategies. To this end, we propose MARS, a novel mapping framework that can perform computation-aware accelerator selection, and apply communication-aware sharding strategies to maximize parallelism. Experimental results show that MARS can achieve 32.2% latency reduction on average for typical DNN workloads compared to the baseline, and 59.4% latency reduction on heterogeneous models compared to the corresponding state-of-the-art method.
+</details>
+<details>
+<summary>摘要</summary>
+“深度神经网络的快速演化，硬件系统也在快速发展。作为数据中心、云平台和SoC中高扩展性低生产成本的解决方案，多加速器系统广泛存在。因此，多加速器系统中的一个挑战是选择合适的加速器设计，并搜索高度平行的DNN映射策略。为此，我们提出了MARS，一种新的映射框架，可以实现计算意识加速器选择，以及通信意识分割策略，以最大化并行性。实验结果显示，MARS可以相对基eline方法平均减少32.2%的延迟，对于常见的DNN任务，并且相对相对国际先进方法，对于多元模型，可以减少59.4%的延迟。”
+</details></li>
+</ul>
+<hr>
+<h2 id="Geometry-Aware-Adaptation-for-Pretrained-Models"><a href="#Geometry-Aware-Adaptation-for-Pretrained-Models" class="headerlink" title="Geometry-Aware Adaptation for Pretrained Models"></a>Geometry-Aware Adaptation for Pretrained Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12226">http://arxiv.org/abs/2307.12226</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Nicholas Roberts, Xintong Li, Dyah Adila, Sonia Cromp, Tzu-Heng Huang, Jitian Zhao, Frederic Sala<br>for:The paper is written to improve the performance of machine learning models, specifically zero-shot models, in predicting new classes without any additional training.methods:The proposed approach, called Loki, uses a simple technique to adapt the trained model to predict new classes by swapping the standard prediction rule with the Fréchet mean. The approach is a drop-in replacement and does not require any additional training data.results:The paper shows that Loki achieves up to 29.7% relative improvement over SimCLR on ImageNet and scales to hundreds of thousands of classes. When no external metric is available, Loki can use self-derived metrics from class embeddings and obtains a 10.5% improvement on pretrained zero-shot models such as CLIP.<details>
+<summary>Abstract</summary>
+Machine learning models -- including prominent zero-shot models -- are often trained on datasets whose labels are only a small proportion of a larger label space. Such spaces are commonly equipped with a metric that relates the labels via distances between them. We propose a simple approach to exploit this information to adapt the trained model to reliably predict new classes -- or, in the case of zero-shot prediction, to improve its performance -- without any additional training. Our technique is a drop-in replacement of the standard prediction rule, swapping argmax with the Fr\'echet mean. We provide a comprehensive theoretical analysis for this approach, studying (i) learning-theoretic results trading off label space diameter, sample complexity, and model dimension, (ii) characterizations of the full range of scenarios in which it is possible to predict any unobserved class, and (iii) an optimal active learning-like next class selection procedure to obtain optimal training classes for when it is not possible to predict the entire range of unobserved classes. Empirically, using easily-available external metrics, our proposed approach, Loki, gains up to 29.7% relative improvement over SimCLR on ImageNet and scales to hundreds of thousands of classes. When no such metric is available, Loki can use self-derived metrics from class embeddings and obtains a 10.5% improvement on pretrained zero-shot models such as CLIP.
+</details>
+<details>
+<summary>摘要</summary>
+机器学习模型 -- 包括知名的零 shot 模型 -- 常常在具有小 proportion 的标签空间上进行训练。这些空间通常具有一个将标签相关的度量。我们提议一种简单的方法，利用这些信息来适应训练后的模型，以可靠地预测新类 -- 或在零 shot 预测情况下，提高其性能 -- 无需进一步训练。我们的技术是将 argmax 替换为 Fréchet 平均。我们提供了完整的理论分析，包括（i）交互学习理论，考虑标签空间径、样本复杂度和模型维度之间的负反关系，（ii）对预测任何未知类的全范围情况的Characterizations，以及（iii）用于获取优化训练类的优化活动学习类选择方法。Empirically, 我们的提议方法，Loki，在 ImageNet 上对 SimCLR 进行了29.7% 相对提升，并可扩展到数万个类。当没有外部度量时，Loki 可以使用自己计算出的类嵌入度量，并在预测零 shot 模型 CLIP 时获得10.5% 的提升。
+</details></li>
+</ul>
+<hr>
+<h2 id="FATRER-Full-Attention-Topic-Regularizer-for-Accurate-and-Robust-Conversational-Emotion-Recognition"><a href="#FATRER-Full-Attention-Topic-Regularizer-for-Accurate-and-Robust-Conversational-Emotion-Recognition" class="headerlink" title="FATRER: Full-Attention Topic Regularizer for Accurate and Robust Conversational Emotion Recognition"></a>FATRER: Full-Attention Topic Regularizer for Accurate and Robust Conversational Emotion Recognition</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12221">http://arxiv.org/abs/2307.12221</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ludybupt/FATRER">https://github.com/ludybupt/FATRER</a></li>
+<li>paper_authors: Yuzhao Mao, Di Lu, Xiaojie Wang, Yang Zhang</li>
+<li>for: 这 paper 的目的是理解对话中的情感引起的情绪。</li>
+<li>methods: 这 paper 使用了一种基于全注意力话题规范的情绪识别器，以提高模型的Robustness 和准确性。</li>
+<li>results: 实验显示，这 paper 的模型比现有模型更好地抵抗三种 adversarial 攻击，并且在情绪识别 tasks 上得到了更高的效果。<details>
+<summary>Abstract</summary>
+This paper concentrates on the understanding of interlocutors' emotions evoked in conversational utterances. Previous studies in this literature mainly focus on more accurate emotional predictions, while ignoring model robustness when the local context is corrupted by adversarial attacks. To maintain robustness while ensuring accuracy, we propose an emotion recognizer augmented by a full-attention topic regularizer, which enables an emotion-related global view when modeling the local context in a conversation. A joint topic modeling strategy is introduced to implement regularization from both representation and loss perspectives. To avoid over-regularization, we drop the constraints on prior distributions that exist in traditional topic modeling and perform probabilistic approximations based entirely on attention alignment. Experiments show that our models obtain more favorable results than state-of-the-art models, and gain convincing robustness under three types of adversarial attacks.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Expediting-Building-Footprint-Segmentation-from-High-resolution-Remote-Sensing-Images-via-progressive-lenient-supervision"><a href="#Expediting-Building-Footprint-Segmentation-from-High-resolution-Remote-Sensing-Images-via-progressive-lenient-supervision" class="headerlink" title="Expediting Building Footprint Segmentation from High-resolution Remote Sensing Images via progressive lenient supervision"></a>Expediting Building Footprint Segmentation from High-resolution Remote Sensing Images via progressive lenient supervision</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12220">http://arxiv.org/abs/2307.12220</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/haonanguo/bfseg-efficient-building-footprint-segmentation-framework">https://github.com/haonanguo/bfseg-efficient-building-footprint-segmentation-framework</a></li>
+<li>paper_authors: Haonan Guo, Bo Du, Chen Wu, Xin Su, Liangpei Zhang</li>
+<li>for: 本研究旨在提高从遥感图像中提取建筑印迹的效率和准确率。</li>
+<li>methods: 本文提出了一种高效的建筑印迹分割框架，包括一种精密的均匀连接粗细度特征融合网络，以及一种宽泛的深度监督和采样策略。</li>
+<li>results: 根据实验结果，提出的建筑印迹分割框架可以高效地提取建筑印迹，并且可以在不同的encoder网络上达到出色的性能和效率。<details>
+<summary>Abstract</summary>
+The efficacy of building footprint segmentation from remotely sensed images has been hindered by model transfer effectiveness. Many existing building segmentation methods were developed upon the encoder-decoder architecture of U-Net, in which the encoder is finetuned from the newly developed backbone networks that are pre-trained on ImageNet. However, the heavy computational burden of the existing decoder designs hampers the successful transfer of these modern encoder networks to remote sensing tasks. Even the widely-adopted deep supervision strategy fails to mitigate these challenges due to its invalid loss in hybrid regions where foreground and background pixels are intermixed. In this paper, we conduct a comprehensive evaluation of existing decoder network designs for building footprint segmentation and propose an efficient framework denoted as BFSeg to enhance learning efficiency and effectiveness. Specifically, a densely-connected coarse-to-fine feature fusion decoder network that facilitates easy and fast feature fusion across scales is proposed. Moreover, considering the invalidity of hybrid regions in the down-sampled ground truth during the deep supervision process, we present a lenient deep supervision and distillation strategy that enables the network to learn proper knowledge from deep supervision. Building upon these advancements, we have developed a new family of building segmentation networks, which consistently surpass prior works with outstanding performance and efficiency across a wide range of newly developed encoder networks. The code will be released on https://github.com/HaonanGuo/BFSeg-Efficient-Building-Footprint-Segmentation-Framework.
+</details>
+<details>
+<summary>摘要</summary>
+“ remote sensing 图像中的建筑印迹分 segmentation 的效果受到模型传递效果的限制。现有的建筑分 segmentation 方法大多基于encoder-decoder架构的 U-Net，其中 encoder 是从新开发的背景网络中精度调整的。但是，现有的 decoder 设计带来了大量计算负担，使得现代 encoder 网络不能成功传递到 remote sensing 任务中。即使广泛采用的深度监测策略也无法缓解这些挑战，因为它在混合区域中的无效损失。在这篇论文中，我们对现有 decoder 网络设计进行了全面的评估，并提出了一种高效的框架 denoted as BFSeg，以提高学习效率和效果。具体来说，我们提出了一种紧密连接的粗细尺度混合特征卷积网络，以便轻松地实现特征之间的快速混合。此外，我们认为在下采样的真实图像中的混合区域无效的损失问题，我们提出了一种宽松的深度监测和采样策略，使得网络能够从深度监测中学习正确的知识。基于这些进步，我们开发了一个新的建筑分 segmentation 网络家族，这些网络在各种新开发的 encoder 网络上表现出色，在效率和性能方面都超越了先前的工作。代码将在 https://github.com/HaonanGuo/BFSeg-Efficient-Building-Footprint-Segmentation-Framework 上发布。”
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Comprehensive-Review-and-Systematic-Analysis-of-Artificial-Intelligence-Regulation-Policies"><a href="#A-Comprehensive-Review-and-Systematic-Analysis-of-Artificial-Intelligence-Regulation-Policies" class="headerlink" title="A Comprehensive Review and Systematic Analysis of Artificial Intelligence Regulation Policies"></a>A Comprehensive Review and Systematic Analysis of Artificial Intelligence Regulation Policies</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12218">http://arxiv.org/abs/2307.12218</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Weiyue Wu, Shaoshan Liu</li>
+<li>for: This paper aims to help governing bodies understand and regulate AI technologies in a chaotic global regulatory space.</li>
+<li>methods: The paper presents a comprehensive review of AI regulation proposals from different geographical locations and cultural backgrounds, and develops a framework for analyzing these proposals.</li>
+<li>results: The paper performs a systematic analysis of AI regulation proposals to identify potential failures and provide insights for governing bodies to untangle the AI regulatory chaos.In Simplified Chinese text, the three key points would be:</li>
+<li>for: 这篇论文目标是帮助管理机构理解和调控全球AI regulatory空间中的混乱。</li>
+<li>methods: 论文首先提供了AI regulatory proposal的全面回顾，然后开发了一个分析这些提案的框架。</li>
+<li>results: 论文进行了系统性的AI regulatory proposal分析，以便发现可能的失败并为管理机构提供干预措施。<details>
+<summary>Abstract</summary>
+Due to the cultural and governance differences of countries around the world, there currently exists a wide spectrum of AI regulation policy proposals that have created a chaos in the global AI regulatory space. Properly regulating AI technologies is extremely challenging, as it requires a delicate balance between legal restrictions and technological developments. In this article, we first present a comprehensive review of AI regulation proposals from different geographical locations and cultural backgrounds. Then, drawing from historical lessons, we develop a framework to facilitate a thorough analysis of AI regulation proposals. Finally, we perform a systematic analysis of these AI regulation proposals to understand how each proposal may fail. This study, containing historical lessons and analysis methods, aims to help governing bodies untangling the AI regulatory chaos through a divide-and-conquer manner.
+</details>
+<details>
+<summary>摘要</summary>
+Translated into Simplified Chinese:因为世界各国文化和管理差异的存在，目前在全球AI规制空间中存在广泛的AI规制政策提议，创造了混乱。正确地规制AI技术是极其困难的，因为它需要绝对的法律限制和技术发展之间的细致平衡。在这篇文章中，我们首先提供了AI规制提议的全面回顾，然后，Drawing from historical lessons，我们开发了一个框架，以便对AI规制提议进行全面的分析。最后，我们对这些AI规制提议进行了系统性的分析，以了解每一个提议可能会失败的原因。这篇文章，包含历史评论和分析方法， hopes to help governing bodies untangle the AI regulatory chaos through a divide-and-conquer manner.
+</details></li>
+</ul>
+<hr>
+<h2 id="Mental-Workload-Estimation-with-Electroencephalogram-Signals-by-Combining-Multi-Space-Deep-Models"><a href="#Mental-Workload-Estimation-with-Electroencephalogram-Signals-by-Combining-Multi-Space-Deep-Models" class="headerlink" title="Mental Workload Estimation with Electroencephalogram Signals by Combining Multi-Space Deep Models"></a>Mental Workload Estimation with Electroencephalogram Signals by Combining Multi-Space Deep Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02409">http://arxiv.org/abs/2308.02409</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hong-Hai Nguyen, Ngumimi Karen Iyortsuun, Hyung-Jeong Yang, Guee-Sang Lee, Soo-Hyung Kim</li>
+<li>for: 这篇论文旨在预测 mental workload 的三个状态和级别，以便提高 mental health 评估的准确性。</li>
+<li>methods: 该论文使用 Temporal Convolutional Networks 和 Multi-Dimensional Residual Block 等方法，将多维度空间综合利用以实现最佳的 mental 估计。</li>
+<li>results: 该论文通过将 mental workload 分类为三个状态并估计级别，帮助早期发现 mental health 问题，从而预防严重的健康问题并提高生活质量。<details>
+<summary>Abstract</summary>
+The human brain is in a continuous state of activity during both work and rest. Mental activity is a daily process, and when the brain is overworked, it can have negative effects on human health. In recent years, great attention has been paid to early detection of mental health problems because it can help prevent serious health problems and improve quality of life. Several signals are used to assess mental state, but the electroencephalogram (EEG) is widely used by researchers because of the large amount of information it provides about the brain. This paper aims to classify mental workload into three states and estimate continuum levels. Our method combines multiple dimensions of space to achieve the best results for mental estimation. In the time domain approach, we use Temporal Convolutional Networks, and in the frequency domain, we propose a new architecture called the Multi-Dimensional Residual Block, which combines residual blocks.
+</details>
+<details>
+<summary>摘要</summary>
+人脑在工作和休息时都处于不断活跃状态。心理活动是每日的过程，当脑部过度劳累时，可能有负面影响于人类健康。在最近几年，对于早期发现心理问题的检测已经受到了广泛关注，因为它可以帮助预防严重的健康问题并提高生活质量。几种信号都用于评估心理状态，但是电enzephalogram（EEG）在研究人员中广泛使用，因为它可以提供大量关于脑部的信息。本文目的是将心理劳重分为三个状态，并估算维度水平。我们的方法将多个空间维度组合起来，以获得最佳的心理估算结果。在时域方法中，我们使用Temporal Convolutional Networks，在频域中，我们提出了一种新的架构——多维度征存块，这种架构将征存块结合在一起。
+</details></li>
+</ul>
+<hr>
+<h2 id="Traffic-Flow-Simulation-for-Autonomous-Driving"><a href="#Traffic-Flow-Simulation-for-Autonomous-Driving" class="headerlink" title="Traffic Flow Simulation for Autonomous Driving"></a>Traffic Flow Simulation for Autonomous Driving</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16762">http://arxiv.org/abs/2307.16762</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Junfeng Li, Changqing Yan</li>
+<li>for: This paper aims to provide a simulation environment for testing and evaluating the development of autonomous driving technology.</li>
+<li>methods: The paper uses micro-traffic flow modeling and cellular automata to build the simulation environment, and it also employs a vehicle motion model based on bicycle intelligence.</li>
+<li>results: The paper develops a simulation environment for autonomous vehicle flow, which can accurately control the acceleration, braking, steering, and lighting actions of the vehicle based on the bus instructions issued by the decision-making system.Here are the three points in Simplified Chinese text:</li>
+<li>for: 这篇论文是为了提供自动驾驶技术的测试和评估技术的实验环境。</li>
+<li>methods: 这篇论文使用微车流模型和细胞自动机来构建实验环境，同时还使用基于自行车智能的车辆动态模型。</li>
+<li>results: 这篇论文建立了一个可以准确控制车辆加速、减速、转向和灯光动作的自动驾驶流 simulator。<details>
+<summary>Abstract</summary>
+A traffic system is a random and complex large system, which is difficult to conduct repeated modelling and control research in a real traffic environment. With the development of automatic driving technology, the requirements for testing and evaluating the development of automatic driving technology are getting higher and higher, so the application of computer technology for traffic simulation has become a very effective technical means. Based on the micro-traffic flow modelling, this paper adopts the vehicle motion model based on cellular automata and the theory of bicycle intelligence to build the simulation environment of autonomous vehicle flow. The architecture of autonomous vehicles is generally divided into a perception system, decision system and control system. The perception system is generally divided into many subsystems, responsible for autonomous vehicle positioning, obstacle recognition, traffic signal detection and recognition and other tasks. Decision systems are typically divided into many subsystems that are responsible for tasks such as path planning, path planning, behavior selection, motion planning, and control. The control system is the basis of the selfdriving car, and each control system of the vehicle needs to be connected with the decision-making system through the bus, and can accurately control the acceleration degree, braking degree, steering amplitude, lighting control and other driving actions according to the bus instructions issued by the decision-making system, so as to achieve the autonomous driving of the vehicle.
+</details>
+<details>
+<summary>摘要</summary>
+traffic system 是一个随机和复杂的大型系统，在实际交通环境中进行重复模拟和控制研究非常困难。随着自动驾驶技术的发展，测试和评估自动驾驶技术的要求越来越高，因此计算机技术在交通模拟中发挥了非常有效的技术作用。基于微流量模拟，本文采用基于细胞自动机和自行车智能理论建立自动车流 simulation 环境。自动车的架构通常分为感知系统、决策系统和控制系统。感知系统通常分为多个子系统，负责自动车定位、障碍物识别、交通信号检测和识别等任务。决策系统通常分为多个子系统，负责任务such as 路径规划、行为选择、动作规划和控制。控制系统是自动车的基础，每个控制系统需要与决策系统通过公共总线连接，并可以准确控制车辆加速度、缓冲度、转向强度、灯光控制和其他驾驶动作，以实现自动驾驶。
+</details></li>
+</ul>
+<hr>
+<h2 id="DeepCL-Deep-Change-Feature-Learning-on-Remote-Sensing-Images-in-the-Metric-Space"><a href="#DeepCL-Deep-Change-Feature-Learning-on-Remote-Sensing-Images-in-the-Metric-Space" class="headerlink" title="DeepCL: Deep Change Feature Learning on Remote Sensing Images in the Metric Space"></a>DeepCL: Deep Change Feature Learning on Remote Sensing Images in the Metric Space</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12208">http://arxiv.org/abs/2307.12208</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/haonanguo/deepcl">https://github.com/haonanguo/deepcl</a></li>
+<li>paper_authors: Haonan Guo, Bo Du, Chen Wu, Chengxi Han, Liangpei Zhang</li>
+<li>for: 本研究旨在提高自动变化检测（CD）的精度和可解释性，以便更好地监测地表动态变化。</li>
+<li>methods: 我们结合度量学习的强时间关系模型和分割的优势，提出了深度变化特征学习（DeepCL）框架。我们设计了一种具有强时间相关性的强对比损失函数，以显著提高对比样本的重要性。此外，我们利用模型的时间关系知识来引导分割过程，以更好地检测变化区域。</li>
+<li>results: 我们对 DeepCL 框架进行了严格的理论和实验评估，结果显示，DeepCL 在特征识别率、鲁棒性和可解释性等方面具有明显的优势，并且可以与多种 CD 方法进行结合使用。广泛的比较实验证明 DeepCL 在 CD 领域的精度和可解释性都达到了国际先进水平。<details>
+<summary>Abstract</summary>
+Change detection (CD) is an important yet challenging task in the Earth observation field for monitoring Earth surface dynamics. The advent of deep learning techniques has recently propelled automatic CD into a technological revolution. Nevertheless, deep learning-based CD methods are still plagued by two primary issues: 1) insufficient temporal relationship modeling and 2) pseudo-change misclassification. To address these issues, we complement the strong temporal modeling ability of metric learning with the prominent fitting ability of segmentation and propose a deep change feature learning (DeepCL) framework for robust and explainable CD. Firstly, we designed a hard sample-aware contrastive loss, which reweights the importance of hard and simple samples. This loss allows for explicit modeling of the temporal correlation between bi-temporal remote sensing images. Furthermore, the modeled temporal relations are utilized as knowledge prior to guide the segmentation process for detecting change regions. The DeepCL framework is thoroughly evaluated both theoretically and experimentally, demonstrating its superior feature discriminability, resilience against pseudo changes, and adaptability to a variety of CD algorithms. Extensive comparative experiments substantiate the quantitative and qualitative superiority of DeepCL over state-of-the-art CD approaches.
+</details>
+<details>
+<summary>摘要</summary>
+优化检测 (CD) 是地球观测领域中重要且挑战性强的任务，用于监测地球表面动态。深度学习技术的出现已经推动了自动化 CD 技术到了技术革命的水平。然而，深度学习基于 CD 方法仍然受到两个主要问题的困扰：1）不充分的时间关系模型化和2）假变误分类。为了解决这些问题，我们将强度表示学习的准确性能与分割的优劣点相结合，并提出了深度变化特征学习 (DeepCL) 框架。首先，我们设计了一种坚持样本感知的对比损失函数，该函数重新评估硬件和简单样本的重要性。这种损失函数允许明确模型 биitemporal 遥感图像之间的时间相关性。其次，模型的时间关系知识被用作引导分割过程，以便检测变化区域。DeepCL 框架进行了严格的理论和实验测试，并证明其具有更高的特征抽象能力、鲁棒性 against 假变和适应性。广泛的比较实验证明 DeepCL 在 CD 领域的超过状态之前的性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="Monadic-Deep-Learning"><a href="#Monadic-Deep-Learning" class="headerlink" title="Monadic Deep Learning"></a>Monadic Deep Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12187">http://arxiv.org/abs/2307.12187</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ThoughtWorksInc/monadic-deep-learning">https://github.com/ThoughtWorksInc/monadic-deep-learning</a></li>
+<li>paper_authors: Bo Yang, Zhihao Zhang Kirisame Marisa, Kai Shi</li>
+<li>for: 本研究旨在提供一个可靠的、类型安全的深度学习框架，用于在 Scala 中实现动态神经网络。</li>
+<li>methods: 本研究使用了一种新的准确方法，可以在静态类型函数中自动进行微分，并且可以跨语言交互。此外，研究还使用了一些套件和套件变换，以便用户可以创建具有动态神经网络表示的幂等表达式。</li>
+<li>results: 研究得到了一个可靠的、类型安全的深度学习框架，可以在 Scala 中实现复杂的神经网络表示。用户可以使用这个框架来创建具有多变量的神经网络，并且仍然保持类型安全性。<details>
+<summary>Abstract</summary>
+The Java and Scala community has built a very successful big data ecosystem. However, most of neural networks running on it are modeled in dynamically typed programming languages. These dynamically typed deep learning frameworks treat neural networks as differentiable expressions that contain many trainable variable, and perform automatic differentiation on those expressions when training them.   Until 2019, none of the learning frameworks in statically typed languages provided the expressive power of traditional frameworks. Their users are not able to use custom algorithms unless creating plenty of boilerplate code for hard-coded back-propagation.   We solved this problem in DeepLearning.scala 2. Our contributions are:   1. We discovered a novel approach to perform automatic differentiation in reverse mode for statically typed functions that contain multiple trainable variable, and can interoperate freely with the metalanguage.   2. We designed a set of monads and monad transformers, which allow users to create monadic expressions that represent dynamic neural networks.   3. Along with these monads, we provide some applicative functors, to perform multiple calculations in parallel.   With these features, users of DeepLearning.scala were able to create complex neural networks in an intuitive and concise way, and still maintain type safety.
+</details>
+<details>
+<summary>摘要</summary>
+Java和Scala社区已经建立了一个非常成功的大数据生态系统。然而，大多数运行在其上的神经网络都是使用动态类型编程语言模型的。这些动态类型深度学习框架将神经网络视为可导的表达，并在训练时自动进行差分。直到2019年，静态类型语言的学习框架中没有提供表达能力相当于传统框架的。其用户无法使用自定义算法，除非创建大量的简单代码来实现硬编码的反向差分。我们解决了这个问题，我们在DeepLearning.scala 2中提供了以下贡献：1. 我们发现了一种新的方法，可以在静态类型函数中自动进行差分，并且可以与金属语言自由交互。2. 我们设计了一组幂kk和幂Transformer，这些幂kk可以让用户创建幂表达式，表示动态神经网络。3. 同时，我们还提供了一些应用函数，可以并发地执行多个计算。通过这些特性，DeepLearning.scala 2 的用户可以创建复杂的神经网络，并且保持类型安全性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Machine-learning-discovers-invariants-of-braids-and-flat-braids"><a href="#Machine-learning-discovers-invariants-of-braids-and-flat-braids" class="headerlink" title="Machine learning discovers invariants of braids and flat braids"></a>Machine learning discovers invariants of braids and flat braids</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12185">http://arxiv.org/abs/2307.12185</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Alexei Lisitsa, Mateo Salles, Alexei Vernitski</li>
+<li>for: 这个论文用机器学习分类扑斗织（或平坦扑斗）的例子，以确定它们是否是平凡的。</li>
+<li>methods: 这个论文使用了指导学习使用神经网络（多层感知器）进行超visisted学习，以达到好的分类结果。</li>
+<li>results: 通过这个论文，我们发现了新的便利的扑斗 invariants，包括完全的平坦扑斗 invariants。<details>
+<summary>Abstract</summary>
+We use machine learning to classify examples of braids (or flat braids) as trivial or non-trivial. Our ML takes form of supervised learning using neural networks (multilayer perceptrons). When they achieve good results in classification, we are able to interpret their structure as mathematical conjectures and then prove these conjectures as theorems. As a result, we find new convenient invariants of braids, including a complete invariant of flat braids.
+</details>
+<details>
+<summary>摘要</summary>
+我们使用机器学习来分类拥有螺旋或平板拥的例子（拥有螺旋或平板拥）。我们的机器学习是指监督学习使用神经网络（多层感知器）。当它们在分类中达到好的结果时，我们可以解释它们的结构为数学假设，然后证明这些假设为定理。因此，我们发现了新的便利的拥 invariants，包括完整的平板拥 invariants。Note: "拥" (wò) in the text refers to "braids" in Chinese.
+</details></li>
+</ul>
+<hr>
+<h2 id="On-the-Expressivity-of-Multidimensional-Markov-Reward"><a href="#On-the-Expressivity-of-Multidimensional-Markov-Reward" class="headerlink" title="On the Expressivity of Multidimensional Markov Reward"></a>On the Expressivity of Multidimensional Markov Reward</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12184">http://arxiv.org/abs/2307.12184</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Shuwa Miura</li>
+<li>for: 本研究考虑了Markov奖励表示在Sequential Decision Making下的表达性。</li>
+<li>methods: 我们使用Markov决策过程（MDPs）中的奖励函数来描述代理人希望的行为。我们研究了一个可能性空间中的奖励函数是否可以使得所有希望的策略更加抽象。我们的主要结果表明，如果存在一个可能性空间中的奖励函数，那么这个奖励函数必须满足一定的必要和 suficient conditions。</li>
+<li>results: 我们还证明了，对于任何非杂分 deterministic策略集合，存在一个多维度Markov奖励函数可以描述它。<details>
+<summary>Abstract</summary>
+We consider the expressivity of Markov rewards in sequential decision making under uncertainty. We view reward functions in Markov Decision Processes (MDPs) as a means to characterize desired behaviors of agents. Assuming desired behaviors are specified as a set of acceptable policies, we investigate if there exists a scalar or multidimensional Markov reward function that makes the policies in the set more desirable than the other policies. Our main result states both necessary and sufficient conditions for the existence of such reward functions. We also show that for every non-degenerate set of deterministic policies, there exists a multidimensional Markov reward function that characterizes it
+</details>
+<details>
+<summary>摘要</summary>
+我们考虑了马尔可夫奖励在随机决策中的表达性。我们看作奖励函数在马尔可夫决策过程（MDP）中是代表机器人所愿意行为的方式。假设所希望的行为是一个集合的可接受政策，我们实际寻找是否存在一个数值或多维马尔可夫奖励函数，使得这些政策在集合中更加愿意被选择。我们的主要结果表明了这些奖励函数的必要和充分条件，并且显示了每个非当ode deterministic政策都存在一个多维马尔可夫奖励函数，可以Characterize它。
+</details></li>
+</ul>
+<hr>
+<h2 id="Security-and-Privacy-Issues-of-Federated-Learning"><a href="#Security-and-Privacy-Issues-of-Federated-Learning" class="headerlink" title="Security and Privacy Issues of Federated Learning"></a>Security and Privacy Issues of Federated Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12181">http://arxiv.org/abs/2307.12181</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/JiangChSo/PFLM">https://github.com/JiangChSo/PFLM</a></li>
+<li>paper_authors: Jahid Hasan</li>
+<li>for: 本研究旨在提供一个涵盖多种机器学习模型的 Federated Learning（FL）安全性和隐私性挑战的全面分类。</li>
+<li>methods: 本研究使用了多种攻击和防御策略，包括投毒攻击、后门攻击、会员推理攻击、生成对抗网络（GAN）基于攻击和均衡隐私攻击。</li>
+<li>results: 本研究提出了一些新的研究方向，旨在强化FL系统的安全性和隐私性，以保护分布式学习环境中的敏感数据confidentiality。<details>
+<summary>Abstract</summary>
+Federated Learning (FL) has emerged as a promising approach to address data privacy and confidentiality concerns by allowing multiple participants to construct a shared model without centralizing sensitive data. However, this decentralized paradigm introduces new security challenges, necessitating a comprehensive identification and classification of potential risks to ensure FL's security guarantees. This paper presents a comprehensive taxonomy of security and privacy challenges in Federated Learning (FL) across various machine learning models, including large language models. We specifically categorize attacks performed by the aggregator and participants, focusing on poisoning attacks, backdoor attacks, membership inference attacks, generative adversarial network (GAN) based attacks, and differential privacy attacks. Additionally, we propose new directions for future research, seeking innovative solutions to fortify FL systems against emerging security risks and uphold sensitive data confidentiality in distributed learning environments.
+</details>
+<details>
+<summary>摘要</summary>
+受领 learning（FL）已经出现为一种有前途的方法，以解决数据隐私和安全性问题，使得多个参与者可以构建共享模型，而不需要中央化敏感数据。然而，这种分布式模式带来了新的安全挑战，需要进行全面的风险识别和分类，以确保FL的安全保证。这篇论文提出了FL中安全和隐私挑战的完整分类，包括聚合器和参与者的攻击，以及毒ous attacks、后门攻击、会员推理攻击、基于GAN的攻击和权威隐私攻击。此外，我们还提出了未来研究的新方向，寻找创新的解决方案，以固化FL系统，防止数据泄露和分布式学习环境中的安全风险。
+</details></li>
+</ul>
+<hr>
+<h2 id="Named-Entity-Resolution-in-Personal-Knowledge-Graphs"><a href="#Named-Entity-Resolution-in-Personal-Knowledge-Graphs" class="headerlink" title="Named Entity Resolution in Personal Knowledge Graphs"></a>Named Entity Resolution in Personal Knowledge Graphs</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12173">http://arxiv.org/abs/2307.12173</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mayank Kejriwal</li>
+<li>for: 本文主要针对个人知识图（PKG）中的命名实体解析（ER）问题。</li>
+<li>methods: 本文首先提供了高质量和高效的ER问题定义和必需组件。然后，总结了现有技术在PKG中的应用可能性，以及预期在Web级数据中出现的挑战。</li>
+<li>results: 本文结束后，提供了一些应用和未来研究的可能性。<details>
+<summary>Abstract</summary>
+Entity Resolution (ER) is the problem of determining when two entities refer to the same underlying entity. The problem has been studied for over 50 years, and most recently, has taken on new importance in an era of large, heterogeneous 'knowledge graphs' published on the Web and used widely in domains as wide ranging as social media, e-commerce and search. This chapter will discuss the specific problem of named ER in the context of personal knowledge graphs (PKGs). We begin with a formal definition of the problem, and the components necessary for doing high-quality and efficient ER. We also discuss some challenges that are expected to arise for Web-scale data. Next, we provide a brief literature review, with a special focus on how existing techniques can potentially apply to PKGs. We conclude the chapter by covering some applications, as well as promising directions for future research.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>转换给定文本到简化中文。</SYS>>实体归一化（ER）问题是确定两个实体指向同一个基础实体的问题。该问题已经被研究了50多年，并在最近在大量、多元知识图（knowledge graphs）在社交媒体、电商和搜索等领域广泛使用后，又得到了新的重要性。本章将讨论个人知识图（PKGs）中的命名实体归一化问题。我们开始于形式定义问题和完成高质量和高效的实体归一化所需的组件。我们还讨论了预期出现在网络规模数据上的挑战。接下来，我们提供了一 brief文献综述，强调如何现有技术可能应用于PKGs。我们结束本章，涵盖一些应用以及未来研究的承诺。
+</details></li>
+</ul>
+<hr>
+<h2 id="Optimized-Network-Architectures-for-Large-Language-Model-Training-with-Billions-of-Parameters"><a href="#Optimized-Network-Architectures-for-Large-Language-Model-Training-with-Billions-of-Parameters" class="headerlink" title="Optimized Network Architectures for Large Language Model Training with Billions of Parameters"></a>Optimized Network Architectures for Large Language Model Training with Billions of Parameters</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12169">http://arxiv.org/abs/2307.12169</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Weiyang Wang, Manya Ghobadi, Kayvon Shakeri, Ying Zhang, Naader Hasani</li>
+<li>for: 这个论文挑战了训练大语言模型（LLM）的传统建立任意对任意网络的思路。</li>
+<li>methods: 我们表明了 LLM 的通信模式，只有小组 GPU 需要高带宽任意对任意通信，以达到训练性能的近似最优点。在这些小组 GPU 之间，通信几乎不存在，稀疏、同质化。我们提议一种新的网络架构，与 LLM 的通信需求相匹配。我们将集群分为 HB Domain 中的 GPU，并使用非堵塞任意对任意高速交换机连接这些 GPU。在 HB Domain 内，网络只连接了需要通信的 GPU。我们称这种网络为 “铁路仅” 连接，并证明我们的提议架构可以将网络成本降低至最多 75%，不对 LLM 训练性能产生影响。</li>
+<li>results: 我们的实验结果表明，我们的提议架构可以减少网络成本至最多 75%，而无需增加训练时间或缓存大小。此外，我们的架构还可以在不同的 GPU 分布和通信占比情况下保持较高的性能稳定性。<details>
+<summary>Abstract</summary>
+This paper challenges the well-established paradigm for building any-to-any networks for training Large Language Models (LLMs). We show that LLMs exhibit a unique communication pattern where only small groups of GPUs require high-bandwidth any-to-any communication within them, to achieve near-optimal training performance. Across these groups of GPUs, the communication is insignificant, sparse, and homogeneous. We propose a new network architecture that closely resembles the communication requirement of LLMs. Our architecture partitions the cluster into sets of GPUs interconnected with non-blocking any-to-any high-bandwidth interconnects that we call HB domains. Across the HB domains, the network only connects GPUs with communication demands. We call this network a "rail-only" connection, and show that our proposed architecture reduces the network cost by up to 75% compared to the state-of-the-art any-to-any Clos networks without compromising the performance of LLM training.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Hallucination-Improves-the-Performance-of-Unsupervised-Visual-Representation-Learning"><a href="#Hallucination-Improves-the-Performance-of-Unsupervised-Visual-Representation-Learning" class="headerlink" title="Hallucination Improves the Performance of Unsupervised Visual Representation Learning"></a>Hallucination Improves the Performance of Unsupervised Visual Representation Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12168">http://arxiv.org/abs/2307.12168</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jing Wu, Jennifer Hobbs, Naira Hovakimyan</li>
+<li>for: 提高自主学习中的对比学习性能</li>
+<li>methods: 基于Siamese结构的对比学习模型，加入Hallucinator来生成额外正例样本，提高对比学习的semantic对比和鲁棒性</li>
+<li>results: 在不同的对比学习模型和数据集上，通过Hallucinator来生成额外正例样本，可以提高对比学习模型的稳定性和对应性，并且在下游任务中也可以看到明显的提升。<details>
+<summary>Abstract</summary>
+Contrastive learning models based on Siamese structure have demonstrated remarkable performance in self-supervised learning. Such a success of contrastive learning relies on two conditions, a sufficient number of positive pairs and adequate variations between them. If the conditions are not met, these frameworks will lack semantic contrast and be fragile on overfitting. To address these two issues, we propose Hallucinator that could efficiently generate additional positive samples for further contrast. The Hallucinator is differentiable and creates new data in the feature space. Thus, it is optimized directly with the pre-training task and introduces nearly negligible computation. Moreover, we reduce the mutual information of hallucinated pairs and smooth them through non-linear operations. This process helps avoid over-confident contrastive learning models during the training and achieves more transformation-invariant feature embeddings. Remarkably, we empirically prove that the proposed Hallucinator generalizes well to various contrastive learning models, including MoCoV1&V2, SimCLR and SimSiam. Under the linear classification protocol, a stable accuracy gain is achieved, ranging from 0.3% to 3.0% on CIFAR10&100, Tiny ImageNet, STL-10 and ImageNet. The improvement is also observed in transferring pre-train encoders to the downstream tasks, including object detection and segmentation.
+</details>
+<details>
+<summary>摘要</summary>
+对比学习模型基于单胞结构的表现备受关注，特别是在自监督学习中。然而，这些框架的成功受到两个条件的限制：一个是足够多的正例对，另一个是正例对之间的差异。如果这两个条件不充分满足，这些框架将缺乏含义的对比，并且容易过滤。为了解决这两个问题，我们提出了“幻觉”（Hallucinator），它可以快速生成更多的正例对，并且让这些对之间的差异更加明显。幻觉是可微的，并且在预训任务中直接优化。此外，我们还将幻觉的对应对采用非线性操作，以避免模型在训练过程中过滤。我们实际上证明，提案的幻觉可以跨多种对比学习模型，包括MoCoV1&V2、SimCLR和SimSiam，在线性分类协议下表现稳定，从CIFAR10&100、Tiny ImageNet、STL-10和ImageNet上获得了0.3%到3.0%的稳定精度提升。此外，幻觉也可以在预训对象检测和分类等下游任务中实现稳定的提升。
+</details></li>
+</ul>
+<hr>
+<h2 id="The-Imitation-Game-Detecting-Human-and-AI-Generated-Texts-in-the-Era-of-Large-Language-Models"><a href="#The-Imitation-Game-Detecting-Human-and-AI-Generated-Texts-in-the-Era-of-Large-Language-Models" class="headerlink" title="The Imitation Game: Detecting Human and AI-Generated Texts in the Era of Large Language Models"></a>The Imitation Game: Detecting Human and AI-Generated Texts in the Era of Large Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12166">http://arxiv.org/abs/2307.12166</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Kadhim Hayawi, Sakib Shahriar, Sujith Samuel Mathew</li>
+<li>for: 本研究旨在探讨人工智能（AI）基于大型语言模型（LLM）在教育、研究和实践中的潜在潜力，但分辨人类写作和AI生成文本已成为一项重要任务。</li>
+<li>methods: 本研究采用了多种机器学习模型来分类文本，并 introduce了一个新的人类写作和LLM生成文本的数据集，包括了不同类型的文章、短篇小说、诗歌和Python代码。</li>
+<li>results: 结果表明这些机器学习模型在分类文本时表现出色，即使数据集的样本数较少，但在分类GPT生成文本时，特别是在故事写作方面，任务变得更加困难。结果还表明这些模型在二分类任务中，如人类写作与特定LLM之间的分类，表现出更高的性能，而在多类任务中，如分辨人类写作和多个LLM之间的分类，任务变得更加复杂。<details>
+<summary>Abstract</summary>
+The potential of artificial intelligence (AI)-based large language models (LLMs) holds considerable promise in revolutionizing education, research, and practice. However, distinguishing between human-written and AI-generated text has become a significant task. This paper presents a comparative study, introducing a novel dataset of human-written and LLM-generated texts in different genres: essays, stories, poetry, and Python code. We employ several machine learning models to classify the texts. Results demonstrate the efficacy of these models in discerning between human and AI-generated text, despite the dataset's limited sample size. However, the task becomes more challenging when classifying GPT-generated text, particularly in story writing. The results indicate that the models exhibit superior performance in binary classification tasks, such as distinguishing human-generated text from a specific LLM, compared to the more complex multiclass tasks that involve discerning among human-generated and multiple LLMs. Our findings provide insightful implications for AI text detection while our dataset paves the way for future research in this evolving area.
+</details>
+<details>
+<summary>摘要</summary>
+人工智能（AI）基于大型语言模型（LLM）的潜力在教育、研究和实践中具有巨大的推动力。然而，分辨人类写作和AI生成文本已成为一项重要的任务。这篇论文介绍了一项比较研究，推出了一个新的人类写作和LLM生成文本的数据集，包括了不同类型的文章、故事、诗歌和Python代码。我们使用了多种机器学习模型来分类文本。结果表明这些模型在分类人类写作和AI生成文本的任务中具有remarkable的表现，即使数据集的样本数较少。然而，当分类GPT生成文本时，特别是在故事创作中，任务变得更加困难。结果表明这些模型在二分类任务中，如人类写作与特定LLM的分类，表现更加出色，与多类任务，如分类人类写作和多个LLM之间的分类，相比较，任务变得更加复杂。我们的发现对AI文本检测具有深刻的意义，而我们的数据集也为未来这一领域的研究开辟了新的可能性。
+</details></li>
+</ul>
+<hr>
+<h2 id="DIP-RL-Demonstration-Inferred-Preference-Learning-in-Minecraft"><a href="#DIP-RL-Demonstration-Inferred-Preference-Learning-in-Minecraft" class="headerlink" title="DIP-RL: Demonstration-Inferred Preference Learning in Minecraft"></a>DIP-RL: Demonstration-Inferred Preference Learning in Minecraft</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12158">http://arxiv.org/abs/2307.12158</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ellen Novoseller, Vinicius G. Goecks, David Watkins, Josh Miller, Nicholas Waytowich</li>
+<li>For:	+ The paper is written for researchers and practitioners in the field of reinforcement learning and machine learning, particularly those interested in using human demonstrations to guide learning in unstructured and open-ended environments.* Methods:	+ The paper presents Demonstration-Inferred Preference Reinforcement Learning (DIP-RL), a novel algorithm that leverages human demonstrations in three distinct ways: training an autoencoder, seeding reinforcement learning (RL) training batches with demonstration data, and inferring preferences over behaviors to learn a reward function to guide RL.* Results:	+ The paper evaluates DIP-RL in a tree-chopping task in Minecraft, and finds that the method can guide an RL agent to learn a reward function that reflects human preferences. Additionally, DIP-RL performs competitively relative to baselines. Example trajectory rollouts of DIP-RL and baselines are available online.<details>
+<summary>Abstract</summary>
+In machine learning for sequential decision-making, an algorithmic agent learns to interact with an environment while receiving feedback in the form of a reward signal. However, in many unstructured real-world settings, such a reward signal is unknown and humans cannot reliably craft a reward signal that correctly captures desired behavior. To solve tasks in such unstructured and open-ended environments, we present Demonstration-Inferred Preference Reinforcement Learning (DIP-RL), an algorithm that leverages human demonstrations in three distinct ways, including training an autoencoder, seeding reinforcement learning (RL) training batches with demonstration data, and inferring preferences over behaviors to learn a reward function to guide RL. We evaluate DIP-RL in a tree-chopping task in Minecraft. Results suggest that the method can guide an RL agent to learn a reward function that reflects human preferences and that DIP-RL performs competitively relative to baselines. DIP-RL is inspired by our previous work on combining demonstrations and pairwise preferences in Minecraft, which was awarded a research prize at the 2022 NeurIPS MineRL BASALT competition, Learning from Human Feedback in Minecraft. Example trajectory rollouts of DIP-RL and baselines are located at https://sites.google.com/view/dip-rl.
+</details>
+<details>
+<summary>摘要</summary>
+机器学习中的决策过程中，一个算法代理人会在环境中互动，并从环境接收回报信号作为反馈。但在许多不结构化的实际场景中，这种奖励信号是未知的，人们无法可靠地制定一个正确捕捉愿望行为的奖励信号。为解决这类无结构和开放的环境中的任务，我们提出了人示示 preference reinforcement learning（DIP-RL）算法，它利用人类示例的三种方式，包括训练自动编码器、使用示例数据种子RL训练批次，以及从示例数据中推断行为偏好，以学习一个奖励函数，以引导RL。我们在Minecraft中进行了树割任务的评估，结果表明，DIP-RL可以引导一个RL代理人学习一个奖励函数，满足人类的偏好，并且DIP-RL与基elines相比，表现竞争力强。DIP-RL的灵感来自我们在Minecraft中结合示例和对比式偏好的研究，赢得2022年NeurIPS MineRL BASALT大赛的研究奖，《从人类反馈学习在Minecraft》。有关DIP-RL和基elines的示例轨迹演示，请参考https://sites.google.com/view/dip-rl。
+</details></li>
+</ul>
+<hr>
+<h2 id="Emergence-of-Adaptive-Circadian-Rhythms-in-Deep-Reinforcement-Learning"><a href="#Emergence-of-Adaptive-Circadian-Rhythms-in-Deep-Reinforcement-Learning" class="headerlink" title="Emergence of Adaptive Circadian Rhythms in Deep Reinforcement Learning"></a>Emergence of Adaptive Circadian Rhythms in Deep Reinforcement Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12143">http://arxiv.org/abs/2307.12143</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/aqeel13932/mn_project">https://github.com/aqeel13932/mn_project</a></li>
+<li>paper_authors: Aqeel Labash, Florian Fletzer, Daniel Majoral, Raul Vicente</li>
+<li>for: 这个论文的目的是研究深度学习代理人在有可靠 periodic 变化的环境中学习寻食任务时，是否可以emerge circadian-like rhythms。</li>
+<li>methods: 作者使用了深度学习代理人，在一个可靠 periodic 变化的环境中解决寻食任务。在学习过程中，作者系统地Characterize了代理人的行为，并证明了代理人内部的rhythm是自适应的和可调整的。</li>
+<li>results: 研究发现，代理人在学习过程中emerge一种自适应的rhythm，这种rhythm可以适应环境的signal phase的变化，而无需重新训练。此外，作者通过分析bifurcation和相对应 Curve的方法，表明了人工神经元的动力学特性是支持内部 rhythm 的内化的关键。<details>
+<summary>Abstract</summary>
+Adapting to regularities of the environment is critical for biological organisms to anticipate events and plan. A prominent example is the circadian rhythm corresponding to the internalization by organisms of the $24$-hour period of the Earth's rotation. In this work, we study the emergence of circadian-like rhythms in deep reinforcement learning agents. In particular, we deployed agents in an environment with a reliable periodic variation while solving a foraging task. We systematically characterize the agent's behavior during learning and demonstrate the emergence of a rhythm that is endogenous and entrainable. Interestingly, the internal rhythm adapts to shifts in the phase of the environmental signal without any re-training. Furthermore, we show via bifurcation and phase response curve analyses how artificial neurons develop dynamics to support the internalization of the environmental rhythm. From a dynamical systems view, we demonstrate that the adaptation proceeds by the emergence of a stable periodic orbit in the neuron dynamics with a phase response that allows an optimal phase synchronisation between the agent's dynamics and the environmental rhythm.
+</details>
+<details>
+<summary>摘要</summary>
+适应环境的规律是生物体可能预测事件和规划的关键。一个明显的例子是Circadian rhythm，即生物体内化地球的24小时轮征。在这项工作中，我们研究了深度强化学习代理人在环境中的Circadian-like rhythm的出现。特别是，我们在一个可靠的周期变化环境中部署了代理人，并解决了捕食任务。我们系统地描述了代理人在学习过程中的行为，并证明了代理人内生的频率可以适应环境的阶段变化，而无需重新训练。此外，我们通过分支和相对响应曲线分析，展示了人工神经元发展的动力学支持内化环境的频率。从动态系统的视角来看，我们证明了适应过程中的稳定 periodic orbit 在神经元动力学中出现，并且该频率允许代理人的动力学和环境频率进行优化的相对同步。
+</details></li>
+</ul>
+<hr>
+<h2 id="Route-Planning-Using-Nature-Inspired-Algorithms"><a href="#Route-Planning-Using-Nature-Inspired-Algorithms" class="headerlink" title="Route Planning Using Nature-Inspired Algorithms"></a>Route Planning Using Nature-Inspired Algorithms</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12133">http://arxiv.org/abs/2307.12133</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Priyansh Saxena, Raahat Gupta, Akshat Maheshwari</li>
+<li>for: 本文主要用于介绍 Nature-Inspired Algorithms（NIAs），以及它们在路径规划问题中的应用。</li>
+<li>methods: 本文使用了多种 Nature-Inspired Algorithms，包括遗传算法、社会间气候算法、蜂群算法等。</li>
+<li>results: 本文通过对路径规划问题的解决，显示了 NIAs 的优化性和可靠性。<details>
+<summary>Abstract</summary>
+There are many different heuristic algorithms for solving combinatorial optimization problems that are commonly described as Nature-Inspired Algorithms (NIAs). Generally, they are inspired by some natural phenomenon, and due to their inherent converging and stochastic nature, they are known to give optimal results when compared to classical approaches. There are a large number of applications of NIAs, perhaps the most popular being route planning problems in robotics - problems that require a sequence of translation and rotation steps from the start to the goal in an optimized manner while avoiding obstacles in the environment. In this chapter, we will first give an overview of Nature-Inspired Algorithms, followed by their classification and common examples. We will then discuss how the NIAs have applied to solve the route planning problem.
+</details>
+<details>
+<summary>摘要</summary>
+《自然引导算法》是解决 combinatorial optimization 问题的多种不同规则算法。通常它们是根据自然现象 inspirited，因为它们的内置的叠合和随机性，可以给出优化的结果，比 класси方法更好。有很多应用的NIAs，最受欢迎的是机器人路径规划问题——需要从起始点到目标点按一个优化的轨迹和旋转步骤，避免环境中的障碍物。本章首先给出了 Nature-Inspired Algorithms 的概述，然后分类和常见的例子，最后讨论了 NIAs 如何应用于路径规划问题。
+</details></li>
+</ul>
+<hr>
+<h2 id="AI-on-the-Road-A-Comprehensive-Analysis-of-Traffic-Accidents-and-Accident-Detection-System-in-Smart-Cities"><a href="#AI-on-the-Road-A-Comprehensive-Analysis-of-Traffic-Accidents-and-Accident-Detection-System-in-Smart-Cities" class="headerlink" title="AI on the Road: A Comprehensive Analysis of Traffic Accidents and Accident Detection System in Smart Cities"></a>AI on the Road: A Comprehensive Analysis of Traffic Accidents and Accident Detection System in Smart Cities</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.12128">http://arxiv.org/abs/2307.12128</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Victor Adewopo, Nelly Elsayed, Zag Elsayed, Murat Ozer, Victoria Wangia-Anderson, Ahmed Abdelgawad</li>
+<li>for: 这篇论文主要是为了提高交通管理和交通事故预防。</li>
+<li>methods: 该论文提出了一种基于交通监测摄像头和动作识别系统的交通事故探测和应对方案。</li>
+<li>results: 该方案可以减少交通事故的频率和严重程度，提高交通管理的效率和安全性。<details>
+<summary>Abstract</summary>
+Accident detection and traffic analysis is a critical component of smart city and autonomous transportation systems that can reduce accident frequency, severity and improve overall traffic management. This paper presents a comprehensive analysis of traffic accidents in different regions across the United States using data from the National Highway Traffic Safety Administration (NHTSA) Crash Report Sampling System (CRSS). To address the challenges of accident detection and traffic analysis, this paper proposes a framework that uses traffic surveillance cameras and action recognition systems to detect and respond to traffic accidents spontaneously. Integrating the proposed framework with emergency services will harness the power of traffic cameras and machine learning algorithms to create an efficient solution for responding to traffic accidents and reducing human errors. Advanced intelligence technologies, such as the proposed accident detection systems in smart cities, will improve traffic management and traffic accident severity. Overall, this study provides valuable insights into traffic accidents in the US and presents a practical solution to enhance the safety and efficiency of transportation systems.
+</details>
+<details>
+<summary>摘要</summary>
+意外探测和交通分析是智能城市和自动化交通系统的关键组成部分，可以降低意外频率、严重程度并改善总体交通管理。这篇论文对美国各地的交通意外进行了全面分析，使用国家公路安全管理局（NHTSA）的交通事故报告采样系统（CRSS）的数据。为了解决意外探测和交通分析的挑战，这篇论文提出了一个框架，该框架使用交通监测摄像头和动作认知系统来自动探测和应对交通意外。将该框架与急救服务集成，可以利用交通摄像头和机器学习算法来创造一个高效的交通意外应急处理解决方案。智能技术，如提议的交通意外探测系统，将改善交通管理和交通意外严重程度。总之，这篇研究对美国交通意外提供了有价值的意见，并提出了一个实用的解决方案，以提高交通系统的安全性和效率。
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/07/23/cs.AI_2023_07_23/" data-id="clmvt7t6y000z26rd05x67b75" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/07/23/cs.CV_2023_07_23/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cs.CV - 2023-07-23
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/07/23/cs.CL_2023_07_23/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.CL - 2023-07-23</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">21</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">150</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

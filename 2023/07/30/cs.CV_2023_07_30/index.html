@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CV - 2023-07-30 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="3D Medical Image Segmentation with Sparse Annotation via Cross-Teaching between 3D and 2D Networks paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2307.16256 repo_url: https:&#x2F;&#x2F;github.com&#x2F;hengcai-nju&#x2F;3d2dct paper_auth">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CV - 2023-07-30">
+<meta property="og:url" content="https://nullscc.github.io/2023/07/30/cs.CV_2023_07_30/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="3D Medical Image Segmentation with Sparse Annotation via Cross-Teaching between 3D and 2D Networks paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2307.16256 repo_url: https:&#x2F;&#x2F;github.com&#x2F;hengcai-nju&#x2F;3d2dct paper_auth">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-30T13:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-23T08:42:24.498Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CV_2023_07_30" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/07/30/cs.CV_2023_07_30/" class="article-date">
+  <time datetime="2023-07-30T13:00:00.000Z" itemprop="datePublished">2023-07-30</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CV/">cs.CV</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CV - 2023-07-30
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="3D-Medical-Image-Segmentation-with-Sparse-Annotation-via-Cross-Teaching-between-3D-and-2D-Networks"><a href="#3D-Medical-Image-Segmentation-with-Sparse-Annotation-via-Cross-Teaching-between-3D-and-2D-Networks" class="headerlink" title="3D Medical Image Segmentation with Sparse Annotation via Cross-Teaching between 3D and 2D Networks"></a>3D Medical Image Segmentation with Sparse Annotation via Cross-Teaching between 3D and 2D Networks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16256">http://arxiv.org/abs/2307.16256</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/hengcai-nju/3d2dct">https://github.com/hengcai-nju/3d2dct</a></li>
+<li>paper_authors: Heng Cai, Lei Qi, Qian Yu, Yinghuan Shi, Yang Gao</li>
+<li>for: 这篇研究旨在提高医疗影像分类中的准确率，减少annotations的需求。</li>
+<li>methods: 我们提出了一个基于cross-teaching的框架，可以从简少的标注中学习。我们还开发了两种pseudo label选择策略，协助提高模型的准确率。</li>
+<li>results: 我们的方法在MMWHS dataset上实验显示，较进一步于现有的半Supervised分类方法。更进一步，我们的方法可以与完全Supervised方法的最佳结果相匹配。<details>
+<summary>Abstract</summary>
+Medical image segmentation typically necessitates a large and precisely annotated dataset. However, obtaining pixel-wise annotation is a labor-intensive task that requires significant effort from domain experts, making it challenging to obtain in practical clinical scenarios. In such situations, reducing the amount of annotation required is a more practical approach. One feasible direction is sparse annotation, which involves annotating only a few slices, and has several advantages over traditional weak annotation methods such as bounding boxes and scribbles, as it preserves exact boundaries. However, learning from sparse annotation is challenging due to the scarcity of supervision signals. To address this issue, we propose a framework that can robustly learn from sparse annotation using the cross-teaching of both 3D and 2D networks. Considering the characteristic of these networks, we develop two pseudo label selection strategies, which are hard-soft confidence threshold and consistent label fusion. Our experimental results on the MMWHS dataset demonstrate that our method outperforms the state-of-the-art (SOTA) semi-supervised segmentation methods. Moreover, our approach achieves results that are comparable to the fully-supervised upper bound result.
+</details>
+<details>
+<summary>摘要</summary>
+医学图像分割通常需要大量精确标注数据。然而，获取像素级标注是一项劳动密集的任务，需要培训领域专家投入大量时间和精力，在实践医疗场景中很困难。在这种情况下，减少标注量是一个更实际的方法。一种可行的方向是稀疏标注，即只标注一些剖面，具有许多优势，比如精确边界保持。然而，从稀疏标注学习是一项挑战，因为缺乏监督信号。为解决这个问题，我们提出了一种可靠地从稀疏标注学习的框架，基于3D和2D网络的交叉教学。由于这些网络的特点，我们开发了两种pseudo标签选择策略：固定-软信号阈值和一致性标签合并。我们在MMWHS数据集上进行实验，得到的结果表明，我们的方法在比较 semi-supervised segmentation 方法的State-of-the-art（SOTA）之上升起了。此外，我们的方法可以与完全监督Upper bound（UB）的结果相比。
+</details></li>
+</ul>
+<hr>
+<h2 id="Count-Decode-and-Fetch-A-New-Approach-to-Handwritten-Chinese-Character-Error-Correction"><a href="#Count-Decode-and-Fetch-A-New-Approach-to-Handwritten-Chinese-Character-Error-Correction" class="headerlink" title="Count, Decode and Fetch: A New Approach to Handwritten Chinese Character Error Correction"></a>Count, Decode and Fetch: A New Approach to Handwritten Chinese Character Error Correction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16253">http://arxiv.org/abs/2307.16253</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Pengfei Hu, Jiefeng Ma, Zhenrong Zhang, Jun Du, Jianshu Zhang</li>
+<li>for: 提高手写中文字识别率</li>
+<li>methods: 使用计数器、解码器和搜索器</li>
+<li>results: 提高手写中文字识别率，可以更好地识别未看过的错误字符<details>
+<summary>Abstract</summary>
+Recently, handwritten Chinese character error correction has been greatly improved by employing encoder-decoder methods to decompose a Chinese character into an ideographic description sequence (IDS). However, existing methods implicitly capture and encode linguistic information inherent in IDS sequences, leading to a tendency to generate IDS sequences that match seen characters. This poses a challenge when dealing with an unseen misspelled character, as the decoder may generate an IDS sequence that matches a seen character instead. Therefore, we introduce Count, Decode and Fetch (CDF), a novel approach that exhibits better generalization towards unseen misspelled characters. CDF is mainly composed of three parts: the counter, the decoder, and the fetcher. In the first stage, the counter predicts the number of each radical class without the symbol-level position annotations. In the second stage, the decoder employs the counting information and generates the IDS sequence step by step. Moreover, by updating the counting information at each time step, the decoder becomes aware of the existence of each radical. With the decomposed IDS sequence, we can determine whether the given character is misspelled. If it is misspelled, the fetcher under the transductive transfer learning strategy predicts the ideal character that the user originally intended to write. We integrate our method into existing encoder-decoder models and significantly enhance their performance.
+</details>
+<details>
+<summary>摘要</summary>
+In the first stage, the counter predicts the number of each radical class without the symbol-level position annotations. In the second stage, the decoder employs the counting information and generates the IDS sequence step by step. Moreover, by updating the counting information at each time step, the decoder becomes aware of the existence of each radical. With the decomposed IDS sequence, we can determine whether the given character is misspelled. If it is misspelled, the fetcher under the transductive transfer learning strategy predicts the ideal character that the user originally intended to write. We integrate our method into existing encoder-decoder models and significantly enhance their performance.
+</details></li>
+</ul>
+<hr>
+<h2 id="SR-R-2-KAC-Improving-Single-Image-Defocus-Deblurring"><a href="#SR-R-2-KAC-Improving-Single-Image-Defocus-Deblurring" class="headerlink" title="SR-R$^2$KAC: Improving Single Image Defocus Deblurring"></a>SR-R$^2$KAC: Improving Single Image Defocus Deblurring</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16242">http://arxiv.org/abs/2307.16242</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Peng Tang, Zhiqiang Xu, Pengfei Wei, Xiaobin Hu, Peilin Zhao, Xin Cao, Chunlai Zhou, Tobias Lasser<br>for:The paper proposes an efficient deep learning method for single image defocus deblurring (SIDD) to address the issue of large blurs.methods:The proposed method, called R$^2$KAC, builds on the inverse kernel properties and uses a combination of kernel-sharing atrous convolutions and recursive atrous convolutions to simulate a large inverse kernel. The method also includes identity shortcuts to alleviate ringing artifacts and a scale recurrent module to exploit multi-scale information.results:The proposed method achieves the state-of-the-art performance on SIDD tasks, outperforming other existing methods.<details>
+<summary>Abstract</summary>
+We propose an efficient deep learning method for single image defocus deblurring (SIDD) by further exploring inverse kernel properties. Although the current inverse kernel method, i.e., kernel-sharing parallel atrous convolution (KPAC), can address spatially varying defocus blurs, it has difficulty in handling large blurs of this kind. To tackle this issue, we propose a Residual and Recursive Kernel-sharing Atrous Convolution (R$^2$KAC). R$^2$KAC builds on a significant observation of inverse kernels, that is, successive use of inverse-kernel-based deconvolutions with fixed size helps remove unexpected large blurs but produces ringing artifacts. Specifically, on top of kernel-sharing atrous convolutions used to simulate multi-scale inverse kernels, R$^2$KAC applies atrous convolutions recursively to simulate a large inverse kernel. Specifically, on top of kernel-sharing atrous convolutions, R$^2$KAC stacks atrous convolutions recursively to simulate a large inverse kernel. To further alleviate the contingent effect of recursive stacking, i.e., ringing artifacts, we add identity shortcuts between atrous convolutions to simulate residual deconvolutions. Lastly, a scale recurrent module is embedded in the R$^2$KAC network, leading to SR-R$^2$KAC, so that multi-scale information from coarse to fine is exploited to progressively remove the spatially varying defocus blurs. Extensive experimental results show that our method achieves the state-of-the-art performance.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出了一种高效的深度学习方法，用于单张图像杂斑去振荡（SIDD），通过进一步探索 inverse kernel 性质。现有的 inverse kernel 方法，即 kernel-sharing parallel atrous convolution（KPAC），可以处理空间变化的杂斑干扰，但在处理大范围杂斑时存在困难。为解决这问题，我们提出了 Residual and Recursive Kernel-sharing Atrous Convolution（R$^2$KAC）。R$^2$KAC 基于 inverse kernel 的重要观察，即 successive use of inverse-kernel-based deconvolutions with fixed size 可以消除意外大杂斑，但会生成环形artefacts。在 kernel-sharing atrous convolutions 上进一步堆叠 atrous convolutions，R$^2$KAC 可以模拟大型 inverse kernel。为了进一步减少堆叠效应的影响，我们添加了 identity shortcuts between atrous convolutions，以便模拟 residual deconvolutions。最后，我们在 R$^2$KAC 网络中添加了 scale recurrent module，导致 SR-R$^2$KAC，以便利用 multi-scale information from coarse to fine 来逐步除去空间变化的杂斑干扰。我们的方法在实验中达到了状态盘的性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="InfoStyler-Disentanglement-Information-Bottleneck-for-Artistic-Style-Transfer"><a href="#InfoStyler-Disentanglement-Information-Bottleneck-for-Artistic-Style-Transfer" class="headerlink" title="InfoStyler: Disentanglement Information Bottleneck for Artistic Style Transfer"></a>InfoStyler: Disentanglement Information Bottleneck for Artistic Style Transfer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16227">http://arxiv.org/abs/2307.16227</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yueming Lyu, Yue Jiang, Bo Peng, Jing Dong</li>
+<li>for: 这篇论文的目的是提出一种新的信息离散学习方法，以实现高质量的艺术风格转移。</li>
+<li>methods: 该方法基于一种名为InfoStyler的新信息离散学习方法，该方法通过从预训练编码网络中捕捉最小充分的信息来捕捉内容特征和风格特征的分离。</li>
+<li>results: 对比于传统的转移模块方法，InfoStyler可以更好地保持内容结构的稳定性，同时也可以增加风格特征的多样性。实验证明，InfoStyler可以生成高质量的风格转移图像。<details>
+<summary>Abstract</summary>
+Artistic style transfer aims to transfer the style of an artwork to a photograph while maintaining its original overall content. Many prior works focus on designing various transfer modules to transfer the style statistics to the content image. Although effective, ignoring the clear disentanglement of the content features and the style features from the first beginning, they have difficulty in balancing between content preservation and style transferring. To tackle this problem, we propose a novel information disentanglement method, named InfoStyler, to capture the minimal sufficient information for both content and style representations from the pre-trained encoding network. InfoStyler formulates the disentanglement representation learning as an information compression problem by eliminating style statistics from the content image and removing the content structure from the style image. Besides, to further facilitate disentanglement learning, a cross-domain Information Bottleneck (IB) learning strategy is proposed by reconstructing the content and style domains. Extensive experiments demonstrate that our InfoStyler can synthesize high-quality stylized images while balancing content structure preservation and style pattern richness.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>> traslate the given text into Simplified Chinese.<</SYS>>艺术风格转移目标是将艺术作品的风格转移到照片中，保持原始内容的整体结构。许多先前的工作都是设计多种转移模块，以将风格统计传输到内容图像中。虽然有效，但忽略了初始阶段分离内容特征和风格特征的清晰分离，因此困难保持内容保持和风格传输的平衡。为解决这个问题，我们提出了一种新的信息分解方法，即InfoStyler，以捕捉预训练编码网络中最少够的信息来表示内容和风格表示。InfoStyler将分解表示学习定义为信息压缩问题，从内容图像中除去风格统计，并从风格图像中除去内容结构。此外，为进一步促进分解学习，我们提出了跨域信息瓶颈（IB）学习策略，通过重建内容和风格域来进行跨域信息瓶颈学习。广泛的实验表明，我们的InfoStyler可以生成高质量风格化图像，同时保持内容结构和风格特征的平衡。
+</details></li>
+</ul>
+<hr>
+<h2 id="ScribbleVC-Scribble-supervised-Medical-Image-Segmentation-with-Vision-Class-Embedding"><a href="#ScribbleVC-Scribble-supervised-Medical-Image-Segmentation-with-Vision-Class-Embedding" class="headerlink" title="ScribbleVC: Scribble-supervised Medical Image Segmentation with Vision-Class Embedding"></a>ScribbleVC: Scribble-supervised Medical Image Segmentation with Vision-Class Embedding</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16226">http://arxiv.org/abs/2307.16226</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/huanglizi/scribblevc">https://github.com/huanglizi/scribblevc</a></li>
+<li>paper_authors: Zihan Li, Yuan Zheng, Xiangde Luo, Dandan Shan, Qingqi Hong</li>
+<li>for: 这个研究旨在提高医疗影像分类的精度和效率，以便于诊断、治疗规划和病情监控。</li>
+<li>methods: 本研究提出了一个名为ScribbleVC的新框架，它利用了视觉和分类嵌入，并通过多 modal 资讯增强机制来提高视觉特征提取。此外，ScribbleVC 将 CNN 特征和 transformer 特征 uniformly 利用，以获得更好的视觉特征提取。</li>
+<li>results: 我们在三个 benchmark 数据集上评估了ScribbleVC，并与现有的方法进行比较。结果显示，我们的方法在精度、Robustness 和效率三方面都超过了现有的方法。<details>
+<summary>Abstract</summary>
+Medical image segmentation plays a critical role in clinical decision-making, treatment planning, and disease monitoring. However, accurate segmentation of medical images is challenging due to several factors, such as the lack of high-quality annotation, imaging noise, and anatomical differences across patients. In addition, there is still a considerable gap in performance between the existing label-efficient methods and fully-supervised methods. To address the above challenges, we propose ScribbleVC, a novel framework for scribble-supervised medical image segmentation that leverages vision and class embeddings via the multimodal information enhancement mechanism. In addition, ScribbleVC uniformly utilizes the CNN features and Transformer features to achieve better visual feature extraction. The proposed method combines a scribble-based approach with a segmentation network and a class-embedding module to produce accurate segmentation masks. We evaluate ScribbleVC on three benchmark datasets and compare it with state-of-the-art methods. The experimental results demonstrate that our method outperforms existing approaches in terms of accuracy, robustness, and efficiency. The datasets and code are released on GitHub.
+</details>
+<details>
+<summary>摘要</summary>
+医疗影像分割在临床决策、治疗规划和疾病监测中扮演着关键的角色。然而，准确地分割医疗影像受到多种因素的限制，包括高质量注释缺乏、成像噪声和患者间解剖学差异。此外，现有的标签效率方法和全标签方法之间还存在显著的性能差距。为了解决以上挑战，我们提出了ScribbleVC，一种基于scribble的医疗影像分割框架。此外，ScribbleVC通过多Modal信息增强机制来利用视觉和类嵌入。我们还 uniformmente利用CNN特征和Transformer特征来提取更好的视觉特征。我们的方法将scribble-based Approach与分割网络和类嵌入模块结合，以生成准确的分割mask。我们在三个标准数据集上测试了我们的方法，并与现有方法进行比较。实验结果表明，我们的方法在准确性、稳定性和效率方面都超过了现有的方法。我们在GitHub上发布了数据集和代码。
+</details></li>
+</ul>
+<hr>
+<h2 id="Unsupervised-Decomposition-Networks-for-Bias-Field-Correction-in-MR-Image"><a href="#Unsupervised-Decomposition-Networks-for-Bias-Field-Correction-in-MR-Image" class="headerlink" title="Unsupervised Decomposition Networks for Bias Field Correction in MR Image"></a>Unsupervised Decomposition Networks for Bias Field Correction in MR Image</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16219">http://arxiv.org/abs/2307.16219</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/leongdong/bias-decomposition-networks">https://github.com/leongdong/bias-decomposition-networks</a></li>
+<li>paper_authors: Dong Liang, Xingyu Qiu, Kuanquan Wang, Gongning Luo, Wei Wang, Yashu Liu</li>
+<li>For: The paper aims to propose a novel unsupervised decomposition network to correct bias fields in magnetic resonance (MR) images, which are degraded by intensity inhomogeneity caused by imperfect MR devices or imaged objects.* Methods: The proposed method consists of a segmentation part and an estimation part, which are optimized alternately. The segmentation part predicts the probability of every pixel belonging to each class, while the estimation part calculates the bias field. The loss functions used in the method are based on the combination of fuzzy clustering and the multiplicative bias field, which introduce smoothness of the bias field and construct soft relationships among different classes under intra-consistency constraints.* Results: The proposed method can accurately estimate bias fields and produce better bias correction results, as demonstrated by extensive experiments. The code for the proposed method is available on the link: <a target="_blank" rel="noopener" href="https://github.com/LeongDong/Bias-Decomposition-Networks">https://github.com/LeongDong/Bias-Decomposition-Networks</a>.<details>
+<summary>Abstract</summary>
+Bias field, which is caused by imperfect MR devices or imaged objects, introduces intensity inhomogeneity into MR images and degrades the performance of MR image analysis methods. Many retrospective algorithms were developed to facilitate the bias correction, to which the deep learning-based methods outperformed. However, in the training phase, the supervised deep learning-based methods heavily rely on the synthesized bias field. As the formation of the bias field is extremely complex, it is difficult to mimic the true physical property of MR images by synthesized data. While bias field correction and image segmentation are strongly related, the segmentation map is precisely obtained by decoupling the bias field from the original MR image, and the bias value is indicated by the segmentation map in reverse. Thus, we proposed novel unsupervised decomposition networks that are trained only with biased data to obtain the bias-free MR images. Networks are made up of: a segmentation part to predict the probability of every pixel belonging to each class, and an estimation part to calculate the bias field, which are optimized alternately. Furthermore, loss functions based on the combination of fuzzy clustering and the multiplicative bias field are also devised. The proposed loss functions introduce the smoothness of bias field and construct the soft relationships among different classes under intra-consistency constraints. Extensive experiments demonstrate that the proposed method can accurately estimate bias fields and produce better bias correction results. The code is available on the link: https://github.com/LeongDong/Bias-Decomposition-Networks.
+</details>
+<details>
+<summary>摘要</summary>
+��ubble field, which is caused by imperfect MR devices or imaged objects, introduces intensity inhomogeneity into MR images and degrades the performance of MR image analysis methods. Many retrospective algorithms were developed to facilitate the bias correction, to which the deep learning-based methods outperformed. However, in the training phase, the supervised deep learning-based methods heavily rely on the synthesized bias field. As the formation of the bias field is extremely complex, it is difficult to mimic the true physical property of MR images by synthesized data. While bias field correction and image segmentation are strongly related, the segmentation map is precisely obtained by decoupling the bias field from the original MR image, and the bias value is indicated by the segmentation map in reverse. Thus, we proposed novel unsupervised decomposition networks that are trained only with biased data to obtain the bias-free MR images. Networks are made up of: a segmentation part to predict the probability of every pixel belonging to each class, and an estimation part to calculate the bias field, which are optimized alternately. Furthermore, loss functions based on the combination of fuzzy clustering and the multiplicative bias field are also devised. The proposed loss functions introduce the smoothness of bias field and construct the soft relationships among different classes under intra-consistency constraints. Extensive experiments demonstrate that the proposed method can accurately estimate bias fields and produce better bias correction results. Code available at: https://github.com/LeongDong/Bias-Decomposition-Networks.
+</details></li>
+</ul>
+<hr>
+<h2 id="Mesh-Density-Adaptation-for-Template-based-Shape-Reconstruction"><a href="#Mesh-Density-Adaptation-for-Template-based-Shape-Reconstruction" class="headerlink" title="Mesh Density Adaptation for Template-based Shape Reconstruction"></a>Mesh Density Adaptation for Template-based Shape Reconstruction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16205">http://arxiv.org/abs/2307.16205</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ycjungsubhuman/density-adaptation">https://github.com/ycjungsubhuman/density-adaptation</a></li>
+<li>paper_authors: Yucheol Jung, Hyomin Kim, Gyeongha Hwang, Seung-Hwan Baek, Seungyong Lee</li>
+<li>for: 3D shape reconstruction based on template mesh deformation</li>
+<li>methods: 使用规则化方法（如平滑能量）引导重建向度，并提出了一种 mesh 密度适应方法来解决 mesh 缺失问题</li>
+<li>results: 比对无 mesh 密度适应方法和 mesh 密度适应方法的重建结果，结果显示 mesh 密度适应方法能够提高重建精度。<details>
+<summary>Abstract</summary>
+In 3D shape reconstruction based on template mesh deformation, a regularization, such as smoothness energy, is employed to guide the reconstruction into a desirable direction. In this paper, we highlight an often overlooked property in the regularization: the vertex density in the mesh. Without careful control on the density, the reconstruction may suffer from under-sampling of vertices near shape details. We propose a novel mesh density adaptation method to resolve the under-sampling problem. Our mesh density adaptation energy increases the density of vertices near complex structures via deformation to help reconstruction of shape details. We demonstrate the usability and performance of mesh density adaptation with two tasks, inverse rendering and non-rigid surface registration. Our method produces more accurate reconstruction results compared to the cases without mesh density adaptation.
+</details>
+<details>
+<summary>摘要</summary>
+在基于模板网格塑形的3D形状重建中，常用一种正则化方法，如平滑能量，以导向重建向 Desirable 方向。在这篇文章中，我们强调了常被忽略的属性在正则化中：网格中的顶点密度。如果不当控制密度，则重建可能会受到形状细节附近的顶点下折。我们提议一种新的网格密度适应方法，以解决这个问题。我们的网格密度适应能量通过塑形来增加顶点密度，以便重建形状细节。我们示出了使用这种方法的可用性和性能，通过对 inverse rendering 和非刚体表面 региSTR 进行比较。我们的方法可以提供更高精度的重建结果，比不使用网格密度适应的情况更好。
+</details></li>
+</ul>
+<hr>
+<h2 id="Open-Set-Domain-Adaptation-with-Visual-Language-Foundation-Models"><a href="#Open-Set-Domain-Adaptation-with-Visual-Language-Foundation-Models" class="headerlink" title="Open-Set Domain Adaptation with Visual-Language Foundation Models"></a>Open-Set Domain Adaptation with Visual-Language Foundation Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16204">http://arxiv.org/abs/2307.16204</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Qing Yu, Go Irie, Kiyoharu Aizawa</li>
+<li>for: 这个研究旨在应用开放集成领域数据预测（ODA）来识别目标领域中的未知类别，并使用最新的语言图像基础模型（VLFM）来解决这个问题。</li>
+<li>methods: 本研究使用了一种称为“语言图像对应预测（CLIP）”的新型语言图像基础模型，并将其应用到ODA中。CLIP可以对多种分布Shift进行适应，因此可以帮助ODA模型更好地处理目标领域中的未知类别。</li>
+<li>results: 本研究的结果显示，使用CLIP可以实现State-of-the-art的ODA效果，并且可以帮助ODA模型更好地预测目标领域中的未知类别。<details>
+<summary>Abstract</summary>
+Unsupervised domain adaptation (UDA) has proven to be very effective in transferring knowledge obtained from a source domain with labeled data to a target domain with unlabeled data. Owing to the lack of labeled data in the target domain and the possible presence of unknown classes, open-set domain adaptation (ODA) has emerged as a potential solution to identify these classes during the training phase. Although existing ODA approaches aim to solve the distribution shifts between the source and target domains, most methods fine-tuned ImageNet pre-trained models on the source domain with the adaptation on the target domain. Recent visual-language foundation models (VLFM), such as Contrastive Language-Image Pre-Training (CLIP), are robust to many distribution shifts and, therefore, should substantially improve the performance of ODA. In this work, we explore generic ways to adopt CLIP, a popular VLFM, for ODA. We investigate the performance of zero-shot prediction using CLIP, and then propose an entropy optimization strategy to assist the ODA models with the outputs of CLIP. The proposed approach achieves state-of-the-art results on various benchmarks, demonstrating its effectiveness in addressing the ODA problem.
+</details>
+<details>
+<summary>摘要</summary>
+Unsupervised domain adaptation (UDA) 已经证明可以很有效地将源频道上带有标注数据的知识传递给目标频道上无标注数据。由于目标频道上可能存在未知的类别，开放集频道适应（ODA）已经出现为解决这个问题的可能性。虽然现有的 ODA 方法主要是通过修改源频道上的 ImageNet 预训练模型来解决源和目标频道之间的分布差异，但是这些方法通常是在源频道上进行适应。在这种情况下，我们提出了一种适应 CLIP，一种流行的视觉语言基础模型，的方法。我们 investigate CLIP 的零shot 预测性能，然后提出了一种信息归一化策略来帮助 ODA 模型使用 CLIP 的输出。我们的方法实现了多个 benchmark 上的状态实际结果，证明了它在 ODA 问题中的有效性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Deep-Convolutional-Neural-Networks-with-Zero-Padding-Feature-Extraction-and-Learning"><a href="#Deep-Convolutional-Neural-Networks-with-Zero-Padding-Feature-Extraction-and-Learning" class="headerlink" title="Deep Convolutional Neural Networks with Zero-Padding: Feature Extraction and Learning"></a>Deep Convolutional Neural Networks with Zero-Padding: Feature Extraction and Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16203">http://arxiv.org/abs/2307.16203</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/liubc17/eDCNN_zero_padding">https://github.com/liubc17/eDCNN_zero_padding</a></li>
+<li>paper_authors: Zhi Han, Baichen Liu, Shao-Bo Lin, Ding-Xuan Zhou</li>
+<li>for: 这个论文研究了深度卷积神经网络（DCNN）中零填充的性能。</li>
+<li>methods: 论文首先验证了零填充在特征提取和学习中的角色，并证明了它们在翻译相对性方面发挥作用。然后，论文表明了任何深度全连接神经网络（DFCN）都可以通过DCNN来表示，这表明DCNN在特征提取方面比DFCN更好。</li>
+<li>results: 论文derives了DCNN零填充的通用一致性和学习过程中的翻译不变性。这些结论都被数字实验验证，包括举例和实际数据运行。<details>
+<summary>Abstract</summary>
+This paper studies the performance of deep convolutional neural networks (DCNNs) with zero-padding in feature extraction and learning. After verifying the roles of zero-padding in enabling translation-equivalence, and pooling in its translation-invariance driven nature, we show that with similar number of free parameters, any deep fully connected networks (DFCNs) can be represented by DCNNs with zero-padding. This demonstrates that DCNNs with zero-padding is essentially better than DFCNs in feature extraction. Consequently, we derive universal consistency of DCNNs with zero-padding and show its translation-invariance in the learning process. All our theoretical results are verified by numerical experiments including both toy simulations and real-data running.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Gastrointestinal-Mucosal-Problems-Classification-with-Deep-Learning"><a href="#Gastrointestinal-Mucosal-Problems-Classification-with-Deep-Learning" class="headerlink" title="Gastrointestinal Mucosal Problems Classification with Deep Learning"></a>Gastrointestinal Mucosal Problems Classification with Deep Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16198">http://arxiv.org/abs/2307.16198</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mohammadhasan Goharian, Vahid Goharian, Hamidreza Bolhasani</li>
+<li>for:  Early diagnosis of gastrointestinal mucosal changes to prevent cancers and provide early treatment.</li>
+<li>methods:  Deep learning, specifically Transfer Learning (TL) based on Convolutional Neural Networks (CNNs), was used to predict 8 classes of mucosal changes and anatomical landmarks from endoscopy images.</li>
+<li>results:  The best model achieved 93% accuracy in test images and was applied to real endoscopy and colonoscopy movies to classify problems.<details>
+<summary>Abstract</summary>
+Gastrointestinal mucosal changes can cause cancers after some years and early diagnosing them can be very useful to prevent cancers and early treatment. In this article, 8 classes of mucosal changes and anatomical landmarks including Polyps, Ulcerative Colitis, Esophagitis, Normal Z-Line, Normal Pylorus, Normal Cecum, Dyed Lifted Polyps, and Dyed Lifted Margin were predicted by deep learning. We used neural networks in this article. It is a black box artificial intelligence algorithm that works like a human neural system. In this article, Transfer Learning (TL) based on the Convolutional Neural Networks (CNNs), which is one of the well-known types of neural networks in image processing is used. We compared some famous CNN architecture including VGG, Inception, Xception, and ResNet. Our best model got 93% accuracy in test images. At last, we used our model in some real endoscopy and colonoscopy movies to classify problems.
+</details>
+<details>
+<summary>摘要</summary>
+胃肠内膜变化可能导致癌症，早期诊断可以非常有用，以预防癌症和早期治疗。在这篇文章中，我们预测了8种胃肠内膜变化和解剖学特征，包括膜腺肿（Polyps）、慢性结肠炎（Ulcerative Colitis）、食管炎（Esophagitis）、正常Z-线、正常胃隔（Normal Pylorus）、正常肠隔（Normal Cecum）、染料提取后的膜腺肿（Dyed Lifted Polyps）和染料提取后的边缘（Dyed Lifted Margin）。我们使用了神经网络（Neural Networks）来实现这一点。我们使用了传输学习（Transfer Learning），基于卷积神经网络（Convolutional Neural Networks，CNNs），这是图像处理领域的一种非常知名的神经网络类型。我们比较了一些著名的 CNN 架构，包括 VGG、Inception、Xception 和 ResNet。我们的最佳模型在测试图像中达到了93%的准确率。最后，我们使用了我们的模型在一些真实的窥镜和colonoscopy视频中分类问题。
+</details></li>
+</ul>
+<hr>
+<h2 id="Unified-Model-for-Image-Video-Audio-and-Language-Tasks"><a href="#Unified-Model-for-Image-Video-Audio-and-Language-Tasks" class="headerlink" title="Unified Model for Image, Video, Audio and Language Tasks"></a>Unified Model for Image, Video, Audio and Language Tasks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16184">http://arxiv.org/abs/2307.16184</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/mshukor/unival">https://github.com/mshukor/unival</a></li>
+<li>paper_authors: Mustafa Shukor, Corentin Dancette, Alexandre Rame, Matthieu Cord</li>
+<li>for: 这篇论文的目的是建立一个可以支持多Modalities的大型语言模型（Unified Model），以解决现有的多任务多Modalities问题。</li>
+<li>methods: 该论文提出了一种基于任务均衡和多Modalities课程学习的方法，以有效地把多种任务和模式合并到一个模型中。</li>
+<li>results: 该模型在多个图像和视频文本任务上显示了竞争力的性能，并且可以在不同的模式上进行权值 interpolate 以提高特点表示能力。<details>
+<summary>Abstract</summary>
+Large Language Models (LLMs) have made the ambitious quest for generalist agents significantly far from being a fantasy. A key hurdle for building such general models is the diversity and heterogeneity of tasks and modalities. A promising solution is unification, allowing the support of a myriad of tasks and modalities within one unified framework. While few large models (e.g., Flamingo (Alayrac et al., 2022), trained on massive datasets, can support more than two modalities, current small to mid-scale unified models are still limited to 2 modalities, usually image-text or video-text. The question that we ask is: is it possible to build efficiently a unified model that can support all modalities? To answer this, we propose UnIVAL, a step further towards this ambitious goal. Without relying on fancy datasets sizes or models with billions of parameters, the ~ 0.25B parameter UnIVAL model goes beyond two modalities and unifies text, images, video, and audio into a single model. Our model is efficiently pretrained on many tasks, based on task balancing and multimodal curriculum learning. UnIVAL shows competitive performance to existing state-of-the-art approaches, across image and video-text tasks. The feature representations learned from image and video-text modalities, allows the model to achieve competitive performance when finetuned on audio-text tasks, despite not being pretrained on audio. Thanks to the unified model, we propose a novel study on multimodal model merging via weight interpolation of models trained on different multimodal tasks, showing their benefits in particular for out-of-distribution generalization. Finally, we motivate unification by showing the synergy between tasks. The model weights and code are released here: https://github.com/mshukor/UnIVAL.
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型（LLM）已经让普通的通用代理人变得非常接近现实。一个关键的障碍是任务和模式的多样性和不同性。一个有前途的解决方案是统一，允许支持多种任务和模式的一个统一框架。虽然一些大型模型（例如Flamingo（Alayrac等，2022））已经在庞大数据集上训练，可以支持更多于两种模式，但目前的小至中型统一模型仍然只能支持两种模式，通常是图像文本或视频文本。我们提出的问题是：是否可以效率地建立一个统一模型，可以支持所有模式？为此，我们提出了UnIVAL，这是一步进一步的目标。不需要庞大的数据集或多亿 Parameters的模型，UnIVAL模型只有约0.25B Parameters，可以超越两种模式，并将文本、图像、视频和音频 integrate 到一个模型中。我们的模型通过多任务均衡和多模式学习来快速预训练，并在图像和视频文本任务上达到竞争性性能。通过图像和视频文本模式学习的特征表示，我们的模型可以在没有 direct 预训练的情况下，在音频文本任务上达到竞争性性能。此外，我们还提出了一种基于多模式学习的模型混合方法，通过将不同多模式任务训练的模型权重进行 interpolate 来提高对异常数据的泛化性能。最后，我们鼓励统一，因为任务之间存在相互作用的关系。UnIVAL模型和代码可以在以下链接获取：https://github.com/mshukor/UnIVAL。
+</details></li>
+</ul>
+<hr>
+<h2 id="HD-Fusion-Detailed-Text-to-3D-Generation-Leveraging-Multiple-Noise-Estimation"><a href="#HD-Fusion-Detailed-Text-to-3D-Generation-Leveraging-Multiple-Noise-Estimation" class="headerlink" title="HD-Fusion: Detailed Text-to-3D Generation Leveraging Multiple Noise Estimation"></a>HD-Fusion: Detailed Text-to-3D Generation Leveraging Multiple Noise Estimation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16183">http://arxiv.org/abs/2307.16183</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jinbo Wu, Xiaobo Gao, Xing Liu, Zhengyang Shen, Chen Zhao, Haocheng Feng, Jingtuo Liu, Errui Ding</li>
+<li>for: 本研究旨在利用文本到3D内容生成，通过2D扩散先验来提高生成的3D模型质量和细节。</li>
+<li>methods: 本研究提出了一种新的方法，即结合多个噪声估计过程和预训练2D扩散先验，以实现高分辨率渲染。与Bar-Tal等人的研究不同，我们的方法包括计算分配散射损失（SDS损失和VSD损失），这些损失是关键的技术 для3D内容生成。</li>
+<li>results: 我们对提出的方法进行实验评估，结果显示， compared to基eline，我们的方法可以生成高质量的细节。<details>
+<summary>Abstract</summary>
+In this paper, we study Text-to-3D content generation leveraging 2D diffusion priors to enhance the quality and detail of the generated 3D models. Recent progress (Magic3D) in text-to-3D has shown that employing high-resolution (e.g., 512 x 512) renderings can lead to the production of high-quality 3D models using latent diffusion priors. To enable rendering at even higher resolutions, which has the potential to further augment the quality and detail of the models, we propose a novel approach that combines multiple noise estimation processes with a pretrained 2D diffusion prior. Distinct from the Bar-Tal et al.s' study which binds multiple denoised results to generate images from texts, our approach integrates the computation of scoring distillation losses such as SDS loss and VSD loss which are essential techniques for the 3D content generation with 2D diffusion priors. We experimentally evaluated the proposed approach. The results show that the proposed approach can generate high-quality details compared to the baselines.
+</details>
+<details>
+<summary>摘要</summary>
+在这篇论文中，我们研究了基于2D扩散先验的文本到3D内容生成，以提高生成的3D模型质量和细节。最近的Magic3D进展表明，使用高分辨率（例如512x512）渲染可以生成高质量3D模型使用潜在扩散先验。为了启用更高的分辨率渲染，我们提出了一种新的方法，即将多个雷达抑制过程与预训练的2D扩散先验结合。与巴尔-塔尔等人的研究不同，我们的方法将多个抑制后的结果绑定生成图像，而不是将多个抑制后的结果绑定生成图像。我们实际进行了实验，结果显示，我们的方法可以生成高质量细节，相比于基eline。
+</details></li>
+</ul>
+<hr>
+<h2 id="Fusing-VHR-Post-disaster-Aerial-Imagery-and-LiDAR-Data-for-Roof-Classification-in-the-Caribbean"><a href="#Fusing-VHR-Post-disaster-Aerial-Imagery-and-LiDAR-Data-for-Roof-Classification-in-the-Caribbean" class="headerlink" title="Fusing VHR Post-disaster Aerial Imagery and LiDAR Data for Roof Classification in the Caribbean"></a>Fusing VHR Post-disaster Aerial Imagery and LiDAR Data for Roof Classification in the Caribbean</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16177">http://arxiv.org/abs/2307.16177</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/GFDRR/caribbean-rooftop-classification">https://github.com/GFDRR/caribbean-rooftop-classification</a></li>
+<li>paper_authors: Isabelle Tingzon, Nuala Margaret Cowan, Pierre Chrzanowski</li>
+<li>for: 帮助政府更快地生成 Building Information，以提高区域风险管理和灾害应急应对。</li>
+<li>methods: 利用深度学习技术自动分类 Very High-Resolution orthophotos 和空中 LiDAR 数据，以获取 Dominica ollowing Hurricane Maria 的建筑特征。</li>
+<li>results: 我们的方法可以达到 F1 分数 0.93 和 0.92  для 屋顶类别和材料类别的自动分类，并且融合多 modal 地球观测数据可以达到更高的准确率。<details>
+<summary>Abstract</summary>
+Accurate and up-to-date information on building characteristics is essential for vulnerability assessment; however, the high costs and long timeframes associated with conducting traditional field surveys can be an obstacle to obtaining critical exposure datasets needed for disaster risk management. In this work, we leverage deep learning techniques for the automated classification of roof characteristics from very high-resolution orthophotos and airborne LiDAR data obtained in Dominica following Hurricane Maria in 2017. We demonstrate that the fusion of multimodal earth observation data performs better than using any single data source alone. Using our proposed methods, we achieve F1 scores of 0.93 and 0.92 for roof type and roof material classification, respectively. This work is intended to help governments produce more timely building information to improve resilience and disaster response in the Caribbean.
+</details>
+<details>
+<summary>摘要</summary>
+准确和最新的建筑特征信息是质量评估中的关键因素，但传统的场地调查过程可能会带来高昂的成本和长时间的投入。在这种情况下，我们利用深度学习技术自动分类飞地照片和飞行 LiDAR 数据中的屋顶特征。我们发现多模态地球观测数据的融合性能比单一数据源 alone 更高。我们的提议方法可以达到 F1 分数为 0.93 和 0.92 的精度，用于屋顶类别和材料类别的自动分类。这项工作的目的是帮助政府生成更加准确的建筑信息，以提高加勒比地区的韧性和灾害应急应对。
+</details></li>
+</ul>
+<hr>
+<h2 id="InvVis-Large-Scale-Data-Embedding-for-Invertible-Visualization"><a href="#InvVis-Large-Scale-Data-Embedding-for-Invertible-Visualization" class="headerlink" title="InvVis: Large-Scale Data Embedding for Invertible Visualization"></a>InvVis: Large-Scale Data Embedding for Invertible Visualization</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16176">http://arxiv.org/abs/2307.16176</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Huayuan Ye, Chenhui Li, Yang Li, Changbo Wang</li>
+<li>for: 这个研究是为了实现可逆性的视觉化，即将资料嵌入到视觉图像中，并且能够复原或修改该图像。</li>
+<li>methods: 这个方法使用专门的对应网络来实现高品质的资料嵌入和显示，并且提出了一种新的方法来快速将柱 chart 资料转换为图像形式，以便将大量的资料嵌入到视觉图像中。</li>
+<li>results: 实验结果显示， InvVis 可以实现高品质的资料嵌入和显示，并且可以将大量的资料嵌入到视觉图像中，而且可以复原或修改该图像。<details>
+<summary>Abstract</summary>
+We present InvVis, a new approach for invertible visualization, which is reconstructing or further modifying a visualization from an image. InvVis allows the embedding of a significant amount of data, such as chart data, chart information, source code, etc., into visualization images. The encoded image is perceptually indistinguishable from the original one. We propose a new method to efficiently express chart data in the form of images, enabling large-capacity data embedding. We also outline a model based on the invertible neural network to achieve high-quality data concealing and revealing. We explore and implement a variety of application scenarios of InvVis. Additionally, we conduct a series of evaluation experiments to assess our method from multiple perspectives, including data embedding quality, data restoration accuracy, data encoding capacity, etc. The result of our experiments demonstrates the great potential of InvVis in invertible visualization.
+</details>
+<details>
+<summary>摘要</summary>
+我团队现在提出了一种新的方法，即InvVis，它可以将图像中的数据重构或进一步修改为图像。InvVis可以将大量数据，如图表数据、图表信息、源代码等，嵌入到图像中。编码后的图像与原始图像看不出差异。我们提出了一种新的方法，可以高效地将图表数据转换为图像形式，以实现大容量数据嵌入。我们还 outline了一种基于倒排神经网络的模型，以实现高质量的数据隐藏和恢复。我们在多个应用场景下进行了详细的探索和实现，并进行了多个评估实验，包括数据嵌入质量、数据恢复精度、数据编码容量等方面。实验结果表明，InvVis在 revertible visualization 方面具有很大的潜力。
+</details></li>
+</ul>
+<hr>
+<h2 id="StarSRGAN-Improving-Real-World-Blind-Super-Resolution"><a href="#StarSRGAN-Improving-Real-World-Blind-Super-Resolution" class="headerlink" title="StarSRGAN: Improving Real-World Blind Super-Resolution"></a>StarSRGAN: Improving Real-World Blind Super-Resolution</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16169">http://arxiv.org/abs/2307.16169</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/kynthesis/StarSRGAN">https://github.com/kynthesis/StarSRGAN</a></li>
+<li>paper_authors: Khoa D. Vo, Len T. Bui</li>
+<li>for: 提高图像分辨率 ohne prior knowledge of degradation process</li>
+<li>methods: 使用5种不同的建筑物，包括StarSRGAN模型</li>
+<li>results: 提供新的SOTA性能，在MANLIQA和AHIQ测试中比Real-ESRGAN提高约10%，并提供了实时SR体验。<details>
+<summary>Abstract</summary>
+The aim of blind super-resolution (SR) in computer vision is to improve the resolution of an image without prior knowledge of the degradation process that caused the image to be low-resolution. The State of the Art (SOTA) model Real-ESRGAN has advanced perceptual loss and produced visually compelling outcomes using more complex degradation models to simulate real-world degradations. However, there is still room to improve the super-resolved quality of Real-ESRGAN by implementing recent techniques. This research paper introduces StarSRGAN, a novel GAN model designed for blind super-resolution tasks that utilize 5 various architectures. Our model provides new SOTA performance with roughly 10% better on the MANIQA and AHIQ measures, as demonstrated by experimental comparisons with Real-ESRGAN. In addition, as a compact version, StarSRGAN Lite provides approximately 7.5 times faster reconstruction speed (real-time upsampling from 540p to 4K) but can still keep nearly 90% of image quality, thereby facilitating the development of a real-time SR experience for future research. Our codes are released at https://github.com/kynthesis/StarSRGAN.
+</details>
+<details>
+<summary>摘要</summary>
+目标是提高计算机视觉中的盲超分辨率（SR）图像质量，无需知情减震过程所导致的图像低分辨率。现状的模型Real-ESRGAN已经提出了感知损失，并且生成了视觉吸引人的结果，使用更复杂的减震模型来模拟实际世界中的减震。然而，还有空间可以提高Real-ESRGAN中的超分辨率质量。这个研究论文介绍了StarSRGAN，一种新的GAN模型，用于盲超分辨率任务。我们的模型使用了5种不同的建筑，并提供了新的状态之artefact（SOTA）性能，在MANINQA和AHIQ测试中比Real-ESRGAN提高约10%。此外，StarSRGAN Lite为实时� upsampling提供了约7.5倍 faster的重建速度（从540p到4K），但可以保持 Nearly 90%的图像质量，因此可以促进实时SR经验的发展。我们的代码在https://github.com/kynthesis/StarSRGAN上发布。
+</details></li>
+</ul>
+<hr>
+<h2 id="Motion-Degeneracy-in-Self-supervised-Learning-of-Elevation-Angle-Estimation-for-2D-Forward-Looking-Sonar"><a href="#Motion-Degeneracy-in-Self-supervised-Learning-of-Elevation-Angle-Estimation-for-2D-Forward-Looking-Sonar" class="headerlink" title="Motion Degeneracy in Self-supervised Learning of Elevation Angle Estimation for 2D Forward-Looking Sonar"></a>Motion Degeneracy in Self-supervised Learning of Elevation Angle Estimation for 2D Forward-Looking Sonar</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16160">http://arxiv.org/abs/2307.16160</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yusheng Wang, Yonghoon Ji, Chujie Wu, Hiroshi Tsuchiya, Hajime Asama, Atsushi Yamashita</li>
+<li>for: 本研究旨在实现无需预训练的自主学习方法，以估计SONAR图像中缺失的高程信息。</li>
+<li>methods: 该方法利用现代学习框架，通过分析SONAR图像中的运动场，证明可以在无需synthetic数据预训练的情况下，通过自主学习方式进行高程估计。</li>
+<li>results: 实验和实际应用 validate了提议的方法，并且显示了稳定的自主学习性。<details>
+<summary>Abstract</summary>
+2D forward-looking sonar is a crucial sensor for underwater robotic perception. A well-known problem in this field is estimating missing information in the elevation direction during sonar imaging. There are demands to estimate 3D information per image for 3D mapping and robot navigation during fly-through missions. Recent learning-based methods have demonstrated their strengths, but there are still drawbacks. Supervised learning methods have achieved high-quality results but may require further efforts to acquire 3D ground-truth labels. The existing self-supervised method requires pretraining using synthetic images with 3D supervision. This study aims to realize stable self-supervised learning of elevation angle estimation without pretraining using synthetic images. Failures during self-supervised learning may be caused by motion degeneracy problems. We first analyze the motion field of 2D forward-looking sonar, which is related to the main supervision signal. We utilize a modern learning framework and prove that if the training dataset is built with effective motions, the network can be trained in a self-supervised manner without the knowledge of synthetic data. Both simulation and real experiments validate the proposed method.
+</details>
+<details>
+<summary>摘要</summary>
+2D前Looking陀螺是水下机器人视觉中的重要感知传感器。一个著名的问题在这个领域是在陀螺成像过程中缺失高度方向的信息。有需求将每幅图像中的信息提取到3D格式下，以便进行3D地图生成和机器人导航 durante fly-through任务。现有的学习基于方法已经表现出其优势，但还有一些缺点。监督学习方法可以获得高质量的结果，但可能需要进一步的努力来获得3D的实际 labels。现有的无监督方法需要使用 synthetic 图像进行预训练。本研究旨在实现不需要预训练使用 synthetic 图像的稳定无监督学习高度角度估计。在自主学习过程中出现失败可能是因为运动缺乏问题。我们首先分析了2D前Looking陀螺的运动场，与主要监督信号相关。我们利用现代学习框架，并证明如果训练集建立有效的运动，则网络可以在无监督的情况下在自主学习模式下训练，不需要Synthetic 数据的知识。 both simulation和实际实验 validate 我们的方法。
+</details></li>
+</ul>
+<hr>
+<h2 id="StylePrompter-All-Styles-Need-Is-Attention"><a href="#StylePrompter-All-Styles-Need-Is-Attention" class="headerlink" title="StylePrompter: All Styles Need Is Attention"></a>StylePrompter: All Styles Need Is Attention</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16151">http://arxiv.org/abs/2307.16151</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/i2-multimedia-lab/styleprompter">https://github.com/i2-multimedia-lab/styleprompter</a></li>
+<li>paper_authors: Chenyi Zhuang, Pan Gao, Aljosa Smolic</li>
+<li>for: 这个论文的目标是使用Generative Adversarial Networks（GAN）进行图像归一化，特别是StyleGAN，以获得分离的 latent space，并在该空间进行特征 Editing。</li>
+<li>methods: 这个论文使用了一种转移到Token level的幂等视觉Transformer底层，以及一种Style-driven Multi-scale Adaptive Refinement Transformer（SMART）来修改生成器的中间风格特征。SMART可以从encoder的特征图中检索丢失的标识信息，并且可以高质量地恢复图像。</li>
+<li>results: 实验表明，StylePrompter可以在重建质量和可编辑性之间做出平衡，并且可以”聪明”地适应大多数编辑任务，超过其他 $\mathcal{F}$-参与的恢复方法。<details>
+<summary>Abstract</summary>
+GAN inversion aims at inverting given images into corresponding latent codes for Generative Adversarial Networks (GANs), especially StyleGAN where exists a disentangled latent space that allows attribute-based image manipulation at latent level. As most inversion methods build upon Convolutional Neural Networks (CNNs), we transfer a hierarchical vision Transformer backbone innovatively to predict $\mathcal{W^+}$ latent codes at token level. We further apply a Style-driven Multi-scale Adaptive Refinement Transformer (SMART) in $\mathcal{F}$ space to refine the intermediate style features of the generator. By treating style features as queries to retrieve lost identity information from the encoder's feature maps, SMART can not only produce high-quality inverted images but also surprisingly adapt to editing tasks. We then prove that StylePrompter lies in a more disentangled $\mathcal{W^+}$ and show the controllability of SMART. Finally, quantitative and qualitative experiments demonstrate that StylePrompter can achieve desirable performance in balancing reconstruction quality and editability, and is "smart" enough to fit into most edits, outperforming other $\mathcal{F}$-involved inversion methods.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Video-Frame-Interpolation-with-Flow-Transformer"><a href="#Video-Frame-Interpolation-with-Flow-Transformer" class="headerlink" title="Video Frame Interpolation with Flow Transformer"></a>Video Frame Interpolation with Flow Transformer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16144">http://arxiv.org/abs/2307.16144</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Pan Gao, Haoyue Tian, Jie Qin</li>
+<li>for: 本文是为了提出一种基于Transformer的视频帧 interpolator，以提高视频 interpolating的Visual quality。</li>
+<li>methods: 本文使用了一种叫做Flow Transformer Block的方法，通过计算 temporal self-attention在匹配的Local area中来使用动态学习来捕捉大动作的动态信息。此外，文章还提出了一种多尺度架构来考虑多尺度的动作信息。</li>
+<li>results: 实验结果表明，提出的方法可以在三个标准测试集上生成比state-of-the-art方法更高质量的 interpolated frames。<details>
+<summary>Abstract</summary>
+Video frame interpolation has been actively studied with the development of convolutional neural networks. However, due to the intrinsic limitations of kernel weight sharing in convolution, the interpolated frame generated by it may lose details. In contrast, the attention mechanism in Transformer can better distinguish the contribution of each pixel, and it can also capture long-range pixel dependencies, which provides great potential for video interpolation. Nevertheless, the original Transformer is commonly used for 2D images; how to develop a Transformer-based framework with consideration of temporal self-attention for video frame interpolation remains an open issue. In this paper, we propose Video Frame Interpolation Flow Transformer to incorporate motion dynamics from optical flows into the self-attention mechanism. Specifically, we design a Flow Transformer Block that calculates the temporal self-attention in a matched local area with the guidance of flow, making our framework suitable for interpolating frames with large motion while maintaining reasonably low complexity. In addition, we construct a multi-scale architecture to account for multi-scale motion, further improving the overall performance. Extensive experiments on three benchmarks demonstrate that the proposed method can generate interpolated frames with better visual quality than state-of-the-art methods.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>视频帧 interpolate 已经广泛研究，发展 convolutional neural networks 时，但是由于内在的核心权重共享限制，生成的 interpolated 帧可能会产生细节损失。相比之下，Transformer 中的注意机制可以更好地识别每个像素的贡献，同时也可以捕捉长距离像素相关性，这提供了大量的潜在能量 для 视频 interpolate。然而，原始 Transformer 通常用于 2D 图像；如何开发一个包含 temporal 自注意的 Transformer 框架，以便用于视频帧 interpolate 仍是一个开放的问题。在这篇论文中，我们提出了 Video Frame Interpolation Flow Transformer，即在 optical flows 的指导下，在本地匹配区域内进行 temporal 自注意计算的 Flow Transformer Block。这使得我们的框架适用于大跑动的 interpolated 帧，同时保持reasonably low complexity。此外，我们还构建了多尺度架构，以account for multi-scale motion，进一步提高总性能。经过对三个标准测试集的广泛实验，我们发现提出的方法可以生成比state-of-the-art 方法更高质量的 interpolated 帧。
+</details></li>
+</ul>
+<hr>
+<h2 id="Structure-Preserving-Synthesis-MaskGAN-for-Unpaired-MR-CT-Translation"><a href="#Structure-Preserving-Synthesis-MaskGAN-for-Unpaired-MR-CT-Translation" class="headerlink" title="Structure-Preserving Synthesis: MaskGAN for Unpaired MR-CT Translation"></a>Structure-Preserving Synthesis: MaskGAN for Unpaired MR-CT Translation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16143">http://arxiv.org/abs/2307.16143</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/HieuPhan33/MaskGAN">https://github.com/HieuPhan33/MaskGAN</a></li>
+<li>paper_authors: Minh Hieu Phan, Zhibin Liao, Johan W. Verjans, Minh-Son To</li>
+<li>for: 这篇 paper 的目的是提出一个新的、cost-effective的数据类型转换模型，以便在医疗影像处理中处理不同modalities之间的数据类型转换。</li>
+<li>methods: 这篇 paper 使用了 CycleGAN 方法，并将其与一个辅助的插值网络（mask generator）结合，以便强制运作网络对应于不同modalities之间的数据类型转换。</li>
+<li>results: 实验结果显示，这篇 paper 的方法（MaskGAN）在一个儿童dataset上表现出色，能够对不同modalities之间的数据类型转换进行高精度的Synthesis，并且不需要专业的标注。<details>
+<summary>Abstract</summary>
+Medical image synthesis is a challenging task due to the scarcity of paired data. Several methods have applied CycleGAN to leverage unpaired data, but they often generate inaccurate mappings that shift the anatomy. This problem is further exacerbated when the images from the source and target modalities are heavily misaligned. Recently, current methods have aimed to address this issue by incorporating a supplementary segmentation network. Unfortunately, this strategy requires costly and time-consuming pixel-level annotations. To overcome this problem, this paper proposes MaskGAN, a novel and cost-effective framework that enforces structural consistency by utilizing automatically extracted coarse masks. Our approach employs a mask generator to outline anatomical structures and a content generator to synthesize CT contents that align with these structures. Extensive experiments demonstrate that MaskGAN outperforms state-of-the-art synthesis methods on a challenging pediatric dataset, where MR and CT scans are heavily misaligned due to rapid growth in children. Specifically, MaskGAN excels in preserving anatomical structures without the need for expert annotations. The code for this paper can be found at https://github.com/HieuPhan33/MaskGAN.
+</details>
+<details>
+<summary>摘要</summary>
+医学图像生成是一项具有挑战性的任务，主要因为缺乏匹配数据。许多方法使用 CycleGAN 利用不匹配数据，但它们经常生成不准确的映射，导致图像坐标shift。这个问题在图像来源和目标模式之间的差异极大时更加严重。在这种情况下，当前的方法通常采用了补充性分割网络。然而，这种策略需要成本高昂和时间费时的像素级注释。为了解决这个问题，本文提出了 MaskGAN，一种新的和成本效果的框架。我们的方法使用一个掩蔽生成器来 outline 生物结构，并使用一个内容生成器来Synthesize CT 内容，以适应这些结构。我们进行了广泛的实验，并证明了 MaskGAN 在一个具有挑战性的pediatric dataset上表现出色，特别是在 MR 和 CT 扫描图像之间存在巨大的差异时。具体来说，MaskGAN 能够保持生物结构，不需要专家注释。相关代码可以在 GitHub 上找到：https://github.com/HieuPhan33/MaskGAN。
+</details></li>
+</ul>
+<hr>
+<h2 id="Implicit-Neural-Representation-in-Medical-Imaging-A-Comparative-Survey"><a href="#Implicit-Neural-Representation-in-Medical-Imaging-A-Comparative-Survey" class="headerlink" title="Implicit Neural Representation in Medical Imaging: A Comparative Survey"></a>Implicit Neural Representation in Medical Imaging: A Comparative Survey</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16142">http://arxiv.org/abs/2307.16142</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/mindflow-institue/awesome-implicit-neural-representations-in-medical-imaging">https://github.com/mindflow-institue/awesome-implicit-neural-representations-in-medical-imaging</a></li>
+<li>paper_authors: Amirali Molaei, Amirhossein Aminimehr, Armin Tavakoli, Amirhossein Kazerouni, Bobby Azad, Reza Azad, Dorit Merhof</li>
+<li>for: 这篇论文旨在为医疗图像分析领域提供了一个全面的评论，探讨了隐藏神经表示（INR）在医疗图像分析中的应用。</li>
+<li>methods: 这篇论文使用了隐藏神经网络来parameterize数据，并 explore了INR在医疗图像分析中的各种应用，如图像重建、分割、注册、新视图生成和压缩。</li>
+<li>results: 论文总结了INR在医疗图像分析中的优点和限制，包括其能够解决多个难题、高效、可靠、可调和可迭代性等特点。同时，论文 также提出了将来的研究方向和机遇，如与多Modal imaging、实时交互系统和领域适应等。<details>
+<summary>Abstract</summary>
+Implicit neural representations (INRs) have gained prominence as a powerful paradigm in scene reconstruction and computer graphics, demonstrating remarkable results. By utilizing neural networks to parameterize data through implicit continuous functions, INRs offer several benefits. Recognizing the potential of INRs beyond these domains, this survey aims to provide a comprehensive overview of INR models in the field of medical imaging. In medical settings, numerous challenging and ill-posed problems exist, making INRs an attractive solution. The survey explores the application of INRs in various medical imaging tasks, such as image reconstruction, segmentation, registration, novel view synthesis, and compression. It discusses the advantages and limitations of INRs, highlighting their resolution-agnostic nature, memory efficiency, ability to avoid locality biases, and differentiability, enabling adaptation to different tasks. Furthermore, the survey addresses the challenges and considerations specific to medical imaging data, such as data availability, computational complexity, and dynamic clinical scene analysis. It also identifies future research directions and opportunities, including integration with multi-modal imaging, real-time and interactive systems, and domain adaptation for clinical decision support. To facilitate further exploration and implementation of INRs in medical image analysis, we have provided a compilation of cited studies along with their available open-source implementations on \href{https://github.com/mindflow-institue/Awesome-Implicit-Neural-Representations-in-Medical-imaging}. Finally, we aim to consistently incorporate the most recent and relevant papers regularly.
+</details>
+<details>
+<summary>摘要</summary>
+启发神经表示 (INR) 在场景重建和计算机图形领域已经得到了广泛的应用，并且表现出了惊人的成果。通过使用神经网络来参数化数据通过间接连续函数，INR 提供了多种优点。认识到 INR 在医疗领域的潜在应用，这篇评论旨在提供医疗影像领域中 INR 模型的全面概述。在医疗设置中，存在许多困难和不稳定的问题，使得 INR 成为一个吸引人的解决方案。评论探讨了 INR 在各种医疗影像任务中的应用，如图像重建、分割、注册、新视图生成和压缩。它讨论了 INR 的优点和局限性，包括其无关分辨率的性、内存有效性、避免地方偏见以及可微性，以及其在不同任务中的适应性。此外，评论还讨论了医疗影像数据特有的挑战和考虑因素，如数据可用性、计算复杂度和动态临床场景分析。最后，评论提出了未来研究方向和机会，包括与多模态成像集成、实时交互系统和领域适应性的研究。为便于进一步探索和应用 INR 在医疗影像分析中，我们在 \href{https://github.com/mindflow-institue/Awesome-Implicit-Neural-Representations-in-Medical-imaging} 提供了一份参考文献和其相应的开源实现。我们计划在 réguliére 基础上不断更新和补充最新和最相关的论文。
+</details></li>
+</ul>
+<hr>
+<h2 id="Augmented-Math-Authoring-AR-Based-Explorable-Explanations-by-Augmenting-Static-Math-Textbooks"><a href="#Augmented-Math-Authoring-AR-Based-Explorable-Explanations-by-Augmenting-Static-Math-Textbooks" class="headerlink" title="Augmented Math: Authoring AR-Based Explorable Explanations by Augmenting Static Math Textbooks"></a>Augmented Math: Authoring AR-Based Explorable Explanations by Augmenting Static Math Textbooks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16112">http://arxiv.org/abs/2307.16112</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ucalgary-ilab/augmented-math">https://github.com/ucalgary-ilab/augmented-math</a></li>
+<li>paper_authors: Neil Chulpongsatorn, Mille Skovhus Lunding, Nishan Soni, Ryo Suzuki</li>
+<li>for: 帮助非技术用户，如教师或学生，将静止数学书籍和手册转化为即时和个性化的探索解释。</li>
+<li>methods: 我们的系统首先使用光学字符识别和计算机视觉EXTRACT数学公式和图片FROM given document，然后将这些EXTRACT的内容绑定和操作，让用户通过移动AR界面看到交互动画 overlay onto the document。</li>
+<li>results: 我们的研究表明，我们的系统可以帮助学生更好地理解数学概念，并且允许非技术用户创建个性化的探索解释。<details>
+<summary>Abstract</summary>
+We introduce Augmented Math, a machine learning-based approach to authoring AR explorable explanations by augmenting static math textbooks without programming. To augment a static document, our system first extracts mathematical formulas and figures from a given document using optical character recognition (OCR) and computer vision. By binding and manipulating these extracted contents, the user can see the interactive animation overlaid onto the document through mobile AR interfaces. This empowers non-technical users, such as teachers or students, to transform existing math textbooks and handouts into on-demand and personalized explorable explanations. To design our system, we first analyzed existing explorable math explanations to identify common design strategies. Based on the findings, we developed a set of augmentation techniques that can be automatically generated based on the extracted content, which are 1) dynamic values, 2) interactive figures, 3) relationship highlights, 4) concrete examples, and 5) step-by-step hints. To evaluate our system, we conduct two user studies: preliminary user testing and expert interviews. The study results confirm that our system allows more engaging experiences for learning math concepts.
+</details>
+<details>
+<summary>摘要</summary>
+我们介绍了增强数学（Augmented Math），一种机器学习基于的方法来创建不需要程式的扩展显示探索解释。我们的系统首先从给定的文档中提取数学公式和图片使用光学字符识别（OCR）和计算机视觉。接着，我们可以将这些提取的内容绑定和操作，让用户透过移动AR界面看到对文档的互动动画。这使得非技术用户，如教师或学生，可以将现有的数学文档和手册转换为即时和个性化的探索解释。为了设计我们的系统，我们首先分析了现有的探索 math解释，以发现通用的设计策略。根据发现的结果，我们发展了一系列可以自动生成的增强技巧，包括1）动态值、2）互动图像、3）关系显示、4）实物例子、5）步骤提示。为了评估我们的系统，我们进行了两项用户研究：初步用户测试和专家访谈。研究结果表明，我们的系统可以为学习数学概念提供更加有趣的体验。
+</details></li>
+</ul>
+<hr>
+<h2 id="TransFusion-A-Practical-and-Effective-Transformer-based-Diffusion-Model-for-3D-Human-Motion-Prediction"><a href="#TransFusion-A-Practical-and-Effective-Transformer-based-Diffusion-Model-for-3D-Human-Motion-Prediction" class="headerlink" title="TransFusion: A Practical and Effective Transformer-based Diffusion Model for 3D Human Motion Prediction"></a>TransFusion: A Practical and Effective Transformer-based Diffusion Model for 3D Human Motion Prediction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16106">http://arxiv.org/abs/2307.16106</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Sibo Tian, Minghui Zheng, Xiao Liang</li>
+<li>For: The paper is written for predicting human motion in intelligent remanufacturing systems, with a focus on ensuring safe and effective human-robot collaboration.* Methods: The paper proposes a diffusion-based model for 3D human motion prediction, which leverages Transformer as the backbone and employs the discrete cosine transform to model motion sequences in the frequency space.* Results: The paper reports extensive experimental studies on benchmark datasets to validate the effectiveness of the proposed human motion prediction model, with results showing that the model can generate samples that are more likely to happen while maintaining a certain level of diversity.Here’s the information in Simplified Chinese text:* For: 这篇论文是为了预测人体动作在智能再生产系统中，以确保人机合作的安全和效果。* Methods: 论文提出了一种基于扩散的3D人体动作预测模型，利用Transformer作为基础，并使用隔行 cosine transform来模型动作序列在频域中。* Results: 论文进行了广泛的实验研究，以验证提出的人体动作预测模型的有效性，结果表明模型可以生成更有可能性发生的样本，同时保持一定的多样性。<details>
+<summary>Abstract</summary>
+Predicting human motion plays a crucial role in ensuring a safe and effective human-robot close collaboration in intelligent remanufacturing systems of the future. Existing works can be categorized into two groups: those focusing on accuracy, predicting a single future motion, and those generating diverse predictions based on observations. The former group fails to address the uncertainty and multi-modal nature of human motion, while the latter group often produces motion sequences that deviate too far from the ground truth or become unrealistic within historical contexts. To tackle these issues, we propose TransFusion, an innovative and practical diffusion-based model for 3D human motion prediction which can generate samples that are more likely to happen while maintaining a certain level of diversity. Our model leverages Transformer as the backbone with long skip connections between shallow and deep layers. Additionally, we employ the discrete cosine transform to model motion sequences in the frequency space, thereby improving performance. In contrast to prior diffusion-based models that utilize extra modules like cross-attention and adaptive layer normalization to condition the prediction on past observed motion, we treat all inputs, including conditions, as tokens to create a more lightweight model compared to existing approaches. Extensive experimental studies are conducted on benchmark datasets to validate the effectiveness of our human motion prediction model.
+</details>
+<details>
+<summary>摘要</summary>
+预测人体运动在智能重组系统中发挥关键作用，以确保人机协作安全有效。现有的研究可以分为两类：一类是强调准确性，预测单个未来运动，另一类是生成基于观察的多种预测。前者忽视了人体运动的不确定性和多模性，后者经常生成的运动序列与真实值有很大偏差或在历史上不实际。为解决这些问题，我们提出了TransFusion，一种创新的扩散模型，可以生成更有可能性的3D人体运动预测样本，同时保持一定的多样性。我们的模型借鉴Transformer作为背景，并在浅深层之间设置长距离连接。此外，我们使用离散归一化变换来模型运动序列在频域中，从而提高性能。与之前的扩散模型不同，我们不需要额外的模块如交叉注意力和自适应层normalization来condition预测，而是将所有输入，包括条件，视为令素来创建更轻量级的模型。我们在标准测试集上进行了广泛的实验研究，以验证我们的人体运动预测模型的有效性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Iterative-Graph-Filtering-Network-for-3D-Human-Pose-Estimation"><a href="#Iterative-Graph-Filtering-Network-for-3D-Human-Pose-Estimation" class="headerlink" title="Iterative Graph Filtering Network for 3D Human Pose Estimation"></a>Iterative Graph Filtering Network for 3D Human Pose Estimation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16074">http://arxiv.org/abs/2307.16074</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/zaedulislam/gs-net">https://github.com/zaedulislam/gs-net</a></li>
+<li>paper_authors: Zaedul Islam, A. Ben Hamza<br>for:* This paper is written for 3D human pose estimation, specifically using graph convolutional networks (GCNs) to capture the spatial relationships between joints and learn an efficient representation of the underlying pose.methods:* The proposed method uses an iterative graph filtering framework with Laplacian regularization, which is implemented using the Gauss-Seidel iterative method.* The model architecture includes weight and adjacency modulation, skip connection, and a pure convolutional block with layer normalization.results:* The proposed model achieves state-of-the-art performance on two standard benchmark datasets for 3D human pose estimation, outperforming a comprehensive set of strong baseline methods.* Ablation studies demonstrate that the skip connection and adjacency modulation contribute to the improved model performance.<details>
+<summary>Abstract</summary>
+Graph convolutional networks (GCNs) have proven to be an effective approach for 3D human pose estimation. By naturally modeling the skeleton structure of the human body as a graph, GCNs are able to capture the spatial relationships between joints and learn an efficient representation of the underlying pose. However, most GCN-based methods use a shared weight matrix, making it challenging to accurately capture the different and complex relationships between joints. In this paper, we introduce an iterative graph filtering framework for 3D human pose estimation, which aims to predict the 3D joint positions given a set of 2D joint locations in images. Our approach builds upon the idea of iteratively solving graph filtering with Laplacian regularization via the Gauss-Seidel iterative method. Motivated by this iterative solution, we design a Gauss-Seidel network (GS-Net) architecture, which makes use of weight and adjacency modulation, skip connection, and a pure convolutional block with layer normalization. Adjacency modulation facilitates the learning of edges that go beyond the inherent connections of body joints, resulting in an adjusted graph structure that reflects the human skeleton, while skip connections help maintain crucial information from the input layer's initial features as the network depth increases. We evaluate our proposed model on two standard benchmark datasets, and compare it with a comprehensive set of strong baseline methods for 3D human pose estimation. Our experimental results demonstrate that our approach outperforms the baseline methods on both datasets, achieving state-of-the-art performance. Furthermore, we conduct ablation studies to analyze the contributions of different components of our model architecture and show that the skip connection and adjacency modulation help improve the model performance.
+</details>
+<details>
+<summary>摘要</summary>
+格 Graf卷积网络（GCNs）已经证明是3D人姿估计中有效的方法。通过自然地视图人体骨架结构为图，GCNs可以捕捉人体 JOINTS 之间的空间关系，并学习高效的姿势表示。然而，大多数GCN-based方法使用共享权重矩阵，使得准确地捕捉 JOINTS 之间的不同和复杂的关系困难。在这篇论文中，我们介绍了一种迭代图 filtering 框架 для3D人姿估计，该框架的目标是根据给定的2D JOINTS 位置来预测3D JOINTS 位置。我们的方法基于迭代图 filtering  WITH Laplacian regularization via Gauss-Seidel iterative method。这种迭代解决方法的灵感导致我们设计了Gauss-Seidel网络（GS-Net）架构，该架构使用权重和连接调整、跳过连接、并使用纯 convolutional block with layer normalization。连接调整使得学习的边度超出人体骨架内的自然连接，从而生成一个调整后的图结构，反映人体骨架。跳过连接帮助保留输入层的初始特征信息，以适应网络深度的增加。我们对两个标准 benchmark dataset进行评估，并与一组强大的基eline方法进行比较。我们的实验结果表明，我们的方法在两个dataset上都超过基eline方法，实现状态机器人姿估计的最佳性。此外，我们进行了归 subtract 分析，并证明跳过连接和连接调整对模型性能的贡献。
+</details></li>
+</ul>
+<hr>
+<h2 id="HandMIM-Pose-Aware-Self-Supervised-Learning-for-3D-Hand-Mesh-Estimation"><a href="#HandMIM-Pose-Aware-Self-Supervised-Learning-for-3D-Hand-Mesh-Estimation" class="headerlink" title="HandMIM: Pose-Aware Self-Supervised Learning for 3D Hand Mesh Estimation"></a>HandMIM: Pose-Aware Self-Supervised Learning for 3D Hand Mesh Estimation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16061">http://arxiv.org/abs/2307.16061</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zuyan Liu, Gaojie Lin, Congyi Wang, Min Zheng, Feida Zhu</li>
+<li>for: 这篇论文主要目标是提出一种基于Masked Image Modeling（MIM）的自监督预训练策略，用于优化3D手套绘制参数的推断。</li>
+<li>methods: 该策略包括一种教师生Student模型，其中包含一个pseudo键点对齐模块，用于学习pose-awaresemantic类标签。对于patch tokens，我们采用了一种自体革新的方式，使得教师和学生网络之间进行自我批判。此外，我们还采用了多级表示学习，以更好地适应低级 regression 任务。</li>
+<li>results: 我们的提出的方法，即HandMIM，在多种手套绘制任务上达到了优秀的表现，包括FreiHAND和HO3Dv2测试集。特别是，HandMIM在特殊优化的架构上进行了比较，并实现了6.29mm和8.00mm PA VPE 的最佳记录，从而成为3D手套绘制领域的新状态之一。<details>
+<summary>Abstract</summary>
+With an enormous number of hand images generated over time, unleashing pose knowledge from unlabeled images for supervised hand mesh estimation is an emerging yet challenging topic. To alleviate this issue, semi-supervised and self-supervised approaches have been proposed, but they are limited by the reliance on detection models or conventional ResNet backbones. In this paper, inspired by the rapid progress of Masked Image Modeling (MIM) in visual classification tasks, we propose a novel self-supervised pre-training strategy for regressing 3D hand mesh parameters. Our approach involves a unified and multi-granularity strategy that includes a pseudo keypoint alignment module in the teacher-student framework for learning pose-aware semantic class tokens. For patch tokens with detailed locality, we adopt a self-distillation manner between teacher and student network based on MIM pre-training. To better fit low-level regression tasks, we incorporate pixel reconstruction tasks for multi-level representation learning. Additionally, we design a strong pose estimation baseline using a simple vanilla vision Transformer (ViT) as the backbone and attach a PyMAF head after tokens for regression. Extensive experiments demonstrate that our proposed approach, named HandMIM, achieves strong performance on various hand mesh estimation tasks. Notably, HandMIM outperforms specially optimized architectures, achieving 6.29mm and 8.00mm PAVPE (Vertex-Point-Error) on challenging FreiHAND and HO3Dv2 test sets, respectively, establishing new state-of-the-art records on 3D hand mesh estimation.
+</details>
+<details>
+<summary>摘要</summary>
+WITH 一 enormous number of hand images generated over time, unleashing pose knowledge from unlabeled images for supervised hand mesh estimation is an emerging yet challenging topic. To alleviate this issue, semi-supervised and self-supervised approaches have been proposed, but they are limited by the reliance on detection models or conventional ResNet backbones. In this paper, inspired by the rapid progress of Masked Image Modeling (MIM) in visual classification tasks, we propose a novel self-supervised pre-training strategy for regressing 3D hand mesh parameters. Our approach involves a unified and multi-granularity strategy that includes a pseudo keypoint alignment module in the teacher-student framework for learning pose-aware semantic class tokens. For patch tokens with detailed locality, we adopt a self-distillation manner between teacher and student network based on MIM pre-training. To better fit low-level regression tasks, we incorporate pixel reconstruction tasks for multi-level representation learning. Additionally, we design a strong pose estimation baseline using a simple vanilla vision Transformer (ViT) as the backbone and attach a PyMAF head after tokens for regression. Extensive experiments demonstrate that our proposed approach, named HandMIM, achieves strong performance on various hand mesh estimation tasks. Notably, HandMIM outperforms specially optimized architectures, achieving 6.29mm and 8.00mm PAVPE (Vertex-Point-Error) on challenging FreiHAND and HO3Dv2 test sets, respectively, establishing new state-of-the-art records on 3D hand mesh estimation.
+</details></li>
+</ul>
+<hr>
+<h2 id="CoVid-19-Detection-leveraging-Vision-Transformers-and-Explainable-AI"><a href="#CoVid-19-Detection-leveraging-Vision-Transformers-and-Explainable-AI" class="headerlink" title="CoVid-19 Detection leveraging Vision Transformers and Explainable AI"></a>CoVid-19 Detection leveraging Vision Transformers and Explainable AI</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16033">http://arxiv.org/abs/2307.16033</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Pangoth Santhosh Kumar, Kundrapu Supriya, Mallikharjuna Rao K</li>
+<li>for: 这个论文的目的是为了检测肺病，以提高患者的健康和生活质量。</li>
+<li>methods: 这篇论文使用了深度学习算法和图像处理技术来实现自动化、快速和准确地检测肺病。</li>
+<li>results: 研究发现，使用视transformer基础模型可以解决深度学习模型对不同图像方向的问题，并在检测肺病方面达到了更高的准确率。<details>
+<summary>Abstract</summary>
+Lung disease is a common health problem in many parts of the world. It is a significant risk to people health and quality of life all across the globe since it is responsible for five of the top thirty leading causes of death. Among them are COVID 19, pneumonia, and tuberculosis, to name just a few. It is critical to diagnose lung diseases in their early stages. Several different models including machine learning and image processing have been developed for this purpose. The earlier a condition is diagnosed, the better the patient chances of making a full recovery and surviving into the long term. Thanks to deep learning algorithms, there is significant promise for the autonomous, rapid, and accurate identification of lung diseases based on medical imaging. Several different deep learning strategies, including convolutional neural networks (CNN), vanilla neural networks, visual geometry group based networks (VGG), and capsule networks , are used for the goal of making lung disease forecasts. The standard CNN has a poor performance when dealing with rotated, tilted, or other aberrant picture orientations. As a result of this, within the scope of this study, we have suggested a vision transformer based approach end to end framework for the diagnosis of lung disorders. In the architecture, data augmentation, training of the suggested models, and evaluation of the models are all included. For the purpose of detecting lung diseases such as pneumonia, Covid 19, lung opacity, and others, a specialised Compact Convolution Transformers (CCT) model have been tested and evaluated on datasets such as the Covid 19 Radiography Database. The model has achieved a better accuracy for both its training and validation purposes on the Covid 19 Radiography Database.
+</details>
+<details>
+<summary>摘要</summary>
+肺病是全球许多地区的常见健康问题。它对人们健康和生活质量产生了重要的风险，负责全球前30名死亡原因中的5个。包括COVID-19、肺炎和结核病等在内，这些疾病对人们的健康造成了严重的威胁。因此，早期诊断肺病非常重要。为了达到这一目标，包括机器学习和图像处理在内的多种模型已经被开发出来。随着深度学习算法的出现，肺病的自动化、快速和准确诊断已经得到了广泛的应用。在这些研究中，我们提出了基于视transformer的综合方法，以便诊断肺病。在该方法中，包括数据增强、模型训练和模型评估等环节。为了检测肺病，如肺炎、COVID-19、肺抑制等，我们测试了一种专门的Compact Convolution Transformers（CCT）模型。该模型在Covid 19 Radiography Database上的训练和验证过程中表现出了更高的准确率。
+</details></li>
+</ul>
+<hr>
+<h2 id="LOTUS-Learning-to-Optimize-Task-based-US-representations"><a href="#LOTUS-Learning-to-Optimize-Task-based-US-representations" class="headerlink" title="LOTUS: Learning to Optimize Task-based US representations"></a>LOTUS: Learning to Optimize Task-based US representations</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16021">http://arxiv.org/abs/2307.16021</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yordanka Velikova, Mohammad Farid Azampour, Walter Simson, Vanessa Gonzalez Duque, Nassir Navab</li>
+<li>for: 这篇论文的目的是提出一种新的方法来对超声影像进行分类，以提高诊断和监控的精度。</li>
+<li>methods: 这篇论文使用了一种新的方法，即使用rayed-casting来模拟超声传播，并且通过对下游分类任务进行优化，以 learns optimize the parameters for generating physics-based ultrasound images。</li>
+<li>results: 这篇论文的结果显示，使用这种方法可以实现高度的自动分类精度，并且可以同时进行实验和自动分类。 qualitative results also show that the proposed method can generate high-quality images with improved contrast and resolution.<details>
+<summary>Abstract</summary>
+Anatomical segmentation of organs in ultrasound images is essential to many clinical applications, particularly for diagnosis and monitoring. Existing deep neural networks require a large amount of labeled data for training in order to achieve clinically acceptable performance. Yet, in ultrasound, due to characteristic properties such as speckle and clutter, it is challenging to obtain accurate segmentation boundaries, and precise pixel-wise labeling of images is highly dependent on the expertise of physicians. In contrast, CT scans have higher resolution and improved contrast, easing organ identification. In this paper, we propose a novel approach for learning to optimize task-based ultra-sound image representations. Given annotated CT segmentation maps as a simulation medium, we model acoustic propagation through tissue via ray-casting to generate ultrasound training data. Our ultrasound simulator is fully differentiable and learns to optimize the parameters for generating physics-based ultrasound images guided by the downstream segmentation task. In addition, we train an image adaptation network between real and simulated images to achieve simultaneous image synthesis and automatic segmentation on US images in an end-to-end training setting. The proposed method is evaluated on aorta and vessel segmentation tasks and shows promising quantitative results. Furthermore, we also conduct qualitative results of optimized image representations on other organs.
+</details>
+<details>
+<summary>摘要</summary>
+医学应用中的器官隔segmentation在ultrasound图像中是非常重要的，特别是诊断和监测。现有的深度神经网络需要大量标注数据进行训练，以达到医学接受的性能。然而，在ultrasound中，由特征性质 such as speckle和响应而带来的困难，减少了获得准确的分割边界，并且精确地标注图像 pixels 是医生的专业技巧依赖。与CT扫描相比，ultrasound图像有更高的分辨率和更好的对比度，使器官识别更加容易。在这篇论文中，我们提出了一种新的方法，用于学习优化任务基于ultrasound图像表示。我们使用rayed-casting模拟了声波传播 через组织，从而生成了physics-based的ultrasound训练数据。我们的ultrasound模拟器是可微分的，可以学习参数，以便生成按下沟通任务的优化参数。此外，我们还训练了一种图像适应网络，用于同时实现图像合成和自动分割任务。我们的提posed方法在大动脉和血管分割任务中表现出了良好的量化结果。此外，我们还进行了其他器官的优化图像表示的质量研究。
+</details></li>
+</ul>
+<hr>
+<h2 id="Fuzzy-Logic-Visual-Network-FLVN-A-neuro-symbolic-approach-for-visual-features-matching"><a href="#Fuzzy-Logic-Visual-Network-FLVN-A-neuro-symbolic-approach-for-visual-features-matching" class="headerlink" title="Fuzzy Logic Visual Network (FLVN): A neuro-symbolic approach for visual features matching"></a>Fuzzy Logic Visual Network (FLVN): A neuro-symbolic approach for visual features matching</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16019">http://arxiv.org/abs/2307.16019</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://gitlab.com/grains2/flvn">https://gitlab.com/grains2/flvn</a></li>
+<li>paper_authors: Francesco Manigrasso, Lia Morra, Fabrizio Lamberti</li>
+<li>for: 这个论文旨在探讨如何通过组合深度学习网络和符号知识表示来提高零shot学习（ZSL）分类的性能。</li>
+<li>methods: 这个论文使用了逻辑tensor网络（LTN）来 incorporate 背景知识，包括逻辑axioms，并将其转化为可微分的操作。</li>
+<li>results: 这个论文提出了名为Fuzzy Logic Visual Network（FLVN）的方法，该方法在neuro-symbolic LTN框架下学习视觉semantic空间。FLVN利用了类层级知识和 Robust高级 inductive bias，从而提高了ZSL分类的性能，在Generalized ZSL（GZSL）benchmark AWA2和CUB上达到了状态的艺术性能，相比之下，其计算开销较低。<details>
+<summary>Abstract</summary>
+Neuro-symbolic integration aims at harnessing the power of symbolic knowledge representation combined with the learning capabilities of deep neural networks. In particular, Logic Tensor Networks (LTNs) allow to incorporate background knowledge in the form of logical axioms by grounding a first order logic language as differentiable operations between real tensors. Yet, few studies have investigated the potential benefits of this approach to improve zero-shot learning (ZSL) classification. In this study, we present the Fuzzy Logic Visual Network (FLVN) that formulates the task of learning a visual-semantic embedding space within a neuro-symbolic LTN framework. FLVN incorporates prior knowledge in the form of class hierarchies (classes and macro-classes) along with robust high-level inductive biases. The latter allow, for instance, to handle exceptions in class-level attributes, and to enforce similarity between images of the same class, preventing premature overfitting to seen classes and improving overall performance. FLVN reaches state of the art performance on the Generalized ZSL (GZSL) benchmarks AWA2 and CUB, improving by 1.3% and 3%, respectively. Overall, it achieves competitive performance to recent ZSL methods with less computational overhead. FLVN is available at https://gitlab.com/grains2/flvn.
+</details>
+<details>
+<summary>摘要</summary>
+neuroro-symbolic 融合目标是利用深度神经网络学习的能力和符号知识表示的力量相结合。特别是逻辑张量网络（LTN）可以将背景知识表示为可 diferenciable 操作 между实数张量。然而，有很少的研究探讨了这种方法可以提高零例学习（ZSL）分类的潜力。在这项研究中，我们提出了灰度逻辑视觉网络（FLVN），它在 neuro-symbolic LTN 框架中学习视觉semantic embedding空间。FLVN integrates prior knowledge in the form of class hierarchies (classes and macro-classes) along with robust high-level inductive biases。这些假设允许，例如，处理类层特征异常，并强制图像同一类的相似性，避免提前过拟合已知类和提高总性能。FLVN 在 Generalized ZSL（GZSL）标准吗 AWA2 和 CUB 上达到了状态的捷径性表现，提高了1.3%和3%，分别。总的来说，它实现了与最近 ZSL 方法相当的性能，但计算开销较少。FLVN 可以在 <https://gitlab.com/grains2/flvn> 中下载。
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/07/30/cs.CV_2023_07_30/" data-id="clmvt7t9700ak26rdaku3h9bt" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/07/30/cs.SD_2023_07_30/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cs.SD - 2023-07-30
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/07/30/cs.AI_2023_07_30/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.AI - 2023-07-30</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">21</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">150</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

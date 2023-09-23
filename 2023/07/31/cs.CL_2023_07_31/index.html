@@ -1,0 +1,648 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CL - 2023-07-31 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Lexically-Accelerated Dense Retrieval paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2307.16779 repo_url: None paper_authors: Hrishikesh Kulkarni, Sean MacAvaney, Nazli Goharian, Ophir Frieder for: 提高 dense retrieva">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CL - 2023-07-31">
+<meta property="og:url" content="https://nullscc.github.io/2023/07/31/cs.CL_2023_07_31/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="Lexically-Accelerated Dense Retrieval paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2307.16779 repo_url: None paper_authors: Hrishikesh Kulkarni, Sean MacAvaney, Nazli Goharian, Ophir Frieder for: 提高 dense retrieva">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-31T11:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-23T08:42:42.814Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CL_2023_07_31" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/07/31/cs.CL_2023_07_31/" class="article-date">
+  <time datetime="2023-07-31T11:00:00.000Z" itemprop="datePublished">2023-07-31</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CL/">cs.CL</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CL - 2023-07-31
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Lexically-Accelerated-Dense-Retrieval"><a href="#Lexically-Accelerated-Dense-Retrieval" class="headerlink" title="Lexically-Accelerated Dense Retrieval"></a>Lexically-Accelerated Dense Retrieval</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16779">http://arxiv.org/abs/2307.16779</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hrishikesh Kulkarni, Sean MacAvaney, Nazli Goharian, Ophir Frieder</li>
+<li>for: 提高 dense retrieval 模型的效率，不妨碍搜索效果。</li>
+<li>methods: 使用 lexical retrieval 技术为 dense retrieval 搜索种子，并使用文档准近图进行搜索。</li>
+<li>results: 实现 dense retrieval 模型的效率-效果对应 frontier，并在8毫秒&#x2F;查询时间下达到了相同的精度和准确率。<details>
+<summary>Abstract</summary>
+Retrieval approaches that score documents based on learned dense vectors (i.e., dense retrieval) rather than lexical signals (i.e., conventional retrieval) are increasingly popular. Their ability to identify related documents that do not necessarily contain the same terms as those appearing in the user's query (thereby improving recall) is one of their key advantages. However, to actually achieve these gains, dense retrieval approaches typically require an exhaustive search over the document collection, making them considerably more expensive at query-time than conventional lexical approaches. Several techniques aim to reduce this computational overhead by approximating the results of a full dense retriever. Although these approaches reasonably approximate the top results, they suffer in terms of recall -- one of the key advantages of dense retrieval. We introduce 'LADR' (Lexically-Accelerated Dense Retrieval), a simple-yet-effective approach that improves the efficiency of existing dense retrieval models without compromising on retrieval effectiveness. LADR uses lexical retrieval techniques to seed a dense retrieval exploration that uses a document proximity graph. We explore two variants of LADR: a proactive approach that expands the search space to the neighbors of all seed documents, and an adaptive approach that selectively searches the documents with the highest estimated relevance in an iterative fashion. Through extensive experiments across a variety of dense retrieval models, we find that LADR establishes a new dense retrieval effectiveness-efficiency Pareto frontier among approximate k nearest neighbor techniques. Further, we find that when tuned to take around 8ms per query in retrieval latency on our hardware, LADR consistently achieves both precision and recall that are on par with an exhaustive search on standard benchmarks.
+</details>
+<details>
+<summary>摘要</summary>
+traditional retrieval approaches that rely on lexical signals are being replaced by dense retrieval approaches that score documents based on learned dense vectors. These approaches can retrieve related documents that do not contain the same terms as the user's query, which improves recall. However, dense retrieval approaches typically require an exhaustive search over the document collection, which is computationally expensive. Several techniques have been proposed to reduce the computational overhead, but these approaches often sacrifice recall.We introduce 'LADR' (Lexically-Accelerated Dense Retrieval), a simple and effective approach that improves the efficiency of existing dense retrieval models without compromising on retrieval effectiveness. LADR uses lexical retrieval techniques to seed a dense retrieval exploration that uses a document proximity graph. We explore two variants of LADR: a proactive approach that expands the search space to the neighbors of all seed documents, and an adaptive approach that selectively searches the documents with the highest estimated relevance in an iterative fashion.Through extensive experiments across a variety of dense retrieval models, we find that LADR establishes a new dense retrieval effectiveness-efficiency Pareto frontier among approximate k nearest neighbor techniques. Furthermore, when tuned to take around 8ms per query in retrieval latency on our hardware, LADR consistently achieves both precision and recall that are on par with an exhaustive search on standard benchmarks.
+</details></li>
+</ul>
+<hr>
+<h2 id="Multilingual-context-based-pronunciation-learning-for-Text-to-Speech"><a href="#Multilingual-context-based-pronunciation-learning-for-Text-to-Speech" class="headerlink" title="Multilingual context-based pronunciation learning for Text-to-Speech"></a>Multilingual context-based pronunciation learning for Text-to-Speech</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16709">http://arxiv.org/abs/2307.16709</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Giulia Comini, Manuel Sam Ribeiro, Fan Yang, Heereen Shim, Jaime Lorenzo-Trueba</li>
+<li>for: 这篇论文是为了描述一种多语言Front-end系统，用于解决语音识别和其他语言特定挑战。</li>
+<li>methods: 该系统使用Grapheme-to-Phoneme（G2P）关系来预测未知词的发音，同时使用规则引用系统来解决homograph和多音字的混淆。</li>
+<li>results: 该模型在G2P转换和其他语言特定任务上表现竞争力强，但有些语言和任务之间存在一些妥协。<details>
+<summary>Abstract</summary>
+Phonetic information and linguistic knowledge are an essential component of a Text-to-speech (TTS) front-end. Given a language, a lexicon can be collected offline and Grapheme-to-Phoneme (G2P) relationships are usually modeled in order to predict the pronunciation for out-of-vocabulary (OOV) words. Additionally, post-lexical phonology, often defined in the form of rule-based systems, is used to correct pronunciation within or between words. In this work we showcase a multilingual unified front-end system that addresses any pronunciation related task, typically handled by separate modules. We evaluate the proposed model on G2P conversion and other language-specific challenges, such as homograph and polyphones disambiguation, post-lexical rules and implicit diacritization. We find that the multilingual model is competitive across languages and tasks, however, some trade-offs exists when compared to equivalent monolingual solutions.
+</details>
+<details>
+<summary>摘要</summary>
+文本识别和语言知识是文本识别（TTS）前端的重要组成部分。给定一种语言，可以在线收集词典，并模型文字到音（G2P）关系，以预测未在词典中出现的词汇的发音。此外，在词语之间或者在词语之内进行发音 correction 也需要使用后 lexical phonology，通常通过规则集来实现。在这项工作中，我们展示了一种多语言统一前端系统，可以解决任何发音相关任务，通常由分立模块处理。我们对这种模型进行了G2P转换和其他语言特有挑战的评估，如Homograph和多音字识别、后 lexical 规则和隐式 диаcritization。我们发现，该多语言模型在语言和任务方面具有竞争力，但有些交换存在于与等效单语言解决方案进行比较时。
+</details></li>
+</ul>
+<hr>
+<h2 id="No-that’s-not-what-I-meant-Handling-Third-Position-Repair-in-Conversational-Question-Answering"><a href="#No-that’s-not-what-I-meant-Handling-Third-Position-Repair-in-Conversational-Question-Answering" class="headerlink" title="No that’s not what I meant: Handling Third Position Repair in Conversational Question Answering"></a>No that’s not what I meant: Handling Third Position Repair in Conversational Question Answering</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16689">http://arxiv.org/abs/2307.16689</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Vevake Balaraman, Arash Eshghi, Ioannis Konstas, Ioannis Papaioannou</li>
+<li>for: 这 paper 的目的是研究人们在对话中如何处理歧义，以及如何使用 Third Position Repair (TPR) 来纠正歧义。</li>
+<li>methods: 这 paper 使用了一个大型的 TPR 数据集，并对这些数据集进行了自动和人工评估。同时，paper 还使用了一些基eline 模型来执行 TPR。</li>
+<li>results: 研究发现，OpenAI 的 GPT-3 LLMs 在原始turn的 TPR 处理方面表现不佳，但是在接下来的对话问答任务中，这些 LLMs 的 TPR 处理能力有了显著改善。<details>
+<summary>Abstract</summary>
+The ability to handle miscommunication is crucial to robust and faithful conversational AI. People usually deal with miscommunication immediately as they detect it, using highly systematic interactional mechanisms called repair. One important type of repair is Third Position Repair (TPR) whereby a speaker is initially misunderstood but then corrects the misunderstanding as it becomes apparent after the addressee's erroneous response. Here, we collect and publicly release Repair-QA, the first large dataset of TPRs in a conversational question answering (QA) setting. The data is comprised of the TPR turns, corresponding dialogue contexts, and candidate repairs of the original turn for execution of TPRs. We demonstrate the usefulness of the data by training and evaluating strong baseline models for executing TPRs. For stand-alone TPR execution, we perform both automatic and human evaluations on a fine-tuned T5 model, as well as OpenAI's GPT-3 LLMs. Additionally, we extrinsically evaluate the LLMs' TPR processing capabilities in the downstream conversational QA task. The results indicate poor out-of-the-box performance on TPR's by the GPT-3 models, which then significantly improves when exposed to Repair-QA.
+</details>
+<details>
+<summary>摘要</summary>
+人们在对话中处理混乱communication是关键，以确保对话AI强大和可靠。人们通常在发现混乱后立即处理，使用高度系统化的互动机制called repair。一种重要的修复方式是第三人称修复（TPR），在这种情况下，说话者在对方错误回答后才被理解，并在这个过程中修复错误。我们收集和公开发布了Repair-QA数据集，这是一个大型的TPR在对话问答（QA） Setting中的数据集。数据包括TPR转帧、对话上下文和原始转帧的可能修复。我们通过训练和评估强大基线模型来证明数据的有用性。对独立TPR执行来说，我们在一个精度调整的T5模型上进行自动和人工评估，以及OpenAI的GPT-3LLMs。此外，我们在下游对话问答任务中评估LLMs的TPR处理能力。结果表明GPT-3模型在出厂情况下对TPR表现不佳，但是在暴露于Repair-QA数据集后，其表现显著改善。
+</details></li>
+</ul>
+<hr>
+<h2 id="Comparing-normalizing-flows-and-diffusion-models-for-prosody-and-acoustic-modelling-in-text-to-speech"><a href="#Comparing-normalizing-flows-and-diffusion-models-for-prosody-and-acoustic-modelling-in-text-to-speech" class="headerlink" title="Comparing normalizing flows and diffusion models for prosody and acoustic modelling in text-to-speech"></a>Comparing normalizing flows and diffusion models for prosody and acoustic modelling in text-to-speech</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16679">http://arxiv.org/abs/2307.16679</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Guangyan Zhang, Thomas Merritt, Manuel Sam Ribeiro, Biel Tura-Vecino, Kayoko Yanagisawa, Kamil Pokora, Abdelhamid Ezzerg, Sebastian Cygert, Ammar Abbas, Piotr Bilinski, Roberto Barra-Chicote, Daniel Korzekwa, Jaime Lorenzo-Trueba</li>
+<li>for: 这 paper 是用来比较传统 L1&#x2F;L2 loss 方法和流体和填充方法来进行 text-to-speech 合成 tasks 的。</li>
+<li>methods: 这 paper 使用了一种 prosody 模型来生成 log-f0 和 duration 特征，这些特征用于 condition 一个 acoustic 模型，该模型生成 mel-spectrograms。</li>
+<li>results: 实验结果表明，流体基本模型在 spectrogram 预测任务中 achieve 最佳性能，超过相同的 diffusion 和 L1 模型。同时，流体和填充 prosody 预测器均导致了significant 改善，比传统 L2 训练的 prosody 模型。<details>
+<summary>Abstract</summary>
+Neural text-to-speech systems are often optimized on L1/L2 losses, which make strong assumptions about the distributions of the target data space. Aiming to improve those assumptions, Normalizing Flows and Diffusion Probabilistic Models were recently proposed as alternatives. In this paper, we compare traditional L1/L2-based approaches to diffusion and flow-based approaches for the tasks of prosody and mel-spectrogram prediction for text-to-speech synthesis. We use a prosody model to generate log-f0 and duration features, which are used to condition an acoustic model that generates mel-spectrograms. Experimental results demonstrate that the flow-based model achieves the best performance for spectrogram prediction, improving over equivalent diffusion and L1 models. Meanwhile, both diffusion and flow-based prosody predictors result in significant improvements over a typical L2-trained prosody models.
+</details>
+<details>
+<summary>摘要</summary>
+传统的文本到语音系统通常是基于L1/L2损失优化的，这些损失假设了目标数据空间的分布。为了改善这些假设，流体和扩散概率模型最近被提出作为替代方案。在这篇论文中，我们比较了传统的L1/L2基于的方法和扩散和流体基于的方法 для文本到语音合成中的谱和频谱预测任务。我们使用一个谱模型来生成日吸率和持续时间特征，这些特征用于condition一个生成mel-spectrogram的语音模型。实验结果显示，流体基于的模型在spectrogram预测中表现最佳，超过了相当的扩散和L1模型。同时，扩散和流体基于的谱预测模型均导致了对于Typical L2训练的谱模型的显著改进。
+</details></li>
+</ul>
+<hr>
+<h2 id="The-World-Literature-Knowledge-Graph"><a href="#The-World-Literature-Knowledge-Graph" class="headerlink" title="The World Literature Knowledge Graph"></a>The World Literature Knowledge Graph</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16659">http://arxiv.org/abs/2307.16659</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/elifhaciosmanoglu/PythonL-For-Mathematicians">https://github.com/elifhaciosmanoglu/PythonL-For-Mathematicians</a></li>
+<li>paper_authors: Marco Antonio Stranisci, Eleonora Bernasconi, Viviana Patti, Stefano Ferilli, Miguel Ceriani, Rossana Damiano</li>
+<li>for: 这篇论文旨在提供一个 semantic resource，用于探索不同地区文学作品和作者的事实。</li>
+<li>methods: 该论文使用了3个不同的读者社区的反馈，并将其整合到一个Semantic Model中，以便更好地探索世界文学的知识。</li>
+<li>results: 论文通过在线可视化平台提供了194,346名作家和965,210部作品的知识 graph，并在3个不同的专家领域进行了严格的测试和验证，得到了高度的评价和满意度。<details>
+<summary>Abstract</summary>
+Digital media have enabled the access to unprecedented literary knowledge. Authors, readers, and scholars are now able to discover and share an increasing amount of information about books and their authors. However, these sources of knowledge are fragmented and do not adequately represent non-Western writers and their works. In this paper we present The World Literature Knowledge Graph, a semantic resource containing 194,346 writers and 965,210 works, specifically designed for exploring facts about literary works and authors from different parts of the world. The knowledge graph integrates information about the reception of literary works gathered from 3 different communities of readers, aligned according to a single semantic model. The resource is accessible through an online visualization platform, which can be found at the following URL: https://literaturegraph.di.unito.it/. This platform has been rigorously tested and validated by $3$ distinct categories of experts who have found it to be highly beneficial for their respective work domains. These categories include teachers, researchers in the humanities, and professionals in the publishing industry. The feedback received from these experts confirms that they can effectively utilize the platform to enhance their work processes and achieve valuable outcomes.
+</details>
+<details>
+<summary>摘要</summary>
+数字媒体为我们提供了前所未有的文学知识访问。作家、读者和学者现在可以找到和分享越来越多的关于书籍和作家的信息。然而，这些知识来源是分散的，并不充分代表非西方作家和他们的作品。在这篇论文中，我们介绍了世界文学知识图，这是一个基于semantic模型的语义资源，用于探索不同地区的文学作品和作家的事实。知识图集成了来自3个不同社区的读者的受众反馈，并以单一的semantic模型进行对接。这个资源可以通过以下URL访问：https://literaturegraph.di.unito.it/.这个平台已经被3种不同的专家组织rigorously测试和验证，这些专家包括教师、人文科学研究人员和出版业专业人员。这些专家的反馈表明，他们可以通过这个平台增强工作流程，并实现价值的成果。
+</details></li>
+</ul>
+<hr>
+<h2 id="Scaling-Sentence-Embeddings-with-Large-Language-Models"><a href="#Scaling-Sentence-Embeddings-with-Large-Language-Models" class="headerlink" title="Scaling Sentence Embeddings with Large Language Models"></a>Scaling Sentence Embeddings with Large Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16645">http://arxiv.org/abs/2307.16645</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/kongds/scaling_sentemb">https://github.com/kongds/scaling_sentemb</a></li>
+<li>paper_authors: Ting Jiang, Shaohan Huang, Zhongzhi Luan, Deqing Wang, Fuzhen Zhuang</li>
+<li>for: 本研究旨在提高句子嵌入性能，通过句子嵌入来提高自然语言处理任务的性能。</li>
+<li>methods: 我们提出了一种基于句子嵌入的培训方法，通过适应之前的提问基础表示方法，构建了一个示例集，使得LLMs可以进行上下文学习。我们还对LLMs进行了缩放，以不同的模型大小进行比较。</li>
+<li>results: 通过广泛的实验，我们发现在句子嵌入任务上，通过培训LLMs可以获得高质量的句子嵌入，无需任何微调。此外，我们发现，随着模型大小的增加，模型在语义文本相似性（STS）任务上的性能会下降。但是，我们发现最大化模型可以超过其他对手，并达到新的状态态表现在转移任务上。此外，我们还对LLMs进行了现有对比学习方法的微调，并发现2.7B OPT模型，通过我们的提示基础方法，超过了4.8B ST5模型的性能，达到新的状态态表现在STS任务上。<details>
+<summary>Abstract</summary>
+Large language models (LLMs) have recently garnered significant interest. With in-context learning, LLMs achieve impressive results in various natural language tasks. However, the application of LLMs to sentence embeddings remains an area of ongoing research. In this work, we propose an in-context learning-based method aimed at improving sentence embeddings performance. Our approach involves adapting the previous prompt-based representation method for autoregressive models, constructing a demonstration set that enables LLMs to perform in-context learning, and scaling up the LLMs to different model sizes. Through extensive experiments, in-context learning enables LLMs to generate high-quality sentence embeddings without any fine-tuning. It helps LLMs achieve performance comparable to current contrastive learning methods. By scaling model size, we find scaling to more than tens of billion parameters harms the performance on semantic textual similarity (STS) tasks. However, the largest model outperforms other counterparts and achieves the new state-of-the-art result on transfer tasks. We also fine-tune LLMs with current contrastive learning approach, and the 2.7B OPT model, incorporating our prompt-based method, surpasses the performance of 4.8B ST5, achieving the new state-of-the-art results on STS tasks. Our code is available at https://github.com/kongds/scaling_sentemb.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Improving-grapheme-to-phoneme-conversion-by-learning-pronunciations-from-speech-recordings"><a href="#Improving-grapheme-to-phoneme-conversion-by-learning-pronunciations-from-speech-recordings" class="headerlink" title="Improving grapheme-to-phoneme conversion by learning pronunciations from speech recordings"></a>Improving grapheme-to-phoneme conversion by learning pronunciations from speech recordings</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16643">http://arxiv.org/abs/2307.16643</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Manuel Sam Ribeiro, Giulia Comini, Jaime Lorenzo-Trueba</li>
+<li>for: 提高Grapheme-to-Phoneme（G2P）任务的精度，使其更适合各种语音处理应用程序。</li>
+<li>methods: 根据语音录制Example学习发音词典，然后使用这些词典来重新训练G2P系统。</li>
+<li>results: 对多种语言和数据量不同的G2P系统，our approach consistently提高了Phone错误率。<details>
+<summary>Abstract</summary>
+The Grapheme-to-Phoneme (G2P) task aims to convert orthographic input into a discrete phonetic representation. G2P conversion is beneficial to various speech processing applications, such as text-to-speech and speech recognition. However, these tend to rely on manually-annotated pronunciation dictionaries, which are often time-consuming and costly to acquire. In this paper, we propose a method to improve the G2P conversion task by learning pronunciation examples from audio recordings. Our approach bootstraps a G2P with a small set of annotated examples. The G2P model is used to train a multilingual phone recognition system, which then decodes speech recordings with a phonetic representation. Given hypothesized phoneme labels, we learn pronunciation dictionaries for out-of-vocabulary words, and we use those to re-train the G2P system. Results indicate that our approach consistently improves the phone error rate of G2P systems across languages and amount of available data.
+</details>
+<details>
+<summary>摘要</summary>
+In this paper, we propose a method to improve the G2P conversion task by learning pronunciation examples from audio recordings. We start with a small set of annotated examples and use a G2P model to train a multilingual phone recognition system. This system decodes speech recordings using a phonetic representation. Given hypothesized phoneme labels, we learn pronunciation dictionaries for out-of-vocabulary words and use those to re-train the G2P system.Our approach consistently improves the phone error rate of G2P systems across languages and amounts of available data. This shows that our method is effective in improving the accuracy of G2P conversion.
+</details></li>
+</ul>
+<hr>
+<h2 id="VacancySBERT-the-approach-for-representation-of-titles-and-skills-for-semantic-similarity-search-in-the-recruitment-domain"><a href="#VacancySBERT-the-approach-for-representation-of-titles-and-skills-for-semantic-similarity-search-in-the-recruitment-domain" class="headerlink" title="VacancySBERT: the approach for representation of titles and skills for semantic similarity search in the recruitment domain"></a>VacancySBERT: the approach for representation of titles and skills for semantic similarity search in the recruitment domain</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16638">http://arxiv.org/abs/2307.16638</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/maiiabocharova/vacancysbert">https://github.com/maiiabocharova/vacancysbert</a></li>
+<li>paper_authors: Maiia Bocharova, Eugene Malakhov, Vitaliy Mezhuyev</li>
+<li>for: 本研究旨在应用深度学习 semantic search 算法于人力资源领域，开发一种链接 Job 招聘广告中提到的技能与 Job 标题的新方法。</li>
+<li>methods: 本研究使用 semantic similarity search 算法来找到匹配 Job 标题和技能的候选者，并采用了预训练语言模型，通过对Title-description对的协同信息进行教学，使模型能够匹配标题和技能。</li>
+<li>results: 研究表明，使用自定义训练目标可以实现显著改进，比如使用 VacancySBERT 和 VacancySBERT (with skills) 得到了10% 和 21.5% 的提升。此外，开发了一个开源的基准数据集，以便进一步探索这一领域。<details>
+<summary>Abstract</summary>
+The paper focuses on deep learning semantic search algorithms applied in the HR domain. The aim of the article is developing a novel approach to training a Siamese network to link the skills mentioned in the job ad with the title. It has been shown that the title normalization process can be based either on classification or similarity comparison approaches. While classification algorithms strive to classify a sample into predefined set of categories, similarity search algorithms take a more flexible approach, since they are designed to find samples that are similar to a given query sample, without requiring pre-defined classes and labels. In this article semantic similarity search to find candidates for title normalization has been used. A pre-trained language model has been adapted while teaching it to match titles and skills based on co-occurrence information. For the purpose of this research fifty billion title-descriptions pairs had been collected for training the model and thirty three thousand title-description-normalized title triplets, where normalized job title was picked up manually by job ad creator for testing purposes. As baselines FastText, BERT, SentenceBert and JobBert have been used. As a metric of the accuracy of the designed algorithm is Recall in top one, five and ten model's suggestions. It has been shown that the novel training objective lets it achieve significant improvement in comparison to other generic and specific text encoders. Two settings with treating titles as standalone strings, and with included skills as additional features during inference have been used and the results have been compared in this article. Improvements by 10% and 21.5% have been achieved using VacancySBERT and VacancySBERT (with skills) respectively. The benchmark has been developed as open-source to foster further research in the area.
+</details>
+<details>
+<summary>摘要</summary>
+文章主要研究深度学习 semantic search 算法在人力资源（HR）领域中的应用。文章的目标是开发一种新的方法，通过链接在职位招聘中提到的技能与工作标题之间的连接。研究表明，标题Normalization过程可以基于类别或相似性比较方法。而类别算法尝试将样本分类到预定的类别中，相似性搜索算法则更加灵活，它们可以找到与查询样本相似的样本，无需预定的类别和标签。本文使用semantic similarity搜索来查找候选者。研究人员采用了预训练的语言模型，并将其改进以将标题和技能相匹配，基于共occurrence信息。为了训练模型，收集了50亿个标题-描述对，并使用33,000个标题-描述-Normalized标题 triplets进行测试。作为基准，使用了FastText、BERT、SentenceBert和JobBert。用于评估算法准确性的指标是Recall在top一、五和十个模型建议中。研究表明，新的训练目标可以实现显著改进，相比于其他通用和专门的文本编码器。在使用标题作为独立字符串和包含技能作为推断时进行两种设置后，对比结果。使用VacancySBERT和VacancySBERT（与技能）后，分别实现了10%和21.5%的提高。研究人员开发了一个开源的标准套件，以便进一步的研究。
+</details></li>
+</ul>
+<hr>
+<h2 id="Text-CRS-A-Generalized-Certified-Robustness-Framework-against-Textual-Adversarial-Attacks"><a href="#Text-CRS-A-Generalized-Certified-Robustness-Framework-against-Textual-Adversarial-Attacks" class="headerlink" title="Text-CRS: A Generalized Certified Robustness Framework against Textual Adversarial Attacks"></a>Text-CRS: A Generalized Certified Robustness Framework against Textual Adversarial Attacks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16630">http://arxiv.org/abs/2307.16630</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/Eyr3/TextCRS">https://github.com/Eyr3/TextCRS</a></li>
+<li>paper_authors: Xinyu Zhang, Hanbin Hong, Yuan Hong, Peng Huang, Binghui Wang, Zhongjie Ba, Kui Ren</li>
+<li>for: 防止文本 adversarial 攻击，提高模型robustness</li>
+<li>methods: 使用randomized smoothing方法， derive robustness bounds against four word-level adversarial operations</li>
+<li>results: Text-CRS可以Address all four different word-level adversarial operations，significantly improve certified accuracy and radius，outperform state-of-the-art certification against synonym substitution attacks，provide the first benchmark on certified accuracy and radius of four word-level operations.<details>
+<summary>Abstract</summary>
+The language models, especially the basic text classification models, have been shown to be susceptible to textual adversarial attacks such as synonym substitution and word insertion attacks. To defend against such attacks, a growing body of research has been devoted to improving the model robustness. However, providing provable robustness guarantees instead of empirical robustness is still widely unexplored. In this paper, we propose Text-CRS, a generalized certified robustness framework for natural language processing (NLP) based on randomized smoothing. To our best knowledge, existing certified schemes for NLP can only certify the robustness against $\ell_0$ perturbations in synonym substitution attacks. Representing each word-level adversarial operation (i.e., synonym substitution, word reordering, insertion, and deletion) as a combination of permutation and embedding transformation, we propose novel smoothing theorems to derive robustness bounds in both permutation and embedding space against such adversarial operations. To further improve certified accuracy and radius, we consider the numerical relationships between discrete words and select proper noise distributions for the randomized smoothing. Finally, we conduct substantial experiments on multiple language models and datasets. Text-CRS can address all four different word-level adversarial operations and achieve a significant accuracy improvement. We also provide the first benchmark on certified accuracy and radius of four word-level operations, besides outperforming the state-of-the-art certification against synonym substitution attacks.
+</details>
+<details>
+<summary>摘要</summary>
+Language models, especially basic text classification models, have been shown to be vulnerable to textual adversarial attacks such as synonym substitution and word insertion attacks. To defend against such attacks, a growing body of research has been devoted to improving model robustness. However, providing provable robustness guarantees instead of empirical robustness is still widely unexplored. In this paper, we propose Text-CRS, a generalized certified robustness framework for natural language processing (NLP) based on randomized smoothing. To our best knowledge, existing certified schemes for NLP can only certify the robustness against $\ell_0$ perturbations in synonym substitution attacks.Representing each word-level adversarial operation (i.e., synonym substitution, word reordering, insertion, and deletion) as a combination of permutation and embedding transformation, we propose novel smoothing theorems to derive robustness bounds in both permutation and embedding space against such adversarial operations. To further improve certified accuracy and radius, we consider the numerical relationships between discrete words and select proper noise distributions for the randomized smoothing.Finally, we conduct substantial experiments on multiple language models and datasets. Text-CRS can address all four different word-level adversarial operations and achieve a significant accuracy improvement. We also provide the first benchmark on certified accuracy and radius of four word-level operations, besides outperforming the state-of-the-art certification against synonym substitution attacks.
+</details></li>
+</ul>
+<hr>
+<h2 id="Noisy-Self-Training-with-Data-Augmentations-for-Offensive-and-Hate-Speech-Detection-Tasks"><a href="#Noisy-Self-Training-with-Data-Augmentations-for-Offensive-and-Hate-Speech-Detection-Tasks" class="headerlink" title="Noisy Self-Training with Data Augmentations for Offensive and Hate Speech Detection Tasks"></a>Noisy Self-Training with Data Augmentations for Offensive and Hate Speech Detection Tasks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16609">http://arxiv.org/abs/2307.16609</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/jaugusto97/offense-self-training">https://github.com/jaugusto97/offense-self-training</a></li>
+<li>paper_authors: João A. Leite, Carolina Scarton, Diego F. Silva</li>
+<li>for: Automatic detection of offensive and hateful comments in online social media.</li>
+<li>methods: Self-training and noisy self-training using textual data augmentations with five pre-trained BERT architectures.</li>
+<li>results: Self-training consistently improves performance, while noisy self-training decreases performance on offensive and hate-speech domains.Here’s the full text in Simplified Chinese:</li>
+<li>for: 本研究旨在自动检测社交媒体上的侮辱和恐吓言论。</li>
+<li>methods: 使用自我训练和含杂自我训练，使用文本数据增强技术，采用五种不同的预训练BERT架构。</li>
+<li>results: 自我训练可以一直提高表现，而含杂自我训练在侮辱和恐吓言论领域的表现下降。<details>
+<summary>Abstract</summary>
+Online social media is rife with offensive and hateful comments, prompting the need for their automatic detection given the sheer amount of posts created every second. Creating high-quality human-labelled datasets for this task is difficult and costly, especially because non-offensive posts are significantly more frequent than offensive ones. However, unlabelled data is abundant, easier, and cheaper to obtain. In this scenario, self-training methods, using weakly-labelled examples to increase the amount of training data, can be employed. Recent "noisy" self-training approaches incorporate data augmentation techniques to ensure prediction consistency and increase robustness against noisy data and adversarial attacks. In this paper, we experiment with default and noisy self-training using three different textual data augmentation techniques across five different pre-trained BERT architectures varying in size. We evaluate our experiments on two offensive/hate-speech datasets and demonstrate that (i) self-training consistently improves performance regardless of model size, resulting in up to +1.5% F1-macro on both datasets, and (ii) noisy self-training with textual data augmentations, despite being successfully applied in similar settings, decreases performance on offensive and hate-speech domains when compared to the default method, even with state-of-the-art augmentations such as backtranslation.
+</details>
+<details>
+<summary>摘要</summary>
+在线社交媒体中，有许多内容具有攻击性和恐惧语气，导致自动检测的需求，因为每秒钟有极多的创建。然而，人工标注数据实际上很难以取得，特别是非攻击性内容比攻击性内容更多。在这种情况下，自我训练方法可以使用弱标注的例子增加训练数据的量。现代的“杂音”自我训练方法将数据扩展技术纳入训练，以确保预测的一致性和抗衰变攻击的强健性。在这篇文章中，我们将实验 default 和杂音自我训练，使用三种文本数据扩展技术，在五种不同的预读BERT架构上进行评估。我们在两个攻击和负面语气dataset上进行评估，结果显示：（i）自我训练无变通过所有模型大小，实现最高 +1.5% F1-macro 的改善，（ii）杂音自我训练对于攻击和负面语气领域的性能下降，即使使用了现代的数据扩展技术，如回译。
+</details></li>
+</ul>
+<hr>
+<h2 id="Deep-Dive-into-the-Language-of-International-Relations-NLP-based-Analysis-of-UNESCO’s-Summary-Records"><a href="#Deep-Dive-into-the-Language-of-International-Relations-NLP-based-Analysis-of-UNESCO’s-Summary-Records" class="headerlink" title="Deep Dive into the Language of International Relations: NLP-based Analysis of UNESCO’s Summary Records"></a>Deep Dive into the Language of International Relations: NLP-based Analysis of UNESCO’s Summary Records</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16573">http://arxiv.org/abs/2307.16573</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Joanna Wojciechowska, Mateusz Sypniewski, Maria Śmigielska, Igor Kamiński, Emilia Wiśnios, Hanna Schreiber, Bartosz Pieliński</li>
+<li>for: 该论文旨在研究UNESCO世界遗产名录和联合国教科文组织非物质文化遗产名录的投票过程中的紧张关系和冲突，以及开发自动化工具来提供有价值的决策过程分析。</li>
+<li>methods: 该研究使用创新的话题模型和紧张度探测方法，基于UNESCO的摘要记录，实现了72%的准确率在检测紧张关系。此外，研究人员还开发了一个专门为外交官、律师、政治科学家和国际关系研究人员设计的应用程序，以便高效搜索选定文档和特定发言人的话题。</li>
+<li>results: 该研究的结果表明，自动化工具可以提供有价值的决策过程分析，帮助解决国际遗产投票过程中的紧张关系和冲突。<details>
+<summary>Abstract</summary>
+Cultural heritage is an arena of international relations that interests all states worldwide. The inscription process on the UNESCO World Heritage List and the UNESCO Representative List of the Intangible Cultural Heritage of Humanity often leads to tensions and conflicts among states. This research addresses these challenges by developing automatic tools that provide valuable insights into the decision-making processes regarding inscriptions to the two lists mentioned above. We propose innovative topic modelling and tension detection methods based on UNESCO's summary records. Our analysis achieved a commendable accuracy rate of 72% in identifying tensions. Furthermore, we have developed an application tailored for diplomats, lawyers, political scientists, and international relations researchers that facilitates the efficient search of paragraphs from selected documents and statements from specific speakers about chosen topics. This application is a valuable resource for enhancing the understanding of complex decision-making dynamics within international heritage inscription procedures.
+</details>
+<details>
+<summary>摘要</summary>
+文化遗产是国际关系的一个领域，各国都很关心。联合国教科文组织世界遗产名录和联合国教科文组织非物质文化遗产名录的登记过程经常导致国家之间的紧张关系和冲突。本研究通过开发自动化工具，为各国帮助解决这些挑战。我们提出了创新的话题模型和紧张检测方法，基于联合国教科文组织的摘要记录。我们的分析达到了72%的准确率，可以快速寻找关键话题和紧张关系。此外，我们开发了一个专门为外交官、律师、政治科学家和国际关系研究人员设计的应用程序，可以帮助这些人快速搜索选择的文档和来自特定发言人的声明中的特定话题。这个应用程序是国际遗产登记过程中复杂决策动力理解的重要资源。
+</details></li>
+</ul>
+<hr>
+<h2 id="DiffProsody-Diffusion-based-Latent-Prosody-Generation-for-Expressive-Speech-Synthesis-with-Prosody-Conditional-Adversarial-Training"><a href="#DiffProsody-Diffusion-based-Latent-Prosody-Generation-for-Expressive-Speech-Synthesis-with-Prosody-Conditional-Adversarial-Training" class="headerlink" title="DiffProsody: Diffusion-based Latent Prosody Generation for Expressive Speech Synthesis with Prosody Conditional Adversarial Training"></a>DiffProsody: Diffusion-based Latent Prosody Generation for Expressive Speech Synthesis with Prosody Conditional Adversarial Training</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16549">http://arxiv.org/abs/2307.16549</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/hsoh0306/diffprosody">https://github.com/hsoh0306/diffprosody</a></li>
+<li>paper_authors: Hyung-Seok Oh, Sang-Hoon Lee, Seong-Whan Lee</li>
+<li>for: This paper focuses on improving the quality and speed of expressive text-to-speech systems through the use of a diffusion-based latent prosody generator and prosody conditional adversarial training.</li>
+<li>methods: The proposed method, called DiffProsody, uses a diffusion-based latent prosody generator and prosody conditional adversarial training to generate high-quality speech with accurate prosody. The method also utilizes denoising diffusion generative adversarial networks to improve the prosody generation speed.</li>
+<li>results: The paper demonstrates the effectiveness of the proposed method through experiments, showing that DiffProsody is capable of generating prosody 16 times faster than the conventional diffusion model, with superior performance compared to other state-of-the-art methods.<details>
+<summary>Abstract</summary>
+Expressive text-to-speech systems have undergone significant advancements owing to prosody modeling, but conventional methods can still be improved. Traditional approaches have relied on the autoregressive method to predict the quantized prosody vector; however, it suffers from the issues of long-term dependency and slow inference. This study proposes a novel approach called DiffProsody in which expressive speech is synthesized using a diffusion-based latent prosody generator and prosody conditional adversarial training. Our findings confirm the effectiveness of our prosody generator in generating a prosody vector. Furthermore, our prosody conditional discriminator significantly improves the quality of the generated speech by accurately emulating prosody. We use denoising diffusion generative adversarial networks to improve the prosody generation speed. Consequently, DiffProsody is capable of generating prosody 16 times faster than the conventional diffusion model. The superior performance of our proposed method has been demonstrated via experiments.
+</details>
+<details>
+<summary>摘要</summary>
+现代文本到语音系统已经经历了重要的进步，归功于谱系模型。然而，传统方法仍然有可以改进的地方。传统方法通常采用推论方法来预测量化的谱系 вектор;然而，它受到长期依赖和慢速推理的问题困扰。本研究提出了一种新的方法，即DiffProsody，用于生成表达性的语音。我们的发现表明，我们的谱系生成器可以生成高质量的谱系 вектор。此外，我们的谱系条件推论器可以准确地模拟谱系，从而提高生成的语音质量。我们使用denoising扩散生成 adversarial networks来提高谱系生成速度。因此，DiffProsody可以在16倍的速度上生成谱系。我们的实验结果表明，我们的提议的方法在性能上有superior的表现。
+</details></li>
+</ul>
+<hr>
+<h2 id="Specification-of-MiniDemographicABM-jl-A-simplified-agent-based-demographic-model-of-the-UK"><a href="#Specification-of-MiniDemographicABM-jl-A-simplified-agent-based-demographic-model-of-the-UK" class="headerlink" title="Specification of MiniDemographicABM.jl: A simplified agent-based demographic model of the UK"></a>Specification of MiniDemographicABM.jl: A simplified agent-based demographic model of the UK</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16548">http://arxiv.org/abs/2307.16548</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Atiyah Elsheikh</li>
+<li>For: The paper is written for exploring and exploiting the capabilities of the state-of-the-art Agents.jl Julia package in a simplified non-calibrated agent-based demographic model of the UK.* Methods: The paper uses a simplified non-calibrated agent-based demographic model of the UK, where individuals are subject to ageing, deaths, births, divorces, and marriages. The model can be simulated with a user-defined simulation fixed step size on a hourly, daily, weekly, monthly basis or even an arbitrary user-defined clock rate.* Results: The paper can serve as a base model to be adjusted to realistic large-scale socio-economics, pandemics or social interactions-based studies mainly within a demographic context.Here is the same information in Simplified Chinese text:* For: 本文是用于探索和利用现代Agents.jl Julia包的能力的简化非参数化人工智能模型，用于研究英国人口的特点。* Methods: 该模型使用简化非参数化人工智能模型，其中个体受到年龄、死亡、生育、离婚和婚姻的影响。模型可以通过用户定义的 simulation fixed step size 进行模拟，并且可以在每小时、每天、每周、每月基础或者用户定义的时间刻度进行模拟。* Results: 该模型可以作为基本模型，用于调整大规模的社会经济、疫情或者社交互动等研究，主要在人口学上。<details>
+<summary>Abstract</summary>
+This document presents adequate formal terminology for the mathematical specification of a simplified non-calibrated agent-based demographic model of the UK. Individuals of an initial population are subject to ageing, deaths, births, divorces and marriages. The main purpose of the model is to explore and exploit capabilities of the state-of-the-art Agents.jl Julia package [1]. Additionally, the model can serve as a base model to be adjusted to realistic large-scale socio-economics, pandemics or social interactions-based studies mainly within a demographic context. A specific simulation is progressed with a user-defined simulation fixed step size on a hourly, daily, weekly, monthly basis or even an arbitrary user-defined clock rate.
+</details>
+<details>
+<summary>摘要</summary>
+Translation Notes:1. "non-calibrated" 不是 "calibrated" 的反义词。"non-calibrated" 是指模型没有进行过精度调整，而"calibrated" 则是指模型已经进行了精度调整。2. "agent-based" 是指模型使用代理（agent）来表示实体，而不是使用固定的数值或函数来描述实体。3. "demographic" 是指人口的统计学性质，包括年龄、性别、地域等。4. "simulation" 是指模拟或复制实际情况的过程，通常使用计算机模拟实现。5. "fixed step size" 是指每次执行模拟时，使用固定的时间间隔（step size）来执行计算。6. "user-defined" 是指用户可以自定义的参数或设置，例如 simulation clock rate。
+</details></li>
+</ul>
+<hr>
+<h2 id="Utilisation-of-open-intent-recognition-models-for-customer-support-intent-detection"><a href="#Utilisation-of-open-intent-recognition-models-for-customer-support-intent-detection" class="headerlink" title="Utilisation of open intent recognition models for customer support intent detection"></a>Utilisation of open intent recognition models for customer support intent detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16544">http://arxiv.org/abs/2307.16544</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Rasheed Mohammad, Oliver Favell, Shariq Shah, Emmett Cooper, Edlira Vakaj</li>
+<li>for: 这篇论文旨在探讨客户支持方面的人工智能应用，以帮助企业提供更好的客户服务，提高客户满意度。</li>
+<li>methods: 该论文使用了社交媒体、人工智能（AI）、机器学习（ML）等技术，以及远程设备连接，对客户进行更加快速、高效和专业的支持。</li>
+<li>results: 研究表明，使用这些技术可以提高客户支持效率和准确率，同时为企业提供更多的国际客户和业务规模。然而，在检测未知意图方面，还需要进一步的研究和改进。<details>
+<summary>Abstract</summary>
+Businesses have sought out new solutions to provide support and improve customer satisfaction as more products and services have become interconnected digitally. There is an inherent need for businesses to provide or outsource fast, efficient and knowledgeable support to remain competitive. Support solutions are also advancing with technologies, including use of social media, Artificial Intelligence (AI), Machine Learning (ML) and remote device connectivity to better support customers. Customer support operators are trained to utilise these technologies to provide better customer outreach and support for clients in remote areas. Interconnectivity of products and support systems provide businesses with potential international clients to expand their product market and business scale. This paper reports the possible AI applications in customer support, done in collaboration with the Knowledge Transfer Partnership (KTP) program between Birmingham City University and a company that handles customer service systems for businesses outsourcing customer support across a wide variety of business sectors. This study explored several approaches to accurately predict customers' intent using both labelled and unlabelled textual data. While some approaches showed promise in specific datasets, the search for a single, universally applicable approach continues. The development of separate pipelines for intent detection and discovery has led to improved accuracy rates in detecting known intents, while further work is required to improve the accuracy of intent discovery for unknown intents.
+</details>
+<details>
+<summary>摘要</summary>
+This paper reports on the possible AI applications in customer support, done in collaboration with the Knowledge Transfer Partnership (KTP) program between Birmingham City University and a company that handles customer service systems for businesses outsourcing customer support across a wide variety of business sectors. This study explored several approaches to accurately predict customers' intent using both labeled and unlabeled textual data. While some approaches showed promise in specific datasets, the search for a single, universally applicable approach continues. The development of separate pipelines for intent detection and discovery has led to improved accuracy rates in detecting known intents, while further work is required to improve the accuracy of intent discovery for unknown intents.
+</details></li>
+</ul>
+<hr>
+<h2 id="Transferable-Decoding-with-Visual-Entities-for-Zero-Shot-Image-Captioning"><a href="#Transferable-Decoding-with-Visual-Entities-for-Zero-Shot-Image-Captioning" class="headerlink" title="Transferable Decoding with Visual Entities for Zero-Shot Image Captioning"></a>Transferable Decoding with Visual Entities for Zero-Shot Image Captioning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16525">http://arxiv.org/abs/2307.16525</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/feielysia/viecap">https://github.com/feielysia/viecap</a></li>
+<li>paper_authors: Junjie Fei, Teng Wang, Jinrui Zhang, Zhenyu He, Chengjie Wang, Feng Zheng</li>
+<li>for: This paper aims to improve image-to-text generation by addressing the problem of object hallucination in zero-shot image captioning.</li>
+<li>methods: The proposed method, ViECap, uses entity-aware decoding to guide the attention of large language models (LLMs) toward the visual entities present in the image, improving the coherence and accuracy of the generated captions.</li>
+<li>results: Extensive experiments show that ViECap sets a new state-of-the-art cross-domain (transferable) captioning performance and performs competitively in-domain captioning compared to previous VLMs-based zero-shot methods.<details>
+<summary>Abstract</summary>
+Image-to-text generation aims to describe images using natural language. Recently, zero-shot image captioning based on pre-trained vision-language models (VLMs) and large language models (LLMs) has made significant progress. However, we have observed and empirically demonstrated that these methods are susceptible to modality bias induced by LLMs and tend to generate descriptions containing objects (entities) that do not actually exist in the image but frequently appear during training (i.e., object hallucination). In this paper, we propose ViECap, a transferable decoding model that leverages entity-aware decoding to generate descriptions in both seen and unseen scenarios. ViECap incorporates entity-aware hard prompts to guide LLMs' attention toward the visual entities present in the image, enabling coherent caption generation across diverse scenes. With entity-aware hard prompts, ViECap is capable of maintaining performance when transferring from in-domain to out-of-domain scenarios. Extensive experiments demonstrate that ViECap sets a new state-of-the-art cross-domain (transferable) captioning and performs competitively in-domain captioning compared to previous VLMs-based zero-shot methods. Our code is available at: https://github.com/FeiElysia/ViECap
+</details>
+<details>
+<summary>摘要</summary>
+Image-to-text生成旨在使用自然语言描述图像。最近，零批学习图像描述基于预训练视觉语言模型（VLM）和大型语言模型（LLM）已经取得了重要进展。然而，我们观察到和实际示出了这些方法受模式偏见（modality bias）的LLM的影响，往往生成包含图像中不存在的对象（实体）的描述（对象幻觉）。在本文中，我们提出了ViECap，一种可移植的解码器，利用实体意识的解码来生成在seen和unseen场景中的描述。ViECap使用实体意识强制提示来导引LLM的视觉注意力，使其能够在多样场景中生成准确的描述。与传统的VLMs-based零shot方法相比，ViECap在跨频道场景中维持性能，并在域内场景中表现竞争力。我们的代码可以在GitHub上找到：https://github.com/FeiElysia/ViECap
+</details></li>
+</ul>
+<hr>
+<h2 id="Classifying-multilingual-party-manifestos-Domain-transfer-across-country-time-and-genre"><a href="#Classifying-multilingual-party-manifestos-Domain-transfer-across-country-time-and-genre" class="headerlink" title="Classifying multilingual party manifestos: Domain transfer across country, time, and genre"></a>Classifying multilingual party manifestos: Domain transfer across country, time, and genre</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16511">http://arxiv.org/abs/2307.16511</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/slds-lmu/manifesto-domaintransfer">https://github.com/slds-lmu/manifesto-domaintransfer</a></li>
+<li>paper_authors: Matthias Aßenmacher, Nadja Sauter, Christian Heumann</li>
+<li>for: 本研究旨在探讨域传递在政治宣言中的可靠性和可重用性。</li>
+<li>methods: 研究使用了大量政治宣言数据库，并对模型进行了精细调整。</li>
+<li>results: 研究发现，使用(Distil)BERT模型可以在不同语言、地域、时间和类型的政治宣言中实现类似的表现。此外，研究还发现了不同国家的政治宣言之间存在一定的差异，即使这些国家使用同一种语言或文化背景。<details>
+<summary>Abstract</summary>
+Annotating costs of large corpora are still one of the main bottlenecks in empirical social science research. On the one hand, making use of the capabilities of domain transfer allows re-using annotated data sets and trained models. On the other hand, it is not clear how well domain transfer works and how reliable the results are for transfer across different dimensions. We explore the potential of domain transfer across geographical locations, languages, time, and genre in a large-scale database of political manifestos. First, we show the strong within-domain classification performance of fine-tuned transformer models. Second, we vary the genre of the test set across the aforementioned dimensions to test for the fine-tuned models' robustness and transferability. For switching genres, we use an external corpus of transcribed speeches from New Zealand politicians while for the other three dimensions, custom splits of the Manifesto database are used. While BERT achieves the best scores in the initial experiments across modalities, DistilBERT proves to be competitive at a lower computational expense and is thus used for further experiments across time and country. The results of the additional analysis show that (Distil)BERT can be applied to future data with similar performance. Moreover, we observe (partly) notable differences between the political manifestos of different countries of origin, even if these countries share a language or a cultural background.
+</details>
+<details>
+<summary>摘要</summary>
+大公司的标注成本仍是employmultiple的社会科学研究的主要瓶颈。一方面，利用领域传输的能力可以重用标注数据集和训练模型。另一方面，不清楚领域传输是如何工作，结果如何可靠性。我们在一个大规模的政治宣言数据库中探索领域传输的潜力。首先，我们显示了在不同领域内的精度转换模型的强大表现。其次，我们在不同维度上随机选择测试集，以测试精度转换模型的可靠性和可迁移性。为了在类别之间转换，我们使用新西兰政治人物的演讲录音库，而其他三个维度使用自定义的演示数据。虽然BERT在初始实验中Across modalities achieve the best scores，但DistilBERT在更低的计算成本下能够达到类似的性能，因此我们在时间和国家之间进行了进一步的实验。results of the additional analysis show that (Distil)BERT can be applied to future data with similar performance.更重要的是，我们发现了不同国家的政治宣言之间有些 notable differences，即使这些国家共享语言或文化背景。
+</details></li>
+</ul>
+<hr>
+<h2 id="FinVis-GPT-A-Multimodal-Large-Language-Model-for-Financial-Chart-Analysis"><a href="#FinVis-GPT-A-Multimodal-Large-Language-Model-for-Financial-Chart-Analysis" class="headerlink" title="FinVis-GPT: A Multimodal Large Language Model for Financial Chart Analysis"></a>FinVis-GPT: A Multimodal Large Language Model for Financial Chart Analysis</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.01430">http://arxiv.org/abs/2308.01430</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ziao Wang, Yuhang Li, Junda Wu, Jaehyeon Soon, Xiaofeng Zhang</li>
+<li>for:  FinVis-GPT is proposed for financial chart analysis, providing valuable analysis and interpretation of financial charts.</li>
+<li>methods: FinVis-GPT uses a multimodal large language model (LLM) with instruction tuning and multimodal capabilities to analyze financial charts.</li>
+<li>results: FinVis-GPT demonstrates superior performance in various financial chart related tasks, including generating descriptions, answering questions, and predicting future market trends, compared to existing state-of-the-art multimodal LLMs.Here is the text in Simplified Chinese:</li>
+<li>for:  FinVis-GPT 是为金融图表分析而提出的一种新型多Modal大语言模型，它可以准确地解读和分析金融图表。</li>
+<li>methods: FinVis-GPT 使用了多Modal大语言模型（LLM），并通过指令调整和多Modal能力来分析金融图表。</li>
+<li>results: FinVis-GPT 在多种金融图表相关任务中表现出色，包括生成描述、回答问题和预测未来市场趋势，比现有的多Modal LLM 更高效。<details>
+<summary>Abstract</summary>
+In this paper, we propose FinVis-GPT, a novel multimodal large language model (LLM) specifically designed for financial chart analysis. By leveraging the power of LLMs and incorporating instruction tuning and multimodal capabilities, FinVis-GPT is capable of interpreting financial charts and providing valuable analysis. To train FinVis-GPT, a financial task oriented dataset was generated for pre-training alignment and instruction tuning, comprising various types of financial charts and their corresponding descriptions. We evaluate the model performance via several case studies due to the time limit, and the promising results demonstrated that FinVis-GPT is superior in various financial chart related tasks, including generating descriptions, answering questions and predicting future market trends, surpassing existing state-of-the-art multimodal LLMs. The proposed FinVis-GPT serves as a pioneering effort in utilizing multimodal LLMs in the finance domain and our generated dataset will be release for public use in the near future to speedup related research.
+</details>
+<details>
+<summary>摘要</summary>
+在这篇论文中，我们提出了 FinVis-GPT，一种新型的多Modal大语言模型（LLM），专门用于金融图表分析。通过利用LLM的力量和多Modal特性，FinVis-GPT可以解读金融图表并提供有价值的分析。为了训练FinVis-GPT，我们生成了一个金融任务指向数据集，用于预训练对齐和指令调整，其包括各种金融图表和其对应的描述。我们通过一些案例研究评估了模型性能，结果表明FinVis-GPT在各种金融图表相关任务中表现出色，包括生成描述、回答问题和预测未来市场趋势，超越现有的多Modal LLMs。我们的提出的FinVis-GPT是金融领域中首次利用多Modal LLMs的先河，我们将在近 future中发布生成的数据集，以便加速相关研究。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-new-mapping-of-technological-interdependence"><a href="#A-new-mapping-of-technological-interdependence" class="headerlink" title="A new mapping of technological interdependence"></a>A new mapping of technological interdependence</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.00014">http://arxiv.org/abs/2308.00014</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: A. Fronzetti Colladon, B. Guardabascio, F. Venturini</li>
+<li>for: 本研究旨在探讨技术链接对产业创新能力的影响，以及这些影响如何在技术空间传递。</li>
+<li>methods: 本研究使用文本挖掘和网络分析新方法，分析1976-2021年美国专利和商标局（USPTO）授权的650万个专利文本，揭示技术链接的全谱系。</li>
+<li>results: 研究发现，专利文本含有许多不被传统创新指标捕捉的信息，如专利引用。网络分析表明，间接链接与直接连接相当重要，而传统间接链接指标，如列 Ontief inverse matrix，仅仅捕捉了一部分间接链接。最后，基于冲击分析，我们示出技术衰退如何在技术空间传递，影响产业创新能力。<details>
+<summary>Abstract</summary>
+Which technological linkages affect the sector's ability to innovate? How do these effects transmit through the technology space? This paper answers these two key questions using novel methods of text mining and network analysis. We examine technological interdependence across sectors over a period of half a century (from 1976 to 2021) by analyzing the text of 6.5 million patents granted by the United States Patent and Trademark Office (USPTO), and applying network analysis to uncover the full spectrum of linkages existing across technology areas. We demonstrate that patent text contains a wealth of information often not captured by traditional innovation metrics, such as patent citations. By using network analysis, we document that indirect linkages are as important as direct connections and that the former would remain mostly hidden using more traditional measures of indirect linkages, such as the Leontief inverse matrix. Finally, based on an impulse-response analysis, we illustrate how technological shocks transmit through the technology (network-based) space, affecting the innovation capacity of the sectors.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>这个文章使用新的文本挖掘和网络分析方法回答了两个关键问题：一是技术链接对产业创新能力产生影响，二是这些影响如何在技术空间传递？我们在1976年至2021年的半个世纪时间内分析了美国专利与商标局（USPTO）授权的650万个专利文本，并通过网络分析揭示出技术领域之间的全谱连接。我们发现专利文本含有许多不被传统创新指标捕捉的信息，例如专利引用。通过网络分析，我们证明了间接链接与直接连接具有相同的重要性，并且前者通常会通过传统的间接链接指标，如Leontief反对矩阵，被遗弃。最后，我们通过冲击回响分析，示出技术冲击如何在技术空间传递，影响产业的创新能力。Note: The translation is in Simplified Chinese, which is the standard form of Chinese used in mainland China and Singapore. If you prefer Traditional Chinese, I can provide that version as well.
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Benchmark-for-Understanding-Dialogue-Safety-in-Mental-Health-Support"><a href="#A-Benchmark-for-Understanding-Dialogue-Safety-in-Mental-Health-Support" class="headerlink" title="A Benchmark for Understanding Dialogue Safety in Mental Health Support"></a>A Benchmark for Understanding Dialogue Safety in Mental Health Support</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16457">http://arxiv.org/abs/2307.16457</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/qiuhuachuan/dialoguesafety">https://github.com/qiuhuachuan/dialoguesafety</a></li>
+<li>paper_authors: Huachuan Qiu, Tong Zhao, Anqi Li, Shuai Zhang, Hongliang He, Zhenzhong Lan</li>
+<li>For: The paper aims to develop a theoretically and factually grounded taxonomy for analyzing response safety in mental health support, and to create a benchmark corpus with fine-grained labels for each dialogue session.* Methods: The paper uses a zero- and few-shot learning approach with popular language models, including BERT-base, RoBERTa-large, and ChatGPT, to detect and understand unsafe responses within the context of mental health support.* Results: The study reveals that ChatGPT struggles to detect safety categories with detailed safety definitions in a zero- and few-shot paradigm, whereas the fine-tuned model proves to be more suitable. The developed dataset and findings serve as valuable benchmarks for advancing research on dialogue safety in mental health support.<details>
+<summary>Abstract</summary>
+Dialogue safety remains a pervasive challenge in open-domain human-machine interaction. Existing approaches propose distinctive dialogue safety taxonomies and datasets for detecting explicitly harmful responses. However, these taxonomies may not be suitable for analyzing response safety in mental health support. In real-world interactions, a model response deemed acceptable in casual conversations might have a negligible positive impact on users seeking mental health support. To address these limitations, this paper aims to develop a theoretically and factually grounded taxonomy that prioritizes the positive impact on help-seekers. Additionally, we create a benchmark corpus with fine-grained labels for each dialogue session to facilitate further research. We analyze the dataset using popular language models, including BERT-base, RoBERTa-large, and ChatGPT, to detect and understand unsafe responses within the context of mental health support. Our study reveals that ChatGPT struggles to detect safety categories with detailed safety definitions in a zero- and few-shot paradigm, whereas the fine-tuned model proves to be more suitable. The developed dataset and findings serve as valuable benchmarks for advancing research on dialogue safety in mental health support, with significant implications for improving the design and deployment of conversation agents in real-world applications. We release our code and data here: https://github.com/qiuhuachuan/DialogueSafety.
+</details>
+<details>
+<summary>摘要</summary>
+对话安全问题在开放领域人机交互中仍然是一个普遍的挑战。现有的方法提出了不同的对话安全分类和数据集来检测直接危害性的回答。然而，这些分类可能并不适用于分析心理支持中的回答安全性。在实际交互中，一个被认为在互助会话中可以得到积极影响的回答可能并不适用于用户寻求心理支持。为了解决这些限制，本研究旨在开发一个基于理论和实际的对话安全分类，并创建一个具有细化标签的对话会话数据集，以便进一步的研究。我们使用了流行的语言模型，包括BERT-base、RoBERTa-large和ChatGPT，对心理支持中的对话安全进行检测和理解。我们的研究发现，ChatGPT在零和几个shot情况下很难检测安全类别，而精心调整的模型却表现出色。我们开发的数据集和发现将为对话安全在心理支持中的研究提供价值的标准，对实际应用中的对话机器人设计和部署产生重要影响。我们在 GitHub 上发布了代码和数据：https://github.com/qiuhuachuan/DialogueSafety。
+</details></li>
+</ul>
+<hr>
+<h2 id="Camoscio-an-Italian-Instruction-tuned-LLaMA"><a href="#Camoscio-an-Italian-Instruction-tuned-LLaMA" class="headerlink" title="Camoscio: an Italian Instruction-tuned LLaMA"></a>Camoscio: an Italian Instruction-tuned LLaMA</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16456">http://arxiv.org/abs/2307.16456</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/teelinsan/camoscio">https://github.com/teelinsan/camoscio</a></li>
+<li>paper_authors: Andrea Santilli, Emanuele Rodolà</li>
+<li>for: 本研究旨在提供一个特定 для意大利语言的语言模型，以便实现该语言的自然语言处理任务。</li>
+<li>methods: 本研究使用了LLaMA的最小型别（7b），并通过LoRA进行精细调整，以便在意大利语言下跟随用户的指令。</li>
+<li>results: 本研究的结果显示，模型在意大利语言下的零执行性能在各种下游任务中竞争性地与现有特定 для这些任务的模型竞争。<details>
+<summary>Abstract</summary>
+In recent years Large Language Models (LLMs) have increased the state of the art on several natural language processing tasks. However, their accessibility is often limited to paid API services, posing challenges for researchers in conducting extensive investigations. On the other hand, while some open-source models have been proposed by the community, they are typically multilingual and not specifically tailored for the Italian language. In an effort to democratize the available and open resources for the Italian language, in this paper we introduce Camoscio: a language model specifically tuned to follow users' prompts in Italian. Specifically, we finetuned the smallest variant of LLaMA (7b) with LoRA on a corpus of instruction prompts translated to Italian via ChatGPT. Results indicate that the model's zero-shot performance on various downstream tasks in Italian competes favorably with existing models specifically finetuned for those tasks. All the artifacts (code, dataset, model) are released to the community at the following url: https://github.com/teelinsan/camoscio
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="DCTM-Dilated-Convolutional-Transformer-Model-for-Multimodal-Engagement-Estimation-in-Conversation"><a href="#DCTM-Dilated-Convolutional-Transformer-Model-for-Multimodal-Engagement-Estimation-in-Conversation" class="headerlink" title="DCTM: Dilated Convolutional Transformer Model for Multimodal Engagement Estimation in Conversation"></a>DCTM: Dilated Convolutional Transformer Model for Multimodal Engagement Estimation in Conversation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.01966">http://arxiv.org/abs/2308.01966</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Vu Ngoc Tu, Van Thong Huynh, Hyung-Jeong Yang, M. Zaigham Zaheer, Shah Nawaz, Karthik Nandakumar, Soo-Hyung Kim</li>
+<li>for: 本研究的目的是提取对话中人们的互动情况，以获得对人际交流的理解和行为模式的洞察。</li>
+<li>methods: 本研究使用了扩展 convolutional Transformer 来模型和估计对话中人们的参与度。我们还使用了不同的模态融合方法，并发现在这种数据上，简单的 concatenated 方法加上自注意融合得到了最好的表现。</li>
+<li>results: 我们的提案系统在测试集上比基eline模型高$7%$，在验证集上高$4%$。<details>
+<summary>Abstract</summary>
+Conversational engagement estimation is posed as a regression problem, entailing the identification of the favorable attention and involvement of the participants in the conversation. This task arises as a crucial pursuit to gain insights into human's interaction dynamics and behavior patterns within a conversation. In this research, we introduce a dilated convolutional Transformer for modeling and estimating human engagement in the MULTIMEDIATE 2023 competition. Our proposed system surpasses the baseline models, exhibiting a noteworthy $7$\% improvement on test set and $4$\% on validation set. Moreover, we employ different modality fusion mechanism and show that for this type of data, a simple concatenated method with self-attention fusion gains the best performance.
+</details>
+<details>
+<summary>摘要</summary>
+文本对话参与度估计问题 pose 为回归问题，涉及到参与者在对话中有利的注意力和参与度的识别。这项任务对于了解人类对话动力学和行为模式具有重要意义。在这项研究中，我们提出了一种扩展 convolutional Transformer 来模型和估计对话参与度，并在 MULTIMEDIATE 2023 比赛中提交了我们的提案。我们的提案比基eline模型表现出了显著的 $7\%$ 提高（测试集）和 $4\%$ 提高（验证集）。此外，我们采用了不同的modalities fusion方法，并证明在这类数据上，简单 concatenation 方法配合自我注意力融合可以获得最佳性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="SelfSeg-A-Self-supervised-Sub-word-Segmentation-Method-for-Neural-Machine-Translation"><a href="#SelfSeg-A-Self-supervised-Sub-word-Segmentation-Method-for-Neural-Machine-Translation" class="headerlink" title="SelfSeg: A Self-supervised Sub-word Segmentation Method for Neural Machine Translation"></a>SelfSeg: A Self-supervised Sub-word Segmentation Method for Neural Machine Translation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16400">http://arxiv.org/abs/2307.16400</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Haiyue Song, Raj Dabre, Chenhui Chu, Sadao Kurohashi, Eiichiro Sumita</li>
+<li>for: This paper is written for the purpose of proposing a self-supervised neural sub-word segmentation method called SelfSeg, which is faster and more efficient than existing methods.</li>
+<li>methods: The paper uses a self-supervised approach that takes as input a word in the form of a partially masked character sequence, optimizes the word generation probability, and generates the segmentation with the maximum posterior probability using a dynamic programming algorithm. The training time of SelfSeg depends on word frequencies, and the paper explores several word frequency normalization strategies to accelerate the training phase.</li>
+<li>results: The paper conducts machine translation experiments in low-, middle-, and high-resource scenarios, comparing the performance of different segmentation methods. The results show that SelfSeg achieves significant improvements over existing methods, including BPE and SentencePiece, and the regularization method achieves approximately a 4.3 BLEU score improvement over BPE and a 1.2 BLEU score improvement over BPE-dropout. The paper also observes improvements on several other datasets.Here is the information in Simplified Chinese text:</li>
+<li>for: 这篇论文是为了提出一种自动学习的字符级别分词法，它比现有的方法更快速和高效。</li>
+<li>methods: 这篇论文使用了一种自动学习的方法，输入一个部分遮盖的单词，优化单词生成概率，并使用动态规划算法计算最大 posterior probability，生成分词结果。训练时间取决于单词频率，论文探索了多种单词频率normalization策略来加速训练阶段。</li>
+<li>results: 论文通过对机器翻译 task进行实验，在低资源、中资源和高资源的场景中比较了不同的分词方法的性能。结果表明，SelfSeg在ALT dataset上获得了1.2 BLEU分数的提升，而与DPE和VOLT相比，增加了约4.3 BLEU分数。论文还发现了其他一些数据集上的显著提升。<details>
+<summary>Abstract</summary>
+Sub-word segmentation is an essential pre-processing step for Neural Machine Translation (NMT). Existing work has shown that neural sub-word segmenters are better than Byte-Pair Encoding (BPE), however, they are inefficient as they require parallel corpora, days to train and hours to decode. This paper introduces SelfSeg, a self-supervised neural sub-word segmentation method that is much faster to train/decode and requires only monolingual dictionaries instead of parallel corpora. SelfSeg takes as input a word in the form of a partially masked character sequence, optimizes the word generation probability and generates the segmentation with the maximum posterior probability, which is calculated using a dynamic programming algorithm. The training time of SelfSeg depends on word frequencies, and we explore several word frequency normalization strategies to accelerate the training phase. Additionally, we propose a regularization mechanism that allows the segmenter to generate various segmentations for one word. To show the effectiveness of our approach, we conduct MT experiments in low-, middle- and high-resource scenarios, where we compare the performance of using different segmentation methods. The experimental results demonstrate that on the low-resource ALT dataset, our method achieves more than 1.2 BLEU score improvement compared with BPE and SentencePiece, and a 1.1 score improvement over Dynamic Programming Encoding (DPE) and Vocabulary Learning via Optimal Transport (VOLT) on average. The regularization method achieves approximately a 4.3 BLEU score improvement over BPE and a 1.2 BLEU score improvement over BPE-dropout, the regularized version of BPE. We also observed significant improvements on IWSLT15 Vi->En, WMT16 Ro->En and WMT15 Fi->En datasets, and competitive results on the WMT14 De->En and WMT14 Fr->En datasets.
+</details>
+<details>
+<summary>摘要</summary>
+它是一种基于神经网络的自动分词方法，可以用于语机翻译（NMT）的前期处理步骤。现有研究表明，神经网络分词器比Byte-Pair Encoding（BPE）更好，但它们需要并行 Corpora 并且训练和解码时间比较长。这篇论文介绍了一种自然语言自动分词法，它叫做SelfSeg，它比较快速地训练和解码，并且只需要单语言词典而不需要并行 Corpora。SelfSeg 接受一个部分遮盖的字符序列作为输入，并且通过计算最大 posterior 概率来生成分词结果。训练 SelfSeg 的时间取决于单词频率，我们也提出了多种单词频率归一化策略来加速训练阶段。此外，我们还提出了一种规范化机制，允许分词器生成不同的分词结果。为证明我们的方法的有效性，我们进行了不同分词方法的MT实验，其中包括 BPE、SentencePiece、DPE 和 VOLT。实验结果表明，在 ALT  dataset 上，我们的方法可以与 BPE 和 SentencePiece 相比，提高了 más de 1.2 BLEU 分数，而与 DPE 和 VOLT 相比，提高了约 1.1 BLEU 分数。规范化机制可以提高 BPE 的约 4.3 BLEU 分数，并且与 BPE-dropout 相比，提高了约 1.2 BLEU 分数。我们还观察到在 IWSLT15 Vi->En、WMT16 Ro->En 和 WMT15 Fi->En 等 dataset 上，我们的方法具有显著的改善，并且在 WMT14 De->En 和 WMT14 Fr->En  dataset 上达到了竞争性的结果。
+</details></li>
+</ul>
+<hr>
+<h2 id="Does-fine-tuning-GPT-3-with-the-OpenAI-API-leak-personally-identifiable-information"><a href="#Does-fine-tuning-GPT-3-with-the-OpenAI-API-leak-personally-identifiable-information" class="headerlink" title="Does fine-tuning GPT-3 with the OpenAI API leak personally-identifiable information?"></a>Does fine-tuning GPT-3 with the OpenAI API leak personally-identifiable information?</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16382">http://arxiv.org/abs/2307.16382</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/albertsun1/gpt3-pii-attacks">https://github.com/albertsun1/gpt3-pii-attacks</a></li>
+<li>paper_authors: Albert Yu Sun, Eliott Zemour, Arushi Saxena, Udith Vaidyanathan, Eric Lin, Christian Lau, Vaikkunth Mugunthan</li>
+<li>for: 本研究目的是探讨 GPT-3 模型在 fine-tuning 过程中是否可以提取个人敏感信息 (PII)。</li>
+<li>methods: 本研究使用 OpenAI 提供的 fine-tuning API 对 GPT-3 模型进行了模拟攻击，并使用了 naive 提示方法和实际应用中的自动完成任务来调查 GPT-3 是否在 fine-tuning 过程中记忆和泄露敏感信息。</li>
+<li>results: 研究发现，对 GPT-3 进行了 fine-tuning 后，模型就可以记忆并泄露来自原始 fine-tuning 数据集中的敏感信息 (PII)。<details>
+<summary>Abstract</summary>
+Machine learning practitioners often fine-tune generative pre-trained models like GPT-3 to improve model performance at specific tasks. Previous works, however, suggest that fine-tuned machine learning models memorize and emit sensitive information from the original fine-tuning dataset. Companies such as OpenAI offer fine-tuning services for their models, but no prior work has conducted a memorization attack on any closed-source models. In this work, we simulate a privacy attack on GPT-3 using OpenAI's fine-tuning API. Our objective is to determine if personally identifiable information (PII) can be extracted from this model. We (1) explore the use of naive prompting methods on a GPT-3 fine-tuned classification model, and (2) we design a practical word generation task called Autocomplete to investigate the extent of PII memorization in fine-tuned GPT-3 within a real-world context. Our findings reveal that fine-tuning GPT3 for both tasks led to the model memorizing and disclosing critical personally identifiable information (PII) obtained from the underlying fine-tuning dataset. To encourage further research, we have made our codes and datasets publicly available on GitHub at: https://github.com/albertsun1/gpt3-pii-attacks
+</details>
+<details>
+<summary>摘要</summary>
+机器学习实践者常常精细调整生成预训练模型，如GPT-3，以提高模型在特定任务上的表现。前一次的研究表明，精细调整的机器学习模型可能会记忆并释出原始精细调整数据中的敏感资讯。如OpenAI提供的精细调整服务，但没有任何前一次的工作对关闭源代码模型进行了记忆攻击。在这个工作中，我们模拟了隐私攻击GPT-3，使用OpenAI的精细调整API。我们的目标是确定GPT-3是否能够从这个模型中提取个人敏感信息（PII）。我们（1）探索使用简单提示方法在GPT-3精细调整分类模型上，并（2）设计了实用的自动完成任务，以探索精细调整GPT-3中PII的记忆情况。我们的发现显示，精细调整GPT-3 для这两个任务都导致模型记忆并释出重要的个人敏感信息（PII），从原始精细调整数据中获取。为了鼓励更多研究，我们将我们的代码和数据公开提供GitHub上：https://github.com/albertsun1/gpt3-pii-attacks。
+</details></li>
+</ul>
+<hr>
+<h2 id="Distractor-generation-for-multiple-choice-questions-with-predictive-prompting-and-large-language-models"><a href="#Distractor-generation-for-multiple-choice-questions-with-predictive-prompting-and-large-language-models" class="headerlink" title="Distractor generation for multiple-choice questions with predictive prompting and large language models"></a>Distractor generation for multiple-choice questions with predictive prompting and large language models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16338">http://arxiv.org/abs/2307.16338</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/semerekiros/distractgpt">https://github.com/semerekiros/distractgpt</a></li>
+<li>paper_authors: Semere Kiros Bitew, Johannes Deleu, Chris Develder, Thomas Demeester</li>
+<li>for: 本研究旨在提高 chatGPT 等大型自然语言模型在多项选择题 (MCQ) 中生成干扰符的性能。</li>
+<li>methods: 我们提出了一种使用问题库中自动检索的问题项作为准确的示例来引导 chatGPT 生成相关的干扰符的策略。</li>
+<li>results: 我们的方法在已有测试集上进行量化评估以及人工专家（教师）的质量注释中表现出色，平均53%的生成干扰符被教师评为高质量，超过当前最佳模型。 我们还比较了我们的方法与零极 chatGPT 和几个示例激活 chatGPT 的性能，并证明了我们的方法在生成高质量干扰符方面的优势。<details>
+<summary>Abstract</summary>
+Large Language Models (LLMs) such as ChatGPT have demonstrated remarkable performance across various tasks and have garnered significant attention from both researchers and practitioners. However, in an educational context, we still observe a performance gap in generating distractors -- i.e., plausible yet incorrect answers -- with LLMs for multiple-choice questions (MCQs). In this study, we propose a strategy for guiding LLMs such as ChatGPT, in generating relevant distractors by prompting them with question items automatically retrieved from a question bank as well-chosen in-context examples. We evaluate our LLM-based solutions using a quantitative assessment on an existing test set, as well as through quality annotations by human experts, i.e., teachers. We found that on average 53% of the generated distractors presented to the teachers were rated as high-quality, i.e., suitable for immediate use as is, outperforming the state-of-the-art model. We also show the gains of our approach 1 in generating high-quality distractors by comparing it with a zero-shot ChatGPT and a few-shot ChatGPT prompted with static examples.
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型（LLM）如ChatGPT已经表现出了在不同任务上的出色表现，引起了研究者和实践者的广泛关注。然而，在教育上，我们仍然观察到LLM在生成诱导者（i.e., 可能correct但不正确的答案）方面存在性能差距。在这项研究中，我们提出了一种策略，使LLM通过自动从问题库中提取问题项来生成相关的诱导者。我们使用现有测试集进行了量化评估，以及通过人工智能专家（i.e., 教师）的质量标注来评估。我们发现，平均 speaking 53%的生成诱导者被教师评估为高质量，可以不需要更改，超越了现有的模型。我们还显示了我们的方法在生成高质量诱导者方面的优势，与零极 chatGPT 和几个极少shot chatGPT 提交的静止示例相比。
+</details></li>
+</ul>
+<hr>
+<h2 id="Mispronunciation-detection-using-self-supervised-speech-representations"><a href="#Mispronunciation-detection-using-self-supervised-speech-representations" class="headerlink" title="Mispronunciation detection using self-supervised speech representations"></a>Mispronunciation detection using self-supervised speech representations</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.16324">http://arxiv.org/abs/2307.16324</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/JazminVidal/ssl-mispron">https://github.com/JazminVidal/ssl-mispron</a></li>
+<li>paper_authors: Jazmin Vidal, Pablo Riera, Luciana Ferrer</li>
+<li>for: 本研究探讨了使用自动学习模型（SSL）进行外语学习者的发音识别任务。</li>
+<li>methods: 我们比较了两种下游方法：1）使用本地英语数据进行话音识别（PR）模型训练，2）直接使用非本地英语数据进行目标任务模型训练。我们对各种SSL表示形式以及一个来自传统的DNN基于语音识别模型的表示形式进行比较。</li>
+<li>results: 我们发现使用下游模型直接进行目标任务训练得到最好的性能，而大多数上游模型在这个任务上表现相似。<details>
+<summary>Abstract</summary>
+In recent years, self-supervised learning (SSL) models have produced promising results in a variety of speech-processing tasks, especially in contexts of data scarcity. In this paper, we study the use of SSL models for the task of mispronunciation detection for second language learners. We compare two downstream approaches: 1) training the model for phone recognition (PR) using native English data, and 2) training a model directly for the target task using non-native English data. We compare the performance of these two approaches for various SSL representations as well as a representation extracted from a traditional DNN-based speech recognition model. We evaluate the models on L2Arctic and EpaDB, two datasets of non-native speech annotated with pronunciation labels at the phone level. Overall, we find that using a downstream model trained for the target task gives the best performance and that most upstream models perform similarly for the task.
+</details>
+<details>
+<summary>摘要</summary>
+近年来，自我超vised学习（SSL）模型在各种语音处理任务中表现出色，特别是在数据缺乏的情况下。本文研究了使用SSL模型进行第二语言学习者的误发音检测。我们比较了两种下游方法：1）使用本地英语数据进行话语识别（PR）模型的训练，和2）直接使用非本地英语数据进行目标任务的模型训练。我们对各种SSL表示形式以及一种基于传统DNN语音识别模型中的表示进行比较。我们对L2Arctic和EpaDB两个非本地语音 datasets进行评估。总的来说，我们发现使用下游模型直接进行目标任务的训练可以获得最好的性能，而大多数上游模型在这个任务上的表现相似。
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/07/31/cs.CL_2023_07_31/" data-id="clmvt7t88006f26rdfjlifhp3" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/07/31/cs.AI_2023_07_31/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cs.AI - 2023-07-31
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/07/31/cs.LG_2023_07_31/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.LG - 2023-07-31</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">21</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">150</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

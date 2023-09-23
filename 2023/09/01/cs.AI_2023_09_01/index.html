@@ -1,0 +1,863 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.AI - 2023-09-01 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Efficient RLHF: Reducing the Memory Usage of PPO paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2309.00754 repo_url: None paper_authors: Michael Santacroce, Yadong Lu, Han Yu, Yuanzhi Li, Yelong Shen for: 这个论文的目的是解决">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.AI - 2023-09-01">
+<meta property="og:url" content="https://nullscc.github.io/2023/09/01/cs.AI_2023_09_01/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="Efficient RLHF: Reducing the Memory Usage of PPO paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2309.00754 repo_url: None paper_authors: Michael Santacroce, Yadong Lu, Han Yu, Yuanzhi Li, Yelong Shen for: 这个论文的目的是解决">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-09-01T12:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-23T08:55:24.101Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.AI_2023_09_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/09/01/cs.AI_2023_09_01/" class="article-date">
+  <time datetime="2023-09-01T12:00:00.000Z" itemprop="datePublished">2023-09-01</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-AI/">cs.AI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.AI - 2023-09-01
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Efficient-RLHF-Reducing-the-Memory-Usage-of-PPO"><a href="#Efficient-RLHF-Reducing-the-Memory-Usage-of-PPO" class="headerlink" title="Efficient RLHF: Reducing the Memory Usage of PPO"></a>Efficient RLHF: Reducing the Memory Usage of PPO</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00754">http://arxiv.org/abs/2309.00754</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Michael Santacroce, Yadong Lu, Han Yu, Yuanzhi Li, Yelong Shen</li>
+<li>for: 这个论文的目的是解决RLHF中PPO阶段的内存问题，使得更多的实践者能够使用RLHF进行语言模型化。</li>
+<li>methods: 论文使用了一系列的内存节省技术来降低PPO的内存使用量，并对这些技术的影响进行了全面的分析。</li>
+<li>results: 实验结果显示，使用LoRA durante PPO可以降低PPO的内存使用量，并在四个公共benchmark上提高了RLHF的对齐性。此外，Hydra-PPO可以降低LoRA-PPO的样本延迟时间，而不会影响其性能。这些结果表明，Hydra-PPO是一种简单有前途的解决方案，可以普及RLHF的使用。<details>
+<summary>Abstract</summary>
+Reinforcement Learning with Human Feedback (RLHF) has revolutionized language modeling by aligning models with human preferences. However, the RL stage, Proximal Policy Optimization (PPO), requires over 3x the memory of Supervised Fine-Tuning (SFT), making it infeasible to use for most practitioners. To address this issue, we present a comprehensive analysis the memory usage, performance, and training time of memory-savings techniques for PPO. We introduce Hydra-RLHF by first integrating the SFT and Reward models and then dynamically turning LoRA "off" during training. Our experiments show: 1. Using LoRA during PPO reduces its memory usage to be smaller than SFT while improving alignment across four public benchmarks, and 2. Hydra-PPO reduces the latency per sample of LoRA-PPO by up to 65% while maintaining its performance. Our results demonstrate that Hydra-PPO is a simple and promising solution for enabling more widespread usage of RLHF.
+</details>
+<details>
+<summary>摘要</summary>
+“强化学习 avec 人类反馈（RLHF）已经革命化语言模型化，将模型与人类偏好进行Alignment。但是，RL阶段的Proximal Policy Optimization（PPO）需要更多的内存，使得大多数实践者无法使用。为解决这个问题，我们提供了一个涵盖性分析的内存使用、性能和训练时间的分析。我们首先将Supervised Fine-Tuning（SFT）和Reward模型集成，然后在训练过程中静态地将LoRA“Off”。我们的实验结果显示：1. 在PPO中使用LoRA可以降低其内存使用量，与SFT相比，并在四个公共测试集上提高了Alignment的表现。2. Hydra-PPO可以将LoRA-PPO的延迟时间降低至最多65%，保持其表现。我们的结果显示，Hydra-PPO是一个简单且有前途的解决方案，可以帮助RLHF更加广泛地应用。”
+</details></li>
+</ul>
+<hr>
+<h2 id="Language-Conditioned-Change-point-Detection-to-Identify-Sub-Tasks-in-Robotics-Domains"><a href="#Language-Conditioned-Change-point-Detection-to-Identify-Sub-Tasks-in-Robotics-Domains" class="headerlink" title="Language-Conditioned Change-point Detection to Identify Sub-Tasks in Robotics Domains"></a>Language-Conditioned Change-point Detection to Identify Sub-Tasks in Robotics Domains</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00743">http://arxiv.org/abs/2309.00743</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Divyanshu Raj, Chitta Baral, Nakul Gopalan</li>
+<li>for: 本研究目标是通过语言指令确定机器人行走路径中的子任务。</li>
+<li>methods: 我们使用语言提供的指导来确定语言指令中的子任务，并将这些子任务映射到机器人行走路径中的子段。</li>
+<li>results: 我们的方法可以准确地确定机器人行走路径中的子任务，并且与基eline方法相比，我们的方法可以提高$1.78_{\pm 0.82}%$的准确率。<details>
+<summary>Abstract</summary>
+In this work, we present an approach to identify sub-tasks within a demonstrated robot trajectory using language instructions. We identify these sub-tasks using language provided during demonstrations as guidance to identify sub-segments of a longer robot trajectory. Given a sequence of natural language instructions and a long trajectory consisting of image frames and discrete actions, we want to map an instruction to a smaller fragment of the trajectory. Unlike previous instruction following works which directly learn the mapping from language to a policy, we propose a language-conditioned change-point detection method to identify sub-tasks in a problem. Our approach learns the relationship between constituent segments of a long language command and corresponding constituent segments of a trajectory. These constituent trajectory segments can be used to learn subtasks or sub-goals for planning or options as demonstrated by previous related work. Our insight in this work is that the language-conditioned robot change-point detection problem is similar to the existing video moment retrieval works used to identify sub-segments within online videos. Through extensive experimentation, we demonstrate a $1.78_{\pm 0.82}\%$ improvement over a baseline approach in accurately identifying sub-tasks within a trajectory using our proposed method. Moreover, we present a comprehensive study investigating sample complexity requirements on learning this mapping, between language and trajectory sub-segments, to understand if the video retrieval-based methods are realistic in real robot scenarios.
+</details>
+<details>
+<summary>摘要</summary>
+在这个工作中，我们提出了一种方法，用于在人工智能机器人路径示例中标识子任务。我们使用示例中提供的语言作为指导，以标识路径中的子段。给定一个自然语言指令序列和一个包含图像帧和精确动作的长路径，我们想要将指令映射到更短的路径段。不同于前一些语言指令跟踪工作，我们提议使用语言条件变化点检测方法来标识子任务。我们的方法学习了语言命令中的各个段落和路径中的各个段落之间的关系。这些路径段可以用于学习子任务或子目标 для规划或选择。我们的发现是，语言条件变化点检测问题与现有在线视频中的分割问题类似。经过广泛的实验，我们表明了使用我们提议的方法可以与基准方法相比提高$1.78\pm0.82\%$的精度。此外，我们还进行了全面的研究，以了解学习这种映射的样本复杂度要求，以确定视频分割方法在真实的机器人场景中是否可行。
+</details></li>
+</ul>
+<hr>
+<h2 id="Contextual-Biasing-of-Named-Entities-with-Large-Language-Models"><a href="#Contextual-Biasing-of-Named-Entities-with-Large-Language-Models" class="headerlink" title="Contextual Biasing of Named-Entities with Large Language Models"></a>Contextual Biasing of Named-Entities with Large Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00723">http://arxiv.org/abs/2309.00723</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Chuanneng Sun, Zeeshan Ahmed, Yingyi Ma, Zhe Liu, Yutong Pang, Ozlem Kalinli</li>
+<li>for: 这paper研究使用大型自然语言模型（LLM）进行语音识别（ASR）的上下文化偏误。</li>
+<li>methods:  authors提出了一种不需要微调的提示方法，使用提示列表和少量示例来提供额外信息，以提高ASR性能。同时，他们还提出了多任务训练方法，使LLM预测实体类和下一个token。为了提高效率和避免LLM的最长序列长度限制，authors提出了动态提示方法，选择最有可能性的类，并只使用这个类中的Entity作为下一个token预测的Context。</li>
+<li>results:  results表明，提示列表和少量示例可以相对于首轮ASR提高17.8%和9.6%，而多任务训练和动态提示可以相对于首轮ASR提高20.0%和11.3%的WER。<details>
+<summary>Abstract</summary>
+This paper studies contextual biasing with Large Language Models (LLMs), where during second-pass rescoring additional contextual information is provided to a LLM to boost Automatic Speech Recognition (ASR) performance. We propose to leverage prompts for a LLM without fine tuning during rescoring which incorporate a biasing list and few-shot examples to serve as additional information when calculating the score for the hypothesis. In addition to few-shot prompt learning, we propose multi-task training of the LLM to predict both the entity class and the next token. To improve the efficiency for contextual biasing and to avoid exceeding LLMs' maximum sequence lengths, we propose dynamic prompting, where we select the most likely class using the class tag prediction, and only use entities in this class as contexts for next token prediction. Word Error Rate (WER) evaluation is performed on i) an internal calling, messaging, and dictation dataset, and ii) the SLUE-Voxpopuli dataset. Results indicate that biasing lists and few-shot examples can achieve 17.8% and 9.6% relative improvement compared to first pass ASR, and that multi-task training and dynamic prompting can achieve 20.0% and 11.3% relative WER improvement, respectively.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Amortizing-Pragmatic-Program-Synthesis-with-Rankings"><a href="#Amortizing-Pragmatic-Program-Synthesis-with-Rankings" class="headerlink" title="Amortizing Pragmatic Program Synthesis with Rankings"></a>Amortizing Pragmatic Program Synthesis with Rankings</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.03225">http://arxiv.org/abs/2309.03225</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/evanthebouncy/pragmatic_synthesis_ranking">https://github.com/evanthebouncy/pragmatic_synthesis_ranking</a></li>
+<li>paper_authors: Yewen Pu, Saujas Vaduguru, Priyan Vaithilingam, Elena Glassman, Daniel Fried</li>
+<li>for: 该论文旨在提高程序生成器的效率，使其能够应用于更多的领域。</li>
+<li>methods: 该论文使用了 rational speech acts（RSA）框架，并开发了一种全局 Pragmatic 排名方法，以减轻 RSA 算法的计算负担。</li>
+<li>results: 实验结果表明，使用全局 Pragmatic 排名方法可以大幅提高程序生成器的效率，并在多个示例下与非 Pragmatic  synthesizer 相比，表现更优异。<details>
+<summary>Abstract</summary>
+In program synthesis, an intelligent system takes in a set of user-generated examples and returns a program that is logically consistent with these examples. The usage of Rational Speech Acts (RSA) framework has been successful in building \emph{pragmatic} program synthesizers that return programs which -- in addition to being logically consistent -- account for the fact that a user chooses their examples informatively. However, the computational burden of running the RSA algorithm has restricted the application of pragmatic program synthesis to domains with a small number of possible programs. This work presents a novel method of amortizing the RSA algorithm by leveraging a \emph{global pragmatic ranking} -- a single, total ordering of all the hypotheses. We prove that for a pragmatic synthesizer that uses a single demonstration, our global ranking method exactly replicates RSA's ranked responses. We further empirically show that global rankings effectively approximate the full pragmatic synthesizer in an online, multi-demonstration setting. Experiments on two program synthesis domains using our pragmatic ranking method resulted in orders of magnitudes of speed ups compared to the RSA synthesizer, while outperforming the standard, non-pragmatic synthesizer.
+</details>
+<details>
+<summary>摘要</summary>
+在程序生成中，一个智能系统会接受用户生成的示例集并返回一个符合这些示例的程序。使用 rational speech acts（RSA）框架已经成功地建立了 Pragmatic 程序生成器，这些程序不仅需要符合逻辑上的一致，还需要考虑用户选择示例的信息性。然而，运行 RSA 算法的计算负担限制了 Pragmatic 程序生成的应用领域的规模。这项工作提出了一种归一化 RSA 算法的方法，通过利用全局的 Pragmatic 排名来实现。我们证明，在单个示例下，我们的全球排名方法可以准确复制 RSA 排名的答案。我们进一步验证了全球排名在在线、多示例的 Setting 下能够有效地逼近整个 Pragmatic 生成器。在两个程序生成领域中，使用我们的 Pragmatic 排名方法，比对 RSA 生成器和标准、非 Pragmatic 生成器，实现了一个数量级的速度提升，同时表现更高。
+</details></li>
+</ul>
+<hr>
+<h2 id="Reinforcement-Learning-with-Human-Feedback-for-Realistic-Traffic-Simulation"><a href="#Reinforcement-Learning-with-Human-Feedback-for-Realistic-Traffic-Simulation" class="headerlink" title="Reinforcement Learning with Human Feedback for Realistic Traffic Simulation"></a>Reinforcement Learning with Human Feedback for Realistic Traffic Simulation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00709">http://arxiv.org/abs/2309.00709</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yulong Cao, Boris Ivanovic, Chaowei Xiao, Marco Pavone</li>
+<li>for:  This paper aims to enhance the realism of existing traffic models for autonomous vehicle development by incorporating human preferences through reinforcement learning.</li>
+<li>methods: The proposed framework, called TrafficRLHF, uses human feedback for alignment and employs reinforcement learning with human preference to generate realistic traffic scenarios.</li>
+<li>results: The framework demonstrates its proficiency in generating traffic scenarios that are well-aligned with human preferences, as corroborated by comprehensive evaluations on the nuScenes dataset.<details>
+<summary>Abstract</summary>
+In light of the challenges and costs of real-world testing, autonomous vehicle developers often rely on testing in simulation for the creation of reliable systems. A key element of effective simulation is the incorporation of realistic traffic models that align with human knowledge, an aspect that has proven challenging due to the need to balance realism and diversity. This works aims to address this by developing a framework that employs reinforcement learning with human preference (RLHF) to enhance the realism of existing traffic models. This study also identifies two main challenges: capturing the nuances of human preferences on realism and the unification of diverse traffic simulation models. To tackle these issues, we propose using human feedback for alignment and employ RLHF due to its sample efficiency. We also introduce the first dataset for realism alignment in traffic modeling to support such research. Our framework, named TrafficRLHF, demonstrates its proficiency in generating realistic traffic scenarios that are well-aligned with human preferences, as corroborated by comprehensive evaluations on the nuScenes dataset.
+</details>
+<details>
+<summary>摘要</summary>
+“为了Addressing the challenges and costs of real-world testing, autonomous vehicle developers often rely on simulation testing for the creation of reliable systems. A key element of effective simulation is the incorporation of realistic traffic models that align with human knowledge, an aspect that has proven challenging due to the need to balance realism and diversity. This study aims to address this by developing a framework that employs reinforcement learning with human preference (RLHF) to enhance the realism of existing traffic models. This study also identifies two main challenges: capturing the nuances of human preferences on realism and the unification of diverse traffic simulation models. To tackle these issues, we propose using human feedback for alignment and employ RLHF due to its sample efficiency. We also introduce the first dataset for realism alignment in traffic modeling to support such research. Our framework, named TrafficRLHF, demonstrates its proficiency in generating realistic traffic scenarios that are well-aligned with human preferences, as corroborated by comprehensive evaluations on the nuScenes dataset.”Note that the translation is in Simplified Chinese, which is the standard form of Chinese used in mainland China and other parts of the world. Traditional Chinese is also an option, but it is less commonly used in mainland China.
+</details></li>
+</ul>
+<hr>
+<h2 id="Geometric-Deep-Learning-a-Temperature-Based-Analysis-of-Graph-Neural-Networks"><a href="#Geometric-Deep-Learning-a-Temperature-Based-Analysis-of-Graph-Neural-Networks" class="headerlink" title="Geometric Deep Learning: a Temperature Based Analysis of Graph Neural Networks"></a>Geometric Deep Learning: a Temperature Based Analysis of Graph Neural Networks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00699">http://arxiv.org/abs/2309.00699</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: M. Lapenna, F. Faglioni, F. Zanchetta, R. Fioresi</li>
+<li>for: 这个研究使用几何深度学习模型来模拟 термо动力系统， weights 被看作为非量子和非相对论粒子。</li>
+<li>methods: 研究使用过去定义的温度（参考 [7]），在不同层次上研究 GC 和 GAT 模型。</li>
+<li>results: 研究结果可能有各种应用前景。I hope this helps! Let me know if you have any other questions.<details>
+<summary>Abstract</summary>
+We examine a Geometric Deep Learning model as a thermodynamic system treating the weights as non-quantum and non-relativistic particles. We employ the notion of temperature previously defined in [7] and study it in the various layers for GCN and GAT models. Potential future applications of our findings are discussed.
+</details>
+<details>
+<summary>摘要</summary>
+我们研究了一个几何深度学习模型，将参数视为非量子和非 relativistic 粒子。我们使用先前在 [7] 中定义的温度概念，研究它在不同层次上的GCN和GAT模型中。我们还讨论了未来可能的应用。Here's a breakdown of the translation:* "We examine a Geometric Deep Learning model" becomes "我们研究了一个几何深度学习模型"* "as a thermodynamic system" becomes "视为一个热力学系统"* "treating the weights as non-quantum and non-relativistic particles" becomes "将参数视为非量子和非 relativistic 粒子"* "We employ the notion of temperature previously defined in [7]" becomes "我们使用先前在 [7] 中定义的温度概念"* "and study it in the various layers" becomes "研究它在不同层次上"* "for GCN and GAT models" becomes "在GCN和GAT模型中"* "Potential future applications of our findings are discussed" becomes "我们还讨论了未来可能的应用".
+</details></li>
+</ul>
+<hr>
+<h2 id="Jointly-Exploring-Client-Drift-and-Catastrophic-Forgetting-in-Dynamic-Learning"><a href="#Jointly-Exploring-Client-Drift-and-Catastrophic-Forgetting-in-Dynamic-Learning" class="headerlink" title="Jointly Exploring Client Drift and Catastrophic Forgetting in Dynamic Learning"></a>Jointly Exploring Client Drift and Catastrophic Forgetting in Dynamic Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00688">http://arxiv.org/abs/2309.00688</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Niklas Babendererde, Moritz Fuchs, Camila Gonzalez, Yuri Tolkach, Anirban Mukhopadhyay</li>
+<li>for: 这篇研究旨在探讨 Federated and Continual Learning 中的 Client Drift 和 Catastrophic Forgetting 问题，并提出一个统一分析框架以测试这两种问题的相互关联性。</li>
+<li>methods: 这篇研究使用了一个新的三维测试框架，可以同时考虑 Client Drift 和 Catastrophic Forgetting 的共同影响，并且可以统一分析这两种问题的共同性。</li>
+<li>results: 研究发现，Client Drift 和 Catastrophic Forgetting 之间存在强联系，即当 Client Drift 发生时，Catastrophic Forgetting 也很可能发生，并且这两种问题之间存在一定的相互关联性。此外，研究还发现了一个“普遍提升”现象，即在某些混合情况下，由于 Client Drift 和 Catastrophic Forgetting 的共同影响，模型的性能可能会提高。<details>
+<summary>Abstract</summary>
+Federated and Continual Learning have emerged as potential paradigms for the robust and privacy-aware use of Deep Learning in dynamic environments. However, Client Drift and Catastrophic Forgetting are fundamental obstacles to guaranteeing consistent performance. Existing work only addresses these problems separately, which neglects the fact that the root cause behind both forms of performance deterioration is connected. We propose a unified analysis framework for building a controlled test environment for Client Drift -- by perturbing a defined ratio of clients -- and Catastrophic Forgetting -- by shifting all clients with a particular strength. Our framework further leverages this new combined analysis by generating a 3D landscape of the combined performance impact from both. We demonstrate that the performance drop through Client Drift, caused by a certain share of shifted clients, is correlated to the drop from Catastrophic Forgetting resulting from a corresponding shift strength. Correlation tests between both problems for Computer Vision (CelebA) and Medical Imaging (PESO) support this new perspective, with an average Pearson rank correlation coefficient of over 0.94. Our framework's novel ability of combined spatio-temporal shift analysis allows us to investigate how both forms of distribution shift behave in mixed scenarios, opening a new pathway for better generalization. We show that a combination of moderate Client Drift and Catastrophic Forgetting can even improve the performance of the resulting model (causing a "Generalization Bump") compared to when only one of the shifts occurs individually. We apply a simple and commonly used method from Continual Learning in the federated setting and observe this phenomenon to be reoccurring, leveraging the ability of our framework to analyze existing and novel methods for Federated and Continual Learning.
+</details>
+<details>
+<summary>摘要</summary>
+随着 Federated Learning 和 Continual Learning 的出现，它们被视为在动态环境中使用深度学习的可靠和隐私保护方法的潜在方法。然而，客户端漂移和快速忘记是保证持续性表现的基本障碍。现有的工作仅 addressed these problems separately，忽略了它们的根本原因是相连的。我们提出一种统一分析框架，通过对 опреде定比例的客户端进行干扰来建立 Client Drift 的控制测试环境，并通过对所有客户端进行固定强度的偏移来建立 Catastrophic Forgetting 的测试环境。我们的框架进一步利用了这种新的共同分析，生成了 Client Drift 和 Catastrophic Forgetting 的共同性表现的 3D 地图。我们示出，Client Drift 引起的表现下降和 Catastrophic Forgetting 引起的表现下降之间存在强相关关系，在 Computer Vision (CelebA) 和 Medical Imaging (PESO) 支持这一新视角，共计 Pearson 相关系数超过 0.94。我们的框架的新的共同空间偏移分析能力，使我们可以在混合enario中调查 Client Drift 和 Catastrophic Forgetting 的分布变化行为，开启了一条新的通路以实现更好的泛化。我们显示，在混合 Client Drift 和 Catastrophic Forgetting 的情况下，模型的表现可能会得到改善（引起一个 "Generalization Bump"），比单独的偏移情况下更好。我们应用了常见的 Continual Learning 方法在 federated 设置下，并观察到这种现象是重复的，利用我们的框架分析现有和新的方法的可能性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Point-Bind-Point-LLM-Aligning-Point-Cloud-with-Multi-modality-for-3D-Understanding-Generation-and-Instruction-Following"><a href="#Point-Bind-Point-LLM-Aligning-Point-Cloud-with-Multi-modality-for-3D-Understanding-Generation-and-Instruction-Following" class="headerlink" title="Point-Bind &amp; Point-LLM: Aligning Point Cloud with Multi-modality for 3D Understanding, Generation, and Instruction Following"></a>Point-Bind &amp; Point-LLM: Aligning Point Cloud with Multi-modality for 3D Understanding, Generation, and Instruction Following</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00615">http://arxiv.org/abs/2309.00615</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ziyuguo99/point-bind_point-llm">https://github.com/ziyuguo99/point-bind_point-llm</a></li>
+<li>paper_authors: Ziyu Guo, Renrui Zhang, Xiangyang Zhu, Yiwen Tang, Xianzheng Ma, Jiaming Han, Kexin Chen, Peng Gao, Xianzhi Li, Hongsheng Li, Pheng-Ann Heng</li>
+<li>for: 这个论文旨在将3D点云与多媒体数据（图像、语音、视频）相互对应，以便实现多种应用程序，如任意到3D生成、3D嵌入数学和3D开放世界理解。</li>
+<li>methods:  authors propose Point-Bind，一种3D多媒体模型，通过ImageBind建立3D和多媒体之间的共同嵌入空间，并提出Point-LLM，一种基于3D多媒体指令的首个大语言模型。</li>
+<li>results: authors fine-tune pre-trained LLMs with Point-Bind’s semantics, achieving superior 3D and multi-modal question-answering performance without requiring 3D instruction data.<details>
+<summary>Abstract</summary>
+We introduce Point-Bind, a 3D multi-modality model aligning point clouds with 2D image, language, audio, and video. Guided by ImageBind, we construct a joint embedding space between 3D and multi-modalities, enabling many promising applications, e.g., any-to-3D generation, 3D embedding arithmetic, and 3D open-world understanding. On top of this, we further present Point-LLM, the first 3D large language model (LLM) following 3D multi-modal instructions. By parameter-efficient fine-tuning techniques, Point-LLM injects the semantics of Point-Bind into pre-trained LLMs, e.g., LLaMA, which requires no 3D instruction data, but exhibits superior 3D and multi-modal question-answering capacity. We hope our work may cast a light on the community for extending 3D point clouds to multi-modality applications. Code is available at https://github.com/ZiyuGuo99/Point-Bind_Point-LLM.
+</details>
+<details>
+<summary>摘要</summary>
+我们介绍Point-Bind，一个3D多Modal模型，可以与2D图像、语音、影音等多种多Modalities进行对齐。受ImageBind的引导，我们建立了3D和多Modalities之间的共同嵌入空间，使得许多应用程序可能实现，例如任何到3D生成、3D嵌入加法和3D开放世界理解。此外，我们还呈发Point-LLM，首个遵循3D多Modal instructions的3D大语言模型。通过实现优化技术，Point-LLM可以将Point-Bind的 semantics 注入到先天训练的LLMs中，例如LLaMA，这些模型不需要3D instruction data，但可以实现3D和多Modal question-answering的高水平表现。我们希望我们的工作能够照亮社区，将3D点云扩展到多Modal应用程序。代码可以在https://github.com/ZiyuGuo99/Point-Bind_Point-LLM中找到。
+</details></li>
+</ul>
+<hr>
+<h2 id="Iterative-Multi-granular-Image-Editing-using-Diffusion-Models"><a href="#Iterative-Multi-granular-Image-Editing-using-Diffusion-Models" class="headerlink" title="Iterative Multi-granular Image Editing using Diffusion Models"></a>Iterative Multi-granular Image Editing using Diffusion Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00613">http://arxiv.org/abs/2309.00613</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: K J Joseph, Prateksha Udhayanan, Tripti Shukla, Aishwarya Agarwal, Srikrishna Karanam, Koustava Goswami, Balaji Vasan Srinivasan</li>
+<li>for: 这个论文旨在支持创意专业人员生成艺术性和趣味性的视觉资产，以及Iterative Multi-granular Editing的过程。</li>
+<li>methods: 该论文提出了一种基于扩散模型的Iterative Multi-granular Image Editor（EMILIE），它可以在图像生成和修改过程中进行迭代编辑，并且可以控制图像的空间范围（全球、本地或者任何位置）。</li>
+<li>results: 该论文通过对比与现有的方法进行评估，表明EMILIE可以更好地支持创意专业人员的艺术创作，并且可以提供更多的控制选项。<details>
+<summary>Abstract</summary>
+Recent advances in text-guided image synthesis has dramatically changed how creative professionals generate artistic and aesthetically pleasing visual assets. To fully support such creative endeavors, the process should possess the ability to: 1) iteratively edit the generations and 2) control the spatial reach of desired changes (global, local or anything in between). We formalize this pragmatic problem setting as Iterative Multi-granular Editing. While there has been substantial progress with diffusion-based models for image synthesis and editing, they are all one shot (i.e., no iterative editing capabilities) and do not naturally yield multi-granular control (i.e., covering the full spectrum of local-to-global edits). To overcome these drawbacks, we propose EMILIE: Iterative Multi-granular Image Editor. EMILIE introduces a novel latent iteration strategy, which re-purposes a pre-trained diffusion model to facilitate iterative editing. This is complemented by a gradient control operation for multi-granular control. We introduce a new benchmark dataset to evaluate our newly proposed setting. We conduct exhaustive quantitatively and qualitatively evaluation against recent state-of-the-art approaches adapted to our task, to being out the mettle of EMILIE. We hope our work would attract attention to this newly identified, pragmatic problem setting.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Curating-Naturally-Adversarial-Datasets-for-Trustworthy-AI-in-Healthcare"><a href="#Curating-Naturally-Adversarial-Datasets-for-Trustworthy-AI-in-Healthcare" class="headerlink" title="Curating Naturally Adversarial Datasets for Trustworthy AI in Healthcare"></a>Curating Naturally Adversarial Datasets for Trustworthy AI in Healthcare</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00543">http://arxiv.org/abs/2309.00543</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Sydney Pugh, Ivan Ruchkin, Insup Lee, James Weimer</li>
+<li>for: 本研究旨在提高深度学习模型对时间序列医疗应用中的预测精度，同时确保这些模型的可靠性和信任性。</li>
+<li>methods: 本研究提出了一种使用自动生成的弱监督标签 combines 噪音和便宜获得的标签规则，以生成自然的对抗示例集，用于评估模型的可靠性。</li>
+<li>results: 本研究在 six 个医学案例和三个非医学案例中，通过对输入数据进行随机排序，并使用这种排序构建一系列逐渐增强的对抗示例集，证明了该方法的可靠性和统计效果。<details>
+<summary>Abstract</summary>
+Deep learning models have shown promising predictive accuracy for time-series healthcare applications. However, ensuring the robustness of these models is vital for building trustworthy AI systems. Existing research predominantly focuses on robustness to synthetic adversarial examples, crafted by adding imperceptible perturbations to clean input data. However, these synthetic adversarial examples do not accurately reflect the most challenging real-world scenarios, especially in the context of healthcare data. Consequently, robustness to synthetic adversarial examples may not necessarily translate to robustness against naturally occurring adversarial examples, which is highly desirable for trustworthy AI. We propose a method to curate datasets comprised of natural adversarial examples to evaluate model robustness. The method relies on probabilistic labels obtained from automated weakly-supervised labeling that combines noisy and cheap-to-obtain labeling heuristics. Based on these labels, our method adversarially orders the input data and uses this ordering to construct a sequence of increasingly adversarial datasets. Our evaluation on six medical case studies and three non-medical case studies demonstrates the efficacy and statistical validity of our approach to generating naturally adversarial datasets
+</details>
+<details>
+<summary>摘要</summary>
+To address this issue, we propose a method to curate datasets comprised of natural adversarial examples to evaluate model robustness. Our method relies on probabilistic labels obtained from automated weakly-supervised labeling that combines noisy and cheap-to-obtain labeling heuristics. We use these labels to adversarially order the input data and construct a sequence of increasingly adversarial datasets.Our evaluation on six medical case studies and three non-medical case studies demonstrates the effectiveness and statistical validity of our approach to generating naturally adversarial datasets. By using these datasets to evaluate model robustness, we can better ensure that AI systems are trustworthy and reliable in real-world scenarios.
+</details></li>
+</ul>
+<hr>
+<h2 id="ICDARTS-Improving-the-Stability-and-Performance-of-Cyclic-DARTS"><a href="#ICDARTS-Improving-the-Stability-and-Performance-of-Cyclic-DARTS" class="headerlink" title="ICDARTS: Improving the Stability and Performance of Cyclic DARTS"></a>ICDARTS: Improving the Stability and Performance of Cyclic DARTS</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00664">http://arxiv.org/abs/2309.00664</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Emily Herron, Derek Rose, Steven Young</li>
+<li>for: 提高循环DARTS的稳定性和通用性</li>
+<li>methods: 改进CDARTS的训练协议，消除搜索网络和评估网络之间的依赖关系，并对搜索网络中的零操作进行修饰</li>
+<li>results: 实现了提高网络通用性和实现了一种新的动态搜索空间 incorporation 方法，并进行了灵活搜索细致的扩展<details>
+<summary>Abstract</summary>
+This work introduces improvements to the stability and generalizability of Cyclic DARTS (CDARTS). CDARTS is a Differentiable Architecture Search (DARTS)-based approach to neural architecture search (NAS) that uses a cyclic feedback mechanism to train search and evaluation networks concurrently. This training protocol aims to optimize the search process by enforcing that the search and evaluation networks produce similar outputs. However, CDARTS introduces a loss function for the evaluation network that is dependent on the search network. The dissimilarity between the loss functions used by the evaluation networks during the search and retraining phases results in a search-phase evaluation network that is a sub-optimal proxy for the final evaluation network that is utilized during retraining. We present ICDARTS, a revised approach that eliminates the dependency of the evaluation network weights upon those of the search network, along with a modified process for discretizing the search network's \textit{zero} operations that allows these operations to be retained in the final evaluation networks. We pair the results of these changes with ablation studies on ICDARTS' algorithm and network template. Finally, we explore methods for expanding the search space of ICDARTS by expanding its operation set and exploring alternate methods for discretizing its continuous search cells. These experiments resulted in networks with improved generalizability and the implementation of a novel method for incorporating a dynamic search space into ICDARTS.
+</details>
+<details>
+<summary>摘要</summary>
+Simplified Chinese translation:这个工作介绍了对循环DARTS（CDARTS）的改进，以提高其稳定性和通用性。CDARTS是基于演算 Architecture Search（DARTS）的神经网络搜索方法，使用循环反馈机制来同时训练搜索和评估网络。这种训练协议的目的是通过确保搜索和评估网络生成相似的输出来优化搜索过程。然而，CDARTS引入了评估网络的损失函数，这使得搜索阶段的评估网络成为一个临时性差的代理人。我们提出了ICDARTS，一种修改后的方法，该方法消除了搜索网络的依赖关系，并对搜索网络中的\textit{zero} 操作进行修正。我们还进行了ICDARTS算法和网络模板的ablation study。最后，我们探索了扩展ICDARTS搜索空间的方法，包括扩展其操作集和使用不同的抽象方法来抽象它的连续搜索细胞。这些实验导致了改进的通用性和一种新的方法来将动态搜索空间 incorporated 到ICDARTS中。
+</details></li>
+</ul>
+<hr>
+<h2 id="Learning-based-NLOS-Detection-and-Uncertainty-Prediction-of-GNSS-Observations-with-Transformer-Enhanced-LSTM-Network"><a href="#Learning-based-NLOS-Detection-and-Uncertainty-Prediction-of-GNSS-Observations-with-Transformer-Enhanced-LSTM-Network" class="headerlink" title="Learning-based NLOS Detection and Uncertainty Prediction of GNSS Observations with Transformer-Enhanced LSTM Network"></a>Learning-based NLOS Detection and Uncertainty Prediction of GNSS Observations with Transformer-Enhanced LSTM Network</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00480">http://arxiv.org/abs/2309.00480</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/rwth-irt/deepnlosdetection">https://github.com/rwth-irt/deepnlosdetection</a></li>
+<li>paper_authors: Haoming Zhang, Zhanxin Wang, Heike Vallery</li>
+<li>for: 这个研究旨在提高运输系统中GNSS的准确性和一致性，减少GNSS观测受到多路径和非线路径（NLOS）影响的情况下，传统方法可能无法正确地分类和排除错误GNSS观测，导致系统状态估计和运输安全性问题。</li>
+<li>methods: 这个研究提出了一个基于深度学习的方法，通过分析GNSS观测为空间时间模型问题，探索NLOS观测和 Pseudorange 误差的预测方法。相比之前的研究，我们将 transformer-like 注意力机制整合到深度学习网络中，提高模型性能和普遍性。</li>
+<li>results: 实验研究显示，我们的网络在训练和评估过程中比其他深度学习模型和传统机器学习模型更好，并且在实际应用中避免了车辆地图分布不均的问题。此外，我们还进行了网络 ком成分析和与数据外泛统计分析，以及与其他模型的比较。<details>
+<summary>Abstract</summary>
+The global navigation satellite systems (GNSS) play a vital role in transport systems for accurate and consistent vehicle localization. However, GNSS observations can be distorted due to multipath effects and non-line-of-sight (NLOS) receptions in challenging environments such as urban canyons. In such cases, traditional methods to classify and exclude faulty GNSS observations may fail, leading to unreliable state estimation and unsafe system operations. This work proposes a Deep-Learning-based method to detect NLOS receptions and predict GNSS pseudorange errors by analyzing GNSS observations as a spatio-temporal modeling problem. Compared to previous works, we construct a transformer-like attention mechanism to enhance the long short-term memory (LSTM) networks, improving model performance and generalization. For the training and evaluation of the proposed network, we used labeled datasets from the cities of Hong Kong and Aachen. We also introduce a dataset generation process to label the GNSS observations using lidar maps. In experimental studies, we compare the proposed network with a deep-learning-based model and classical machine-learning models. Furthermore, we conduct ablation studies of our network components and integrate the NLOS detection with data out-of-distribution in a state estimator. As a result, our network presents improved precision and recall ratios compared to other models. Additionally, we show that the proposed method avoids trajectory divergence in real-world vehicle localization by classifying and excluding NLOS observations.
+</details>
+<details>
+<summary>摘要</summary>
+全球导航卫星系统（GNSS）在交通系统中扮演着重要的角色，对于精确和一致的车辆位置Localization提供了重要的帮助。然而，GNSS观测可能会受到多路径效应和非直线视野（NLOS）接收的干扰，特别是在城市的“峡谷”环境中。在这种情况下，传统的方法可能无法正确地分类和排除 faulty GNSS观测，导致系统的状态估计和运行不安全。本工作提出了一个基于深度学习的方法，通过分析 GNSS 观测为空间时间模型的问题，探测NLOS接收和预测 GNSS  Pseudorange 误差。相比于前一代的工作，我们将 transformer-like 注意力机制搭配长期记忆类型的LSTM 网络，提高模型的性能和通用性。我们使用了香港和阿希的城市 Labelled 数据集进行训练和评估。此外，我们还介绍了一个标签GNSS 观测的方法，使用 lidar 地图。在实验研究中，我们与其他深度学习模型和传统机器学习模型进行比较。此外，我们还进行了我们网络的组件删除和与数据外部分布的整合。最终，我们的网络获得了提高的精确性和回应率，并且显示了在实际车辆Localization中避免了轨迹分支的问题。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Theoretical-and-Practical-Framework-for-Evaluating-Uncertainty-Calibration-in-Object-Detection"><a href="#A-Theoretical-and-Practical-Framework-for-Evaluating-Uncertainty-Calibration-in-Object-Detection" class="headerlink" title="A Theoretical and Practical Framework for Evaluating Uncertainty Calibration in Object Detection"></a>A Theoretical and Practical Framework for Evaluating Uncertainty Calibration in Object Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00464">http://arxiv.org/abs/2309.00464</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/pedrormconde/uncertainty_calibration_object_detection">https://github.com/pedrormconde/uncertainty_calibration_object_detection</a></li>
+<li>paper_authors: Pedro Conde, Rui L. Lopes, Cristiano Premebida</li>
+<li>for: 本研究旨在提出一个新的假设和实践框架，用于评估深度神经网络中的物体探测系统，并评估这些系统的不确定性调整。</li>
+<li>methods: 本研究使用了一系列的实验和分析方法，包括实验设计、资料分析和模型评估，以评估不确定性调整的效果。</li>
+<li>results: 研究结果显示，提出的不确定性调整度量具有良好的准确性和稳定性，并且可以帮助改善物体探测系统的可靠性和安全性。Here is the same information in English:</li>
+<li>for: The purpose of this study is to propose a new theoretical and practical framework for evaluating object detection systems in the context of uncertainty calibration.</li>
+<li>methods: The study uses a series of experimental and analytical methods, including experimental design, data analysis, and model evaluation, to assess the effectiveness of the proposed uncertainty calibration metrics.</li>
+<li>results: The results show that the proposed uncertainty calibration metrics have good accuracy and stability, and can help improve the reliability and safety of object detection systems.<details>
+<summary>Abstract</summary>
+The proliferation of Deep Neural Networks has resulted in machine learning systems becoming increasingly more present in various real-world applications. Consequently, there is a growing demand for highly reliable models in these domains, making the problem of uncertainty calibration pivotal, when considering the future of deep learning. This is especially true when considering object detection systems, that are commonly present in safety-critical application such as autonomous driving and robotics. For this reason, this work presents a novel theoretical and practical framework to evaluate object detection systems in the context of uncertainty calibration. The robustness of the proposed uncertainty calibration metrics is shown through a series of representative experiments. Code for the proposed uncertainty calibration metrics at: https://github.com/pedrormconde/Uncertainty_Calibration_Object_Detection.
+</details>
+<details>
+<summary>摘要</summary>
+深度神经网络的普及导致机器学习系统在实际应用中变得越来越普遍。因此，高可靠性模型在这些领域的需求在增加。特别是在自动驾驶和机器人等安全关键应用中，Object detection系统的uncertainty calibration问题变得越来越重要。为此，这个研究提出了一种新的理论和实践框架，用于评估Object detection系统的uncertainty calibration。这种uncertainty calibration度量的稳定性通过一系列代表性的实验展示。Code可以在https://github.com/pedrormconde/Uncertainty_Calibration_Object_Detection中找到。
+</details></li>
+</ul>
+<hr>
+<h2 id="New-metrics-for-analyzing-continual-learners"><a href="#New-metrics-for-analyzing-continual-learners" class="headerlink" title="New metrics for analyzing continual learners"></a>New metrics for analyzing continual learners</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00462">http://arxiv.org/abs/2309.00462</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Nicolas Michel, Giovanni Chierchia, Romain Negrel, Jean-François Bercher, Toshihiko Yamasaki</li>
+<li>for:  continual learning 学习环境中维护知识和学习新任务的稳定性和柔软性。</li>
+<li>methods: 使用现有的措施来衡量稳定性和柔软性，并发现现有的指标忽略了任务增加难度的问题。因此，我们提出了新的指标来考虑任务增加难度。</li>
+<li>results: 通过在标准 bencmark 数据集上进行实验，我们表明了我们提出的新指标可以为 continual learning 环境中模型的稳定性-柔软性质量提供新的视角。<details>
+<summary>Abstract</summary>
+Deep neural networks have shown remarkable performance when trained on independent and identically distributed data from a fixed set of classes. However, in real-world scenarios, it can be desirable to train models on a continuous stream of data where multiple classification tasks are presented sequentially. This scenario, known as Continual Learning (CL) poses challenges to standard learning algorithms which struggle to maintain knowledge of old tasks while learning new ones. This stability-plasticity dilemma remains central to CL and multiple metrics have been proposed to adequately measure stability and plasticity separately. However, none considers the increasing difficulty of the classification task, which inherently results in performance loss for any model. In that sense, we analyze some limitations of current metrics and identify the presence of setup-induced forgetting. Therefore, we propose new metrics that account for the task's increasing difficulty. Through experiments on benchmark datasets, we demonstrate that our proposed metrics can provide new insights into the stability-plasticity trade-off achieved by models in the continual learning environment.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Establishing-Markov-Equivalence-in-Cyclic-Directed-Graphs"><a href="#Establishing-Markov-Equivalence-in-Cyclic-Directed-Graphs" class="headerlink" title="Establishing Markov Equivalence in Cyclic Directed Graphs"></a>Establishing Markov Equivalence in Cyclic Directed Graphs</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.03092">http://arxiv.org/abs/2309.03092</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/tomc-ghub/CET_uai2023">https://github.com/tomc-ghub/CET_uai2023</a></li>
+<li>paper_authors: Tom Claassen, Joris M. Mooij</li>
+<li>for:  establishment of Markov equivalence between directed graphs</li>
+<li>methods:  based on Cyclic Equivalence Theorem (CET) and ancestral perspective</li>
+<li>results:  significantly reduced algorithmic complexity and conceptually simplified characterization, which may help to reinvigorate theoretical research towards sound and complete cyclic discovery in the presence of latent confounders.<details>
+<summary>Abstract</summary>
+We present a new, efficient procedure to establish Markov equivalence between directed graphs that may or may not contain cycles under the \textit{d}-separation criterion. It is based on the Cyclic Equivalence Theorem (CET) in the seminal works on cyclic models by Thomas Richardson in the mid '90s, but now rephrased from an ancestral perspective. The resulting characterization leads to a procedure for establishing Markov equivalence between graphs that no longer requires tests for d-separation, leading to a significantly reduced algorithmic complexity. The conceptually simplified characterization may help to reinvigorate theoretical research towards sound and complete cyclic discovery in the presence of latent confounders. This version includes a correction to rule (iv) in Theorem 1, and the subsequent adjustment in part 2 of Algorithm 2.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出了一种新的、高效的程序，用于在导航图中确定Markov等价关系，这些图可能或可能不含循环，基于\textit{d}-分离 критериion。这种方法基于托马斯·理查森在90年代中期的著名作品中的循环等价定理（CET），但现在从先祖 perspective重新表述。这种Characterization导致了一种不需要测试\textit{d}-分离的程序，从而大幅降低了算法复杂性。这种概念简化后的Characterization可能会促进理论研究，以探索在潜在干扰因素存在下的循环发现的正确和完整的方法。这个版本包括对第一个定理（iv）的更正，以及后续的修改在算法2的第2部分。
+</details></li>
+</ul>
+<hr>
+<h2 id="No-Train-Still-Gain-Unleash-Mathematical-Reasoning-of-Large-Language-Models-with-Monte-Carlo-Tree-Search-Guided-by-Energy-Function"><a href="#No-Train-Still-Gain-Unleash-Mathematical-Reasoning-of-Large-Language-Models-with-Monte-Carlo-Tree-Search-Guided-by-Energy-Function" class="headerlink" title="No Train Still Gain. Unleash Mathematical Reasoning of Large Language Models with Monte Carlo Tree Search Guided by Energy Function"></a>No Train Still Gain. Unleash Mathematical Reasoning of Large Language Models with Monte Carlo Tree Search Guided by Energy Function</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.03224">http://arxiv.org/abs/2309.03224</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Haotian Xu</li>
+<li>for: 提高大型自然语言处理（NLP）模型的数学逻辑能力，无需额外 Fine-tuning 步骤。</li>
+<li>methods: 使用 Monte Carlo Tree Search（MCTS）和轻量级能量函数来评估决策步骤，并使用噪声对比估计来估计能量函数的参数。</li>
+<li>results: 通过对 GSM8k 和 AQUA-RAT 数学逻辑测试 benchmark 进行广泛的实验，显示了方法的杰出表现，无需额外 Fine-tuning 或人工反馈对适应。<details>
+<summary>Abstract</summary>
+Large language models (LLMs) demonstrate impressive language understanding and contextual learning abilities, making them suitable for natural language processing (NLP) tasks and complex mathematical reasoning. However, when applied to mathematical reasoning tasks, LLMs often struggle to generate correct reasoning steps and answers despite having high probabilities for the solutions. To overcome this limitation and enhance the mathematical reasoning capabilities of fine-tuned LLMs without additional fine-tuning steps, we propose a method that incorporates Monte Carlo Tree Search (MCTS) and a lightweight energy function to rank decision steps and enable immediate reaction and precise reasoning. Specifically, we re-formulate the fine-tuned LLMs into a Residual-based Energy Model (Residual-EBM) and employ noise contrastive estimation to estimate the energy function's parameters. We then utilize MCTS with the energy function as a path verifier to search the output space and evaluate the reasoning path. Through extensive experiments on two mathematical reasoning benchmarks, GSM8k and AQUA-RAT, we demonstrate the exceptional capabilities of our method, which significantly improves the pass@1 metric of the fine-tuned model without requiring additional fine-tuning or reinforcement learning with human feedback alignment.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Learning-Speech-Representation-From-Contrastive-Token-Acoustic-Pretraining"><a href="#Learning-Speech-Representation-From-Contrastive-Token-Acoustic-Pretraining" class="headerlink" title="Learning Speech Representation From Contrastive Token-Acoustic Pretraining"></a>Learning Speech Representation From Contrastive Token-Acoustic Pretraining</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00424">http://arxiv.org/abs/2309.00424</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Chunyu Qiang, Hao Li, Yixin Tian, Ruibo Fu, Tao Wang, Longbiao Wang, Jianwu Dang</li>
+<li>for: 提高 speech 生成和识别下的细腻性，例如 minimally-supervised text-to-speech (TTS)、voice conversion (VC) 和 automatic speech recognition (ASR)。</li>
+<li>methods: 使用 two encoders 将 phoneme 和 speech 带入一个共同的多Modal 空间，学习连接 phoneme 和 speech 的框架级别连接。</li>
+<li>results: 在 210k 个 speech 和 phoneme 文本对中训练 CTAP 模型，实现了 minimally-supervised TTS、VC 和 ASR 等下游任务。<details>
+<summary>Abstract</summary>
+For fine-grained generation and recognition tasks such as minimally-supervised text-to-speech (TTS), voice conversion (VC), and automatic speech recognition (ASR), the intermediate representations extracted from speech should serve as a "bridge" between text and acoustic information, containing information from both modalities. The semantic content is emphasized, while the paralinguistic information such as speaker identity and acoustic details should be de-emphasized. However, existing methods for extracting fine-grained intermediate representations from speech suffer from issues of excessive redundancy and dimension explosion. Contrastive learning is a good method for modeling intermediate representations from two modalities. However, existing contrastive learning methods in the audio field focus on extracting global descriptive information for downstream audio classification tasks, making them unsuitable for TTS, VC, and ASR tasks. To address these issues, we propose a method named "Contrastive Token-Acoustic Pretraining (CTAP)", which uses two encoders to bring phoneme and speech into a joint multimodal space, learning how to connect phoneme and speech at the frame level. The CTAP model is trained on 210k speech and phoneme text pairs, achieving minimally-supervised TTS, VC, and ASR. The proposed CTAP method offers a promising solution for fine-grained generation and recognition downstream tasks in speech processing.
+</details>
+<details>
+<summary>摘要</summary>
+为细化生成和识别任务，如无监督文本译 speech（TTS）、voice conversion（VC）和自动语音识别（ASR），则中间表示从语音中提取的应该作为两个模态之间的“桥”，含有文本和音频信息的信息。 semantic content 应该强调，而 speaker identity 和 acoustic details 则应该削弱。然而，现有的语音中间表示提取方法受到过 redundancy 和维度爆炸 的问题。 Contrastive learning 是一种好的方法 для模型中间表示，但现有的音频领域的 Contrastive learning 方法是为下游音频分类任务提取全局描述性信息，这使得它们不适用于 TTS、VC 和 ASR 任务。为解决这些问题，我们提出了一种方法，名为“ Contrastive Token-Acoustic Pretraining”（CTAP），它使用两个Encoder将 phoneme 和 speech 带入到一个共同多Modal空间，学习如何在帧级连接 phoneme 和 speech。 CTAP 模型在 210k 语音和 phoneme 文本对中训练，实现了无监督 TTS、VC 和 ASR。我们提出的 CTAP 方法为 fine-grained generation 和识别下游任务提供了一个有前途的解决方案。
+</details></li>
+</ul>
+<hr>
+<h2 id="Declarative-Reasoning-on-Explanations-Using-Constraint-Logic-Programming"><a href="#Declarative-Reasoning-on-Explanations-Using-Constraint-Logic-Programming" class="headerlink" title="Declarative Reasoning on Explanations Using Constraint Logic Programming"></a>Declarative Reasoning on Explanations Using Constraint Logic Programming</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00422">http://arxiv.org/abs/2309.00422</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/lstate/reasonx">https://github.com/lstate/reasonx</a></li>
+<li>paper_authors: Laura State, Salvatore Ruggieri, Franco Turini</li>
+<li>For: 提供对透明化机器学习模型的解释，即现有的AI解释方法存在许多缺点，如背景知识不够 incorporation、解释方法不够抽象和用户交互不够。* Methods: 使用 Constraint Logic Programming (CLP) 提供声明性的、交互式的解释方法，可以用于对决策树进行解释，以及对任何黑盒模型的全局&#x2F;本地代理模型进行解释。* Results: 提供了 REASONX 解释方法的架构，包括 Python 层和 CLP 层，核心执行引擎是一个基于 Prolog 的 meta-程序，具有声明性的逻辑理论 semantics。<details>
+<summary>Abstract</summary>
+Explaining opaque Machine Learning (ML) models is an increasingly relevant problem. Current explanation in AI (XAI) methods suffer several shortcomings, among others an insufficient incorporation of background knowledge, and a lack of abstraction and interactivity with the user. We propose REASONX, an explanation method based on Constraint Logic Programming (CLP). REASONX can provide declarative, interactive explanations for decision trees, which can be the ML models under analysis or global/local surrogate models of any black-box model. Users can express background or common sense knowledge using linear constraints and MILP optimization over features of factual and contrastive instances, and interact with the answer constraints at different levels of abstraction through constraint projection. We present here the architecture of REASONX, which consists of a Python layer, closer to the user, and a CLP layer. REASONX's core execution engine is a Prolog meta-program with declarative semantics in terms of logic theories.
+</details>
+<details>
+<summary>摘要</summary>
+explainable machine learning (ml) models 是一个日益重要的问题。当前的 AI (XAI) 方法存在多个缺点，包括知识背景的不充分 integrate 和用户交互的缺失。我们提议了 REASONX，一种基于幂逻Programming (CLP) 的解释方法。REASONX 可以为决策树提供声明性的、交互式的解释，这些决策树可以是分析或全局/本地的黑盒模型。用户可以通过Linear Constraints 和 MILP 优化来表达背景知识或通用常识，并通过约束投影在不同层次进行交互。我们在这里介绍了 REASONX 的架构，它由 Python 层和 CLP 层组成。REASONX 的核心执行引擎是一个 Prolog 元程序，其semantics 是逻辑理论的声明性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Area-norm-COBRA-on-Conditional-Survival-Prediction"><a href="#Area-norm-COBRA-on-Conditional-Survival-Prediction" class="headerlink" title="Area-norm COBRA on Conditional Survival Prediction"></a>Area-norm COBRA on Conditional Survival Prediction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00417">http://arxiv.org/abs/2309.00417</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Rahul Goswami, Arabin Kr. Dey</li>
+<li>for: 这篇论文探讨了一种新的 combinational regression 策略，用于计算condition survival function。</li>
+<li>methods: 该策略使用回归基于weak learner的ensemble技术，并使用距离度量作为两个生存曲线之间的区域。</li>
+<li>results: 该模型比Random Survival Forest表现更好，并提供了一种选择最重要变量的新技术。 simulation study 表明该方法能够很好地确定变量的重要性。<details>
+<summary>Abstract</summary>
+The paper explores a different variation of combined regression strategy to calculate the conditional survival function. We use regression based weak learners to create the proposed ensemble technique. The proposed combined regression strategy uses proximity measure as area between two survival curves. The proposed model shows a construction which ensures that it performs better than the Random Survival Forest. The paper discusses a novel technique to select the most important variable in the combined regression setup. We perform a simulation study to show that our proposition for finding relevance of the variables works quite well. We also use three real-life datasets to illustrate the model.
+</details>
+<details>
+<summary>摘要</summary>
+文章探讨了一种不同的combined regression策略来计算 conditional survival function。我们使用回归基于弱学习器的 ensemble技术来实现提案。提案的combined regression策略使用距离度量来度量两个生存曲线之间的区域。提案的模型能确保其在Random Survival Forest之上表现更好。文章介绍了一种新的方法来在combined regression中选择最重要的变量。我们通过实验研究表明我们的提案可以很好地确定变量的相关性。我们还使用了三个真实数据集来示例化模型。Here's the word-for-word translation:文章探讨了一种不同的combined regression策略来计算 conditional survival function。我们使用回归基于弱学习器的 ensemble技术来实现提案。提案的combined regression策略使用距离度量来度量两个生存曲线之间的区域。提案的模型能确保其在Random Survival Forest之上表现更好。文章介绍了一种新的方法来在combined regression中选择最重要的变量。我们通过实验研究表明我们的提案可以很好地确定变量的相关性。我们还使用了三个真实数据集来示例化模型。
+</details></li>
+</ul>
+<hr>
+<h2 id="Dense-Voxel-3D-Reconstruction-Using-a-Monocular-Event-Camera"><a href="#Dense-Voxel-3D-Reconstruction-Using-a-Monocular-Event-Camera" class="headerlink" title="Dense Voxel 3D Reconstruction Using a Monocular Event Camera"></a>Dense Voxel 3D Reconstruction Using a Monocular Event Camera</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00385">http://arxiv.org/abs/2309.00385</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Haodong Chen, Vera Chung, Li Tan, Xiaoming Chen</li>
+<li>For: 这个论文主要用于探讨使用单个事件摄像机实现高精度3D重建，以便在虚拟现实应用中使用。* Methods: 该论文提出了一种新的方法，使用单个事件摄像机来生成高精度3D重建。这种方法不需要多个摄像机，也不需要与其他方法组合使用。* Results: 据作者的预liminary结果表明，该方法可以直接生成可辨别的高精度3D重建结果，无需创建如先前方法一样的管道。此外，作者还创建了一个 Synthetic dataset，包含39739个对象扫描结果，这个dataset可以帮助加速相关领域的研究。<details>
+<summary>Abstract</summary>
+Event cameras are sensors inspired by biological systems that specialize in capturing changes in brightness. These emerging cameras offer many advantages over conventional frame-based cameras, including high dynamic range, high frame rates, and extremely low power consumption. Due to these advantages, event cameras have increasingly been adapted in various fields, such as frame interpolation, semantic segmentation, odometry, and SLAM. However, their application in 3D reconstruction for VR applications is underexplored. Previous methods in this field mainly focused on 3D reconstruction through depth map estimation. Methods that produce dense 3D reconstruction generally require multiple cameras, while methods that utilize a single event camera can only produce a semi-dense result. Other single-camera methods that can produce dense 3D reconstruction rely on creating a pipeline that either incorporates the aforementioned methods or other existing Structure from Motion (SfM) or Multi-view Stereo (MVS) methods. In this paper, we propose a novel approach for solving dense 3D reconstruction using only a single event camera. To the best of our knowledge, our work is the first attempt in this regard. Our preliminary results demonstrate that the proposed method can produce visually distinguishable dense 3D reconstructions directly without requiring pipelines like those used by existing methods. Additionally, we have created a synthetic dataset with $39,739$ object scans using an event camera simulator. This dataset will help accelerate other relevant research in this field.
+</details>
+<details>
+<summary>摘要</summary>
+Event 摄像机是基于生物系统的感知器，专门用于测量光度变化。这些新型摄像机具有较高的动态范围、快速帧率和非常低的功耗消耗。由于这些优点，event 摄像机在不同领域得到了广泛应用，如 frame interpolation、semantic segmentation、odometry 和 SLAM。然而，它们在虚拟现实应用中的3D重建仍然受到了不足的研究。先前的方法主要通过depth map estimation来实现3D重建。这些方法通常需要多个摄像机，而使用单个 event 摄像机可以生成半密集的结果。其他使用单个摄像机实现密集3D重建的方法通常需要创建一个管道，该管道可以包括以上方法或其他现有的Structure from Motion（SfM）或Multi-view Stereo（MVS）方法。在这篇论文中，我们提出了一种新的方法，用于使用单个 event 摄像机实现密集3D重建。我们认为，这是首次尝试。我们的初步结果表明，我们的方法可以直接生成可辨识的密集3D重建，无需创建管道类似于现有方法。此外，我们创建了一个Synthetic dataset，包含39739个物体扫描结果，使用事件摄像机模拟器。这个数据集将会促进相关的研究。
+</details></li>
+</ul>
+<hr>
+<h2 id="Scenario-based-model-predictive-control-of-water-reservoir-systems"><a href="#Scenario-based-model-predictive-control-of-water-reservoir-systems" class="headerlink" title="Scenario-based model predictive control of water reservoir systems"></a>Scenario-based model predictive control of water reservoir systems</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00373">http://arxiv.org/abs/2309.00373</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Raffaele Giuseppe Cestari, Andrea Castelletti, Simone Formentin</li>
+<li>for:  optimize the operation of water reservoir systems in the presence of highly uncertain inflows</li>
+<li>methods:  stochastic MPC approach using plausible future inflows directly generated from past data</li>
+<li>results:  more cautious control that counteracts droughty periods while satisfying agricultural water demand, validated through extensive Monte Carlo tests using actual inflow data from Lake Como, Italy.Here’s the Chinese translation of the three points:</li>
+<li>for:  optimizes 水库系统的运行，面临高度不确定的流入</li>
+<li>methods: 使用可能性分布来生成直接来自过去数据的未来流入，以实现随机MPC策略</li>
+<li>results: 更谨慎的控制，能够避免干旱期（例如湖水水平下降到干旱限制），同时保证农业水需求的满足，通过实际各个流入数据进行了 Monte Carlo 测试。<details>
+<summary>Abstract</summary>
+The optimal operation of water reservoir systems is a challenging task involving multiple conflicting objectives. The main source of complexity is the presence of the water inflow, which acts as an exogenous, highly uncertain disturbance on the system. When model predictive control (MPC) is employed, the optimal water release is usually computed based on the (predicted) trajectory of the inflow. This choice may jeopardize the closed-loop performance when the actual inflow differs from its forecast. In this work, we consider - for the first time - a stochastic MPC approach for water reservoirs, in which the control is optimized based on a set of plausible future inflows directly generated from past data. Such a scenario-based MPC strategy allows the controller to be more cautious, counteracting droughty periods (e.g., the lake level going below the dry limit) while at the same time guaranteeing that the agricultural water demand is satisfied. The method's effectiveness is validated through extensive Monte Carlo tests using actual inflow data from Lake Como, Italy.
+</details>
+<details>
+<summary>摘要</summary>
+水库系统的优化操作是一项复杂的任务，涉及多个 conflicting 目标。主要的复杂性来源于流水入库，它会对系统作为外生、高度不确定的干扰。当使用模型预测控制（MPC）时，通常基于预测流水入库轨迹来计算优化的水release。这可能会在实际入库与预测入库不同时影响closed-loop性。在这种工作中，我们对水库系统进行了第一次 Stochastic MPC 方法，在这种方法中，控制器是基于过去数据直接生成的可能性 Distribution 来优化控制。这种enario-based MPC策略使得控制器更加谨慎，可以避免干旱期间（例如湖水水位低于干旱限制）的问题，同时保证农业用水需求得到满足。我们通过使用意大湖 Como, 意大的实际入库数据进行了广泛的 Monte Carlo 测试，证明了该方法的有效性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Discrete-Versus-Continuous-Algorithms-in-Dynamics-of-Affective-Decision-Making"><a href="#Discrete-Versus-Continuous-Algorithms-in-Dynamics-of-Affective-Decision-Making" class="headerlink" title="Discrete Versus Continuous Algorithms in Dynamics of Affective Decision Making"></a>Discrete Versus Continuous Algorithms in Dynamics of Affective Decision Making</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00357">http://arxiv.org/abs/2309.00357</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: V. I. Yukalov, E. P. Yukalova<br>for: 这 paper 是研究智能网络中代理人的决策行为，以及不同类型的内存（长期和短期内存）对决策的影响。methods: 这 paper 使用概率情感决策理论，考虑了选择方案的理性利好和情感吸引力。results: 研究发现，由于网络参数的不同，可能存在较Close或较大差异的特征概率行为，这意味着使用不同的算法可能会导致非常不同的理论预测，从而无法Uniquely describe practical problems。<details>
+<summary>Abstract</summary>
+The dynamics of affective decision making is considered for an intelligent network composed of agents with different types of memory: long-term and short-term memory. The consideration is based on probabilistic affective decision theory, which takes into account the rational utility of alternatives as well as the emotional alternative attractiveness. The objective of this paper is the comparison of two multistep operational algorithms of the intelligent network: one based on discrete dynamics and the other on continuous dynamics. By means of numerical analysis, it is shown that, depending on the network parameters, the characteristic probabilities for continuous and discrete operations can exhibit either close or drastically different behavior. Thus, depending on which algorithm is employed, either discrete or continuous, theoretical predictions can be rather different, which does not allow for a uniquely defined description of practical problems. This finding is important for understanding which of the algorithms is more appropriate for the correct analysis of decision-making tasks. A discussion is given, revealing that the discrete operation seems to be more realistic for describing intelligent networks as well as affective artificial intelligence.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>translate "The dynamics of affective decision making is considered for an intelligent network composed of agents with different types of memory: long-term and short-term memory. The consideration is based on probabilistic affective decision theory, which takes into account the rational utility of alternatives as well as the emotional alternative attractiveness. The objective of this paper is the comparison of two multistep operational algorithms of the intelligent network: one based on discrete dynamics and the other on continuous dynamics. By means of numerical analysis, it is shown that, depending on the network parameters, the characteristic probabilities for continuous and discrete operations can exhibit either close or drastically different behavior. Thus, depending on which algorithm is employed, either discrete or continuous, theoretical predictions can be rather different, which does not allow for a uniquely defined description of practical problems. This finding is important for understanding which of the algorithms is more appropriate for the correct analysis of decision-making tasks. A discussion is given, revealing that the discrete operation seems to be more realistic for describing intelligent networks as well as affective artificial intelligence."Translation:<<SYS>>affective决策动力学在智能网络中被考虑，智能网络由不同类型的记忆 agent组成：长期记忆和短期记忆。考虑基于概率性的情感决策理论，该理论考虑了决策选项的合理利益以及决策选项的情感吸引力。本文的目标是比较两种多步操作算法：一种基于离散动力学，另一种基于连续动力学。通过数值分析，我们发现，具有不同网络参数时，离散和连续操作的特征概率可能会展现出非常不同的行为。因此，使用不同的算法，对于实际问题的理论预测可能会非常不同，这不允许固定的描述实际问题。这一发现对于理解哪种算法更适合正确分析决策任务非常重要。文章还进行了讨论，表明离散操作更加真实地描述智能网络以及情感人工智能。
+</details></li>
+</ul>
+<hr>
+<h2 id="Explainable-Active-Learning-for-Preference-Elicitation"><a href="#Explainable-Active-Learning-for-Preference-Elicitation" class="headerlink" title="Explainable Active Learning for Preference Elicitation"></a>Explainable Active Learning for Preference Elicitation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00356">http://arxiv.org/abs/2309.00356</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/furkancanturk/explainable_active_learning">https://github.com/furkancanturk/explainable_active_learning</a></li>
+<li>paper_authors: Furkan Cantürk, Reyhan Aydoğan<br>for: 这篇论文的目的是解决新用户的偏好预测问题，特别是在冷开始问题下，当推荐系统缺乏用户存在或者其他用户数据存在限制，使得使用用户资料建立用户Profile几乎不可能。methods: 这篇论文使用了活动学习（AL）来解决冷开始问题，通过选择大量未标的数据，请 oracle 标注它们，并更新机器学习（ML）模型。论文还结合了不监controlled、半监controlled和监controlled ML的混合过程，并与用户反馈组合使用。results: 实验结果显示，提案的偏好探索方法在有限用户标注数据下可以实现高效的偏好预测，同时也能够提高用户信任度 durch 精准的解释。<details>
+<summary>Abstract</summary>
+Gaining insights into the preferences of new users and subsequently personalizing recommendations necessitate managing user interactions intelligently, namely, posing pertinent questions to elicit valuable information effectively. In this study, our focus is on a specific scenario of the cold-start problem, where the recommendation system lacks adequate user presence or access to other users' data is restricted, obstructing employing user profiling methods utilizing existing data in the system. We employ Active Learning (AL) to solve the addressed problem with the objective of maximizing information acquisition with minimal user effort. AL operates for selecting informative data from a large unlabeled set to inquire an oracle to label them and eventually updating a machine learning (ML) model. We operate AL in an integrated process of unsupervised, semi-supervised, and supervised ML within an explanatory preference elicitation process. It harvests user feedback (given for the system's explanations on the presented items) over informative samples to update an underlying ML model estimating user preferences. The designed user interaction facilitates personalizing the system by incorporating user feedback into the ML model and also enhances user trust by refining the system's explanations on recommendations. We implement the proposed preference elicitation methodology for food recommendation. We conducted human experiments to assess its efficacy in the short term and also experimented with several AL strategies over synthetic user profiles that we created for two food datasets, aiming for long-term performance analysis. The experimental results demonstrate the efficiency of the proposed preference elicitation with limited user-labeled data while also enhancing user trust through accurate explanations.
+</details>
+<details>
+<summary>摘要</summary>
+为了获得新用户的偏好情况和个性化推荐，需要智能地管理用户互动，即向用户提问有价值信息以获得有效反馈。在这个研究中，我们关注了冷启动问题的特定场景，其中推荐系统缺乏用户存在或其他用户数据访问被限制，使用用户 profiling 方法使用现有系统数据 becomes impossible. 我们使用活动学习（AL）解决这个问题，以达到最大化信息收集的目的，同时减少用户努力。AL 方法从大量未标记数据集中选择有用信息，并请 oracle 标记它们，以更新机器学习（ML）模型。我们在混合式、半结构化和结构化 ML 中运行 AL，并在用户反馈（对系统的解释中提供的Feedback）上更新下面 ML 模型，以估计用户偏好。这种设计的用户互动方式可以个性化系统，并且提高用户信任度，因为它可以在推荐中更加准确地解释用户选择。我们在美食推荐领域实现了这种偏好抽取方法。我们对短期效果进行了人类实验，以及使用了多种 AL 策略对两个食品数据集进行了长期性能分析。实验结果表明，我们的偏好抽取方法在有限用户标注数据下可以 дости到高效性，同时提高用户信任度。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Text-based-Approach-For-Link-Prediction-on-Wikipedia-Articles"><a href="#A-Text-based-Approach-For-Link-Prediction-on-Wikipedia-Articles" class="headerlink" title="A Text-based Approach For Link Prediction on Wikipedia Articles"></a>A Text-based Approach For Link Prediction on Wikipedia Articles</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00317">http://arxiv.org/abs/2309.00317</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/tam1032/dsaa2023-challenge-link-prediction-ds-uit_sat">https://github.com/tam1032/dsaa2023-challenge-link-prediction-ds-uit_sat</a></li>
+<li>paper_authors: Anh Hoang Tran, Tam Minh Nguyen, Son T. Luu</li>
+<li>for: 这篇论文是为了参加 DSAA 2023 挑战，用于预测 Wikipedia 文章中的连结是否存在。</li>
+<li>methods: 本文使用传统机器学习模型，使用文本中的 POS 标签特征进行训练分类模型。</li>
+<li>results: 本文获得 F1 得分 0.99999，在竞赛中排名第 7 名。并且提供了可公开使用的源代码：<a target="_blank" rel="noopener" href="https://github.com/Tam1032/DSAA2023-Challenge-Link-prediction-DS-UIT_SAT%E3%80%82">https://github.com/Tam1032/DSAA2023-Challenge-Link-prediction-DS-UIT_SAT。</a><details>
+<summary>Abstract</summary>
+This paper present our work in the DSAA 2023 Challenge about Link Prediction for Wikipedia Articles. We use traditional machine learning models with POS tags (part-of-speech tags) features extracted from text to train the classification model for predicting whether two nodes has the link. Then, we use these tags to test on various machine learning models. We obtained the results by F1 score at 0.99999 and got 7th place in the competition. Our source code is publicly available at this link: https://github.com/Tam1032/DSAA2023-Challenge-Link-prediction-DS-UIT_SAT
+</details>
+<details>
+<summary>摘要</summary>
+这篇论文介绍我们在 DSAA 2023 挑战中对维基百科文章链接预测的工作。我们使用传统机器学习模型，使用文本中提取的 POS 标签特征来训练分类模型，以预测两个节点是否有链接。然后，我们使用这些标签来测试不同的机器学习模型。我们获得的结果是 F1 分数为 0.99999，在比赛中获得第 7 名。我们的源代码可以在以下链接中下载：https://github.com/Tam1032/DSAA2023-Challenge-Link-prediction-DS-UIT_SAT。
+</details></li>
+</ul>
+<hr>
+<h2 id="Sherlock-Holmes-Doesn’t-Play-Dice-The-significance-of-Evidence-Theory-for-the-Social-and-Life-Sciences"><a href="#Sherlock-Holmes-Doesn’t-Play-Dice-The-significance-of-Evidence-Theory-for-the-Social-and-Life-Sciences" class="headerlink" title="Sherlock Holmes Doesn’t Play Dice: The significance of Evidence Theory for the Social and Life Sciences"></a>Sherlock Holmes Doesn’t Play Dice: The significance of Evidence Theory for the Social and Life Sciences</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.03222">http://arxiv.org/abs/2309.03222</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: V. L. Raju Chinthalapati, Guido Fioretti</li>
+<li>for: 本文主要探讨了证据理论在社会和生物科学中的潜在应用，以及它与概率论的区别。</li>
+<li>methods: 本文使用了德мпстер-沙法尔理论和信念函数理论来表达对事件的不确定性。</li>
+<li>results: 本文证明了德мпстер-沙法尔的组合规则与 bayes 定理之间存在关系，并讨论了如何通过证据理论增强信息理论中的应用。 I hope that helps! Let me know if you have any further questions.<details>
+<summary>Abstract</summary>
+While Evidence Theory (Demster-Shafer Theory, Belief Functions Theory) is being increasingly used in data fusion, its potentialities in the Social and Life Sciences are often obscured by lack of awareness of its distinctive features. With this paper we stress that Evidence Theory can express the uncertainty deriving from the fear that events may materialize, that one has not been able to figure out. By contrast, Probability Theory must limit itself to the possibilities that a decision-maker is currently envisaging.   Subsequently, we illustrate how Dempster-Shafer's combination rule relates to Bayes' Theorem for various versions of Probability Theory and discuss which applications of Information Theory can be enhanced by Evidence Theory. Finally, we illustrate our claims with an example where Evidence Theory is used to make sense of the partially overlapping, partially contradictory solutions that appear in an auditing exercise.
+</details>
+<details>
+<summary>摘要</summary>
+“证据理论（德赫-沙佛理论，信念函数理论）在数据融合中日益受到应用，但它在社会和生活科学中的潜力往往被不了了之。本文强调证据理论可以表达因事件可能实现而导致的不确定性，而probability理论只能限制在决策者目前所看到的可能性上。后续，我们详细介绍德赫-沙佛组合规则与 bayes定理之间的关系，并讨论在信息理论中哪些应用可以增强使用证据理论。最后，我们通过一个例子说明证据理论如何用于理解审计实践中的部分重叠、部分矛盾的解决方案。”Note: "Simplified Chinese" is also known as "Mandarin" or "Standard Chinese".
+</details></li>
+</ul>
+<hr>
+<h2 id="On-the-Aggregation-of-Rules-for-Knowledge-Graph-Completion"><a href="#On-the-Aggregation-of-Rules-for-Knowledge-Graph-Completion" class="headerlink" title="On the Aggregation of Rules for Knowledge Graph Completion"></a>On the Aggregation of Rules for Knowledge Graph Completion</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00306">http://arxiv.org/abs/2309.00306</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Patrick Betz, Stefan Lüdtke, Christian Meilicke, Heiner Stuckenschmidt</li>
+<li>for: 本研究旨在提高知识图完成任务中的规则学取得效率、可读性和竞争力。</li>
+<li>methods: 本文使用数据驱动的规则学学习方法，并 investigate 规则集中的噪音和规则集大小的问题。</li>
+<li>results: 本文提出了一种新的规则汇总策略，并证明了这种策略可以表示为规则集中的 marginal inference 操作。此外，本文还提出了一种效果很好的基线方法，可以与计算更昂贵的方法竞争。<details>
+<summary>Abstract</summary>
+Rule learning approaches for knowledge graph completion are efficient, interpretable and competitive to purely neural models. The rule aggregation problem is concerned with finding one plausibility score for a candidate fact which was simultaneously predicted by multiple rules. Although the problem is ubiquitous, as data-driven rule learning can result in noisy and large rulesets, it is underrepresented in the literature and its theoretical foundations have not been studied before in this context. In this work, we demonstrate that existing aggregation approaches can be expressed as marginal inference operations over the predicting rules. In particular, we show that the common Max-aggregation strategy, which scores candidates based on the rule with the highest confidence, has a probabilistic interpretation. Finally, we propose an efficient and overlooked baseline which combines the previous strategies and is competitive to computationally more expensive approaches.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>> traduced text into Simplified Chinese.<</SYS>>知识图完成任务的规则学习方法是高效、可读性和竞争力强的。规则汇总问题关注于找到多个规则同时预测的 кандидат事实的可能性分数。尽管这个问题在数据驱动的规则学习中很普遍，但在文献中它尚未得到过足够的研究和理论基础。在这种情况下，我们展示了现有的汇总方法可以表示为规则预测时的边缘推理操作。特别是，我们显示了通用的Max汇总策略，将 кандидат事实分数基于预测规则的信任度进行评分，具有概率解释。最后，我们提出了一种高效且被忽略的基线， combinig 前两种策略，与计算更昂贵的方法竞争。
+</details></li>
+</ul>
+<hr>
+<h2 id="Identifiable-Cognitive-Diagnosis-with-Encoder-decoder-for-Modelling-Students’-Performance"><a href="#Identifiable-Cognitive-Diagnosis-with-Encoder-decoder-for-Modelling-Students’-Performance" class="headerlink" title="Identifiable Cognitive Diagnosis with Encoder-decoder for Modelling Students’ Performance"></a>Identifiable Cognitive Diagnosis with Encoder-decoder for Modelling Students’ Performance</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00300">http://arxiv.org/abs/2309.00300</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jiatong Li, Qi Liu, Fei Wang, Jiayu Liu, Zhenya Huang, Enhong Chen</li>
+<li>for: 该论文旨在针对学生知识水平的诊断，以响应题目的回答得分作为基础，以便在多个领域中进行计算化适应测试。</li>
+<li>methods: 该论文提出了一种新的可识别性诊断框架，包括直接从回答日志中诊断可识别和可解释的学生特征和问题特征，以及利用一种通用预测模块来重建回答日志，以保证诊断结果的准确性。</li>
+<li>results: 该论文通过四个公共实验数据集的实验，证明了新的可识别性诊断框架可以提供可识别的诊断结果，同时也可以保证诊断结果的可解释性和精度。<details>
+<summary>Abstract</summary>
+Cognitive diagnosis aims to diagnose students' knowledge proficiencies based on their response scores on exam questions, which is the basis of many domains such as computerized adaptive testing. Existing cognitive diagnosis models (CDMs) follow a proficiency-response paradigm, which views diagnostic results as learnable embeddings that are the cause of students' responses and learns the diagnostic results through optimization. However, such a paradigm can easily lead to unidentifiable diagnostic results and the explainability overfitting problem, which is harmful to the quantification of students' learning performance. To address these problems, we propose a novel identifiable cognitive diagnosis framework. Specifically, we first propose a flexible diagnostic module which directly diagnose identifiable and explainable examinee traits and question features from response logs. Next, we leverage a general predictive module to reconstruct response logs from the diagnostic results to ensure the preciseness of the latter. We furthermore propose an implementation of the framework, i.e., ID-CDM, to demonstrate the availability of the former. Finally, we demonstrate the identifiability, explainability and preciseness of diagnostic results of ID-CDM through experiments on four public real-world datasets.
+</details>
+<details>
+<summary>摘要</summary>
+�� cognitive diagnosis 目标是根据学生响应 scored exam 问题的得分来评估学生的知识水平，这是许多领域，如计算机化适应测试的基础。现有的 cognitive diagnosis 模型（CDM）采用 proficiency-response 模式，视学生的响应为可学习的嵌入，通过优化来学习诊断结果。然而，这种模式可能导致诊断结果难以识别和过拟合问题，这会对学生学习表现的量化带来害。为解决这些问题，我们提出了一种新的可识别 cognitive diagnosis 框架。 Specifically, we first propose a flexible diagnostic module  directly diagnose identifiable and explainable examinee traits and question features from response logs. Next, we leverage a general predictive module to reconstruct response logs from the diagnostic results to ensure the preciseness of the latter. We furthermore propose an implementation of the framework, i.e., ID-CDM, to demonstrate the availability of the former. Finally, we demonstrate the identifiability, explainability and preciseness of diagnostic results of ID-CDM through experiments on four public real-world datasets.
+</details></li>
+</ul>
+<hr>
+<h2 id="End-to-end-Lidar-Driven-Reinforcement-Learning-for-Autonomous-Racing"><a href="#End-to-end-Lidar-Driven-Reinforcement-Learning-for-Autonomous-Racing" class="headerlink" title="End-to-end Lidar-Driven Reinforcement Learning for Autonomous Racing"></a>End-to-end Lidar-Driven Reinforcement Learning for Autonomous Racing</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00296">http://arxiv.org/abs/2309.00296</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Meraj Mammadov</li>
+<li>For: The paper is written for the domain of car racing, specifically in the context of autonomous racing.* Methods: The paper uses reinforcement learning (RL) and feedforward raw lidar and velocity data to train an RL agent in a simulated environment.* Results: The RL agent’s performance is experimentally evaluated in a real-world racing scenario, demonstrating the feasibility and potential benefits of RL algorithms in enhancing autonomous racing performance, especially in environments where prior map information is not available.Here is the information in Simplified Chinese text:</li>
+<li>for: 本研究针对的是自动赛车领域，具体来说是在 simulations 中使用 reinforcement learning（RL）和 feedforward raw lidar 和 velocity data 训练一个 RL 智能体。</li>
+<li>methods: 本研究使用 RL 和 feedforward raw lidar 和 velocity data 训练一个 RL 智能体，并在 simulated 环境中进行了训练。</li>
+<li>results: 在实际的 racing enario 中，RL 智能体的性能得到了实验证明，表明RL 算法在缺乏 prior map information 的环境中提供了可能的和有利的性能提升。<details>
+<summary>Abstract</summary>
+Reinforcement Learning (RL) has emerged as a transformative approach in the domains of automation and robotics, offering powerful solutions to complex problems that conventional methods struggle to address. In scenarios where the problem definitions are elusive and challenging to quantify, learning-based solutions such as RL become particularly valuable. One instance of such complexity can be found in the realm of car racing, a dynamic and unpredictable environment that demands sophisticated decision-making algorithms. This study focuses on developing and training an RL agent to navigate a racing environment solely using feedforward raw lidar and velocity data in a simulated context. The agent's performance, trained in the simulation environment, is then experimentally evaluated in a real-world racing scenario. This exploration underlines the feasibility and potential benefits of RL algorithm enhancing autonomous racing performance, especially in the environments where prior map information is not available.
+</details>
+<details>
+<summary>摘要</summary>
+Reinforcement Learning (RL) 已经出现为自动化和机器人领域的一种转型方法，提供了强大的解决方案，解决了传统方法难以处理的复杂问题。在定义问题难以量化的情况下，学习基于的解决方案，如 RL，特别有价值。一个实例是在赛车场景中，这是一个动态和难以预测的环境，需要高级别的决策算法。这种研究将在模拟环境中开发和训练一个RL代理人， solely使用前向Raw Lidar和速度数据进行导航。在实际赛车场景中，代理人的性能，在模拟环境中训练的，进行实验性评估。这一探索， highlights the feasibility and potential benefits of RL算法在无产权地图信息的自动赛车性能提高中发挥作用。
+</details></li>
+</ul>
+<hr>
+<h2 id="RLAIF-Scaling-Reinforcement-Learning-from-Human-Feedback-with-AI-Feedback"><a href="#RLAIF-Scaling-Reinforcement-Learning-from-Human-Feedback-with-AI-Feedback" class="headerlink" title="RLAIF: Scaling Reinforcement Learning from Human Feedback with AI Feedback"></a>RLAIF: Scaling Reinforcement Learning from Human Feedback with AI Feedback</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00267">http://arxiv.org/abs/2309.00267</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Harrison Lee, Samrat Phatale, Hassan Mansoor, Kellie Lu, Thomas Mesnard, Colton Bishop, Victor Carbune, Abhinav Rastogi</li>
+<li>for: 这篇研究是为了比较从人类反馈（RLHF）和从AI反馈（RLAIF）两种技术，以改善大语言模型（LLMs）与人类偏好的整合。</li>
+<li>methods: 这篇研究使用了RLHF和RLAIF两种技术，RLHF需要人类提供反馈，而RLAIF则使用了一个商业化的LLM来提供反馈。</li>
+<li>results: 研究发现，RLHF和RLAIF都能够将大语言模型与人类偏好进行高质量的整合，并且人类评价者对RLAIF和RLHF两种摘要都有与基准模型相似的喜好。<details>
+<summary>Abstract</summary>
+Reinforcement learning from human feedback (RLHF) is effective at aligning large language models (LLMs) to human preferences, but gathering high quality human preference labels is a key bottleneck. We conduct a head-to-head comparison of RLHF vs. RL from AI Feedback (RLAIF) - a technique where preferences are labeled by an off-the-shelf LLM in lieu of humans, and we find that they result in similar improvements. On the task of summarization, human evaluators prefer generations from both RLAIF and RLHF over a baseline supervised fine-tuned model in ~70% of cases. Furthermore, when asked to rate RLAIF vs. RLHF summaries, humans prefer both at equal rates. These results suggest that RLAIF can yield human-level performance, offering a potential solution to the scalability limitations of RLHF.
+</details>
+<details>
+<summary>摘要</summary>
+人工反馈学习（RLHF）可以有效地将大语言模型（LLM）与人类偏好相对应，但收集高质量人类偏好标签是一个关键瓶颈。我们进行了RLHF与RL从AI反馈（RLAIF）的头比赛，其中RLAIF使用了市售LLM来标注偏好，而不是人类。我们发现，这两种技术在摘要任务上都可以达到类似的改进。人类评估员在70%的情况下偏好RLAIF和RLHF生成的摘要，并且对RLAIF和RLHF摘要进行评分时，偏好它们的情况相同。这些结果表明，RLAIF可以达到人类水平的表现，提供了RLHF扩展的可能性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Leveraging-Learning-Metrics-for-Improved-Federated-Learning"><a href="#Leveraging-Learning-Metrics-for-Improved-Federated-Learning" class="headerlink" title="Leveraging Learning Metrics for Improved Federated Learning"></a>Leveraging Learning Metrics for Improved Federated Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00257">http://arxiv.org/abs/2309.00257</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Andre Fu</li>
+<li>for: 本研究旨在应用可解释人工智能（XAI）的新研究，尤其是定量学习度量，以改善联边学习中的数据联边问题。</li>
+<li>methods: 本研究使用联边学习和有效排名（ER）学习度量，实现了首个联边学习度量聚合方法。</li>
+<li>results: 研究结果显示，使用有效排名学习度量可以超越基eline Federated Averaging \cite{konevcny2016federated}，并开发了一个基于有效排名的新量化策略。<details>
+<summary>Abstract</summary>
+Currently in the federated setting, no learning schemes leverage the emerging research of explainable artificial intelligence (XAI) in particular the novel learning metrics that help determine how well a model is learning. One of these novel learning metrics is termed `Effective Rank' (ER) which measures the Shannon Entropy of the singular values of a matrix, thus enabling a metric determining how well a layer is mapping. By joining federated learning and the learning metric, effective rank, this work will \textbf{(1)} give the first federated learning metric aggregation method \textbf{(2)} show that effective rank is well-suited to federated problems by out-performing baseline Federated Averaging \cite{konevcny2016federated} and \textbf{(3)} develop a novel weight-aggregation scheme relying on effective rank.
+</details>
+<details>
+<summary>摘要</summary>
+当前在联合学习 Setting中，无法学习 schemes 利用 emerging research of explainable artificial intelligence (XAI) 特别是新的学习指标，帮助确定模型是如何学习。其中一个新的学习指标是“有效排名”（ER），测量矩阵的几何 entropy，因此可以提供一个度量layer是如何映射。通过联合学习和有效排名指标的结合，本工作将实现以下三个目标：1. 提供首个联合学习指标聚合方法。2. 表明有效排名指标适合联合问题，超越基eline Federated Averaging \cite{konevcny2016federated}。3. 开发一种基于有效排名指标的新的质量聚合方案。
+</details></li>
+</ul>
+<hr>
+<h2 id="DiffuGen-Adaptable-Approach-for-Generating-Labeled-Image-Datasets-using-Stable-Diffusion-Models"><a href="#DiffuGen-Adaptable-Approach-for-Generating-Labeled-Image-Datasets-using-Stable-Diffusion-Models" class="headerlink" title="DiffuGen: Adaptable Approach for Generating Labeled Image Datasets using Stable Diffusion Models"></a>DiffuGen: Adaptable Approach for Generating Labeled Image Datasets using Stable Diffusion Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00248">http://arxiv.org/abs/2309.00248</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/mshenoda/diffugen">https://github.com/mshenoda/diffugen</a></li>
+<li>paper_authors: Michael Shenoda, Edward Kim</li>
+<li>for: 本研究旨在提高计算机视觉领域中Machine learning模型的准确性和可靠性，通过生成高质量的标注图像集。</li>
+<li>methods: 本paper introduce了一种名为DiffuGen的简单有效的方法，利用稳定的扩散模型来生成标注图像集。DiffuGen combine了扩散模型的能力与两种不同的标注技术：无监督和监督。</li>
+<li>results: DiffuGen可以生成高质量的标注图像集，并且提供了一种灵活的解决方案 для标注生成。在本paper中，我们介绍了DiffuGen的方法ología，包括使用提示模板进行适应图像生成和文本反转来增强扩散模型的能力。<details>
+<summary>Abstract</summary>
+Generating high-quality labeled image datasets is crucial for training accurate and robust machine learning models in the field of computer vision. However, the process of manually labeling real images is often time-consuming and costly. To address these challenges associated with dataset generation, we introduce "DiffuGen," a simple and adaptable approach that harnesses the power of stable diffusion models to create labeled image datasets efficiently. By leveraging stable diffusion models, our approach not only ensures the quality of generated datasets but also provides a versatile solution for label generation. In this paper, we present the methodology behind DiffuGen, which combines the capabilities of diffusion models with two distinct labeling techniques: unsupervised and supervised. Distinctively, DiffuGen employs prompt templating for adaptable image generation and textual inversion to enhance diffusion model capabilities.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>转换文本到简化中文。<</SYS>>在计算机视觉领域，生成高质量标注图像集是训练精准和可靠机器学习模型的关键。然而，手动标注真实图像是时间consuming和成本高昂的。为解决这些数据生成过程中的挑战，我们介绍“DiffuGen”，一种简单而适应的方法，利用稳定扩散模型来生成标注图像集。通过利用稳定扩散模型，DiffuGen不仅保证生成的数据质量，还提供了一种多样化的标签生成解决方案。在这篇论文中，我们介绍DiffuGen的方法ологи，它结合扩散模型的能力和两种不同的标签技术：无监督和监督。与其他方法不同的是，DiffuGen使用插入模板来适应图像生成，以及文本反转来增强扩散模型的能力。
+</details></li>
+</ul>
+<hr>
+<h2 id="City-electric-power-consumption-forecasting-based-on-big-data-neural-network-under-smart-grid-background"><a href="#City-electric-power-consumption-forecasting-based-on-big-data-neural-network-under-smart-grid-background" class="headerlink" title="City electric power consumption forecasting based on big data &amp; neural network under smart grid background"></a>City electric power consumption forecasting based on big data &amp; neural network under smart grid background</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00245">http://arxiv.org/abs/2309.00245</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zhengxian Chen, Maowei Wang, Conghu Li</li>
+<li>for: 这篇论文是为了研究城市电力消耗的预测和评估，以提供更好的城市服务。</li>
+<li>methods: 论文使用大数据和神经网络模型，考虑了不同的非线性因素对城市电力消耗的影响，建立了一个预测城市电力消耗的模型。</li>
+<li>results: 根据排序重要性测试，论文建立了城市电力消耗预测模型的核心特征值，对电力相关业界提供了重要参考。<details>
+<summary>Abstract</summary>
+With the development of the electric power system, the smart grid has become an important part of the smart city. The rational transmission of electric energy and the guarantee of power supply of the smart grid are very important to smart cities, smart cities can provide better services through smart grids. Among them, predicting and judging city electric power consumption is closely related to electricity supply and regulation, the location of power plants, and the control of electricity transmission losses. Based on big data, this paper establishes a neural network and considers the influence of various nonlinear factors on city electric power consumption. A model is established to realize the prediction of power consumption. Based on the permutation importance test, an evaluation model of the influencing factors of city electric power consumption is constructed to obtain the core characteristic values of city electric power consumption prediction, which can provide an important reference for electric power related industry.
+</details>
+<details>
+<summary>摘要</summary>
+随着电力系统的发展，智能电网已成为智能城市的重要组成部分。智能城市通过智能电网提供更好的服务，智能电网的合理的电能传输和电力供应是非常重要的。其中，预测和评估城市电力消耗和电力供应的关系非常重要，包括发电厂的位置、电力传输损失的控制等多个因素。基于大数据，本文建立了神经网络模型，考虑了城市电力消耗的多个非线性因素的影响。通过Permutation Importance Test，建立了城市电力消耗影响因素评价模型，获得了城市电力消耗预测核心特征值，可以为电力相关行业提供重要参考。
+</details></li>
+</ul>
+<hr>
+<h2 id="FactLLaMA-Optimizing-Instruction-Following-Language-Models-with-External-Knowledge-for-Automated-Fact-Checking"><a href="#FactLLaMA-Optimizing-Instruction-Following-Language-Models-with-External-Knowledge-for-Automated-Fact-Checking" class="headerlink" title="FactLLaMA: Optimizing Instruction-Following Language Models with External Knowledge for Automated Fact-Checking"></a>FactLLaMA: Optimizing Instruction-Following Language Models with External Knowledge for Automated Fact-Checking</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00240">http://arxiv.org/abs/2309.00240</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/thcheung/FactLLaMA">https://github.com/thcheung/FactLLaMA</a></li>
+<li>paper_authors: Tsun-Hin Cheung, Kin-Man Lam</li>
+<li>for: 本研究旨在提高自动 факчекин表现，以便更好地斗争假信息的扩散。</li>
+<li>methods: 本研究使用了大型自然语言模型（LLMs）和指令遵循变体，如InstructGPT和Alpaca，以及外部证据检索来增强 fact-checking 表现。</li>
+<li>results: 研究结果显示，将外部证据与 instruction-tuning 结合使用可以更好地预测输入CLAIM 的真伪性。在 RAWFC 和 LIAR 两个常用的 fact-checking 数据集上进行了实验，并取得了状态之 луч表现。<details>
+<summary>Abstract</summary>
+Automatic fact-checking plays a crucial role in combating the spread of misinformation. Large Language Models (LLMs) and Instruction-Following variants, such as InstructGPT and Alpaca, have shown remarkable performance in various natural language processing tasks. However, their knowledge may not always be up-to-date or sufficient, potentially leading to inaccuracies in fact-checking. To address this limitation, we propose combining the power of instruction-following language models with external evidence retrieval to enhance fact-checking performance. Our approach involves leveraging search engines to retrieve relevant evidence for a given input claim. This external evidence serves as valuable supplementary information to augment the knowledge of the pretrained language model. Then, we instruct-tune an open-sourced language model, called LLaMA, using this evidence, enabling it to predict the veracity of the input claim more accurately. To evaluate our method, we conducted experiments on two widely used fact-checking datasets: RAWFC and LIAR. The results demonstrate that our approach achieves state-of-the-art performance in fact-checking tasks. By integrating external evidence, we bridge the gap between the model's knowledge and the most up-to-date and sufficient context available, leading to improved fact-checking outcomes. Our findings have implications for combating misinformation and promoting the dissemination of accurate information on online platforms. Our released materials are accessible at: https://thcheung.github.io/factllama.
+</details>
+<details>
+<summary>摘要</summary>
+自动化Fact-checking plays a crucial role in combating the spread of misinformation. Large Language Models (LLMs) and Instruction-Following variants, such as InstructGPT and Alpaca, have shown remarkable performance in various natural language processing tasks. However, their knowledge may not always be up-to-date or sufficient, potentially leading to inaccuracies in fact-checking. To address this limitation, we propose combining the power of instruction-following language models with external evidence retrieval to enhance fact-checking performance. Our approach involves leveraging search engines to retrieve relevant evidence for a given input claim. This external evidence serves as valuable supplementary information to augment the knowledge of the pretrained language model. Then, we instruct-tune an open-sourced language model, called LLaMA, using this evidence, enabling it to predict the veracity of the input claim more accurately. To evaluate our method, we conducted experiments on two widely used fact-checking datasets: RAWFC and LIAR. The results demonstrate that our approach achieves state-of-the-art performance in fact-checking tasks. By integrating external evidence, we bridge the gap between the model's knowledge and the most up-to-date and sufficient context available, leading to improved fact-checking outcomes. Our findings have implications for combating misinformation and promoting the dissemination of accurate information on online platforms. Our released materials are accessible at: https://thcheung.github.io/factllama.
+</details></li>
+</ul>
+<hr>
+<h2 id="ALJP-An-Arabic-Legal-Judgment-Prediction-in-Personal-Status-Cases-Using-Machine-Learning-Models"><a href="#ALJP-An-Arabic-Legal-Judgment-Prediction-in-Personal-Status-Cases-Using-Machine-Learning-Models" class="headerlink" title="ALJP: An Arabic Legal Judgment Prediction in Personal Status Cases Using Machine Learning Models"></a>ALJP: An Arabic Legal Judgment Prediction in Personal Status Cases Using Machine Learning Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00238">http://arxiv.org/abs/2309.00238</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Salwa Abbara, Mona Hafez, Aya Kazzaz, Areej Alhothali, Alhanouf Alsolami</li>
+<li>for: This paper aims to predict the judgment outcomes of Arabic case scripts, specifically in cases of custody and annulment of marriage.</li>
+<li>methods: The authors use deep learning (DL) and natural language processing (NLP) techniques, including Support Vector Machine (SVM), Logistic regression (LR), Long Short Term Memory (LSTM), and Bidirectional Long Short-Term Memory (BiLSTM), with representation techniques such as TF-IDF and word2vec on a developed dataset.</li>
+<li>results: The authors achieved high accuracy in predicting the judgment outcomes of custody cases and annulment of marriage, with the SVM model with word2vec and LR with TF-IDF achieving the highest accuracy of 88% and 78%, respectively. Additionally, the LR and SVM with word2vec and BiLSTM model with TF-IDF achieved the highest accuracy of 88% and 69%, respectively, in predicting the probability of outcomes on custody cases and annulment of marriage.<details>
+<summary>Abstract</summary>
+Legal Judgment Prediction (LJP) aims to predict judgment outcomes based on case description. Several researchers have developed techniques to assist potential clients by predicting the outcome in the legal profession. However, none of the proposed techniques were implemented in Arabic, and only a few attempts were implemented in English, Chinese, and Hindi. In this paper, we develop a system that utilizes deep learning (DL) and natural language processing (NLP) techniques to predict the judgment outcome from Arabic case scripts, especially in cases of custody and annulment of marriage. This system will assist judges and attorneys in improving their work and time efficiency while reducing sentencing disparity. In addition, it will help litigants, lawyers, and law students analyze the probable outcomes of any given case before trial. We use a different machine and deep learning models such as Support Vector Machine (SVM), Logistic regression (LR), Long Short Term Memory (LSTM), and Bidirectional Long Short-Term Memory (BiLSTM) using representation techniques such as TF-IDF and word2vec on the developed dataset. Experimental results demonstrate that compared with the five baseline methods, the SVM model with word2vec and LR with TF-IDF achieve the highest accuracy of 88% and 78% in predicting the judgment on custody cases and annulment of marriage, respectively. Furthermore, the LR and SVM with word2vec and BiLSTM model with TF-IDF achieved the highest accuracy of 88% and 69% in predicting the probability of outcomes on custody cases and annulment of marriage, respectively.
+</details>
+<details>
+<summary>摘要</summary>
+法律判断预测（LJP）目标是根据案件描述预测判决结果。一些研究人员已经开发了用于帮助 potential clients 预测案件结果的技术，但是这些技术都没有在阿拉伯语中实现，只有一些尝试在英语、中文和捷地语中实现。在这篇论文中，我们开发了一个系统，使用深度学习（DL）和自然语言处理（NLP）技术，从阿拉伯语案件脚本中预测判决结果，特别是在监护和婚姻 annulment 案件中。这个系统将帮助法官和律师提高工作效率和时间效率，同时减少判决不公。此外，它还将帮助诉讼人、律师和法学生分析案件的可能结果之前。我们使用了不同的机器学习和深度学习模型，如支持向量机（SVM）、逻辑回归（LR）、长短期记忆（LSTM）和双向长短期记忆（BiLSTM），使用表示技术如 TF-IDF 和 word2vec 在开发的数据集上。实验结果表明，与基准方法相比，SVM 模型与 word2vec 和 LR 模型与 TF-IDF  achieve 最高的准确率为 88% 和 78%，分别预测监护案件和婚姻 annulment 的判决结果。此外，LR 和 SVM 模型与 word2vec 和 BiLSTM 模型与 TF-IDF  achieve 最高的准确率为 88% 和 69%，分别预测监护案件和婚姻 annulment 的可能结果。
+</details></li>
+</ul>
+<hr>
+<h2 id="Publicly-Shareable-Clinical-Large-Language-Model-Built-on-Synthetic-Clinical-Notes"><a href="#Publicly-Shareable-Clinical-Large-Language-Model-Built-on-Synthetic-Clinical-Notes" class="headerlink" title="Publicly Shareable Clinical Large Language Model Built on Synthetic Clinical Notes"></a>Publicly Shareable Clinical Large Language Model Built on Synthetic Clinical Notes</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00237">http://arxiv.org/abs/2309.00237</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/starmpcc/asclepius">https://github.com/starmpcc/asclepius</a></li>
+<li>paper_authors: Sunjun Kweon, Junu Kim, Jiyoun Kim, Sujeong Im, Eunbyeol Cho, Seongsu Bae, Jungwoo Oh, Gyubok Lee, Jong Hak Moon, Seng Chan You, Seungjin Baek, Chang Hoon Han, Yoon Bin Jung, Yohan Jo, Edward Choi</li>
+<li>For: The paper aims to develop a specialized clinical language model, Asclepius, to handle patients’ clinical notes, and to address the challenges of limited accessibility and usability of these notes due to strict privacy regulations.* Methods: The authors create synthetic large-scale clinical notes using publicly available case reports extracted from biomedical literature, and use these synthetic notes to train Asclepius. They also evaluate the performance of Asclepius using real clinical notes and compare it with other large language models, including GPT-3.5-turbo and other open-source alternatives.* Results: The authors find that synthetic clinical notes can serve as viable substitutes for real ones when constructing high-performing clinical language models, and that Asclepius outperforms other large language models in real-world applications. The findings are supported by detailed evaluations conducted by both GPT-4 and medical professionals.Here’s the simplified Chinese text for the three key points:* For: 这篇论文目的是开发一种专门用于处理患者医疗记录的临床语言模型，以解决因严格隐私法规限制而受到的医疗记录访问和使用困难。* Methods: 作者们使用公开可用的案例报告从生物医学文献中提取的大规模临床报告来生成synthetic大规模的临床报告，然后使用这些synthetic报告来训练特殊的临床语言模型Asclepius。作者们还使用实际的临床报告来评估Asclepius的性能，并与其他大语言模型进行比较，包括GPT-3.5-turbo和其他开源选择。* Results: 作者们发现，使用synthetic临床报告可以成为高性能临床语言模型的建模 substitutes，而Asclepius在实际应用中表现出色，比其他大语言模型更高。这些结论得到了GPT-4和医疗专业人员的详细评估。<details>
+<summary>Abstract</summary>
+The development of large language models tailored for handling patients' clinical notes is often hindered by the limited accessibility and usability of these notes due to strict privacy regulations. To address these challenges, we first create synthetic large-scale clinical notes using publicly available case reports extracted from biomedical literature. We then use these synthetic notes to train our specialized clinical large language model, Asclepius. While Asclepius is trained on synthetic data, we assess its potential performance in real-world applications by evaluating it using real clinical notes. We benchmark Asclepius against several other large language models, including GPT-3.5-turbo and other open-source alternatives. To further validate our approach using synthetic notes, we also compare Asclepius with its variants trained on real clinical notes. Our findings convincingly demonstrate that synthetic clinical notes can serve as viable substitutes for real ones when constructing high-performing clinical language models. This conclusion is supported by detailed evaluations conducted by both GPT-4 and medical professionals. All resources including weights, codes, and data used in the development of Asclepius are made publicly accessible for future research.
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型的开发，用于处理病人的诊所录取得到受到隐私规定限制，导致这些录取不易存取和使用。为了解决这些挑战，我们首先创建了大规模的人工生成的诊所录取，使用公开可用的专业医疗文献中的案例报告。然后，我们使用这些人工生成的录取来训练我们的特殊化的医疗语言模型Asclepius。处理Asclepius的训练是使用人工生成的数据，我们使用真实的诊所录取进行评估。我们与其他大型语言模型，如GPT-3.5-turbo和其他开源选择进行比较。为了进一步验证我们的方法，我们还比较Asclepius与它的变体，它们是使用真实的诊所录取进行训练。我们的结果表明，人工生成的诊所录取可以作为真实的诊所录取的可行substitute，这是由GPT-4和医疗专业人员进行详细评估所支持。我们所有的资源，包括权重、代码和数据，都是公开可用的，以便未来的研究。
+</details></li>
+</ul>
+<hr>
+<h2 id="Large-Language-Models-for-Semantic-Monitoring-of-Corporate-Disclosures-A-Case-Study-on-Korea’s-Top-50-KOSPI-Companies"><a href="#Large-Language-Models-for-Semantic-Monitoring-of-Corporate-Disclosures-A-Case-Study-on-Korea’s-Top-50-KOSPI-Companies" class="headerlink" title="Large Language Models for Semantic Monitoring of Corporate Disclosures: A Case Study on Korea’s Top 50 KOSPI Companies"></a>Large Language Models for Semantic Monitoring of Corporate Disclosures: A Case Study on Korea’s Top 50 KOSPI Companies</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00208">http://arxiv.org/abs/2309.00208</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Junwon Sung, Woojin Heo, Yunkyung Byun, Youngsam Kim</li>
+<li>for: 这项研究探讨了OpenAI的GPT-3.5-turbo和GPT-4语言模型在韩国上市公司公告中的semantic分析能力，尤其是对于实时公告。</li>
+<li>methods: 研究对韩国KOSPI上市50 круп公司的月度报告进行了分析，每份报告都被赋予了一个含义评分，范围从1(非常负面)到5(非常正面)。</li>
+<li>results: 研究发现GPT-4表现了显著的准确性，与人工专家的评分相比，Spearman相关系数为0.61，朴素匹配率为0.82。这些发现对GPT模型的评价特征提供了重要的新视角，为未来自动 semantic监测领域的创新奠定了基础。<details>
+<summary>Abstract</summary>
+In the rapidly advancing domain of artificial intelligence, state-of-the-art language models such as OpenAI's GPT-3.5-turbo and GPT-4 offer unprecedented opportunities for automating complex tasks. This research paper delves into the capabilities of these models for semantically analyzing corporate disclosures in the Korean context, specifically for timely disclosure. The study focuses on the top 50 publicly traded companies listed on the Korean KOSPI, based on market capitalization, and scrutinizes their monthly disclosure summaries over a period of 17 months. Each summary was assigned a sentiment rating on a scale ranging from 1(very negative) to 5(very positive). To gauge the effectiveness of the language models, their sentiment ratings were compared with those generated by human experts. Our findings reveal a notable performance disparity between GPT-3.5-turbo and GPT-4, with the latter demonstrating significant accuracy in human evaluation tests. The Spearman correlation coefficient was registered at 0.61, while the simple concordance rate was recorded at 0.82. This research contributes valuable insights into the evaluative characteristics of GPT models, thereby laying the groundwork for future innovations in the field of automated semantic monitoring.
+</details>
+<details>
+<summary>摘要</summary>
+在人工智能领域的快速发展中，现代语言模型如OpenAI的GPT-3.5-turbo和GPT-4提供了无前例的自动化复杂任务的机会。这篇研究论文探讨了这些模型在韩国上市公司公告中的语义分析能力，具体来说是对时间性公告进行实时分析。研究选择韩国KOSPI板块上市50大公司，根据市值排名，并对这些公司月度公告摘要进行17个月的分析。每份摘要都被赋予了一个sentiment评级，从1（非常负面）到5（非常正面）的评级范围内。为了评估语言模型的效果，我们与人类专家生成的sentiment评级进行比较。我们的发现表明GPT-3.5-turbo和GPT-4之间存在显著的性能差异，GPT-4在人类评估测试中表现出了显著的准确性。Spearman相关系数为0.61，单词匹配率为0.82。这篇研究为未来自动语义监测领域的创新奠定了基础。
+</details></li>
+</ul>
+<hr>
+<h2 id="Gap-and-Overlap-Detection-in-Automated-Fiber-Placement"><a href="#Gap-and-Overlap-Detection-in-Automated-Fiber-Placement" class="headerlink" title="Gap and Overlap Detection in Automated Fiber Placement"></a>Gap and Overlap Detection in Automated Fiber Placement</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00206">http://arxiv.org/abs/2309.00206</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Assef Ghamisi, Homayoun Najjaran</li>
+<li>For: This paper is written for the purpose of detecting and correcting manufacturing defects in composite parts produced through Automated Fiber Placement (AFP). The focus is on gaps and overlaps, which are the most common defects that can significantly impact the quality of the composite parts.* Methods: The paper proposes a novel method that uses an Optical Coherence Tomography (OCT) sensor and computer vision techniques to detect and locate gaps and overlaps in composite parts. The method involves generating a depth map image of the composite surface, detecting the boundaries of each tow, and comparing consecutive tows to identify gaps or overlaps that exceed a predefined tolerance threshold.* Results: The results of the paper demonstrate a high level of accuracy and efficiency in gap and overlap segmentation, as compared to ground truth annotations by experts. The approach is effective in detecting defects in composite parts produced through AFP, and has the potential to improve the overall quality and efficiency of the manufacturing process.<details>
+<summary>Abstract</summary>
+The identification and correction of manufacturing defects, particularly gaps and overlaps, are crucial for ensuring high-quality composite parts produced through Automated Fiber Placement (AFP). These imperfections are the most commonly observed issues that can significantly impact the overall quality of the composite parts. Manual inspection is both time-consuming and labor-intensive, making it an inefficient approach. To overcome this challenge, the implementation of an automated defect detection system serves as the optimal solution. In this paper, we introduce a novel method that uses an Optical Coherence Tomography (OCT) sensor and computer vision techniques to detect and locate gaps and overlaps in composite parts. Our approach involves generating a depth map image of the composite surface that highlights the elevation of composite tapes (or tows) on the surface. By detecting the boundaries of each tow, our algorithm can compare consecutive tows and identify gaps or overlaps that may exist between them. Any gaps or overlaps exceeding a predefined tolerance threshold are considered manufacturing defects. To evaluate the performance of our approach, we compare the detected defects with the ground truth annotated by experts. The results demonstrate a high level of accuracy and efficiency in gap and overlap segmentation.
+</details>
+<details>
+<summary>摘要</summary>
+检测和修正制造过程中的缺陷，特别是孔隙和重叠，对于通过自动纤维放置（AFP）生产的复合部件质量的确保非常重要。这些缺陷是制造过程中最常见的问题，可能对全面质量产生重要影响。手动检查是时间consuming和人力 INTENSIVE，因此是不可靠的方法。为了解决这个挑战，我们提出了一种新的方法，使用光子干涉Tomography（OCT）感知器和计算机视觉技术来检测和定位复合部件中的孔陷和重叠。我们的方法是生成复合部件表面的深度图像，高亮显示复合带（或排列）的抬升。通过检测每个带的边界，我们的算法可以比较 consecutive带之间的孔陷和重叠，并确定任何超过预定的允许阈值的缺陷。我们对我们的方法的性能进行了评估，结果表明我们的方法具有高精度和高效的孔陷和重叠分 segmentation。
+</details></li>
+</ul>
+<hr>
+<h2 id="Subjectivity-in-Unsupervised-Machine-Learning-Model-Selection"><a href="#Subjectivity-in-Unsupervised-Machine-Learning-Model-Selection" class="headerlink" title="Subjectivity in Unsupervised Machine Learning Model Selection"></a>Subjectivity in Unsupervised Machine Learning Model Selection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00201">http://arxiv.org/abs/2309.00201</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Wanyi Chen, Mary L. Cummings</li>
+<li>for: 这个研究旨在探讨机器学习模型选择过程中的主观性。</li>
+<li>methods: 这个研究使用隐马尔可夫模型作为例子，通过询问33名参与者和三个大型自然语言模型（LLMs）进行模型选择，以探讨参与者和LLMs在不同条件下的选择差异。</li>
+<li>results: 研究发现参与者和LLMs在不同条件下的选择具有差异和不一致性，尤其是当不同的评价标准和度量不同时。主观性的来源包括参与者对不同评价标准和度量的意见不一致，以及模型的简洁程度和数据集大小的影响。这些结果 highlights the importance of developing a more standardized way to document subjective choices made in model selection processes。<details>
+<summary>Abstract</summary>
+Model selection is a necessary step in unsupervised machine learning. Despite numerous criteria and metrics, model selection remains subjective. A high degree of subjectivity may lead to questions about repeatability and reproducibility of various machine learning studies and doubts about the robustness of models deployed in the real world. Yet, the impact of modelers' preferences on model selection outcomes remains largely unexplored. This study uses the Hidden Markov Model as an example to investigate the subjectivity involved in model selection. We asked 33 participants and three Large Language Models (LLMs) to make model selections in three scenarios. Results revealed variability and inconsistencies in both the participants' and the LLMs' choices, especially when different criteria and metrics disagree. Sources of subjectivity include varying opinions on the importance of different criteria and metrics, differing views on how parsimonious a model should be, and how the size of a dataset should influence model selection. The results underscore the importance of developing a more standardized way to document subjective choices made in model selection processes.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Diffusion-Model-with-Clustering-based-Conditioning-for-Food-Image-Generation"><a href="#Diffusion-Model-with-Clustering-based-Conditioning-for-Food-Image-Generation" class="headerlink" title="Diffusion Model with Clustering-based Conditioning for Food Image Generation"></a>Diffusion Model with Clustering-based Conditioning for Food Image Generation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.00199">http://arxiv.org/abs/2309.00199</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yue Han, Jiangpeng He, Mridul Gupta, Edward J. Delp, Fengqing Zhu</li>
+<li>for: 这篇论文目的是提出一种基于条件扩散模型的食物图像生成方法，以提高食物图像生成质量和多样性。</li>
+<li>methods: 该方法使用了条件扩散模型，并提出了一种基于归一化的聚类训练策略，以生成高质量和代表性的食物图像。</li>
+<li>results: 研究表明，使用条件扩散模型生成的食物图像可以提高食物图像生成质量和多样性，并可以Address the severe class imbalance issue in long-tailed food classification。<details>
+<summary>Abstract</summary>
+Image-based dietary assessment serves as an efficient and accurate solution for recording and analyzing nutrition intake using eating occasion images as input. Deep learning-based techniques are commonly used to perform image analysis such as food classification, segmentation, and portion size estimation, which rely on large amounts of food images with annotations for training. However, such data dependency poses significant barriers to real-world applications, because acquiring a substantial, diverse, and balanced set of food images can be challenging. One potential solution is to use synthetic food images for data augmentation. Although existing work has explored the use of generative adversarial networks (GAN) based structures for generation, the quality of synthetic food images still remains subpar. In addition, while diffusion-based generative models have shown promising results for general image generation tasks, the generation of food images can be challenging due to the substantial intra-class variance. In this paper, we investigate the generation of synthetic food images based on the conditional diffusion model and propose an effective clustering-based training framework, named ClusDiff, for generating high-quality and representative food images. The proposed method is evaluated on the Food-101 dataset and shows improved performance when compared with existing image generation works. We also demonstrate that the synthetic food images generated by ClusDiff can help address the severe class imbalance issue in long-tailed food classification using the VFN-LT dataset.
+</details>
+<details>
+<summary>摘要</summary>
+图像基于的营养评估可以作为有效和准确的解决方案，用于记录和分析饮食摄入，使用吃饭场景图像作为输入。深度学习技术通常用于图像分析，如食物分类、 segmentation 和分量估计，但是这些技术需要大量的食物图像进行训练。然而，在实际应用中，获得充足、多样化和均衡的食物图像是一个大的挑战。一个可能的解决方案是使用生成的食物图像进行数据增强。虽然现有的工作已经探讨了基于生成对抗网络（GAN）结构的生成，但是生成的食物图像质量仍然较差。此外，在涉及到食物图像生成时，存在较大的内部变异问题。在这篇论文中，我们研究基于条件扩散模型的食物图像生成，并提出一种有效的分组训练框架，名为ClusDiff，以生成高质量和代表性的食物图像。我们的方法被评估在Food-101数据集上，并与现有的图像生成工作进行比较。我们还示出了ClusDiff生成的食物图像可以帮助解决VFN-LT数据集中的严重类别偏见问题。
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/09/01/cs.AI_2023_09_01/" data-id="clmvt7t7i003926rd9wgsd1hz" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/09/01/cs.CV_2023_09_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cs.CV - 2023-09-01
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/09/01/cs.CL_2023_09_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.CL - 2023-09-01</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">21</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">150</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

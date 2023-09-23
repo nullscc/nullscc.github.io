@@ -1,0 +1,774 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CL - 2023-09-19 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MBR and QE Finetuning: Training-time Distillation of the Best and Most Expensive Decoding Methods paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2309.10966 repo_url: None paper_authors: Mara Finkelstein, Markus Frei">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CL - 2023-09-19">
+<meta property="og:url" content="https://nullscc.github.io/2023/09/19/cs.CL_2023_09_19/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="MBR and QE Finetuning: Training-time Distillation of the Best and Most Expensive Decoding Methods paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2309.10966 repo_url: None paper_authors: Mara Finkelstein, Markus Frei">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-09-19T11:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-23T08:58:30.858Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CL_2023_09_19" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/09/19/cs.CL_2023_09_19/" class="article-date">
+  <time datetime="2023-09-19T11:00:00.000Z" itemprop="datePublished">2023-09-19</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CL/">cs.CL</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CL - 2023-09-19
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="MBR-and-QE-Finetuning-Training-time-Distillation-of-the-Best-and-Most-Expensive-Decoding-Methods"><a href="#MBR-and-QE-Finetuning-Training-time-Distillation-of-the-Best-and-Most-Expensive-Decoding-Methods" class="headerlink" title="MBR and QE Finetuning: Training-time Distillation of the Best and Most Expensive Decoding Methods"></a>MBR and QE Finetuning: Training-time Distillation of the Best and Most Expensive Decoding Methods</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10966">http://arxiv.org/abs/2309.10966</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mara Finkelstein, Markus Freitag</li>
+<li>for: 提高NLG任务中模型的质量和效率</li>
+<li>methods: 使用MBRfinetuning和QEfinetuning方法，在训练时使用高质量的核心模型，在推断时使用高效的推断算法</li>
+<li>results: 在Neural Machine Translation任务上，使用这些finetuning方法可以大幅提高模型的质量和效率，并且在使用外部LLM作为教师模型时，还能超越使用人工生成的参考数据<details>
+<summary>Abstract</summary>
+Recent research in decoding methods for Natural Language Generation (NLG) tasks has shown that the traditional beam search and greedy decoding algorithms are not optimal, because model probabilities do not always align with human preferences. Stronger decoding methods, including Quality Estimation (QE) reranking and Minimum Bayes' Risk (MBR) decoding, have since been proposed to mitigate the model-perplexity-vs-quality mismatch. While these decoding methods achieve state-of-the-art performance, they are prohibitively expensive to compute. In this work, we propose MBR finetuning and QE finetuning which distill the quality gains from these decoding methods at training time, while using an efficient decoding algorithm at inference time. Using the canonical NLG task of Neural Machine Translation (NMT), we show that even with self-training, these finetuning methods significantly outperform the base model. Moreover, when using an external LLM as a teacher model, these finetuning methods outperform finetuning on human-generated references. These findings suggest new ways to leverage monolingual data to achieve improvements in model quality that are on par with, or even exceed, improvements from human-curated data, while maintaining maximum efficiency during decoding.
+</details>
+<details>
+<summary>摘要</summary>
+Note:* "排序" (bǎo xiǎng) instead of "sorting"* "搜索" (sōu sòu) instead of "search"* "评估" (píng gòu) instead of "assessment"* "参考" (xiǎng gǎng) instead of "reference"* "模型" (módel) instead of "model"* "语言生成" (yǔ yán shēng chéng) instead of "Natural Language Generation"* "神经机器翻译" (shén qiān jī qì zhōng yì) instead of "Neural Machine Translation"
+</details></li>
+</ul>
+<hr>
+<h2 id="In-Context-Learning-for-Text-Classification-with-Many-Labels"><a href="#In-Context-Learning-for-Text-Classification-with-Many-Labels" class="headerlink" title="In-Context Learning for Text Classification with Many Labels"></a>In-Context Learning for Text Classification with Many Labels</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10954">http://arxiv.org/abs/2309.10954</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/dia2018/What-is-the-Difference-Between-AI-and-Machine-Learning">https://github.com/dia2018/What-is-the-Difference-Between-AI-and-Machine-Learning</a></li>
+<li>paper_authors: Aristides Milios, Siva Reddy, Dzmitry Bahdanau</li>
+<li>for: 本研究使用大型自然语言模型进行含义学习（ICL）任务，尤其是多个标签任务，因为限定的上下文窗口尺度使得不能填充足量的示例。</li>
+<li>methods: 我们使用预训练的稠密检索模型，只给模型每个推理调用一个部分视图全标签空间。我们使用最新的开源LLMs（OPT、LLaMA）进行测试，并在几个常见的意图分类数据集上设置新的状态码表现。</li>
+<li>results: 我们发现，随着不同的模型缩度和数量，更大的模型可以更好地利用更大的上下文长度进行ICL。我们运行了多个简化，分析了模型对：a) 输入中的相似示例和当前输入之间的相似度，b) 类名的Semantic内容，c) 示例和标签之间的正确匹配。我们发现，这三种因素在不同的领域中具有不同的重要性。<details>
+<summary>Abstract</summary>
+In-context learning (ICL) using large language models for tasks with many labels is challenging due to the limited context window, which makes it difficult to fit a sufficient number of examples in the prompt. In this paper, we use a pre-trained dense retrieval model to bypass this limitation, giving the model only a partial view of the full label space for each inference call. Testing with recent open-source LLMs (OPT, LLaMA), we set new state of the art performance in few-shot settings for three common intent classification datasets, with no finetuning. We also surpass fine-tuned performance on fine-grained sentiment classification in certain cases. We analyze the performance across number of in-context examples and different model scales, showing that larger models are necessary to effectively and consistently make use of larger context lengths for ICL. By running several ablations, we analyze the model's use of: a) the similarity of the in-context examples to the current input, b) the semantic content of the class names, and c) the correct correspondence between examples and labels. We demonstrate that all three are needed to varying degrees depending on the domain, contrary to certain recent works.
+</details>
+<details>
+<summary>摘要</summary>
+内容学习（ICL）使用大型语言模型进行多个标签任务是具有限制的上下文窗口，即对每次推寄都只能提供有限的示例。在这篇论文中，我们使用预训练的稠密检索模型，以快速地跳过这个限制，并只给模型提供部分视图全个标签空间。通过测试最新的开源LLMs（OPT、LLaMA），我们在少量示例设置下设置了新的国际标准性能，无需训练。我们还超过了训练后的性能在细化情感分类中，在某些情况下。我们分析了不同的示例数量和模型缩放大小对性能的影响，发现大型模型是需要充分利用更大的上下文长度进行ICL。通过多个缺省分析，我们分析了模型在不同的领域中使用：a）相关的示例和当前输入之间的相似性，b）类名中的semantic内容，以及c）正确地将示例和标签相匹配。我们发现，这三者在不同的领域中均需要不同的程度，与某些最近的工作不同。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Family-of-Pretrained-Transformer-Language-Models-for-Russian"><a href="#A-Family-of-Pretrained-Transformer-Language-Models-for-Russian" class="headerlink" title="A Family of Pretrained Transformer Language Models for Russian"></a>A Family of Pretrained Transformer Language Models for Russian</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10931">http://arxiv.org/abs/2309.10931</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Dmitry Zmitrovich, Alexander Abramov, Andrey Kalmykov, Maria Tikhonova, Ekaterina Taktasheva, Danil Astafurov, Mark Baushenko, Artem Snegirev, Tatiana Shavrina, Sergey Markov, Vladislav Mikhailov, Alena Fenogenova</li>
+<li>for: 本研究旨在开发特性化的Transformer语言模型，用于俄语自然语言理解和生成。</li>
+<li>methods: 本文使用encoder（ruBERT、ruRoBERTa、ruELECTRA）、decoder（ruGPT-3）和encoder-decoder（ruT5、FRED-T5）多种Transformer模型，并对其进行预训练和测试。</li>
+<li>results: 研究人员通过对俄语自然语言理解和生成数据集和标准做测试，发现这些特性化Transformer模型具有良好的普适能力和生成能力。<details>
+<summary>Abstract</summary>
+Nowadays, Transformer language models (LMs) represent a fundamental component of the NLP research methodologies and applications. However, the development of such models specifically for the Russian language has received little attention. This paper presents a collection of 13 Russian Transformer LMs based on the encoder (ruBERT, ruRoBERTa, ruELECTRA), decoder (ruGPT-3), and encoder-decoder (ruT5, FRED-T5) models in multiple sizes. Access to these models is readily available via the HuggingFace platform. We provide a report of the model architecture design and pretraining, and the results of evaluating their generalization abilities on Russian natural language understanding and generation datasets and benchmarks. By pretraining and releasing these specialized Transformer LMs, we hope to broaden the scope of the NLP research directions and enable the development of industrial solutions for the Russian language.
+</details>
+<details>
+<summary>摘要</summary>
+现在， transformer 语言模型（LMs）成为了自然语言处理（NLP）研究方法和应用的基本组成部分。然而，为俄语语言的特有Transformer LMs的开发受到了相对少的关注。本文介绍了13种俄语 transformer LMs，包括encoder（ruBERT、ruRoBERTa、ruELECTRA）、decoder（ruGPT-3）和encoder-decoder（ruT5、FRED-T5）模型，以及这些模型的训练和预训练方法。通过这些特化的Transformer LMs，我们希望拓宽NLP研究方向和提供俄语语言industrial解决方案。这些模型通过HuggingFace平台可以访问。我们还提供了模型体系设计和预训练方法的报告，以及在俄语自然语言理解和生成数据集和benchmark上模型的一般化能力的评价结果。
+</details></li>
+</ul>
+<hr>
+<h2 id="Specializing-Small-Language-Models-towards-Complex-Style-Transfer-via-Latent-Attribute-Pre-Training"><a href="#Specializing-Small-Language-Models-towards-Complex-Style-Transfer-via-Latent-Attribute-Pre-Training" class="headerlink" title="Specializing Small Language Models towards Complex Style Transfer via Latent Attribute Pre-Training"></a>Specializing Small Language Models towards Complex Style Transfer via Latent Attribute Pre-Training</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10929">http://arxiv.org/abs/2309.10929</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ruiqixu37/BTTS_ECAI2023">https://github.com/ruiqixu37/BTTS_ECAI2023</a></li>
+<li>paper_authors: Ruiqi Xu, Yongfeng Huang, Xin Chen, Lin Zhang</li>
+<li>for: 这项研究旨在介绍复杂文本风格传递任务，并基于两个广泛适用的场景构建了复杂文本数据集。</li>
+<li>methods: 我们使用了小型模型（ Less than T5-3B）和隐式风格预训练through contrastive learning来解决大型模型（LLM）的数据隐私问题、网络不稳定和高部署成本。</li>
+<li>results: 我们的方法比现有方法更有效，可以在几个shot中完成文本风格传递任务，并且可以自动评估文本生成质量基于人工评估使用ChatGPT。<details>
+<summary>Abstract</summary>
+In this work, we introduce the concept of complex text style transfer tasks, and constructed complex text datasets based on two widely applicable scenarios. Our dataset is the first large-scale data set of its kind, with 700 rephrased sentences and 1,000 sentences from the game Genshin Impact. While large language models (LLM) have shown promise in complex text style transfer, they have drawbacks such as data privacy concerns, network instability, and high deployment costs. To address these issues, we explore the effectiveness of small models (less than T5-3B) with implicit style pre-training through contrastive learning. We also propose a method for automated evaluation of text generation quality based on alignment with human evaluations using ChatGPT. Finally, we compare our approach with existing methods and show that our model achieves state-of-art performances of few-shot text style transfer models.
+</details>
+<details>
+<summary>摘要</summary>
+在这项工作中，我们介绍了复杂文本风格传递任务的概念，并基于两个广泛适用的情况构建了复杂文本数据集。我们的数据集是首个类似类型的大规模数据集，包含700个重叠句子和1,000个《神韵碰》游戏中的句子。虽然大型语言模型（LLM）在复杂文本风格传递方面表现出了承诺，但它们具有数据隐私问题、网络不稳定和高部署成本的缺点。为了解决这些问题，我们研究了小型模型（ Less than T5-3B）的隐式风格预训练through contrastive learning的效果。我们还提出了一种自动评估文本生成质量的方法，基于人类评估和ChatGPT的匹配。最后，我们与现有方法进行比较，并证明我们的模型在几架text风格传递模型中达到了状态之最。
+</details></li>
+</ul>
+<hr>
+<h2 id="Semi-Autoregressive-Streaming-ASR-With-Label-Context"><a href="#Semi-Autoregressive-Streaming-ASR-With-Label-Context" class="headerlink" title="Semi-Autoregressive Streaming ASR With Label Context"></a>Semi-Autoregressive Streaming ASR With Label Context</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10926">http://arxiv.org/abs/2309.10926</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Siddhant Arora, George Saon, Shinji Watanabe, Brian Kingsbury</li>
+<li>for: 这个论文是为了提高流式自动语音识别（ASR）模型的准确率和延迟时间而设计的。</li>
+<li>methods: 这个论文使用了一种名为“半自动生成”的ASR模型，该模型将以前块中的标签作为额外Context，使用语言模型（LM）子网络来提高流式ASR的准确率。它还提出了一种新的滥货解码算法，可以在块边界附近减少插入和删除错误，而不是 significatively增加推理时间。</li>
+<li>results: 实验表明，我们的方法可以与现有的流式非 autoregressive（NAR）模型相比，提高流式ASR的准确率。具体来说，在Tedlium2上，我们的方法提高了19%的相对准确率；在Librispeech-100的清洁&#x2F;其他测试集上，提高了16%&#x2F;8%的相对准确率；在Switchboard（SWB）&#x2F; Callhome（CH）测试集上，提高了19%&#x2F;8%的相对准确率。此外，我们的方法可以更好地利用外部文本数据进行预训练LM子网络，进一步提高流式ASR的准确率。<details>
+<summary>Abstract</summary>
+Non-autoregressive (NAR) modeling has gained significant interest in speech processing since these models achieve dramatically lower inference time than autoregressive (AR) models while also achieving good transcription accuracy. Since NAR automatic speech recognition (ASR) models must wait for the completion of the entire utterance before processing, some works explore streaming NAR models based on blockwise attention for low-latency applications. However, streaming NAR models significantly lag in accuracy compared to streaming AR and non-streaming NAR models. To address this, we propose a streaming "semi-autoregressive" ASR model that incorporates the labels emitted in previous blocks as additional context using a Language Model (LM) subnetwork. We also introduce a novel greedy decoding algorithm that addresses insertion and deletion errors near block boundaries while not significantly increasing the inference time. Experiments show that our method outperforms the existing streaming NAR model by 19% relative on Tedlium2, 16%/8% on Librispeech-100 clean/other test sets, and 19%/8% on the Switchboard(SWB) / Callhome(CH) test sets. It also reduced the accuracy gap with streaming AR and non-streaming NAR models while achieving 2.5x lower latency. We also demonstrate that our approach can effectively utilize external text data to pre-train the LM subnetwork to further improve streaming ASR accuracy.
+</details>
+<details>
+<summary>摘要</summary>
+非自适应（NAR）模型在语音处理领域已经吸引了广泛的关注，因为这些模型在推理时间方面可以达到AR模型的多倍速度，而且也可以达到良好的识别精度。然而，NAR自动语音识别（ASR）模型必须等待整个句子的完成才能进行处理，因此一些研究者开发了基于块级注意力的流式NAR模型，以满足低延迟应用场景。然而，流式NAR模型与流式AR和非流式NAR模型的准确率存在明显的差距。为了解决这个问题，我们提出了一种流式"半自适应" ASR模型，该模型利用在前一个块中生成的标签作为额外Context使用语言模型（LM）子网络。我们还提出了一种新的恰好解oding算法，该算法可以在块边界附近快速地修复插入和删除错误，而不是增加推理时间。实验显示，我们的方法在Tedlium2、Librispeech-100清洁/其他测试集和Switchboard（SWB）/ Callhome（CH）测试集上比既有的流式NAR模型提高19%的相对性能，同时也降低了与流式AR和非流式NAR模型之间的准确率差距。此外，我们还证明了我们的方法可以有效地利用外部文本数据来预训练LM子网络，以进一步提高流式ASR准确率。
+</details></li>
+</ul>
+<hr>
+<h2 id="Semi-automatic-staging-area-for-high-quality-structured-data-extraction-from-scientific-literature"><a href="#Semi-automatic-staging-area-for-high-quality-structured-data-extraction-from-scientific-literature" class="headerlink" title="Semi-automatic staging area for high-quality structured data extraction from scientific literature"></a>Semi-automatic staging area for high-quality structured data extraction from scientific literature</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10923">http://arxiv.org/abs/2309.10923</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Luca Foppiano, Tomoya Mato, Kensei Terashima, Pedro Ortiz Suarez, Taku Tou, Chikako Sakai, Wei-Sheng Wang, Toshiyuki Amagasa, Yoshihiko Takano, Masashi Ishii</li>
+<li>for: 提高 SuperCon 中新型超导体实验数据的更新效率，同时维持或提高数据质量。</li>
+<li>methods: 使用自动和手动工作流程在抽取的数据库中实现半自动的stage区。使用异常检测自动过程预先审核收集的数据，并让用户通过专门设计的用户界面对原PDF文档进行数据验证。收集修复后的记录，并将其作为机器学习模型的训练数据使用。</li>
+<li>results: 评估实验表明，我们的stage区可以显著提高审核质量。与传统手动方法（读取PDF文档并记录信息在Excel文档中）相比，使用界面提高精度和准确率分别提高6%和50%，平均提高40%的F1分数。<details>
+<summary>Abstract</summary>
+In this study, we propose a staging area for ingesting new superconductors' experimental data in SuperCon that is machine-collected from scientific articles. Our objective is to enhance the efficiency of updating SuperCon while maintaining or enhancing the data quality. We present a semi-automatic staging area driven by a workflow combining automatic and manual processes on the extracted database. An anomaly detection automatic process aims to pre-screen the collected data. Users can then manually correct any errors through a user interface tailored to simplify the data verification on the original PDF documents. Additionally, when a record is corrected, its raw data is collected and utilised to improve machine learning models as training data. Evaluation experiments demonstrate that our staging area significantly improves curation quality. We compare the interface with the traditional manual approach of reading PDF documents and recording information in an Excel document. Using the interface boosts the precision and recall by 6% and 50%, respectively to an average increase of 40% in F1-score.
+</details>
+<details>
+<summary>摘要</summary>
+在这项研究中，我们提出了一个用于新超导材料实验数据的投入区域，这个区域使用机器自动从科学文献中收集数据。我们的目标是提高超кон的更新效率，同时保持或提高数据质量。我们提出了一种半自动的投入区域，该区域采用工作流程结合自动和手动过程来处理提取的数据库。一个异常检测自动过程用于预先屏选收集的数据。用户可以通过一个专门设计的用户界面来手动修正任何错误。此外，当记录被修正时，其原始数据会被收集并用于改进机器学习模型的训练数据。我们的评估实验表明，我们的投入区域可以显著提高筛选质量。我们与传统的手动方法相比，使用界面可以提高准确率和敏感度分别提高6%和50%，平均提高40%的F1分数。
+</details></li>
+</ul>
+<hr>
+<h2 id="What-Learned-Representations-and-Influence-Functions-Can-Tell-Us-About-Adversarial-Examples"><a href="#What-Learned-Representations-and-Influence-Functions-Can-Tell-Us-About-Adversarial-Examples" class="headerlink" title="What Learned Representations and Influence Functions Can Tell Us About Adversarial Examples"></a>What Learned Representations and Influence Functions Can Tell Us About Adversarial Examples</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10916">http://arxiv.org/abs/2309.10916</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/sjabin/nnif">https://github.com/sjabin/nnif</a></li>
+<li>paper_authors: Shakila Mahjabin Tonni, Mark Dras</li>
+<li>for: 这篇论文主要是为了研究在自然语言处理（NLP）中的对抗例（adversarial examples）的检测方法。</li>
+<li>methods: 这篇论文使用了两种方法来检测对抗例：一种是基于最近邻居和影响函数，另一种是基于马ха拉欧斯距离。</li>
+<li>results: 研究发现，使用基于最近邻居和影响函数的方法可以制定出state-of-the-art的检测器，而且这种方法还提供了对于NLP任务的对抗例subspace的新的理解和对比。<details>
+<summary>Abstract</summary>
+Adversarial examples, deliberately crafted using small perturbations to fool deep neural networks, were first studied in image processing and more recently in NLP. While approaches to detecting adversarial examples in NLP have largely relied on search over input perturbations, image processing has seen a range of techniques that aim to characterise adversarial subspaces over the learned representations.   In this paper, we adapt two such approaches to NLP, one based on nearest neighbors and influence functions and one on Mahalanobis distances. The former in particular produces a state-of-the-art detector when compared against several strong baselines; moreover, the novel use of influence functions provides insight into how the nature of adversarial example subspaces in NLP relate to those in image processing, and also how they differ depending on the kind of NLP task.
+</details>
+<details>
+<summary>摘要</summary>
+adversarial examples, 通过小变化而被意外地骗响深度神经网络，在图像处理领域首先被研究，然后在自然语言处理（NLP）中被研究。在NLP中，检测 adversarial examples 的方法主要基于输入变换的搜索，而图像处理领域则有许多技术来描述恶作剂的表示空间。  在这篇论文中，我们采用了两种方法来检测 adversarial examples，一种是基于最近邻居和影响函数，另一种是基于 Mahalanobis 距离。前者在比较多个强基准下表现出状态顶峰的检测器，而且使用影响函数提供了关于恶作剂表示空间在 NLP 和图像处理之间的相似性，以及哪些因素使得恶作剂表示空间在不同的 NLP 任务中有所不同。
+</details></li>
+</ul>
+<hr>
+<h2 id="RedPenNet-for-Grammatical-Error-Correction-Outputs-to-Tokens-Attentions-to-Spans"><a href="#RedPenNet-for-Grammatical-Error-Correction-Outputs-to-Tokens-Attentions-to-Spans" class="headerlink" title="RedPenNet for Grammatical Error Correction: Outputs to Tokens, Attentions to Spans"></a>RedPenNet for Grammatical Error Correction: Outputs to Tokens, Attentions to Spans</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10898">http://arxiv.org/abs/2309.10898</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Bohdan Didenko, Andrii Sameliuk</li>
+<li>For: This paper is written for the UNLP 2023 workshop, specifically for the Shared Task in Grammatical Error Correction (GEC) for Ukrainian.* Methods: The paper uses a RedPenNet approach to address text editing tasks, which combines sequence-to-sequence and sequence tagging techniques.* Results: The paper achieves $F_{0.5}$ scores of 77.60 on the BEA-2019 (test) and 67.71 on the UAGEC+Fluency (test) benchmarks, which are considered state-of-the-art results.Here is the simplified Chinese text for the three key points:* For: 这篇论文是为UNLP 2023 工作坊写的，特意是为 grammatical error correction (GEC) 的 Ukrainian 语言共同任务。* Methods: 这篇论文使用 RedPenNet 方法来处理文本编辑任务，这种方法结合了 sequence-to-sequence 和 sequence tagging 技术。* Results: 这篇论文在 BEA-2019 测试集上 achieve $F_{0.5}$ 分数为 77.60，并在 UAGEC+Fluency 测试集上 achieve 67.71 分数，这些结果被视为当前领域的 state-of-the-art 成果。<details>
+<summary>Abstract</summary>
+The text editing tasks, including sentence fusion, sentence splitting and rephrasing, text simplification, and Grammatical Error Correction (GEC), share a common trait of dealing with highly similar input and output sequences. This area of research lies at the intersection of two well-established fields: (i) fully autoregressive sequence-to-sequence approaches commonly used in tasks like Neural Machine Translation (NMT) and (ii) sequence tagging techniques commonly used to address tasks such as Part-of-speech tagging, Named-entity recognition (NER), and similar. In the pursuit of a balanced architecture, researchers have come up with numerous imaginative and unconventional solutions, which we're discussing in the Related Works section. Our approach to addressing text editing tasks is called RedPenNet and is aimed at reducing architectural and parametric redundancies presented in specific Sequence-To-Edits models, preserving their semi-autoregressive advantages. Our models achieve $F_{0.5}$ scores of 77.60 on the BEA-2019 (test), which can be considered as state-of-the-art the only exception for system combination and 67.71 on the UAGEC+Fluency (test) benchmarks.   This research is being conducted in the context of the UNLP 2023 workshop, where it was presented as a paper as a paper for the Shared Task in Grammatical Error Correction (GEC) for Ukrainian. This study aims to apply the RedPenNet approach to address the GEC problem in the Ukrainian language.
+</details>
+<details>
+<summary>摘要</summary>
+文本编辑任务，包括句子合并、句子分割、重写和语法错误修复（GEC），都与高度相似的输入和输出序列交互。这一领域的研究受到两个已有的领域的影响：一是完全自动化的序列到序列方法，通常用于语义翻译（NMT）类任务；二是序列标记技术，通常用于处理如部分词类标注（POS）、命名实体识别（NER）和类似任务。为了实现平衡的架构，研究人员提出了许多创新的解决方案，我们在相关工作部分进行讨论。我们的方法是called RedPenNet，旨在降低特定Sequence-To-Edits模型中的 arquitectónico和参数 redundancy，保留它们的半自动化优势。我们的模型在BEA-2019（测试）上获得了77.60的F0.5分，可以 considere为领先水平，只有系统组合为例外。此外，在UAGEC+ Fluency（测试）标准下，我们的模型获得了67.71的F0.5分。这项研究在UNLP 2023 会议上进行了展示，作为grammatical Error Correction（GEC） Shared Task for Ukrainian 的论文。本研究的目标是通过应用RedPenNet方法，解决 Ukrainian 语言中的GEC问题。
+</details></li>
+</ul>
+<hr>
+<h2 id="Natural-Language-Embedded-Programs-for-Hybrid-Language-Symbolic-Reasoning"><a href="#Natural-Language-Embedded-Programs-for-Hybrid-Language-Symbolic-Reasoning" class="headerlink" title="Natural Language Embedded Programs for Hybrid Language Symbolic Reasoning"></a>Natural Language Embedded Programs for Hybrid Language Symbolic Reasoning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10814">http://arxiv.org/abs/2309.10814</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/luohongyin/langcode">https://github.com/luohongyin/langcode</a></li>
+<li>paper_authors: Tianhua Zhang, Jiaxin Ge, Hongyin Luo, Yung-Sung Chuang, Mingye Gao, Yuan Gong, Xixin Wu, Yoon Kim, Helen Meng, James Glass</li>
+<li>for: 解决 math&#x2F;symbolic reasoning、自然语言理解和指令执行任务</li>
+<li>methods: 使用自然语言嵌入程序（NLEP）框架，让语言模型生成基于数据结构中的自然语言表示知识的函数</li>
+<li>results: 可以超越强基线，在多种任务上提高性能，包括数学和符号逻辑、文本分类、问答和指令执行等任务，并且可以进行后续检查中间逻辑步骤的解释。<details>
+<summary>Abstract</summary>
+How can we perform computations over natural language representations to solve tasks that require symbolic and numeric reasoning? We propose natural language embedded programs (NLEP) as a unifying framework for addressing math/symbolic reasoning, natural language understanding, and instruction following tasks. Our approach prompts a language model to generate full Python programs that define functions over data structures which contain natural language representations of structured knowledge. A Python interpreter then executes the generated code and prints the output. Despite using a task-general prompt, we find that this approach can improve upon strong baselines across a range of different tasks including math and symbolic reasoning, text classification, question answering, and instruction following. We further find the generated programs are often interpretable and enable post-hoc verification of the intermediate reasoning steps.
+</details>
+<details>
+<summary>摘要</summary>
+如何通过对自然语言表示进行计算来解决需要符号逻辑和数值计算的任务？我们提出自然语言嵌入程序（NLEP）作为一个统一的框架，用于Addressing math/符号逻辑、自然语言理解和指令遵循任务。我们的方法请求一个语言模型生成全部Python程序，定义数据结构中含有自然语言表示的结构化知识上的函数。一个Python解释器然后执行生成的代码并输出结果。尽管使用了任务通用的提问，我们发现这种方法可以超越强基线 across a range of different tasks, including math and symbolic reasoning, text classification, question answering, and instruction following. 我们还发现生成的程序往往可读性好，允许后续验证中间的逻辑步骤。
+</details></li>
+</ul>
+<hr>
+<h2 id="Modeling-interdisciplinary-interactions-among-Physics-Mathematics-Computer-Science"><a href="#Modeling-interdisciplinary-interactions-among-Physics-Mathematics-Computer-Science" class="headerlink" title="Modeling interdisciplinary interactions among Physics, Mathematics &amp; Computer Science"></a>Modeling interdisciplinary interactions among Physics, Mathematics &amp; Computer Science</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10811">http://arxiv.org/abs/2309.10811</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Rima Hazra, Mayank Singh, Pawan Goyal, Bibhas Adhikari, Animesh Mukherjee</li>
+<li>for: 本研究旨在研究物理（PHY）、数学（MA）和计算机科学（CS）三个领域之间的引用流动，以及这三个领域之间的引用关系。</li>
+<li>methods: 本研究使用了一个数据集，包含了这三个领域的 более than 1.2 million 篇论文，并使用了时间桶特征来量化这三个领域之间的引用互动。</li>
+<li>results: 研究发现，在这三个领域之间的引用关系存在一些特定的模式，例如，物理领域常常引用数学领域的论文，而计算机科学领域则常常引用物理领域和数学领域的论文。此外，研究还提出了一些基于 relay-linking 框架的数学模型，用于解释这三个领域之间的引用动态。<details>
+<summary>Abstract</summary>
+Interdisciplinarity has over the recent years have gained tremendous importance and has become one of the key ways of doing cutting edge research. In this paper we attempt to model the citation flow across three different fields -- Physics (PHY), Mathematics (MA) and Computer Science (CS). For instance, is there a specific pattern in which these fields cite one another? We carry out experiments on a dataset comprising more than 1.2 million articles taken from these three fields. We quantify the citation interactions among these three fields through temporal bucket signatures. We present numerical models based on variants of the recently proposed relay-linking framework to explain the citation dynamics across the three disciplines. These models make a modest attempt to unfold the underlying principles of how citation links could have been formed across the three fields over time.
+</details>
+<details>
+<summary>摘要</summary>
+近年来，多学科研究（interdisciplinarity）在研究领域中得到了广泛的重视和发展，成为当今研究的一种重要方法。在这篇论文中，我们尝试通过模拟三个不同领域（物理（PHY）、数学（MA）和计算机科学（CS））之间的引用流动，以探索这三个领域之间的引用模式是否存在特定的征式。我们在一个包含超过120万篇论文的数据集上进行了实验，并通过时间桶签名来量化这三个领域之间的引用互动。我们基于近期提出的协助链框架（relay-linking framework）的变体来提出数学模型，用于解释这三个领域之间的引用动力学。这些模型尝试描述在不同时间点上如何形成这三个领域之间的引用链。
+</details></li>
+</ul>
+<hr>
+<h2 id="Semantic-Text-Compression-for-Classification"><a href="#Semantic-Text-Compression-for-Classification" class="headerlink" title="Semantic Text Compression for Classification"></a>Semantic Text Compression for Classification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10809">http://arxiv.org/abs/2309.10809</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Emrecan Kutay, Aylin Yener</li>
+<li>for: 这 paper 的目的是压缩文本中的含义，以便在分类等应用中提高效率。</li>
+<li>methods: 这 paper 使用 semantic quantization 和压缩方法，使用 sentence embeddings 和semantic distortion metric来保持含义。</li>
+<li>results: 这 paper 的结果表明，使用 semantic 方法可以大幅降低 bit 数，但准确性损失比基eline 小。此外， semantic clustering 可以进一步增加资源储存的可 reuse。这些方法在多种文本分类任务中表现出色。<details>
+<summary>Abstract</summary>
+We study semantic compression for text where meanings contained in the text are conveyed to a source decoder, e.g., for classification. The main motivator to move to such an approach of recovering the meaning without requiring exact reconstruction is the potential resource savings, both in storage and in conveying the information to another node. Towards this end, we propose semantic quantization and compression approaches for text where we utilize sentence embeddings and the semantic distortion metric to preserve the meaning. Our results demonstrate that the proposed semantic approaches result in substantial (orders of magnitude) savings in the required number of bits for message representation at the expense of very modest accuracy loss compared to the semantic agnostic baseline. We compare the results of proposed approaches and observe that resource savings enabled by semantic quantization can be further amplified by semantic clustering. Importantly, we observe the generalizability of the proposed methodology which produces excellent results on many benchmark text classification datasets with a diverse array of contexts.
+</details>
+<details>
+<summary>摘要</summary>
+我们研究语义压缩 для文本，其中文本中的意义传递到源解码器（例如分类）。主要的动机是避免精确重建的需求，以便实现资源储存和信息传输成本的减少。为此，我们提议语义压缩和压缩方法，使用句子嵌入和semantic distortion metric来保持语义。我们的结果表明，我们提议的语义方法可以实现重要的（许多个数级）储存成本减少，并且与语义agnostic基准相比，只有极少的准确性损失。我们比较了我们的方法与其他方法的结果，发现semantic quantization可以通过semantic clustering进一步增强资源储存的可抗性。重要的是，我们发现我们的方法在多个 benchmark文本分类 datasets上实现了优秀的结果，这些dataset中的上下文非常多样化。
+</details></li>
+</ul>
+<hr>
+<h2 id="Interactive-Distillation-of-Large-Single-Topic-Corpora-of-Scientific-Papers"><a href="#Interactive-Distillation-of-Large-Single-Topic-Corpora-of-Scientific-Papers" class="headerlink" title="Interactive Distillation of Large Single-Topic Corpora of Scientific Papers"></a>Interactive Distillation of Large Single-Topic Corpora of Scientific Papers</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10772">http://arxiv.org/abs/2309.10772</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Nicholas Solovyev, Ryan Barron, Manish Bhattarai, Maksim E. Eren, Kim O. Rasmussen, Boian S. Alexandrov</li>
+<li>for: 这篇论文的目的是建立一个可扩展的、可靠的科学文献集合，并将其用于研究和教育。</li>
+<li>methods: 这篇论文使用机器学习技术，将小量的“核心”文献集成为一个大量的科学文献集合。文献集合中的每篇文章都通过机器学习算法进行评估，以确定它们是否与“核心”文献集成关联。</li>
+<li>results: 这篇论文透过机器学习技术建立了一个可扩展的、可靠的科学文献集合，并且可以透过人类专家的干预选择来确保集合中的文章是有关的。此外，这篇论文还使用了sub-topic模型ing（SeNMFk）来获得更多关于文章的信息。<details>
+<summary>Abstract</summary>
+Highly specific datasets of scientific literature are important for both research and education. However, it is difficult to build such datasets at scale. A common approach is to build these datasets reductively by applying topic modeling on an established corpus and selecting specific topics. A more robust but time-consuming approach is to build the dataset constructively in which a subject matter expert (SME) handpicks documents. This method does not scale and is prone to error as the dataset grows. Here we showcase a new tool, based on machine learning, for constructively generating targeted datasets of scientific literature. Given a small initial "core" corpus of papers, we build a citation network of documents. At each step of the citation network, we generate text embeddings and visualize the embeddings through dimensionality reduction. Papers are kept in the dataset if they are "similar" to the core or are otherwise pruned through human-in-the-loop selection. Additional insight into the papers is gained through sub-topic modeling using SeNMFk. We demonstrate our new tool for literature review by applying it to two different fields in machine learning.
+</details>
+<details>
+<summary>摘要</summary>
+高度特定的数据集是科研和教育中非常重要的。然而，建立这些数据集是困难的。一种常见的方法是通过缩写分析已有的文库，选择特定的主题来建立数据集。另一种更加robust但是时间费时的方法是通过专家手动选择文献来建立数据集。这种方法不具扩展性和容易出错。在这里，我们介绍了一种新工具，基于机器学习，用于构建targeted的科研文献数据集。我们给出了一个小的初始核心文献库，然后建立了引用网络，并在每个引用网络中生成文本嵌入。我们使用dimensionality reduction来Visualize嵌入。如果文献与核心文献相似，或者通过人工征选来选择，则保留文献在数据集中。我们还使用SeNMFk进行子主题分析，从而获得更多的文献信息。我们通过在机器学习领域进行文献综述来证明我们的新工具。
+</details></li>
+</ul>
+<hr>
+<h2 id="OpenBA-An-Open-sourced-15B-Bilingual-Asymmetric-seq2seq-Model-Pre-trained-from-Scratch"><a href="#OpenBA-An-Open-sourced-15B-Bilingual-Asymmetric-seq2seq-Model-Pre-trained-from-Scratch" class="headerlink" title="OpenBA: An Open-sourced 15B Bilingual Asymmetric seq2seq Model Pre-trained from Scratch"></a>OpenBA: An Open-sourced 15B Bilingual Asymmetric seq2seq Model Pre-trained from Scratch</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10706">http://arxiv.org/abs/2309.10706</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/opennlg/openba">https://github.com/opennlg/openba</a></li>
+<li>paper_authors: Juntao Li, Zecheng Tang, Yuyang Ding, Pinzheng Wang, Pei Guo, Wangjie You, Dan Qiao, Wenliang Chen, Guohong Fu, Qiaoming Zhu, Guodong Zhou, Min Zhang</li>
+<li>for: 本研究旨在开发一个基于中文的开源语言模型，以提高中文自然语言处理 task 的性能。</li>
+<li>methods: 本文使用了一些有效和高效的技术，包括三个阶段的训练策略和数据处理等，以减少模型的大小。</li>
+<li>results: 根据测试结果，我们的模型在 BELEBELE 测试套件、MMLU 测试套件和 C-Eval (hard) 测试套件上的性能比 LLaMA-70B 和 BLOOM-176B 更好，只需要使用 380B 个字。<details>
+<summary>Abstract</summary>
+Large language models (LLMs) with billions of parameters have demonstrated outstanding performance on various natural language processing tasks. This report presents OpenBA, an open-sourced 15B bilingual asymmetric seq2seq model, to contribute an LLM variant to the Chinese-oriented open-source model community. We enhance OpenBA with effective and efficient techniques as well as adopt a three-stage training strategy to train the model from scratch. Our solution can also achieve very competitive performance with only 380B tokens, which is better than LLaMA-70B on the BELEBELE benchmark, BLOOM-176B on the MMLU benchmark, GLM-130B on the C-Eval (hard) benchmark. This report provides the main details to pre-train an analogous model, including pre-training data processing, Bilingual Flan data collection, the empirical observations that inspire our model architecture design, training objectives of different stages, and other enhancement techniques. We have refactored our code to follow the design principles of the Huggingface Transformers Library, making it more convenient for developers to use, and released checkpoints of different training stages at https://huggingface.co/openBA. More details of our project are available at https://github.com/OpenNLG/openBA.git.
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型（LLM）拥有数十亿参数，在不同的自然语言处理任务上表现出色。本报告介绍OpenBA，一个开源的15B双语异称seq2seq模型，以贡献一种中文 Orientated 开源模型社区的变体。我们在OpenBA中应用有效和高效的技术，并采用三个阶段训练策略来从头开始训练模型。我们的解决方案可以在只有380B字符时达到非常竞争力的性能，比LLaMA-70B在BELEBELE标准上更好，比BLOOM-176B在MMLU标准上更好，比GLM-130B在C-Eval（困难）标准上更好。本报告提供了预训练模型的主要细节，包括预训练数据处理、双语Flann数据收集、预训练模型建立的设计原则、不同阶段的训练目标以及其他增强技术。我们已经对代码进行了 refactor，使其更加符合Huggingface Transformers Library的设计原则，并将不同训练阶段的检查点上传到https://huggingface.co/openBA。更多关于我们项目的详细信息可以通过https://github.com/OpenNLG/openBA.git获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="Improving-Medical-Dialogue-Generation-with-Abstract-Meaning-Representations"><a href="#Improving-Medical-Dialogue-Generation-with-Abstract-Meaning-Representations" class="headerlink" title="Improving Medical Dialogue Generation with Abstract Meaning Representations"></a>Improving Medical Dialogue Generation with Abstract Meaning Representations</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10608">http://arxiv.org/abs/2309.10608</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Bohao Yang, Chen Tang, Chenghua Lin</li>
+<li>for: 这篇论文旨在探讨对距离医疗的对话生成，以实现医疗专业知识的传递。</li>
+<li>methods: 本研究使用抽象意义表示（AMR）创建图形表示，以强调对话中的语言构成部分和医疗知识中的关系和实体。</li>
+<li>results: 本研究的结果显示，使用AMR图形表示可以增强对话生成模型的理解能力，并且比对基eline模型表现出色。此外，本研究提供了实现这种方法的资源代码，以便未来的研究。<details>
+<summary>Abstract</summary>
+Medical Dialogue Generation serves a critical role in telemedicine by facilitating the dissemination of medical expertise to patients. Existing studies focus on incorporating textual representations, which have limited their ability to represent the semantics of text, such as ignoring important medical entities. To enhance the model's understanding of the textual semantics and the medical knowledge including entities and relations, we introduce the use of Abstract Meaning Representations (AMR) to construct graphical representations that delineate the roles of language constituents and medical entities within the dialogues. In this paper, We propose a novel framework that models dialogues between patients and healthcare professionals using AMR graphs, where the neural networks incorporate textual and graphical knowledge with a dual attention mechanism. Experimental results show that our framework outperforms strong baseline models in medical dialogue generation, demonstrating the effectiveness of AMR graphs in enhancing the representations of medical knowledge and logical relationships. Furthermore, to support future research in this domain, we provide the corresponding source code at https://github.com/Bernard-Yang/MedDiaAMR.
+</details>
+<details>
+<summary>摘要</summary>
+医疗对话生成扮演着重要的角色在 теле医疗中，以便传递医疗专业知识给患者。现有研究主要集中在文本表示方面，这限制了模型的能力来表示文本 semantics，例如忽略重要的医疗实体。为了增强模型对文本 semantics和医疗知识，包括实体和关系的理解，我们介绍了使用抽象意义表示（AMR）构建图形表示，以便分析语言结构和医疗实体在对话中的角色。在这篇论文中，我们提出了一种新的框架，该框架使用 AMR 图来模型患者和医疗专业人员之间的对话，并使用双重注意机制来结合文本和图形知识。实验结果表明，我们的框架在医疗对话生成中表现出优于强基线模型，这表明 AMR 图可以增强医疗知识和逻辑关系的表示。此外，为支持未来在这个领域的研究，我们在 GitHub 上提供了相关的源代码，请参考 https://github.com/Bernard-Yang/MedDiaAMR。
+</details></li>
+</ul>
+<hr>
+<h2 id="FRACAS-A-FRench-Annotated-Corpus-of-Attribution-relations-in-newS"><a href="#FRACAS-A-FRench-Annotated-Corpus-of-Attribution-relations-in-newS" class="headerlink" title="FRACAS: A FRench Annotated Corpus of Attribution relations in newS"></a>FRACAS: A FRench Annotated Corpus of Attribution relations in newS</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10604">http://arxiv.org/abs/2309.10604</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ange Richard, Laura Alonzo-Canul, François Portet</li>
+<li>for: 本研究用于开发法语新闻文本中引用EXTRACTION和来源归属的手动注释 корпу。</li>
+<li>methods: 本研究使用了 manually annotated corpus of 1676 newswire texts in French for quotation extraction and source attribution.</li>
+<li>results: 研究得到了一个 manually annotated corpus，并且获得了对引用类型的Balance (直接、间接和混合)，以及对注释者之间的互动对象的高度一致。<details>
+<summary>Abstract</summary>
+Quotation extraction is a widely useful task both from a sociological and from a Natural Language Processing perspective. However, very little data is available to study this task in languages other than English. In this paper, we present a manually annotated corpus of 1676 newswire texts in French for quotation extraction and source attribution. We first describe the composition of our corpus and the choices that were made in selecting the data. We then detail the annotation guidelines and annotation process, as well as a few statistics about the final corpus and the obtained balance between quote types (direct, indirect and mixed, which are particularly challenging). We end by detailing our inter-annotator agreement between the 8 annotators who worked on manual labelling, which is substantially high for such a difficult linguistic phenomenon.
+</details>
+<details>
+<summary>摘要</summary>
+<SYS><LC>zh-CN</LC></SYS>引用抽取是一项广泛有用的任务，不仅从社会学角度而言，也从自然语言处理角度来说。然而，有很少数据可以研究这项任务的其他语言 besides English。在这篇论文中，我们提供了1676篇新闻报道文本的手动注释集，用于引用抽取和来源归属。我们首先介绍了我们的 corpus 的组成和选择的数据。然后，我们详细介绍了注释指南和注释过程，以及最终集合的一些统计数据和引用类型的平衡。最后，我们详细介绍了8名注释员的间接协作情况，即这种语言现象的协作率很高。
+</details></li>
+</ul>
+<hr>
+<h2 id="Unsupervised-Deep-Cross-Language-Entity-Alignment"><a href="#Unsupervised-Deep-Cross-Language-Entity-Alignment" class="headerlink" title="Unsupervised Deep Cross-Language Entity Alignment"></a>Unsupervised Deep Cross-Language Entity Alignment</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10598">http://arxiv.org/abs/2309.10598</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/chuanyus/udcea">https://github.com/chuanyus/udcea</a></li>
+<li>paper_authors: Chuanyu Jiang, Yiming Qian, Lijun Chen, Yang Gu, Xia Xie</li>
+<li>for: 这篇论文旨在提出一种简单且新的无监督方法，用于跨语言实体对齐。</li>
+<li>methods: 我们使用深度学习多语言encoder和机器翻译器来编码知识图文本，从而减少了标注数据的依赖性。我们的方法同时考虑了全局和局部对齐策略。</li>
+<li>results: 我们的方法可以在DBP15K数据集上得到0.966、0.990和0.996的Hits@1率，在无监督和半监督类别中超过了现状的方法。与监督方法相比，我们的方法在 Ja-En和Fr-En对齐任务中表现出了2.6%和0.4%的提升，只是微弱地下降0.2%在Zh-En对齐任务中。<details>
+<summary>Abstract</summary>
+Cross-lingual entity alignment is the task of finding the same semantic entities from different language knowledge graphs. In this paper, we propose a simple and novel unsupervised method for cross-language entity alignment. We utilize the deep learning multi-language encoder combined with a machine translator to encode knowledge graph text, which reduces the reliance on label data. Unlike traditional methods that only emphasize global or local alignment, our method simultaneously considers both alignment strategies. We first view the alignment task as a bipartite matching problem and then adopt the re-exchanging idea to accomplish alignment. Compared with the traditional bipartite matching algorithm that only gives one optimal solution, our algorithm generates ranked matching results which enabled many potentials downstream tasks. Additionally, our method can adapt two different types of optimization (minimal and maximal) in the bipartite matching process, which provides more flexibility. Our evaluation shows, we each scored 0.966, 0.990, and 0.996 Hits@1 rates on the DBP15K dataset in Chinese, Japanese, and French to English alignment tasks. We outperformed the state-of-the-art method in unsupervised and semi-supervised categories. Compared with the state-of-the-art supervised method, our method outperforms 2.6% and 0.4% in Ja-En and Fr-En alignment tasks while marginally lower by 0.2% in the Zh-En alignment task.
+</details>
+<details>
+<summary>摘要</summary>
+crossed-lingual entity alignment是找到不同语言知识图中的同义semantic entity的任务。在这篇论文中，我们提出了一种简单且新的无监督方法 для crossed-lingual entity alignment。我们利用深度学习多语言编码器和机器翻译器来编码知识图文本，从而减少了依赖于标注数据。与传统方法只强调全局或本地对齐不同，我们的方法同时考虑了这两种对齐策略。我们首先将对齐任务视为一种双方匹配问题，然后采用了重新交换的想法来完成对齐。与传统的双方匹配算法只给出一个最优解不同，我们的算法生成了排名匹配结果，这些结果允许更多的下游任务。此外，我们的方法可以在双方匹配过程中采用不同的优化策略（最小和最大），这提供了更多的灵活性。我们的评估结果显示，我们在DBP15K dataset上分别得分0.966、0.990和0.996，在中文、日语和法语到英语对齐任务中。我们超过了当前状态的方法在无监督和半监督类别中。与当前状态的监督方法相比，我们的方法在Ja-En和Fr-En对齐任务中表现出优于2.6%和0.4%，而在Zh-En对齐任务中则只下降0.2%。
+</details></li>
+</ul>
+<hr>
+<h2 id="Multimodal-Modeling-For-Spoken-Language-Identification"><a href="#Multimodal-Modeling-For-Spoken-Language-Identification" class="headerlink" title="Multimodal Modeling For Spoken Language Identification"></a>Multimodal Modeling For Spoken Language Identification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10567">http://arxiv.org/abs/2309.10567</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Shikhar Bharadwaj, Min Ma, Shikhar Vashishth, Ankur Bapna, Sriram Ganapathy, Vera Axelrod, Siddharth Dalmia, Wei Han, Yu Zhang, Daan van Esch, Sandy Ritchie, Partha Talukdar, Jason Riesa</li>
+<li>for: 本研究旨在提高多媒体录音语言识别精度，通过利用不同类型的metadata来增强语言识别。</li>
+<li>methods: 本研究提出了一种多modal Spoken Language Identification方法（MuSeLI），利用视频标题、描述和地理位置等metadata来提高语言识别精度。</li>
+<li>results: 实验结果表明，Metadata可以提供显著帮助语言识别任务，并且对多媒体录音语言识别 Task取得了现场的状态。 Additionally, the ablation study shows that each modality contributes distinctively to language recognition.<details>
+<summary>Abstract</summary>
+Spoken language identification refers to the task of automatically predicting the spoken language in a given utterance. Conventionally, it is modeled as a speech-based language identification task. Prior techniques have been constrained to a single modality; however in the case of video data there is a wealth of other metadata that may be beneficial for this task. In this work, we propose MuSeLI, a Multimodal Spoken Language Identification method, which delves into the use of various metadata sources to enhance language identification. Our study reveals that metadata such as video title, description and geographic location provide substantial information to identify the spoken language of the multimedia recording. We conduct experiments using two diverse public datasets of YouTube videos, and obtain state-of-the-art results on the language identification task. We additionally conduct an ablation study that describes the distinct contribution of each modality for language recognition.
+</details>
+<details>
+<summary>摘要</summary>
+通过多模态特征来实现语言认识，这是我们的研究方向。在视频数据中，我们可以使用视频标题、描述和地理位置等 metadata 来提高语言认识的准确性。我们在两个 YouTube 视频数据集上进行实验，并在语言认识任务上达到了状态之 искусственный前景。此外，我们还进行了减少研究，以解释每个模式在语言认识中的独特贡献。
+</details></li>
+</ul>
+<hr>
+<h2 id="NSOAMT-–-New-Search-Only-Approach-to-Machine-Translation"><a href="#NSOAMT-–-New-Search-Only-Approach-to-Machine-Translation" class="headerlink" title="NSOAMT – New Search Only Approach to Machine Translation"></a>NSOAMT – New Search Only Approach to Machine Translation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10526">http://arxiv.org/abs/2309.10526</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: João Luís, Diogo Cardoso, José Marques, Luís Campos</li>
+<li>for: 这个论文的目的是提出一种基于新搜索方法的机器翻译技术，以解决传统技术的慢速和不准确问题。</li>
+<li>methods: 这个研究采用了一种新的索引技术，通过将具有相似语义的词语组合在一起，实现对原文语言记录和翻译语言之间的对应关系。</li>
+<li>results: 这个研究发现，对于某些类型的文档，使用这种新索引技术可以提高翻译速度和准确性，并且可以开发出一种基于这种方法的翻译工具。<details>
+<summary>Abstract</summary>
+Translation automation mechanisms and tools have been developed for several years to bring people who speak different languages together. A "new search only approach to machine translation" was adopted to tackle some of the slowness and inaccuracy of the other technologies. The idea is to develop a solution that, by indexing an incremental set of words that combine a certain semantic meaning, makes it possible to create a process of correspondence between their native language record and the language of translation. This research principle assumes that the vocabulary used in a given type of publication/document is relatively limited in terms of language style and word diversity, which enhances the greater effect of instantaneously and rigor in the translation process through the indexing process. A volume of electronic text documents where processed and loaded into a database, and analyzed and measured in order confirm the previous premise. Although the observed and projected metric values did not give encouraging results, it was possible to develop and make available a translation tool using this approach.
+</details>
+<details>
+<summary>摘要</summary>
+机器翻译技术和工具在数年前就已经开发出来，以便让不同语言的人们共同交流。我们采用了一种“新搜索Onlyapproach to machine translation”来解决其他技术的慢速和不准确性。我们的想法是，通过索引增量词汇，使得将原始语言纪录与翻译语言之间创建对应关系。这个研究原则假设了公开发表/文档中的词汇数量相对较少，而且语言风格和词汇多样性受限，从而通过索引过程实现更快速、更加准确的翻译。我们对一volume of electronic文档进行处理和加载到数据库中，并对其进行分析和测量，以确认上述假设。虽然观察到的和预计的 метриック值并不给出激励的结果，但我们仍然可以开发出一种使用这种方法的翻译工具。
+</details></li>
+</ul>
+<hr>
+<h2 id="Harnessing-the-Zero-Shot-Power-of-Instruction-Tuned-Large-Language-Model-in-End-to-End-Speech-Recognition"><a href="#Harnessing-the-Zero-Shot-Power-of-Instruction-Tuned-Large-Language-Model-in-End-to-End-Speech-Recognition" class="headerlink" title="Harnessing the Zero-Shot Power of Instruction-Tuned Large Language Model in End-to-End Speech Recognition"></a>Harnessing the Zero-Shot Power of Instruction-Tuned Large Language Model in End-to-End Speech Recognition</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10524">http://arxiv.org/abs/2309.10524</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yosuke Higuchi, Tetsuji Ogawa, Tetsunori Kobayashi</li>
+<li>for: 本研究旨在探讨一种使用大型自然语言模型（LLM）和端到端自动语音识别（ASR）的新的集成方法，以提高ASR性能。</li>
+<li>methods: 我们使用一种名为Llama2的 instrucion-tuned LLM，并将其作为decoder的前端使用。我们还使用CTC和注意力架构，将ASR假设作为输入，并将其feed到LLM中，以便LLM可以根据指令进行文本生成。</li>
+<li>results: 我们的实验结果和分析表明，这种集成方法可以提供出色的性能提升，并且我们的方法受益于LLM-based rescoring。<details>
+<summary>Abstract</summary>
+We present a novel integration of an instruction-tuned large language model (LLM) and end-to-end automatic speech recognition (ASR). Modern LLMs can perform a wide range of linguistic tasks within zero-shot learning when provided with a precise instruction or a prompt to guide the text generation process towards the desired task. We explore using this zero-shot capability of LLMs to extract linguistic information that can contribute to improving ASR performance. Specifically, we direct an LLM to correct grammatical errors in an ASR hypothesis and harness the embedded linguistic knowledge to conduct end-to-end ASR. The proposed model is built on the hybrid connectionist temporal classification (CTC) and attention architecture, where an instruction-tuned LLM (i.e., Llama2) is employed as a front-end of the decoder. An ASR hypothesis, subject to correction, is obtained from the encoder via CTC decoding, which is then fed into the LLM along with an instruction. The decoder subsequently takes as input the LLM embeddings to perform sequence generation, incorporating acoustic information from the encoder output. Experimental results and analyses demonstrate that the proposed integration yields promising performance improvements, and our approach largely benefits from LLM-based rescoring.
+</details>
+<details>
+<summary>摘要</summary>
+The proposed model is built on the hybrid connectionist temporal classification (CTC) and attention architecture, where an instruction-tuned LLM (i.e., Llama2) is employed as the front-end of the decoder. An ASR hypothesis, subject to correction, is obtained from the encoder via CTC decoding, which is then fed into the LLM along with an instruction. The decoder subsequently takes as input the LLM embeddings to perform sequence generation, incorporating acoustic information from the encoder output.Experimental results and analyses demonstrate that the proposed integration yields promising performance improvements, and our approach largely benefits from LLM-based rescoring.
+</details></li>
+</ul>
+<hr>
+<h2 id="Enhancing-Open-Domain-Table-Question-Answering-via-Syntax-and-Structure-aware-Dense-Retrieval"><a href="#Enhancing-Open-Domain-Table-Question-Answering-via-Syntax-and-Structure-aware-Dense-Retrieval" class="headerlink" title="Enhancing Open-Domain Table Question Answering via Syntax- and Structure-aware Dense Retrieval"></a>Enhancing Open-Domain Table Question Answering via Syntax- and Structure-aware Dense Retrieval</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10506">http://arxiv.org/abs/2309.10506</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/nzjin/ODTQA">https://github.com/nzjin/ODTQA</a></li>
+<li>paper_authors: Nengzheng Jin, Dongfang Li, Junying Chen, Joanna Siebert, Qingcai Chen</li>
+<li>for:  answering open-domain table questions by retrieving and extracting information from a large collection of tables</li>
+<li>methods: using syntax- and structure-aware retrieval method that provides syntactical representations for the question and uses structural header and value representations for the tables to avoid information loss</li>
+<li>results: achieving state-of-the-art performance on the NQ-tables dataset and overwhelming strong baselines on a newly curated open-domain Text-to-SQL datasetHere’s the simplified Chinese text:</li>
+<li>for:  Answering open-domain 表格问题，通过大量表格的检索和提取信息。</li>
+<li>methods: 使用 syntax- 和 structure-aware 检索方法，提供问题的 sintactical 表示，并使用表格的结构头和值表示来避免信息损失。</li>
+<li>results: 在 NQ-tables 数据集上达到状态级表现，在新编辑的 open-domain Text-to-SQL 数据集上压倒强大的基eline。<details>
+<summary>Abstract</summary>
+Open-domain table question answering aims to provide answers to a question by retrieving and extracting information from a large collection of tables. Existing studies of open-domain table QA either directly adopt text retrieval methods or consider the table structure only in the encoding layer for table retrieval, which may cause syntactical and structural information loss during table scoring. To address this issue, we propose a syntax- and structure-aware retrieval method for the open-domain table QA task. It provides syntactical representations for the question and uses the structural header and value representations for the tables to avoid the loss of fine-grained syntactical and structural information. Then, a syntactical-to-structural aggregator is used to obtain the matching score between the question and a candidate table by mimicking the human retrieval process. Experimental results show that our method achieves the state-of-the-art on the NQ-tables dataset and overwhelms strong baselines on a newly curated open-domain Text-to-SQL dataset.
+</details>
+<details>
+<summary>摘要</summary>
+开放领域表格问答旨在提供问题的答案，通过检索和提取大量表格中的信息。现有研究的开放领域表格QA方法可能直接采用文本检索方法，或者只考虑表格结构在编码层面进行表格检索，这可能会导致问题的语法和结构信息丢失，从而影响表格的得分。为解决这个问题，我们提出一种语法和结构意识检索方法，用于开放领域表格QA任务。它提供了问题的语法表示，并使用表格的结构标头和值表示来避免语法和结构信息的丢失。然后，一个语法-结构汇总器用于获取问题和候选表格之间的匹配分数，通过模拟人类检索过程来实现。实验结果表明，我们的方法在NQ-tables数据集上实现了领先地位，并在一个新收录的开放领域文本-SQL数据集上压倒了强大的基线。
+</details></li>
+</ul>
+<hr>
+<h2 id="Improving-Speaker-Diarization-using-Semantic-Information-Joint-Pairwise-Constraints-Propagation"><a href="#Improving-Speaker-Diarization-using-Semantic-Information-Joint-Pairwise-Constraints-Propagation" class="headerlink" title="Improving Speaker Diarization using Semantic Information: Joint Pairwise Constraints Propagation"></a>Improving Speaker Diarization using Semantic Information: Joint Pairwise Constraints Propagation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10456">http://arxiv.org/abs/2309.10456</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Luyao Cheng, Siqi Zheng, Qinglin Zhang, Hui Wang, Yafeng Chen, Qian Chen, Shiliang Zhang</li>
+<li>for: 本研究旨在充分利用语言模型来提高基于集群的说话人识别系统的性能。</li>
+<li>methods: 我们提出了一种新的方法，利用语言模型提取说话人相关的semantic信息，并将这些信息转化为对应的对比约束。</li>
+<li>results: 我们在公共数据集上进行了广泛的实验，结果表明我们提出的方法在比对 voz-only 的说话人识别系统时表现出了一致性的superiority。<details>
+<summary>Abstract</summary>
+Speaker diarization has gained considerable attention within speech processing research community. Mainstream speaker diarization rely primarily on speakers' voice characteristics extracted from acoustic signals and often overlook the potential of semantic information. Considering the fact that speech signals can efficiently convey the content of a speech, it is of our interest to fully exploit these semantic cues utilizing language models. In this work we propose a novel approach to effectively leverage semantic information in clustering-based speaker diarization systems. Firstly, we introduce spoken language understanding modules to extract speaker-related semantic information and utilize these information to construct pairwise constraints. Secondly, we present a novel framework to integrate these constraints into the speaker diarization pipeline, enhancing the performance of the entire system. Extensive experiments conducted on the public dataset demonstrate the consistent superiority of our proposed approach over acoustic-only speaker diarization systems.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>转换文本为简化中文。<</SYS>>发言人识别在语音处理研究社区中受到了广泛的关注。主流的发言人识别方法主要基于发言人的声音特征，从语音信号中提取发言人的声音特征，然而它们经常忽略语音信号中的 semantics 信息。考虑到语音信号可以办好发言人的发言内容，我们想要充分利用这些 semantics 信息，以提高 clustering-based 发言人识别系统的性能。首先，我们引入了语言理解模块，以提取发言人相关的 semantics 信息，并使用这些信息构建对应的对比约束。其次，我们提出了一种新的框架，将这些约束集成到发言人识别管道中，从而提高整个系统的性能。在公共数据集上进行了广泛的实验，我们的提议方法在对比于声音Only 发言人识别系统时具有一致的超越性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Reformulating-Sequential-Recommendation-Learning-Dynamic-User-Interest-with-Content-enriched-Language-Modeling"><a href="#Reformulating-Sequential-Recommendation-Learning-Dynamic-User-Interest-with-Content-enriched-Language-Modeling" class="headerlink" title="Reformulating Sequential Recommendation: Learning Dynamic User Interest with Content-enriched Language Modeling"></a>Reformulating Sequential Recommendation: Learning Dynamic User Interest with Content-enriched Language Modeling</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10435">http://arxiv.org/abs/2309.10435</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Junzhe Jiang, Shang Qu, Mingyue Cheng, Qi Liu</li>
+<li>for: 这个论文的目的是提出一种基于语言模型的新式分布式推荐方法，以提高推荐系统的个性化性和准确性。</li>
+<li>methods: 该方法使用预训练的语言模型来捕捉用户的兴趣和需求，并通过语义理解来生成个性化的推荐结果。</li>
+<li>results: 经过实验 validate，该方法可以在多个数据集上达到比较好的推荐效果，并且提供了有价值的推荐结果和推荐方法的指导意见。<details>
+<summary>Abstract</summary>
+Recommender systems are essential for online applications, and sequential recommendation has enjoyed significant prevalence due to its expressive ability to capture dynamic user interests. However, previous sequential modeling methods still have limitations in capturing contextual information. The primary reason for this issue is that language models often lack an understanding of domain-specific knowledge and item-related textual content. To address this issue, we adopt a new sequential recommendation paradigm and propose LANCER, which leverages the semantic understanding capabilities of pre-trained language models to generate personalized recommendations. Our approach bridges the gap between language models and recommender systems, resulting in more human-like recommendations. We demonstrate the effectiveness of our approach through experiments on several benchmark datasets, showing promising results and providing valuable insights into the influence of our model on sequential recommendation tasks. Furthermore, our experimental codes are publicly available.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>将文本翻译成简化中文。<</SYS>>在线应用程序中，推荐系统是非常重要的，而串行推荐占据了主导地位，因为它可以快速表达用户的兴趣。然而，以前的串行建模方法仍有限制，不能够 capture contextual information。主要的原因是语言模型通常缺乏域pecific知识和项目相关的文本内容的理解。为了解决这个问题，我们采用了一种新的串行推荐方式，并提出了LANCER，它利用预训练语言模型的semantic理解能力来生成个性化推荐。我们的方法 bridge了语言模型和推荐系统之间的 gap，从而生成更人类化的推荐。我们通过对多个 benchmark datasets进行实验，证明了我们的方法的有效性，并提供了有价值的推荐系统设计的意见。此外，我们的实验代码也公开可用。
+</details></li>
+</ul>
+<hr>
+<h2 id="Writer-Defined-AI-Personas-for-On-Demand-Feedback-Generation"><a href="#Writer-Defined-AI-Personas-for-On-Demand-Feedback-Generation" class="headerlink" title="Writer-Defined AI Personas for On-Demand Feedback Generation"></a>Writer-Defined AI Personas for On-Demand Feedback Generation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10433">http://arxiv.org/abs/2309.10433</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Karim Benharrak, Tim Zindulka, Florian Lehmann, Hendrik Heuer, Daniel Buschek</li>
+<li>for: 这篇论文是为了支持作者创作而设计的，帮助作者更好地理解和 Hook 到他们的target audience。</li>
+<li>methods: 这篇论文使用了基于作者定义的 AI人物来生成即时反馈，以帮助作者更好地理解和 Hook 到他们的target audience。</li>
+<li>results: 作者对这种概念表示欢迎，并在两个用户研究中使用了这种方法来获得不同的视角和反馈。  however, the feedback was often verbose and unspecific.<details>
+<summary>Abstract</summary>
+Compelling writing is tailored to its audience. This is challenging, as writers may struggle to empathize with readers, get feedback in time, or gain access to the target group. We propose a concept that generates on-demand feedback, based on writer-defined AI personas of any target audience. We explore this concept with a prototype (using GPT-3.5) in two user studies (N=5 and N=11): Writers appreciated the concept and strategically used personas for getting different perspectives. The feedback was seen as helpful and inspired revisions of text and personas, although it was often verbose and unspecific. We discuss the impact of on-demand feedback, the limited representativity of contemporary AI systems, and further ideas for defining AI personas. This work contributes to the vision of supporting writers with AI by expanding the socio-technical perspective in AI tool design: To empower creators, we also need to keep in mind their relationship to an audience.
+</details>
+<details>
+<summary>摘要</summary>
+优秀的写作是适应其读者群体的。这是一项挑战，因为作者可能难以理解读者，获得时间ous feedback，或者访问目标群体。我们提出了一个概念，即基于作者定义的人工智能人类，以获得即时反馈。我们在两项用户研究（N=5和N=11）中试用了这个概念：作者喜欢这个概念，并在获得不同角度的反馈时使用了人类。反馈被看作是有帮助的，并促使了文本和人类的修订，although it was often verbose and unspecific. We discuss the impact of on-demand feedback, the limited representativity of contemporary AI systems, and further ideas for defining AI personas. This work contributes to the vision of supporting writers with AI by expanding the socio-technical perspective in AI tool design: To empower creators, we also need to keep in mind their relationship to an audience.Note: The translation is in Simplified Chinese, which is the standard form of Chinese used in mainland China and Singapore. If you prefer Traditional Chinese, please let me know and I can provide that version as well.
+</details></li>
+</ul>
+<hr>
+<h2 id="PICK-Polished-Informed-Candidate-Scoring-for-Knowledge-Grounded-Dialogue-Systems"><a href="#PICK-Polished-Informed-Candidate-Scoring-for-Knowledge-Grounded-Dialogue-Systems" class="headerlink" title="PICK: Polished &amp; Informed Candidate Scoring for Knowledge-Grounded Dialogue Systems"></a>PICK: Polished &amp; Informed Candidate Scoring for Knowledge-Grounded Dialogue Systems</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10413">http://arxiv.org/abs/2309.10413</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Bryan Wilie, Yan Xu, Willy Chung, Samuel Cahyawijaya, Holy Lovenia, Pascale Fung</li>
+<li>for: 提高知识grunded对话系统的响应质量，使其更加信息归一化和有趣。</li>
+<li>methods: 基于外部知识的对话生成系统，通过分析多种语言模型生成结果，发现存在多个生成结果，其中一些更加准确和有 relevance 性。</li>
+<li>results: 提出了一种基于抑制策略的生成重新分配框架PICK，可以使模型生成更加准确和有 relevance 性的响应，不需要额外的标注数据或模型调整。经过自动和人工评估，PICK 能够提高系统的表现，并且在所有排序策略下保持稳定性。详细实现可以参考<a target="_blank" rel="noopener" href="https://github.com/bryanwilie/pick%E3%80%82">https://github.com/bryanwilie/pick。</a><details>
+<summary>Abstract</summary>
+Grounding dialogue response generation on external knowledge is proposed to produce informative and engaging responses. However, current knowledge-grounded dialogue (KGD) systems often fail to align the generated responses with human-preferred qualities due to several issues like hallucination and the lack of coherence. Upon analyzing multiple language model generations, we observe the presence of alternative generated responses within a single decoding process. These alternative responses are more faithful and exhibit a comparable or higher level of relevance to prior conversational turns compared to the optimal responses prioritized by the decoding processes. To address these challenges and driven by these observations, we propose Polished \& Informed Candidate Scoring (PICK), a generation re-scoring framework that empowers models to generate faithful and relevant responses without requiring additional labeled data or model tuning. Through comprehensive automatic and human evaluations, we demonstrate the effectiveness of PICK in generating responses that are more faithful while keeping them relevant to the dialogue history. Furthermore, PICK consistently improves the system's performance with both oracle and retrieved knowledge in all decoding strategies. We provide the detailed implementation in https://github.com/bryanwilie/pick .
+</details>
+<details>
+<summary>摘要</summary>
+提出了基于外部知识的对话回答生成系统，以生成有用和有趣的回答。然而，目前的知识基数对对话（KGD）系统经常无法落实生成的回答与人类喜好的质量不符，这可能是因为幻觉和对话异常的问题。我们分析了多种语言模型生成结果，发现生成过程中存在多个可行的回答，这些回答更 faithful 并且与之前的对话转折更高度相关。为了解决这些挑战，我们提出了精炼并 Informed Candidate Scoring（PICK）生成重新评分框架，使模型能够生成忠诚和相关的回答，不需要额外的标注数据或模型调整。通过自动和人工评估，我们证明了 PICK 的效果，可以生成更忠诚的回答，同时保持与对话历史相关。此外， PICK 在所有搜索策略下都能够一直提高系统的性能，并且与oracle和检索知识相结合。我们在 GitHub 上提供了详细的实现。
+</details></li>
+</ul>
+<hr>
+<h2 id="PoSE-Efficient-Context-Window-Extension-of-LLMs-via-Positional-Skip-wise-Training"><a href="#PoSE-Efficient-Context-Window-Extension-of-LLMs-via-Positional-Skip-wise-Training" class="headerlink" title="PoSE: Efficient Context Window Extension of LLMs via Positional Skip-wise Training"></a>PoSE: Efficient Context Window Extension of LLMs via Positional Skip-wise Training</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10400">http://arxiv.org/abs/2309.10400</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/dwzhu-pku/pose">https://github.com/dwzhu-pku/pose</a></li>
+<li>paper_authors: Dawei Zhu, Nan Yang, Liang Wang, Yifan Song, Wenhao Wu, Furu Wei, Sujian Li</li>
+<li>for: 用于提高大语言模型的适应性和扩展性</li>
+<li>methods: 使用Positional Skip-wisE（PoSE）训练方法，通过在训练过程中随机填充各个 chunk 的位置指标来模拟长输入序列，从而适应不同的上下文窗口大小</li>
+<li>results: 比较训练在全长输入上与 PoSE 训练在短 chunk 上，后者减少了内存和时间开销，而且性能减差不大。此外，PoSE 方法可以与 RoPE-based LLMs 和不同的位置插值策略兼容，并且可以无限扩展上下文窗口，具体取决于执行时间的内存使用情况。<details>
+<summary>Abstract</summary>
+In this paper, we introduce Positional Skip-wisE (PoSE) training for efficient adaptation of large language models~(LLMs) to extremely long context windows. PoSE decouples train length from target context window size by simulating long inputs using a fixed context window with manipulated position indices during training. Concretely, we select several short chunks from a long input sequence, and introduce distinct skipping bias terms to modify the position indices of each chunk. These bias terms, along with the length of each chunk, are altered for each training example, allowing the model to adapt to all positions within the target context window without training on full length inputs. Experiments show that, compared with fine-tuning on the full length, PoSE greatly reduces memory and time overhead with minimal impact on performance. Leveraging this advantage, we have successfully extended the LLaMA model to 128k tokens. Furthermore, we empirically confirm that PoSE is compatible with all RoPE-based LLMs and various position interpolation strategies. Notably, by decoupling fine-tuning length from target context window, PoSE can theoretically extend the context window infinitely, constrained only by memory usage for inference. With ongoing advancements for efficient inference, we believe PoSE holds great promise for scaling the context window even further.
+</details>
+<details>
+<summary>摘要</summary>
+在这篇论文中，我们介绍了Positional Skip-wisE（PoSE）训练方法，用于高效地适应大语言模型（LLM）到极长上下文窗口。PoSE将训练长度与目标上下文窗口大小分离开来，在训练过程中使用固定的上下文窗口和修改位标的扰动技术来模拟长输入。具体来说，我们从长输入序列中选择一些短块，并在每个块上引入不同的跳过偏好项来修改位标。这些偏好项， junto with each chunk's length, are altered for each training example, allowing the model to adapt to all positions within the target context window without training on full-length inputs.实验表明，相比于精细调整全长输入，PoSE可以减少内存和时间开销，而无需减少性能。通过这种优势，我们成功地扩展了LLaMA模型到128k个token。此外，我们还证实了PoSE与RoPE基于LLM的各种位置 interpolate策略兼容，并且可以 theoretically extend the context window infinitely，即使在推理时使用内存。随着高效推理技术的不断发展，我们相信PoSE具有极大的扩展前途。
+</details></li>
+</ul>
+<hr>
+<h2 id="Prompt-Condition-and-Generate-Classification-of-Unsupported-Claims-with-In-Context-Learning"><a href="#Prompt-Condition-and-Generate-Classification-of-Unsupported-Claims-with-In-Context-Learning" class="headerlink" title="Prompt, Condition, and Generate: Classification of Unsupported Claims with In-Context Learning"></a>Prompt, Condition, and Generate: Classification of Unsupported Claims with In-Context Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10359">http://arxiv.org/abs/2309.10359</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Peter Ebert Christensen, Srishti Yadav, Serge Belongie</li>
+<li>for: 本研究旨在提供一种方法，可以从日常生活中遇到的不支持、不可靠的声明中提炼出一个可 COUNT的数据集，以便更好地理解和描述这些声明。</li>
+<li>methods: 本研究使用了人工智能技术，特别是大语言模型（LLM），来自动生成声明，并通过Context Learning来帮助模型更好地理解和描述声明。</li>
+<li>results: 研究发现，使用生成的声明可以提高 narative 分类模型的性能，并且可以使用一些训练示例来推断声明的Stand和方向。这种模型可以在应用中使用，例如 Fact-checking 等。<details>
+<summary>Abstract</summary>
+Unsupported and unfalsifiable claims we encounter in our daily lives can influence our view of the world. Characterizing, summarizing, and -- more generally -- making sense of such claims, however, can be challenging. In this work, we focus on fine-grained debate topics and formulate a new task of distilling, from such claims, a countable set of narratives. We present a crowdsourced dataset of 12 controversial topics, comprising more than 120k arguments, claims, and comments from heterogeneous sources, each annotated with a narrative label. We further investigate how large language models (LLMs) can be used to synthesise claims using In-Context Learning. We find that generated claims with supported evidence can be used to improve the performance of narrative classification models and, additionally, that the same model can infer the stance and aspect using a few training examples. Such a model can be useful in applications which rely on narratives , e.g. fact-checking.
+</details>
+<details>
+<summary>摘要</summary>
+日常生活中遇到的无法支持和无法证明的声明可能会影响我们对世界的看法。然而，描述、概括和更广泛地来说，对这些声明的理解可以是困难的。在这项工作中，我们关注细化的辩论话题，并提出了一项新的任务：从这些声明中提炼出一个可数的数量的故事。我们提供了一个来自多种源的12个热点话题的大量人工标注数据集，包括超过12万个Arguments、声明和评论，每个声明都被标注了故事标签。我们进一步研究了大型自然语言模型（LLM）如何在上下文学习中生成声明，并发现了以下两点：First，使用支持证明的生成声明可以提高故事分类模型的性能；Second，使用相同的模型可以在几个训练示例后推断姿态和方向。这种模型在基于故事的应用中可以是有用的，例如ifact-checking。
+</details></li>
+</ul>
+<hr>
+<h2 id="KoBigBird-large-Transformation-of-Transformer-for-Korean-Language-Understanding"><a href="#KoBigBird-large-Transformation-of-Transformer-for-Korean-Language-Understanding" class="headerlink" title="KoBigBird-large: Transformation of Transformer for Korean Language Understanding"></a>KoBigBird-large: Transformation of Transformer for Korean Language Understanding</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10339">http://arxiv.org/abs/2309.10339</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Kisu Yang, Yoonna Jang, Taewoo Lee, Jinwoo Seong, Hyungjin Lee, Hwanseok Jang, Heuiseok Lim</li>
+<li>for: 这个研究实现了一个大型的韩文BigBird模型，以获得韩文理解的State-of-the-art表现，并允许较长的序列处理。</li>
+<li>methods: 我们仅将架构变更，并将统计编码扩展为我们提出的弹性统计编码表现（TAPER）。</li>
+<li>results: 实验结果显示，KoBigBird-large在韩文语言理解benchmark上的总表现和文档分类和问答任务中的较长序列表现皆达到了State-of-the-art水平，并且在比较基eline模型时表现最佳。我们将这个模型公开发布。<details>
+<summary>Abstract</summary>
+This work presents KoBigBird-large, a large size of Korean BigBird that achieves state-of-the-art performance and allows long sequence processing for Korean language understanding. Without further pretraining, we only transform the architecture and extend the positional encoding with our proposed Tapered Absolute Positional Encoding Representations (TAPER). In experiments, KoBigBird-large shows state-of-the-art overall performance on Korean language understanding benchmarks and the best performance on document classification and question answering tasks for longer sequences against the competitive baseline models. We publicly release our model here.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Rigorously-Assessing-Natural-Language-Explanations-of-Neurons"><a href="#Rigorously-Assessing-Natural-Language-Explanations-of-Neurons" class="headerlink" title="Rigorously Assessing Natural Language Explanations of Neurons"></a>Rigorously Assessing Natural Language Explanations of Neurons</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10312">http://arxiv.org/abs/2309.10312</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/hieu9955/ggggg">https://github.com/hieu9955/ggggg</a></li>
+<li>paper_authors: Jing Huang, Atticus Geiger, Karel D’Oosterlinck, Zhengxuan Wu, Christopher Potts</li>
+<li>for:  This paper aims to evaluate the faithfulness of natural language explanations of how large language models process and store information.</li>
+<li>methods: The paper develops two modes of evaluation for natural language explanations that claim individual neurons represent a concept in a text input, including observational and intervention modes.</li>
+<li>results: The paper shows that even the most confident explanations have high error rates and little to no causal efficacy, and critically assesses whether natural language is a good choice for explanations and whether neurons are the best level of analysis.<details>
+<summary>Abstract</summary>
+Natural language is an appealing medium for explaining how large language models process and store information, but evaluating the faithfulness of such explanations is challenging. To help address this, we develop two modes of evaluation for natural language explanations that claim individual neurons represent a concept in a text input. In the observational mode, we evaluate claims that a neuron $a$ activates on all and only input strings that refer to a concept picked out by the proposed explanation $E$. In the intervention mode, we construe $E$ as a claim that the neuron $a$ is a causal mediator of the concept denoted by $E$. We apply our framework to the GPT-4-generated explanations of GPT-2 XL neurons of Bills et al. (2023) and show that even the most confident explanations have high error rates and little to no causal efficacy. We close the paper by critically assessing whether natural language is a good choice for explanations and whether neurons are the best level of analysis.
+</details>
+<details>
+<summary>摘要</summary>
+自然语言是一种吸引人的媒介，用于解释大语言模型如何处理和存储信息，但评估这些解释的准确性具有挑战。为了解决这个问题，我们开发了两种评估模式 для自然语言解释，即 observational 模式和 intervención 模式。在 observational 模式下，我们评估laims that neuron $a$ 活动在所有和只有输入串 refer to a concept picked out by the proposed explanation $E$。在 intervención 模式下，我们理解 $E$ 为 neuron $a$ 是输入串中某种概念的 causal mediator。我们应用我们的框架到 Bills et al. (2023) 所生成的 GPT-2 XL neuron的解释中，并发现even the most confident explanations have high error rates and little to no causal efficacy。我们在 conclusion 中 kritically assessing whether natural language is a good choice for explanations and whether neurons are the best level of analysis。
+</details></li>
+</ul>
+<hr>
+<h2 id="Baichuan-2-Open-Large-scale-Language-Models"><a href="#Baichuan-2-Open-Large-scale-Language-Models" class="headerlink" title="Baichuan 2: Open Large-scale Language Models"></a>Baichuan 2: Open Large-scale Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10305">http://arxiv.org/abs/2309.10305</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/baichuan-inc/baichuan2">https://github.com/baichuan-inc/baichuan2</a></li>
+<li>paper_authors: Aiyuan Yang, Bin Xiao, Bingning Wang, Borong Zhang, Ce Bian, Chao Yin, Chenxu Lv, Da Pan, Dian Wang, Dong Yan, Fan Yang, Fei Deng, Feng Wang, Feng Liu, Guangwei Ai, Guosheng Dong, Haizhou Zhao, Hang Xu, Haoze Sun, Hongda Zhang, Hui Liu, Jiaming Ji, Jian Xie, JunTao Dai, Kun Fang, Lei Su, Liang Song, Lifeng Liu, Liyun Ru, Luyao Ma, Mang Wang, Mickel Liu, MingAn Lin, Nuolan Nie, Peidong Guo, Ruiyang Sun, Tao Zhang, Tianpeng Li, Tianyu Li, Wei Cheng, Weipeng Chen, Xiangrong Zeng, Xiaochuan Wang, Xiaoxi Chen, Xin Men, Xin Yu, Xuehai Pan, Yanjun Shen, Yiding Wang, Yiyu Li, Youxin Jiang, Yuchen Gao, Yupeng Zhang, Zenan Zhou, Zhiying Wu</li>
+<li>for: 这个技术报告是用于介绍一种大型多语言语言模型（Baichuan 2）的论文。</li>
+<li>methods: 这个论文使用了从零开始训练的大规模多语言语言模型，共包括70亿和130亿参数。</li>
+<li>results: 这个论文表明，Baichuan 2 可以与其他开源模型相比或超越它们在公共测试准则上，例如 MMLU、CMMLU、GSM8K 和 HumanEval。 此外，Baichuan 2 在医学和法律领域也表现出色。<details>
+<summary>Abstract</summary>
+Large language models (LLMs) have demonstrated remarkable performance on a variety of natural language tasks based on just a few examples of natural language instructions, reducing the need for extensive feature engineering. However, most powerful LLMs are closed-source or limited in their capability for languages other than English. In this technical report, we present Baichuan 2, a series of large-scale multilingual language models containing 7 billion and 13 billion parameters, trained from scratch, on 2.6 trillion tokens. Baichuan 2 matches or outperforms other open-source models of similar size on public benchmarks like MMLU, CMMLU, GSM8K, and HumanEval. Furthermore, Baichuan 2 excels in vertical domains such as medicine and law. We will release all pre-training model checkpoints to benefit the research community in better understanding the training dynamics of Baichuan 2.
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型（LLMs）已经展示出杰出的表现在多种自然语言任务上，仅基于几个自然语言指令，减少需要广泛的特征工程。然而，大多数最具备力 LLMs 是封闭式或仅能在英文语言上使用。在本技术报告中，我们发布了 Baichuan 2，一系列大规模多语言模型，包含 700亿和1300亿个参数，从零开始训练，使用 2.6 兆个字元。Baichuan 2 与其他开源模型相比，在公共测试 benchmark 上匹配或超越。此外，Baichuan 2 在医学和法律领域中表现出色。我们将发布所有预训练模型检查点，以便研究社区更好地理解 Baichuan 2 的训练过程。
+</details></li>
+</ul>
+<hr>
+<h2 id="Using-fine-tuning-and-min-lookahead-beam-search-to-improve-Whisper"><a href="#Using-fine-tuning-and-min-lookahead-beam-search-to-improve-Whisper" class="headerlink" title="Using fine-tuning and min lookahead beam search to improve Whisper"></a>Using fine-tuning and min lookahead beam search to improve Whisper</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10299">http://arxiv.org/abs/2309.10299</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Andrea Do, Oscar Brown, Zhengjie Wang, Nikhil Mathew, Zixin Liu, Jawwad Ahmed, Cheng Yu</li>
+<li>for: 提高low-resource语言中Whisper的表现</li>
+<li>methods:  fine-tune Whisper on additional data and propose an improved decoding algorithm</li>
+<li>results: 在越南语言上， fine-tuning Whisper-Tiny with LoRA leads to an improvement of 38.49 in WER compared to zero-shot setting, and using Filter-Ends and Min Lookahead decoding algorithms reduces WER by 2.26 on average compared to standard beam search.I hope that helps! Let me know if you have any other questions.<details>
+<summary>Abstract</summary>
+The performance of Whisper in low-resource languages is still far from perfect. In addition to a lack of training data on low-resource languages, we identify some limitations in the beam search algorithm used in Whisper. To address these issues, we fine-tune Whisper on additional data and propose an improved decoding algorithm. On the Vietnamese language, fine-tuning Whisper-Tiny with LoRA leads to an improvement of 38.49 in WER over the zero-shot Whisper-Tiny setting which is a further reduction of 1.45 compared to full-parameter fine-tuning. Additionally, by using Filter-Ends and Min Lookahead decoding algorithms, the WER reduces by 2.26 on average over a range of languages compared to standard beam search. These results generalise to larger Whisper model sizes. We also prove a theorem that Min Lookahead outperforms the standard beam search algorithm used in Whisper.
+</details>
+<details>
+<summary>摘要</summary>
+文章提到的Whisper在低资源语言表现仍然远不完美。除了低资源语言的培训数据缺乏外，我们还发现了Whisper中的搜索算法有一些限制。为解决这些问题，我们对Whisper进行了进一步的微调和提议了一种改进的解码算法。在越南语言上，我们使用LoRA进行微调Whisper-Tiny，WER值下降38.49，比零基eline微调 setting下降1.45，而与全参数微调相比，这是进一步的下降。此外，使用Filter-Ends和Min Lookahead搜索算法，WER值平均下降2.26个语言中，相比标准搜索算法。这些结果普适到更大的Whisper模型大小。我们还证明了Min Lookahead比标准搜索算法更高效。
+</details></li>
+</ul>
+<hr>
+<h2 id="Mixed-Distil-BERT-Code-mixed-Language-Modeling-for-Bangla-English-and-Hindi"><a href="#Mixed-Distil-BERT-Code-mixed-Language-Modeling-for-Bangla-English-and-Hindi" class="headerlink" title="Mixed-Distil-BERT: Code-mixed Language Modeling for Bangla, English, and Hindi"></a>Mixed-Distil-BERT: Code-mixed Language Modeling for Bangla, English, and Hindi</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10272">http://arxiv.org/abs/2309.10272</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Md Nishat Raihan, Dhiman Goswami, Antara Mahmud</li>
+<li>for: 这个论文主要针对的是 code-mixed NLP 挑战，即在文本中混合多种语言的问题。</li>
+<li>methods: 这篇论文使用了 BERT 模型，并通过组合 synthetic 数据和实际数据进行预训练。</li>
+<li>results: 论文提出了 Tri-Distil-BERT 和 Mixed-Distil-BERT 两种模型，并在多个 NLP 任务上进行了评估，与大型模型 like mBERT 和 XLM-R 进行了比较，得到了竞争力的表现。<details>
+<summary>Abstract</summary>
+One of the most popular downstream tasks in the field of Natural Language Processing is text classification. Text classification tasks have become more daunting when the texts are code-mixed. Though they are not exposed to such text during pre-training, different BERT models have demonstrated success in tackling Code-Mixed NLP challenges. Again, in order to enhance their performance, Code-Mixed NLP models have depended on combining synthetic data with real-world data. It is crucial to understand how the BERT models' performance is impacted when they are pretrained using corresponding code-mixed languages. In this paper, we introduce Tri-Distil-BERT, a multilingual model pre-trained on Bangla, English, and Hindi, and Mixed-Distil-BERT, a model fine-tuned on code-mixed data. Both models are evaluated across multiple NLP tasks and demonstrate competitive performance against larger models like mBERT and XLM-R. Our two-tiered pre-training approach offers efficient alternatives for multilingual and code-mixed language understanding, contributing to advancements in the field.
+</details>
+<details>
+<summary>摘要</summary>
+一种非常受欢迎的下游任务在自然语言处理领域是文本分类。由于文本受到混合的影响，文本分类任务变得更加困难。虽然模型在预训练时没有接触这种文本，但不同的BERT模型在处理混合代码的挑战中表现出色。为了提高 их表现，混合代码NLP模型通常是通过将 sintetic data 与实际数据相结合来进行优化。我们需要了解BERT模型在使用相应的混合代码语言进行预训练时的表现。在这篇论文中，我们介绍了Tri-Distil-BERT和Mixed-Distil-BERT两种模型。Tri-Distil-BERT 是多语言模型，在孟加拉语、英语和希н第语上进行预训练。Mixed-Distil-BERT 是在混合代码数据上细化的模型。两个模型在多个 NLP 任务中表现竞争性，与较大的 mBERT 和 XLM-R 模型相比。我们的两个阶段预训练方法为多语言和混合代码语言理解提供了高效的选择，对于领域的发展做出了贡献。
+</details></li>
+</ul>
+<hr>
+<h2 id="What-is-the-Best-Automated-Metric-for-Text-to-Motion-Generation"><a href="#What-is-the-Best-Automated-Metric-for-Text-to-Motion-Generation" class="headerlink" title="What is the Best Automated Metric for Text to Motion Generation?"></a>What is the Best Automated Metric for Text to Motion Generation?</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10248">http://arxiv.org/abs/2309.10248</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jordan Voas, Yili Wang, Qixing Huang, Raymond Mooney</li>
+<li>for: 本研究旨在系统地研究skeleton-based人体动作生成 task 的评估指标，并提出一种基于多modal BERT 模型的新指标。</li>
+<li>methods: 本研究使用了多种自动评估指标，并进行了人类评估来评估指标的含义。</li>
+<li>results: 研究发现，现有的评估指标与人类评估之间存在很大的误差，而新提出的指标则与人类评估呈现很高的相似性。<details>
+<summary>Abstract</summary>
+There is growing interest in generating skeleton-based human motions from natural language descriptions. While most efforts have focused on developing better neural architectures for this task, there has been no significant work on determining the proper evaluation metric. Human evaluation is the ultimate accuracy measure for this task, and automated metrics should correlate well with human quality judgments. Since descriptions are compatible with many motions, determining the right metric is critical for evaluating and designing effective generative models. This paper systematically studies which metrics best align with human evaluations and proposes new metrics that align even better. Our findings indicate that none of the metrics currently used for this task show even a moderate correlation with human judgments on a sample level. However, for assessing average model performance, commonly used metrics such as R-Precision and less-used coordinate errors show strong correlations. Additionally, several recently developed metrics are not recommended due to their low correlation compared to alternatives. We also introduce a novel metric based on a multimodal BERT-like model, MoBERT, which offers strongly human-correlated sample-level evaluations while maintaining near-perfect model-level correlation. Our results demonstrate that this new metric exhibits extensive benefits over all current alternatives.
+</details>
+<details>
+<summary>摘要</summary>
+“人工智能生成人体运动动作从自然语言描述中获得的兴趣在增长。大多数努力都在发展更好的神经网络模型来实现这项任务，但没有 significante 的工作关于确定合适的评价标准。人类评价是生成模型的终极准确度测试，自动化 metric 应该与人类评价呈相似性。由于描述可以与多种动作匹配，确定正确的 metric 是评价生成模型的关键。这篇论文系统地研究了哪些 metric 与人类评价最高相关，并提出了新的 metric ，它们与人类评价呈相似性。我们发现，目前用于这项任务的所有 metric 都没有even  moderate 的相关性，但是用于评估平均模型性能的 R-Precision 和 less-used coordinate errors 显示了强相关性。此外，一些最近开发的 metric 不建议使用，因为它们与替代方案相比有较低的相关性。我们还介绍了一种基于多模态 BERT-like 模型的新 metric，MoBERT，它在样本级别上与人类评价呈相似性，同时保持了near-perfect 模型级别的相关性。我们的结果表明，这种新 metric 在所有当前选择中具有广泛的优势。”
+</details></li>
+</ul>
+<hr>
+<h2 id="PolicyGPT-Automated-Analysis-of-Privacy-Policies-with-Large-Language-Models"><a href="#PolicyGPT-Automated-Analysis-of-Privacy-Policies-with-Large-Language-Models" class="headerlink" title="PolicyGPT: Automated Analysis of Privacy Policies with Large Language Models"></a>PolicyGPT: Automated Analysis of Privacy Policies with Large Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10238">http://arxiv.org/abs/2309.10238</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Chenhao Tang, Zhengliang Liu, Chong Ma, Zihao Wu, Yiwei Li, Wei Liu, Dajiang Zhu, Quanzheng Li, Xiang Li, Tianming Liu, Lei Fan</li>
+<li>for: This paper aims to develop a text analysis framework for privacy policies, using Large Language Models (LLM) such as ChatGPT and GPT-4.</li>
+<li>methods: The framework, called PolicyGPT, uses zero-shot learning to analyze privacy policies and categorize them into 10 different classes.</li>
+<li>results: PolicyGPT achieved high accuracy rates on two datasets, with an accuracy rate of 97% on the first dataset and 87% on the second dataset, outperforming baseline models.Here’s the simplified Chinese text:</li>
+<li>for: 这篇论文目标是开发一种基于大语言模型（LLM）的隐私政策文本分析框架，用于自动分类隐私政策。</li>
+<li>methods: 该框架使用零shot学习方法，使用大语言模型（ChatGPT和GPT-4）对隐私政策进行分类，并分为10个类别。</li>
+<li>results: PolicyGPT在两个数据集上表现出色，在第一个数据集上达到了97%的准确率，在第二个数据集上达到了87%的准确率，超过了基线机器学习和神经网络模型的性能。<details>
+<summary>Abstract</summary>
+Privacy policies serve as the primary conduit through which online service providers inform users about their data collection and usage procedures. However, in a bid to be comprehensive and mitigate legal risks, these policy documents are often quite verbose. In practical use, users tend to click the Agree button directly rather than reading them carefully. This practice exposes users to risks of privacy leakage and legal issues. Recently, the advent of Large Language Models (LLM) such as ChatGPT and GPT-4 has opened new possibilities for text analysis, especially for lengthy documents like privacy policies. In this study, we investigate a privacy policy text analysis framework PolicyGPT based on the LLM. This framework was tested using two datasets. The first dataset comprises of privacy policies from 115 websites, which were meticulously annotated by legal experts, categorizing each segment into one of 10 classes. The second dataset consists of privacy policies from 304 popular mobile applications, with each sentence manually annotated and classified into one of another 10 categories. Under zero-shot learning conditions, PolicyGPT demonstrated robust performance. For the first dataset, it achieved an accuracy rate of 97%, while for the second dataset, it attained an 87% accuracy rate, surpassing that of the baseline machine learning and neural network models.
+</details>
+<details>
+<summary>摘要</summary>
+Recently, the development of Large Language Models (LLM) such as ChatGPT and GPT-4 has opened up new possibilities for text analysis, particularly for lengthy documents like privacy policies. In this study, we investigate a privacy policy text analysis framework called PolicyGPT, which is based on an LLM.We tested PolicyGPT using two datasets. The first dataset consisted of privacy policies from 115 websites, which were carefully annotated by legal experts and categorized into one of 10 classes. The second dataset included privacy policies from 304 popular mobile applications, with each sentence manually annotated and classified into one of another 10 categories.Under zero-shot learning conditions, PolicyGPT demonstrated robust performance. For the first dataset, it achieved an accuracy rate of 97%, while for the second dataset, it attained an 87% accuracy rate, outperforming baseline machine learning and neural network models.
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/09/19/cs.CL_2023_09_19/" data-id="clmvt7t8o008l26rd4ewi22u0" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/09/19/cs.AI_2023_09_19/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cs.AI - 2023-09-19
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/09/19/cs.LG_2023_09_19/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.LG - 2023-09-19</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">21</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">150</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

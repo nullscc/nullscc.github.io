@@ -1,0 +1,1209 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CV - 2023-09-12 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Accelerating Deep Neural Networks via Semi-Structured Activation Sparsity paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2309.06626 repo_url: None paper_authors: Matteo Grimaldi, Darshan C. Ganji, Ivan Lazarevich, S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CV - 2023-09-12">
+<meta property="og:url" content="https://nullscc.github.io/2023/09/12/cs.CV_2023_09_12/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="Accelerating Deep Neural Networks via Semi-Structured Activation Sparsity paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2309.06626 repo_url: None paper_authors: Matteo Grimaldi, Darshan C. Ganji, Ivan Lazarevich, S">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-09-12T13:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-23T08:57:44.352Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CV_2023_09_12" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/09/12/cs.CV_2023_09_12/" class="article-date">
+  <time datetime="2023-09-12T13:00:00.000Z" itemprop="datePublished">2023-09-12</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CV/">cs.CV</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CV - 2023-09-12
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Accelerating-Deep-Neural-Networks-via-Semi-Structured-Activation-Sparsity"><a href="#Accelerating-Deep-Neural-Networks-via-Semi-Structured-Activation-Sparsity" class="headerlink" title="Accelerating Deep Neural Networks via Semi-Structured Activation Sparsity"></a>Accelerating Deep Neural Networks via Semi-Structured Activation Sparsity</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06626">http://arxiv.org/abs/2309.06626</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Matteo Grimaldi, Darshan C. Ganji, Ivan Lazarevich, Sudhakar Sah</li>
+<li>for: 这篇论文的目的是提高深度神经网络（DNNs）在嵌入式设备上的处理效率，以便实现它们的部署。</li>
+<li>methods: 这篇论文提出了一个解决方案，利用网络的特征对应矩阵中的零值来实现半结构化的活化簇，以获得更高的速度增幅。</li>
+<li>results: 根据实验结果，这篇论文获得了$1.25 \times$的速度增幅，并且仅受到$1.1%$的精度下降，对于ResNet18模型在ImageNet dataset上进行显像识别任务。此外，当与现有的结构化剔除技术结合使用时，所得到的模型具有良好的时间-精度贡献对话。<details>
+<summary>Abstract</summary>
+The demand for efficient processing of deep neural networks (DNNs) on embedded devices is a significant challenge limiting their deployment. Exploiting sparsity in the network's feature maps is one of the ways to reduce its inference latency. It is known that unstructured sparsity results in lower accuracy degradation with respect to structured sparsity but the former needs extensive inference engine changes to get latency benefits. To tackle this challenge, we propose a solution to induce semi-structured activation sparsity exploitable through minor runtime modifications. To attain high speedup levels at inference time, we design a sparse training procedure with awareness of the final position of the activations while computing the General Matrix Multiplication (GEMM). We extensively evaluate the proposed solution across various models for image classification and object detection tasks. Remarkably, our approach yields a speed improvement of $1.25 \times$ with a minimal accuracy drop of $1.1\%$ for the ResNet18 model on the ImageNet dataset. Furthermore, when combined with a state-of-the-art structured pruning method, the resulting models provide a good latency-accuracy trade-off, outperforming models that solely employ structured pruning techniques.
+</details>
+<details>
+<summary>摘要</summary>
+需求深度神经网络（DNNs）在嵌入式设备上高效处理是一大挑战，限制其部署。利用网络特征图中的稀疏性可以减少归并时间。然而，不结构化稀疏性会导致减少准确性，而结构化稀疏性则需要大量的执行引擎修改来获得时间优化。为解决这个挑战，我们提出了一种使用部分结构化活化稀疏性的解决方案。通过小改动 runtime，我们设计了一种稀疏训练方法，其中考虑了最终 activation 的位置，以实现高速度启发。我们对多种图像分类和物体检测任务进行了广泛的评估，并观察到了以下结果：我们的方法可以在 ResNet18 模型上 ImageNet  dataset 上提供 $1.25 \times$ 的速度提升，同时减少 $1.1\%$ 的准确性下降。此外，当与现有的结构化剪枝方法相结合时，得到的模型可以提供优秀的时间-准确性质量平衡，超越具有结构化剪枝技术的模型。
+</details></li>
+</ul>
+<hr>
+<h2 id="Multi-dimensional-Fusion-and-Consistency-for-Semi-supervised-Medical-Image-Segmentation"><a href="#Multi-dimensional-Fusion-and-Consistency-for-Semi-supervised-Medical-Image-Segmentation" class="headerlink" title="Multi-dimensional Fusion and Consistency for Semi-supervised Medical Image Segmentation"></a>Multi-dimensional Fusion and Consistency for Semi-supervised Medical Image Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06618">http://arxiv.org/abs/2309.06618</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yixing Lu, Zhaoxin Fan, Min Xu</li>
+<li>for: 这则论文是用于医疗影像分类的 semi-supervised learning 框架。</li>
+<li>methods: 中心的 Multi-scale Text-aware ViT-CNN Fusion scheme 组合了 VIT 和 CNN 两种架构的优点，并借由两种架构的优点和视觉语言模式之间的补充信息，实现更好的预测性。此外，我们还提出了多轴共调整框架，以生成更加稳定的 Pseudo 标签，进一步增强 semi-supervised 学习过程。</li>
+<li>results: 我们在多个常用的数据集上进行了广泛的实验，结果显示了我们的方法的优律性。<details>
+<summary>Abstract</summary>
+In this paper, we introduce a novel semi-supervised learning framework tailored for medical image segmentation. Central to our approach is the innovative Multi-scale Text-aware ViT-CNN Fusion scheme. This scheme adeptly combines the strengths of both ViTs and CNNs, capitalizing on the unique advantages of both architectures as well as the complementary information in vision-language modalities. Further enriching our framework, we propose the Multi-Axis Consistency framework for generating robust pseudo labels, thereby enhancing the semi-supervised learning process. Our extensive experiments on several widely-used datasets unequivocally demonstrate the efficacy of our approach.
+</details>
+<details>
+<summary>摘要</summary>
+在本文中，我们介绍了一种新的半监督学习框架，特化于医疗图像分割。我们的方法的核心是创新的多级文本意识混合方案。这种方案能够有效地结合维特和CNN的优势，同时利用视力语言模式中的补充信息。此外，我们还提出了多轴一致框架，以生成可靠的假标签，从而提高半监督学习过程的稳定性。我们对多个广泛使用的数据集进行了广泛的实验，结果表明我们的方法有效性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Harmonic-NAS-Hardware-Aware-Multimodal-Neural-Architecture-Search-on-Resource-constrained-Devices"><a href="#Harmonic-NAS-Hardware-Aware-Multimodal-Neural-Architecture-Search-on-Resource-constrained-Devices" class="headerlink" title="Harmonic-NAS: Hardware-Aware Multimodal Neural Architecture Search on Resource-constrained Devices"></a>Harmonic-NAS: Hardware-Aware Multimodal Neural Architecture Search on Resource-constrained Devices</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06612">http://arxiv.org/abs/2309.06612</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mohamed Imed Eddine Ghebriout, Halima Bouzidi, Smail Niar, Hamza Ouarnoughi</li>
+<li>for: 本文主要针对融合多Modal Neural Networks（MM-NN）的设计和优化，以提高多Modal信息表示力和设备硬件限制下的推理效率和能效性。</li>
+<li>methods: 本文提出了一种名为Harmonic-NAS的框架，用于同时优化多Modal backbone架构和融合策略，并考虑设备硬件约束。</li>
+<li>results: 实验结果表明，与州态艺术 compare to现有方法，Harmonic-NAS可以 achieved up to 10.9%的准确率提升，1.91x的执行时间减少和2.14x的能效性提升。<details>
+<summary>Abstract</summary>
+The recent surge of interest surrounding Multimodal Neural Networks (MM-NN) is attributed to their ability to effectively process and integrate information from diverse data sources. In MM-NN, features are extracted and fused from multiple modalities using adequate unimodal backbones and specific fusion networks. Although this helps strengthen the multimodal information representation, designing such networks is labor-intensive. It requires tuning the architectural parameters of the unimodal backbones, choosing the fusing point, and selecting the operations for fusion. Furthermore, multimodality AI is emerging as a cutting-edge option in Internet of Things (IoT) systems where inference latency and energy consumption are critical metrics in addition to accuracy. In this paper, we propose Harmonic-NAS, a framework for the joint optimization of unimodal backbones and multimodal fusion networks with hardware awareness on resource-constrained devices. Harmonic-NAS involves a two-tier optimization approach for the unimodal backbone architectures and fusion strategy and operators. By incorporating the hardware dimension into the optimization, evaluation results on various devices and multimodal datasets have demonstrated the superiority of Harmonic-NAS over state-of-the-art approaches achieving up to 10.9% accuracy improvement, 1.91x latency reduction, and 2.14x energy efficiency gain.
+</details>
+<details>
+<summary>摘要</summary>
+最近，多模态神经网络（MM-NN）的兴趣增长可以追溯到它们能够有效地处理和融合来自多个数据源的信息。在 MM-NN 中，来自多个模态的特征被提取并融合使用适当的单模态背bone和特定的融合网络。虽然这有助于强化多模态信息表示，但设计这些网络是劳动密集的。需要调整网络的建筑 Parameters，选择融合点，并选择融合操作。此外，多模态 AI 在互联网东西（IoT）系统中出现为一个潮流选项，因为在这些系统中，推理延迟和能耗是关键指标，而不仅仅是准确率。在这篇论文中，我们提出了 Harmonic-NAS，一个框架，用于同时优化单模态背bone和多模态融合网络，并考虑硬件维度。Harmonic-NAS 使用两层优化方法，包括单模态背bone 架构和融合策略和操作的优化。通过将硬件维度integrated到优化中，对多个设备和多模态数据集进行评估，研究结果表明，Harmonic-NAS 比现有方法提高了10.9%的准确率，1.91x的推理延迟，和2.14x的能耗效率。
+</details></li>
+</ul>
+<hr>
+<h2 id="Zero-Shot-Visual-Classification-with-Guided-Cropping"><a href="#Zero-Shot-Visual-Classification-with-Guided-Cropping" class="headerlink" title="Zero-Shot Visual Classification with Guided Cropping"></a>Zero-Shot Visual Classification with Guided Cropping</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06581">http://arxiv.org/abs/2309.06581</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Piyapat Saranrittichai, Mauricio Munoz, Volker Fischer, Chaithanya Kumar Mummadi</li>
+<li>for: 这个研究旨在提高CLIP模型在关键区域的表现，尤其是当物品覆盖小区域时。</li>
+<li>methods: 我们提出了一种叫做导航裁剪（GC-CLIP）的方法，使用预设的零 shot object detection模型来增强CLIP的图像描述性，以提高零 shot 分类性能。</li>
+<li>results: 我们的实验结果显示，GC-CLIP可以提高零 shot 分类结果，尤其是当物品覆盖小区域时。<details>
+<summary>Abstract</summary>
+Pretrained vision-language models, such as CLIP, show promising zero-shot performance across a wide variety of datasets. For closed-set classification tasks, however, there is an inherent limitation: CLIP image encoders are typically designed to extract generic image-level features that summarize superfluous or confounding information for the target tasks. This results in degradation of classification performance, especially when objects of interest cover small areas of input images. In this work, we propose CLIP with Guided Cropping (GC-CLIP), where we use an off-the-shelf zero-shot object detection model in a preprocessing step to increase focus of zero-shot classifier to the object of interest and minimize influence of extraneous image regions. We empirically show that our approach improves zero-shot classification results across architectures and datasets, favorably for small objects.
+</details>
+<details>
+<summary>摘要</summary>
+预训义视语模型，如CLIP，在各种数据集上显示出扩展性的 zeroshot性能。然而，对于封闭类型的分类任务，存在内在的限制：CLIP的图像编码器通常是为抽取普适图像水平特征，这些特征可能会损害目标任务的分类性能。这会导致分类性能下降，特别是当目标对象占输入图像中小区域时。在这种情况下，我们提出了GC-CLIP方法，其中我们使用一个预置的零shot对象检测模型来增强零shot分类器对目标对象的专注度，并最小化不相关图像区域的影响。我们经验表明，我们的方法可以提高零shot分类结果，并且对于小对象而言，效果更加明显。
+</details></li>
+</ul>
+<hr>
+<h2 id="AmodalSynthDrive-A-Synthetic-Amodal-Perception-Dataset-for-Autonomous-Driving"><a href="#AmodalSynthDrive-A-Synthetic-Amodal-Perception-Dataset-for-Autonomous-Driving" class="headerlink" title="AmodalSynthDrive: A Synthetic Amodal Perception Dataset for Autonomous Driving"></a>AmodalSynthDrive: A Synthetic Amodal Perception Dataset for Autonomous Driving</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06547">http://arxiv.org/abs/2309.06547</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ahmed Rida Sekkat, Rohit Mohan, Oliver Sawade, Elmar Matthes, Abhinav Valada</li>
+<li>for: AmodalSynthDrive is a synthetic multi-task multi-modal amodal perception dataset for autonomous driving research.</li>
+<li>methods: The dataset provides multi-view camera images, 3D bounding boxes, LiDAR data, and odometry for 150 driving sequences with over 1M object annotations in diverse traffic, weather, and lighting conditions.</li>
+<li>results: The dataset supports multiple amodal scene understanding tasks, including amodal depth estimation for enhanced spatial understanding. Several baselines are evaluated for each task to illustrate the challenges and set up public benchmarking servers.<details>
+<summary>Abstract</summary>
+Unlike humans, who can effortlessly estimate the entirety of objects even when partially occluded, modern computer vision algorithms still find this aspect extremely challenging. Leveraging this amodal perception for autonomous driving remains largely untapped due to the lack of suitable datasets. The curation of these datasets is primarily hindered by significant annotation costs and mitigating annotator subjectivity in accurately labeling occluded regions. To address these limitations, we introduce AmodalSynthDrive, a synthetic multi-task multi-modal amodal perception dataset. The dataset provides multi-view camera images, 3D bounding boxes, LiDAR data, and odometry for 150 driving sequences with over 1M object annotations in diverse traffic, weather, and lighting conditions. AmodalSynthDrive supports multiple amodal scene understanding tasks including the introduced amodal depth estimation for enhanced spatial understanding. We evaluate several baselines for each of these tasks to illustrate the challenges and set up public benchmarking servers. The dataset is available at http://amodalsynthdrive.cs.uni-freiburg.de.
+</details>
+<details>
+<summary>摘要</summary>
+不同于人类，现代计算机视觉算法仍然很难处理部分遮挡的物体。利用这种无模态感知对自动驾驶仍然具有很大的潜在优势，但由于缺乏适当的数据集，这一点仍未得到充分利用。为解决这些限制，我们介绍了AmodalSynthDrive，一个人工合成的多任务多模态无模态感知数据集。该数据集提供了多视图摄像头图像、3D包围框、LiDAR数据和卫星坐标数据，涵盖了150条驾驶序列，共计超过100万个物体标注，在多样化的交通、天气和照明条件下进行了多种交通情况。AmodalSynthDrive支持多种无模态场景理解任务，包括引入的无模态深度估计，以提高空间理解。我们评估了多个基线，以 Illustrate the challenges and set up public benchmarking servers。数据集可以在http://amodalsynthdrive.cs.uni-freiburg.de上下载。
+</details></li>
+</ul>
+<hr>
+<h2 id="Strong-Weak-Integrated-Semi-supervision-for-Unsupervised-Single-and-Multi-Target-Domain-Adaptation"><a href="#Strong-Weak-Integrated-Semi-supervision-for-Unsupervised-Single-and-Multi-Target-Domain-Adaptation" class="headerlink" title="Strong-Weak Integrated Semi-supervision for Unsupervised Single and Multi Target Domain Adaptation"></a>Strong-Weak Integrated Semi-supervision for Unsupervised Single and Multi Target Domain Adaptation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06528">http://arxiv.org/abs/2309.06528</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Xiaohu Lu, Hayder Radha</li>
+<li>for: 这个论文主要针对对不具有标签的目标领域进行预测，并将来自来源领域的知识转移到目标领域。</li>
+<li>methods: 本文提出了一个名为SWISS（强弱融合 semi-supervision）学习策略，它可以在单一目标领域和多目标领域中进行预测。SWISS学习策略包括具有高信任但低多样性的强表示集和具有低信任但高多样性的弱表示集，这两个集合在训练过程中不断地更新。这些集合被融合以生成一个增强的强-弱训练批次，用于训练网络。</li>
+<li>results: 实验结果显示，SWISS学习策略可以在三个benchmark（Office-31、Office-Home和DomainNet）上实现高准确率。<details>
+<summary>Abstract</summary>
+Unsupervised domain adaptation (UDA) focuses on transferring knowledge learned in the labeled source domain to the unlabeled target domain. Despite significant progress that has been achieved in single-target domain adaptation for image classification in recent years, the extension from single-target to multi-target domain adaptation is still a largely unexplored problem area. In general, unsupervised domain adaptation faces a major challenge when attempting to learn reliable information from a single unlabeled target domain. Increasing the number of unlabeled target domains further exacerbate the problem rather significantly. In this paper, we propose a novel strong-weak integrated semi-supervision (SWISS) learning strategy for image classification using unsupervised domain adaptation that works well for both single-target and multi-target scenarios. Under the proposed SWISS-UDA framework, a strong representative set with high confidence but low diversity target domain samples and a weak representative set with low confidence but high diversity target domain samples are updated constantly during the training process. Both sets are fused to generate an augmented strong-weak training batch with pseudo-labels to train the network during every iteration. The extension from single-target to multi-target domain adaptation is accomplished by exploring the class-wise distance relationship between domains and replacing the strong representative set with much stronger samples from peer domains via peer scaffolding. Moreover, a novel adversarial logit loss is proposed to reduce the intra-class divergence between source and target domains, which is back-propagated adversarially with a gradient reverse layer between the classifier and the rest of the network. Experimental results based on three benchmarks, Office-31, Office-Home, and DomainNet, show the effectiveness of the proposed SWISS framework.
+</details>
+<details>
+<summary>摘要</summary>
+Unsupervised domain adaptation (UDA) 专注于将源领域中标注的知识传递到目标领域中无标注的数据上。虽然在最近几年内对单目标领域 adaptation 进行了显著的进步，但将单目标领域 adaptation 扩展到多目标领域仍然是一个未探索的问题领域。总的来说，无监督领域 adaptation 面临着在单无标注目标领域中学习可靠信息的主要挑战。增加目标领域的数量更加扩大了问题。在本文中，我们提出了一种基于强弱结合 semi-supervision（SWISS）学习策略，用于无监督领域 adaptation 的图像分类。该策略在单目标和多目标场景中都能够工作良好。在我们提出的SWISS-UDA框架中，一个强大的代表集（strong representative set）和一个弱小的代表集（weak representative set）在训练过程中不断更新。两个集合被融合以生成一个增强的强弱训练集（augmented strong-weak training batch），用于在每次迭代中训练网络。在扩展到多目标领域时，我们利用类别之间的距离关系来替换强大的代表集，并通过对应的骨干来提高强大的样本。此外，我们还提出了一种新的对抗LOGIT损失函数，用于减少源领域和目标领域之间的内类差。这种损失函数通过对抗反向传播来降低内类差。实验结果基于Office-31、Office-Home和DomainNet三个标准测试集，证明了我们提出的SWISS框架的效果。
+</details></li>
+</ul>
+<hr>
+<h2 id="Using-Unsupervised-and-Supervised-Learning-and-Digital-Twin-for-Deep-Convective-Ice-Storm-Classification"><a href="#Using-Unsupervised-and-Supervised-Learning-and-Digital-Twin-for-Deep-Convective-Ice-Storm-Classification" class="headerlink" title="Using Unsupervised and Supervised Learning and Digital Twin for Deep Convective Ice Storm Classification"></a>Using Unsupervised and Supervised Learning and Digital Twin for Deep Convective Ice Storm Classification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.07173">http://arxiv.org/abs/2309.07173</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jason Swope, Steve Chien, Emily Dunkel, Xavier Bosch-Lluis, Qing Yue, William Deal</li>
+<li>for: 这个论文主要目标是开发一种基于机器学习和数字地球模型的智能雷达扫描系统，用于识别风暴云和不同云类型。</li>
+<li>methods: 该论文使用了多个步骤的机器学习和数字地球模型，包括WRF数字地球模型、K-means clustering、Random Decision Forest、支持向量机、Gaussian Naive Bayes、Feed Forward Artificial Neural Network和卷积 neural network等。</li>
+<li>results: 论文的实验结果显示，使用这些方法可以在两个不同的 dataset 上达到识别风暴云和不同云类型的高精度，包括在热带区域上达到80%以上的准确率，在非热带区域上达到90%以上的准确率和40%以上的准确率。此外，这些方法还能够抗耗器雷达噪声。<details>
+<summary>Abstract</summary>
+Smart Ice Cloud Sensing (SMICES) is a small-sat concept in which a primary radar intelligently targets ice storms based on information collected by a lookahead radiometer. Critical to the intelligent targeting is accurate identification of storm/cloud types from eight bands of radiance collected by the radiometer. The cloud types of interest are: clear sky, thin cirrus, cirrus, rainy anvil, and convection core.   We describe multi-step use of Machine Learning and Digital Twin of the Earth's atmosphere to derive such a classifier. First, a digital twin of Earth's atmosphere called a Weather Research Forecast (WRF) is used generate simulated lookahead radiometer data as well as deeper "science" hidden variables. The datasets simulate a tropical region over the Caribbean and a non-tropical region over the Atlantic coast of the United States. A K-means clustering over the scientific hidden variables was utilized by human experts to generate an automatic labelling of the data - mapping each physical data point to cloud types by scientists informed by mean/centroids of hidden variables of the clusters. Next, classifiers were trained with the inputs of the simulated radiometer data and its corresponding label. The classifiers of a random decision forest (RDF), support vector machine (SVM), Gaussian na\"ive bayes, feed forward artificial neural network (ANN), and a convolutional neural network (CNN) were trained. Over the tropical dataset, the best performing classifier was able to identify non-storm and storm clouds with over 80% accuracy in each class for a held-out test set. Over the non-tropical dataset, the best performing classifier was able to classify non-storm clouds with over 90% accuracy and storm clouds with over 40% accuracy. Additionally both sets of classifiers were shown to be resilient to instrument noise.
+</details>
+<details>
+<summary>摘要</summary>
+智能冰云感测（SMICES）是一种小卫星概念，其主要采用智能针对方式对冰风暴进行感测，基于预测器收集的八个频率强度数据进行准确识别风暴/云类型。我们使用多个步骤的机器学习和地球大气数字模型来 derivation 这种分类器。首先，我们使用地球大气数字模型（WRF）生成了模拟的预测器数据，以及更深入的科学隐藏变量。这些数据模拟了一个热带地区在加勒比海和一个非热带地区在美国东岸。然后，我们使用K-means归一化将数据分为不同的云类型，并由人工智能经过标注来自动将物理数据点映射到云类型。接着，我们将模拟预测器数据作为输入，并使用Random Decision Forest（RDF）、支持向量机（SVM）、泊松隐藏Naive Bayes（Gaussian Naive Bayes）、Feed Forward Artificial Neural Network（ANN）和卷积神经网络（CNN）等五种分类器进行训练。在热带数据集上，最佳表现的分类器可以识别非风暴云和风暴云的准确率高于80%。在非热带数据集上，最佳表现的分类器可以识别非风暴云的准确率高于90%，并且识别风暴云的准确率高于40%。此外，这些分类器都能够抗耗rument噪声。
+</details></li>
+</ul>
+<hr>
+<h2 id="Ethnicity-and-Biometric-Uniqueness-Iris-Pattern-Individuality-in-a-West-African-Database"><a href="#Ethnicity-and-Biometric-Uniqueness-Iris-Pattern-Individuality-in-a-West-African-Database" class="headerlink" title="Ethnicity and Biometric Uniqueness: Iris Pattern Individuality in a West African Database"></a>Ethnicity and Biometric Uniqueness: Iris Pattern Individuality in a West African Database</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06521">http://arxiv.org/abs/2309.06521</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: John Daugman, Cathryn Downing, Oluwatobi Noah Akande, Oluwakemi Christiana Abikoye</li>
+<li>for: 本研究旨在探讨非洲人种群中人类眼睛特征是否具有不同的特征，以及这些特征对人类识别的影响。</li>
+<li>methods: 研究人员使用了2个奈及大学收集的眼睛图像库，共计130万次比较眼睛图像，以找出非洲人种群眼睛特征的差异。</li>
+<li>results: 研究发现，尽管非洲人种群的眼睛特征具有较为粗糙的文本特征大小，但是可以通过调整操作决策门槛来减少眼睛识别错误的风险。这表明，尽管人种群的差异，但是在这个西非人种群中，个体可以通过比较眼睛图像来减少识别错误。<details>
+<summary>Abstract</summary>
+We conducted more than 1.3 million comparisons of iris patterns encoded from images collected at two Nigerian universities, which constitute the newly available African Human Iris (AFHIRIS) database. The purpose was to discover whether ethnic differences in iris structure and appearance such as the textural feature size, as contrasted with an all-Chinese image database or an American database in which only 1.53% were of African-American heritage, made a material difference for iris discrimination. We measured a reduction in entropy for the AFHIRIS database due to the coarser iris features created by the thick anterior layer of melanocytes, and we found stochastic parameters that accurately model the relevant empirical distributions. Quantile-Quantile analysis revealed that a very small change in operational decision thresholds for the African database would compensate for the reduced entropy and generate the same performance in terms of resistance to False Matches. We conclude that despite demographic difference, individuality can be robustly discerned by comparison of iris patterns in this West African population.
+</details>
+<details>
+<summary>摘要</summary>
+Note: The original text is written in English and the translation is in Simplified Chinese. Please note that the translation is based on the standard language and may not reflect the exact nuances of the original text.
+</details></li>
+</ul>
+<hr>
+<h2 id="DF-TransFusion-Multimodal-Deepfake-Detection-via-Lip-Audio-Cross-Attention-and-Facial-Self-Attention"><a href="#DF-TransFusion-Multimodal-Deepfake-Detection-via-Lip-Audio-Cross-Attention-and-Facial-Self-Attention" class="headerlink" title="DF-TransFusion: Multimodal Deepfake Detection via Lip-Audio Cross-Attention and Facial Self-Attention"></a>DF-TransFusion: Multimodal Deepfake Detection via Lip-Audio Cross-Attention and Facial Self-Attention</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06511">http://arxiv.org/abs/2309.06511</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Aaditya Kharel, Manas Paranjape, Aniket Bera</li>
+<li>for: 防止伪造媒体，保持数字内容的 AUTHENTICITY</li>
+<li>methods: 多模式音频视频框架，同时处理音频和视频输入，利用lip协调和可读的VGG-16网络抽取视觉提示，并使用 transformer 网络进行面部自我注意</li>
+<li>results: 与现有多模式深伪检测技术相比，实现了更高的 F-1 和每个视频 AUC 得分<details>
+<summary>Abstract</summary>
+With the rise in manipulated media, deepfake detection has become an imperative task for preserving the authenticity of digital content. In this paper, we present a novel multi-modal audio-video framework designed to concurrently process audio and video inputs for deepfake detection tasks. Our model capitalizes on lip synchronization with input audio through a cross-attention mechanism while extracting visual cues via a fine-tuned VGG-16 network. Subsequently, a transformer encoder network is employed to perform facial self-attention. We conduct multiple ablation studies highlighting different strengths of our approach. Our multi-modal methodology outperforms state-of-the-art multi-modal deepfake detection techniques in terms of F-1 and per-video AUC scores.
+</details>
+<details>
+<summary>摘要</summary>
+随着伪造媒体的普及，深刻检测深伪成为保持数字内容真实性的必要任务。在这篇论文中，我们提出了一种新的多Modal音频视频框架，用于同时处理音频和视频输入，以检测深伪。我们的模型利用输入音频的唇同步通过交叉注意机制，同时通过精心调整的 VGG-16 网络提取视觉cue。然后，我们使用 transformer 编码器网络进行面部自注意。我们进行了多个减少研究，描述了不同方法的优势。我们的多Modal方法在 F-1 和每个视频 AUC 分数上超过了当前最佳多Modal深伪检测技术。
+</details></li>
+</ul>
+<hr>
+<h2 id="Attention-De-sparsification-Matters-Inducing-Diversity-in-Digital-Pathology-Representation-Learning"><a href="#Attention-De-sparsification-Matters-Inducing-Diversity-in-Digital-Pathology-Representation-Learning" class="headerlink" title="Attention De-sparsification Matters: Inducing Diversity in Digital Pathology Representation Learning"></a>Attention De-sparsification Matters: Inducing Diversity in Digital Pathology Representation Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06439">http://arxiv.org/abs/2309.06439</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Saarthak Kapse, Srijan Das, Jingwei Zhang, Rajarsi R. Gupta, Joel Saltz, Dimitris Samaras, Prateek Prasanna</li>
+<li>for: 本研究旨在提出一种多样化推理学习技术，以提高 Histopathology 图像的表征学学习效果。</li>
+<li>methods: 该技术使用了自我超vision学习技术，包括对比和非对比方法，从限定的病理学家监督下学习digitized tissue样本中的rich和有效表征。</li>
+<li>results: 我们的分析发现，vanilla SSL 预训练模型的注意力分布存在一个有趣的观察：模型倾向于在图像中局部化注意力，即模型强调一些图像中的一些明确的模式。然而，这种注意力稀采可能不适合数字病理学图像，因为这些图像不同于自然图像，不是中心对象所在的物体。因此，我们提出了一种利用细胞 segmentation 提取多种 Histopathology 特定表征，然后提出一种带有先导的积极预text任务，以使模型学习多种视图之间的匹配。这种方法使得模型能够更均匀地注意多种组件，从而引入多样化注意力，以捕捉更加 ricgh的上下文表征。我们通过多种任务的量化和质量分析，证明了我们的方法的效果，并发现了模型的注意力更加广泛分布。<details>
+<summary>Abstract</summary>
+We propose DiRL, a Diversity-inducing Representation Learning technique for histopathology imaging. Self-supervised learning techniques, such as contrastive and non-contrastive approaches, have been shown to learn rich and effective representations of digitized tissue samples with limited pathologist supervision. Our analysis of vanilla SSL-pretrained models' attention distribution reveals an insightful observation: sparsity in attention, i.e, models tends to localize most of their attention to some prominent patterns in the image. Although attention sparsity can be beneficial in natural images due to these prominent patterns being the object of interest itself, this can be sub-optimal in digital pathology; this is because, unlike natural images, digital pathology scans are not object-centric, but rather a complex phenotype of various spatially intermixed biological components. Inadequate diversification of attention in these complex images could result in crucial information loss. To address this, we leverage cell segmentation to densely extract multiple histopathology-specific representations, and then propose a prior-guided dense pretext task for SSL, designed to match the multiple corresponding representations between the views. Through this, the model learns to attend to various components more closely and evenly, thus inducing adequate diversification in attention for capturing context rich representations. Through quantitative and qualitative analysis on multiple tasks across cancer types, we demonstrate the efficacy of our method and observe that the attention is more globally distributed.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出了DiRL，一种基于多样性的表示学习技术，用于 histopathology 图像。无监督学习技术，如对照和非对照方法，可以学习照片样本中的丰富和有效表示，只需限制的病理师指导。我们对vanilla SSL 预训练模型的注意力分布进行分析，发现一个有趣的观察结果：模型倾向于在图像中LOCALIZATION 的一些显著特征上集中大量的注意力。although attention sparsity can be beneficial in natural images due to these prominent patterns being the object of interest itself, this can be sub-optimal in digital pathology; this is because, unlike natural images, digital pathology scans are not object-centric, but rather a complex phenotype of various spatially intermixed biological components. Inadequate diversification of attention in these complex images could result in crucial information loss. To address this, we leverage cell segmentation to densely extract multiple histopathology-specific representations, and then propose a prior-guided dense pretext task for SSL, designed to match the multiple corresponding representations between the views. Through this, the model learns to attend to various components more closely and evenly, thus inducing adequate diversification in attention for capturing context rich representations. Through quantitative and qualitative analysis on multiple tasks across cancer types, we demonstrate the efficacy of our method and observe that the attention is more globally distributed.
+</details></li>
+</ul>
+<hr>
+<h2 id="Exploring-Non-additive-Randomness-on-ViT-against-Query-Based-Black-Box-Attacks"><a href="#Exploring-Non-additive-Randomness-on-ViT-against-Query-Based-Black-Box-Attacks" class="headerlink" title="Exploring Non-additive Randomness on ViT against Query-Based Black-Box Attacks"></a>Exploring Non-additive Randomness on ViT against Query-Based Black-Box Attacks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06438">http://arxiv.org/abs/2309.06438</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jindong Gu, Fangyun Wei, Philip Torr, Han Hu</li>
+<li>for: 这种论文是为了探讨深度神经网络可以被小型、难以察觉的干扰所欺骗的问题，以及如何防范这种攻击。</li>
+<li>methods: 这篇论文使用了模型输出概率的图像查询来生成干扰，不需要访问到下一代模型。</li>
+<li>results: 研究表明，通过非加性随机性来防范QBBA攻击可以获得有效的防御效果，而且不会带来过多的性能损失。<details>
+<summary>Abstract</summary>
+Deep Neural Networks can be easily fooled by small and imperceptible perturbations. The query-based black-box attack (QBBA) is able to create the perturbations using model output probabilities of image queries requiring no access to the underlying models. QBBA poses realistic threats to real-world applications. Recently, various types of robustness have been explored to defend against QBBA. In this work, we first taxonomize the stochastic defense strategies against QBBA. Following our taxonomy, we propose to explore non-additive randomness in models to defend against QBBA. Specifically, we focus on underexplored Vision Transformers based on their flexible architectures. Extensive experiments show that the proposed defense approach achieves effective defense, without much sacrifice in performance.
+</details>
+<details>
+<summary>摘要</summary>
+深度神经网络容易受到小型、难以察觉的变化的影响。Query-based黑盒攻击（QBBA）可以通过使用图像查询输出概率来生成变化，无需访问基础模型。QBBA对实际应用场景 pose 了真实的威胁。在这种情况下，我们首先将随机防御策略对QBBA进行分类。根据我们的分类，我们提议利用模型中的非加性随机性来防御QBBA。specifically，我们关注未得到足够关注的视觉转换器，因为它们具有灵活的体系。我们的实验表明，我们提议的防御策略可以有效地防止攻击，而不会影响性能的减少。
+</details></li>
+</ul>
+<hr>
+<h2 id="Action-Segmentation-Using-2D-Skeleton-Heatmaps"><a href="#Action-Segmentation-Using-2D-Skeleton-Heatmaps" class="headerlink" title="Action Segmentation Using 2D Skeleton Heatmaps"></a>Action Segmentation Using 2D Skeleton Heatmaps</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06462">http://arxiv.org/abs/2309.06462</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Syed Waleed Hyder, Muhammad Usama, Anas Zafar, Muhammad Naufil, Fawad Javed Fateh, Andrey Konin, M. Zeeshan Zia, Quoc-Huy Tran</li>
+<li>for: 人体活动识别 task 的细致分割，可以提高人体活动识别的精度。</li>
+<li>methods: 使用2Dskeleton热图序列作为输入，并使用TCN进行时空特征提取。</li>
+<li>results: 相比前方法，本方法具有更好的稳定性和抗失败性，并且可以在action segmentation datasets上达到相似或更好的性能。此外，通过将2Dskeleton热图序列和RGB视频作为输入进行联合学习，可以进一步提高性能。<details>
+<summary>Abstract</summary>
+This paper presents a 2D skeleton-based action segmentation method with applications in fine-grained human activity recognition. In contrast with state-of-the-art methods which directly take sequences of 3D skeleton coordinates as inputs and apply Graph Convolutional Networks (GCNs) for spatiotemporal feature learning, our main idea is to use sequences of 2D skeleton heatmaps as inputs and employ Temporal Convolutional Networks (TCNs) to extract spatiotemporal features. Despite lacking 3D information, our approach yields comparable/superior performances and better robustness against missing keypoints than previous methods on action segmentation datasets. Moreover, we improve the performances further by using both 2D skeleton heatmaps and RGB videos as inputs. To our best knowledge, this is the first work to utilize 2D skeleton heatmap inputs and the first work to explore 2D skeleton+RGB fusion for action segmentation.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="AGMDT-Virtual-Staining-of-Renal-Histology-Images-with-Adjacency-Guided-Multi-Domain-Transfer"><a href="#AGMDT-Virtual-Staining-of-Renal-Histology-Images-with-Adjacency-Guided-Multi-Domain-Transfer" class="headerlink" title="AGMDT: Virtual Staining of Renal Histology Images with Adjacency-Guided Multi-Domain Transfer"></a>AGMDT: Virtual Staining of Renal Histology Images with Adjacency-Guided Multi-Domain Transfer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06421">http://arxiv.org/abs/2309.06421</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Tao Ma, Chao Zhang, Min Lu, Lin Luo</li>
+<li>for: 这个论文的目的是提出一种新的虚拟染色方法，以便将病理切片图像转换成不同的染色图像，以提高诊断的准确性和效率。</li>
+<li>methods: 该方法基于一个高质量的多域肾 histological 数据集，使用枢轴搜索和两分图匹配算法来找到Serial slice中的匹配对，然后通过这些对来监督端到端模型进行多域染色转换。</li>
+<li>results: 实验结果表明，提出的 AGMDT 方法可以很好地平衡精确的像素级匹配和无需对数据进行对应的预处理，同时利用多域序列切片图像之间的相关性，以提高诊断的准确性和效率。<details>
+<summary>Abstract</summary>
+Renal pathology, as the gold standard of kidney disease diagnosis, requires doctors to analyze a series of tissue slices stained by H&E staining and special staining like Masson, PASM, and PAS, respectively. These special staining methods are costly, time-consuming, and hard to standardize for wide use especially in primary hospitals. Advances of supervised learning methods have enabled the virtually conversion of H&E images into special staining images, but achieving pixel-to-pixel alignment for training remains challenging. In contrast, unsupervised learning methods regarding different stains as different style transfer domains can utilize unpaired data, but they ignore the spatial inter-domain correlations and thus decrease the trustworthiness of structural details for diagnosis. In this paper, we propose a novel virtual staining framework AGMDT to translate images into other domains by avoiding pixel-level alignment and meanwhile utilizing the correlations among adjacent tissue slices. We first build a high-quality multi-domain renal histological dataset where each specimen case comprises a series of slices stained in various ways. Based on it, the proposed framework AGMDT discovers patch-level aligned pairs across the serial slices of multi-domains through glomerulus detection and bipartite graph matching, and utilizes such correlations to supervise the end-to-end model for multi-domain staining transformation. Experimental results show that the proposed AGMDT achieves a good balance between the precise pixel-level alignment and unpaired domain transfer by exploiting correlations across multi-domain serial pathological slices, and outperforms the state-of-the-art methods in both quantitative measure and morphological details.
+</details>
+<details>
+<summary>摘要</summary>
+肾脏病学（为肾脏病诊断的标准）需要医生分析一系列染料处理后的组织切片，如H&E染色和特殊染色如Masson、PASM和PAS等。这些特殊染色方法是费时费力，难以普及使用，特别是在初级医院。随着超级vised学习方法的发展，可以将H&E图像转化为特殊染色图像，但在训练时Pixel-to-Pixel对齐仍然是挑战。相反，不监督学习方法将不同染色视为不同的风格传输领域，可以使用无对数据，但忽略了组织间空间相关性，因此降低了诊断结果的可靠性。在这篇论文中，我们提出了一种新的虚拟染色框架AGMDT，可以将图像转化为其他领域，而不需Pixel-to-Pixel对齐。我们首先构建了高质量多频道肾脏 histological 数据集，每个样本 случа包括一系列不同染色的组织切片。基于这个数据集，我们的框架AGMDT可以在序列切片中找到适合的 patch-level 对应对，并使用这些对应关系来监督终端模型进行多频道染色变换。实验结果表明，我们的 AGMDT 可以很好地平衡精确的Pixel-to-Pixel对齐和无对频道传输，并且在量度测试和结构细节方面都超过了当前的状况。
+</details></li>
+</ul>
+<hr>
+<h2 id="InstaFlow-One-Step-is-Enough-for-High-Quality-Diffusion-Based-Text-to-Image-Generation"><a href="#InstaFlow-One-Step-is-Enough-for-High-Quality-Diffusion-Based-Text-to-Image-Generation" class="headerlink" title="InstaFlow: One Step is Enough for High-Quality Diffusion-Based Text-to-Image Generation"></a>InstaFlow: One Step is Enough for High-Quality Diffusion-Based Text-to-Image Generation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06380">http://arxiv.org/abs/2309.06380</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/gnobitab/instaflow">https://github.com/gnobitab/instaflow</a></li>
+<li>paper_authors: Xingchao Liu, Xiwen Zhang, Jianzhu Ma, Jian Peng, Qiang Liu</li>
+<li>for: 这篇论文主要是为了提高Diffusion模型的采样速度和计算成本，以实现一步逻辑的文本到图像生成器。</li>
+<li>methods: 这篇论文使用了Rectified Flow方法，包括一个名为“reflow”的过程，可以直接压缩概率流的轨迹，提高图像和噪声之间的协调，并且使用学生模型进行混合。</li>
+<li>results: 这篇论文提出了一种基于Diffusion模型的一步文本到图像生成器，使用了新的文本条件管道，并使用Rectified Flow方法来提高采样速度和计算成本。实验结果表明，这种一步模型可以在MS COCO 2017-5k上达到SD级别的图像质量，FID值为23.3，比前一个状态的技术（进行分布式采样）有了较大的提升（FID值为37.2）。此外，通过使用扩展网络和1.7B参数， authors还提高了FID值到22.4。<details>
+<summary>Abstract</summary>
+Diffusion models have revolutionized text-to-image generation with its exceptional quality and creativity. However, its multi-step sampling process is known to be slow, often requiring tens of inference steps to obtain satisfactory results. Previous attempts to improve its sampling speed and reduce computational costs through distillation have been unsuccessful in achieving a functional one-step model. In this paper, we explore a recent method called Rectified Flow, which, thus far, has only been applied to small datasets. The core of Rectified Flow lies in its \emph{reflow} procedure, which straightens the trajectories of probability flows, refines the coupling between noises and images, and facilitates the distillation process with student models. We propose a novel text-conditioned pipeline to turn Stable Diffusion (SD) into an ultra-fast one-step model, in which we find reflow plays a critical role in improving the assignment between noise and images. Leveraging our new pipeline, we create, to the best of our knowledge, the first one-step diffusion-based text-to-image generator with SD-level image quality, achieving an FID (Frechet Inception Distance) of $23.3$ on MS COCO 2017-5k, surpassing the previous state-of-the-art technique, progressive distillation, by a significant margin ($37.2$ $\rightarrow$ $23.3$ in FID). By utilizing an expanded network with 1.7B parameters, we further improve the FID to $22.4$. We call our one-step models \emph{InstaFlow}. On MS COCO 2014-30k, InstaFlow yields an FID of $13.1$ in just $0.09$ second, the best in $\leq 0.1$ second regime, outperforming the recent StyleGAN-T ($13.9$ in $0.1$ second). Notably, the training of InstaFlow only costs 199 A100 GPU days. Project page:~\url{https://github.com/gnobitab/InstaFlow}.
+</details>
+<details>
+<summary>摘要</summary>
+Diffusion模型已经革命化了文本到图像生成，其品质和创新性都非常出色。然而，它的多步骤采样过程相对较慢，经常需要数十个推理步骤以获得满意的结果。以前的尝试通过热化来提高采样速度和计算成本，但是没有实现了一个功能的一步模型。在这篇论文中，我们研究了一种名为Rectified Flow的方法，它只在小数据集上应用。Rectified Flow的核心在于它的“重定向”过程，它将概率流的轨迹正则化，提高图像和噪声之间的协同关系，并且使学生模型的整体准确性得到提高。我们提出了一种基于Stable Diffusion（SD）的文本受控管道，将SD转化为一个超快一步模型，并发现重定向在填充关系中发挥了关键作用。通过我们的新管道，我们创造了，到我们所知道的最高水平，第一个基于Diffusion的文本到图像生成器，其FID（Frechet Inception Distance）为23.3，超过了之前的最佳技术进步distillation，并且在MS COCO 2017-5k上达到了37.2$\Rightarrow$23.3的FID提升。通过使用扩展的网络和1.7B参数，我们进一步提高了FID到22.4。我们称我们的一步模型为InstaFlow。在MS COCO 2014-30k上，InstaFlow在0.09秒内达到了FID13.1，在$\leq 0.1$秒的 régime中表现最佳，比StyleGAN-T（13.9在0.1秒）更高。另外，我们在训练InstaFlow时只需要199个A100 GPU天。更多信息请访问我们的项目页面：<https://github.com/gnobitab/InstaFlow>.
+</details></li>
+</ul>
+<hr>
+<h2 id="Padding-free-Convolution-based-on-Preservation-of-Differential-Characteristics-of-Kernels"><a href="#Padding-free-Convolution-based-on-Preservation-of-Differential-Characteristics-of-Kernels" class="headerlink" title="Padding-free Convolution based on Preservation of Differential Characteristics of Kernels"></a>Padding-free Convolution based on Preservation of Differential Characteristics of Kernels</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06370">http://arxiv.org/abs/2309.06370</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Kuangdai Leng, Jeyan Thiyagalingam</li>
+<li>for: 保持图像大小的卷积操作</li>
+<li>methods: 基于kernel的差分特征保持的非填充卷积方法</li>
+<li>results: 在图像分类、Semantic segmentation和超分辨重建任务中显著超过比较方法的性能<details>
+<summary>Abstract</summary>
+Convolution is a fundamental operation in image processing and machine learning. Aimed primarily at maintaining image size, padding is a key ingredient of convolution, which, however, can introduce undesirable boundary effects. We present a non-padding-based method for size-keeping convolution based on the preservation of differential characteristics of kernels. The main idea is to make convolution over an incomplete sliding window "collapse" to a linear differential operator evaluated locally at its central pixel, which no longer requires information from the neighbouring missing pixels. While the underlying theory is rigorous, our final formula turns out to be simple: the convolution over an incomplete window is achieved by convolving its nearest complete window with a transformed kernel. This formula is computationally lightweight, involving neither interpolation or extrapolation nor restrictions on image and kernel sizes. Our method favours data with smooth boundaries, such as high-resolution images and fields from physics. Our experiments include: i) filtering analytical and non-analytical fields from computational physics and, ii) training convolutional neural networks (CNNs) for the tasks of image classification, semantic segmentation and super-resolution reconstruction. In all these experiments, our method has exhibited visible superiority over the compared ones.
+</details>
+<details>
+<summary>摘要</summary>
+convolution 是图像处理和机器学习中的基本操作。 padding 是 convolution 的关键组分，但是它可能会导致边界效应。我们提出了不使用 padding 的方法，以保持图像大小。我们的主要想法是使 convolution 操作在不完整的滑块上进行，将滑块中心像素的线性算法视为局部的差分特征。这样就不需要从邻近缺失像素中获取信息了。我们的理论基础是严谨的，但是我们的最终公式却很简单：在不完整的滑块上进行 convolution 操作，只需要将完整的滑块与变换后的核函数进行卷积即可。这种方法不需要 interpolate 或 extrapolate 像素值，也不需要图像和核函数的大小受限。我们的方法更适合图像边缘平滑的数据，如高分辨率图像和物理学中的场景。我们的实验包括：i) 对计算物理学中的分析和非分析场景进行滤波处理，ii) 使用卷积神经网络（CNNs）进行图像分类、semantic segmentation 和超分辨重建任务。在这些实验中，我们的方法都有可见的优越性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Efficient-Graphics-Representation-with-Differentiable-Indirection"><a href="#Efficient-Graphics-Representation-with-Differentiable-Indirection" class="headerlink" title="Efficient Graphics Representation with Differentiable Indirection"></a>Efficient Graphics Representation with Differentiable Indirection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08387">http://arxiv.org/abs/2309.08387</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Sayantan Datta, Carl Marshall, Zhao Dong, Zhengqin Li, Derek Nowrouzezahrai</li>
+<li>for: 这篇论文是为了替代传统计算和数据操作，提出了一种新的学习 primitive，即可微的推导折衔。</li>
+<li>methods: 该论文使用了可微的多尺度 Lookup 表，作为图形处理管线中的有效替代方案。</li>
+<li>results: 该论文在各种图形任务中，如几何和图像表示、纹理映射、照明和辐射场表示等，都能够轻松地 интеGRATE到现有的架构中，快速训练并提供高效和灵活的结果。<details>
+<summary>Abstract</summary>
+We introduce differentiable indirection -- a novel learned primitive that employs differentiable multi-scale lookup tables as an effective substitute for traditional compute and data operations across the graphics pipeline. We demonstrate its flexibility on a number of graphics tasks, i.e., geometric and image representation, texture mapping, shading, and radiance field representation. In all cases, differentiable indirection seamlessly integrates into existing architectures, trains rapidly, and yields both versatile and efficient results.
+</details>
+<details>
+<summary>摘要</summary>
+我们介绍了微调irection -- 一种新的学习 primitives，它使用可微分多尺度lookup表作为图形管道中的有效替代方法。我们在几个图形任务中展示了它的灵活性，包括几何和图像表示、纹理映射、照明和辐射场表示。在所有情况下，微调irection顺利地集成到现有的架构中，快速训练，并产生了高效和多元的结果。
+</details></li>
+</ul>
+<hr>
+<h2 id="Exploring-Flat-Minima-for-Domain-Generalization-with-Large-Learning-Rates"><a href="#Exploring-Flat-Minima-for-Domain-Generalization-with-Large-Learning-Rates" class="headerlink" title="Exploring Flat Minima for Domain Generalization with Large Learning Rates"></a>Exploring Flat Minima for Domain Generalization with Large Learning Rates</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06337">http://arxiv.org/abs/2309.06337</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jian Zhang, Lei Qi, Yinghuan Shi, Yang Gao</li>
+<li>for: 提高模型在频率不同的领域中的泛化性能</li>
+<li>methods: 利用大学习率来提高模型的多个权重的多样性，并通过权重 interpolate 来确保敏感的权重不会过拟合，同时利用Local Entropy Loss来评估权重的平坦程度</li>
+<li>results: 在分类和semantic segmentation领域的频率不同的泛化 benchmark 上达到了状态机器的性能Here’s a more detailed explanation of each point:</li>
+<li>for: The paper aims to improve the generalization ability of deep learning models in different domains, which is a key problem in domain generalization (DG).</li>
+<li>methods: The authors propose a new training strategy called Lookahead, which leverages a large learning rate to promote weight diversity and facilitate the identification of flat regions in the loss landscape. To prevent overfitting during training, they also propose two variants of weight regularization.</li>
+<li>results: The proposed method achieves state-of-the-art performance on both classification and semantic segmentation domain generalization benchmarks.I hope this helps! Let me know if you have any further questions.<details>
+<summary>Abstract</summary>
+Domain Generalization (DG) aims to generalize to arbitrary unseen domains. A promising approach to improve model generalization in DG is the identification of flat minima. One typical method for this task is SWAD, which involves averaging weights along the training trajectory. However, the success of weight averaging depends on the diversity of weights, which is limited when training with a small learning rate. Instead, we observe that leveraging a large learning rate can simultaneously promote weight diversity and facilitate the identification of flat regions in the loss landscape. However, employing a large learning rate suffers from the convergence problem, which cannot be resolved by simply averaging the training weights. To address this issue, we introduce a training strategy called Lookahead which involves the weight interpolation, instead of average, between fast and slow weights. The fast weight explores the weight space with a large learning rate, which is not converged while the slow weight interpolates with it to ensure the convergence. Besides, weight interpolation also helps identify flat minima by implicitly optimizing the local entropy loss that measures flatness. To further prevent overfitting during training, we propose two variants to regularize the training weight with weighted averaged weight or with accumulated history weight. Taking advantage of this new perspective, our methods achieve state-of-the-art performance on both classification and semantic segmentation domain generalization benchmarks. The code is available at https://github.com/koncle/DG-with-Large-LR.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="SAMPLING-Scene-adaptive-Hierarchical-Multiplane-Images-Representation-for-Novel-View-Synthesis-from-a-Single-Image"><a href="#SAMPLING-Scene-adaptive-Hierarchical-Multiplane-Images-Representation-for-Novel-View-Synthesis-from-a-Single-Image" class="headerlink" title="SAMPLING: Scene-adaptive Hierarchical Multiplane Images Representation for Novel View Synthesis from a Single Image"></a>SAMPLING: Scene-adaptive Hierarchical Multiplane Images Representation for Novel View Synthesis from a Single Image</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06323">http://arxiv.org/abs/2309.06323</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/VDIGPKU/SAMPLING">https://github.com/VDIGPKU/SAMPLING</a></li>
+<li>paper_authors: Xiaoyu Zhou, Zhiwei Lin, Xiaojun Shan, Yongtao Wang, Deqing Sun, Ming-Hsuan Yang</li>
+<li>for: 这篇论文旨在解决基于单张图像的新视图合成问题，特别是对于宽泛的户外场景。</li>
+<li>methods: 该论文提出了一种基于改进多平面图像（MPI）的Scene-adaptive Hierarchical Multiplane Images Representation（SAMPLING）方法，包括自适应分布策略和层次别 Branch。</li>
+<li>results: 该方法在KITTI dataset上对大规模的户外场景进行了单张图像新视图合成，并在未seen Tanks and Temples dataset上进行了推广。结果表明该方法具有显著的性能提升。<details>
+<summary>Abstract</summary>
+Recent novel view synthesis methods obtain promising results for relatively small scenes, e.g., indoor environments and scenes with a few objects, but tend to fail for unbounded outdoor scenes with a single image as input. In this paper, we introduce SAMPLING, a Scene-adaptive Hierarchical Multiplane Images Representation for Novel View Synthesis from a Single Image based on improved multiplane images (MPI). Observing that depth distribution varies significantly for unbounded outdoor scenes, we employ an adaptive-bins strategy for MPI to arrange planes in accordance with each scene image. To represent intricate geometry and multi-scale details, we further introduce a hierarchical refinement branch, which results in high-quality synthesized novel views. Our method demonstrates considerable performance gains in synthesizing large-scale unbounded outdoor scenes using a single image on the KITTI dataset and generalizes well to the unseen Tanks and Temples dataset.The code and models will soon be made available.
+</details>
+<details>
+<summary>摘要</summary>
+新的小说视图合成方法在相对较小的场景中，如室内环境和一些物品的场景中，取得了可喜的结果，但在卷积图片作为输入的场景中很容易失败。在这篇论文中，我们介绍了采样，一种基于改进的多平面图像（MPI）的Scene-adaptive Hierarchical Multiplane Images Representation дляNovel View Synthesis from a Single Image。我们发现了不同的景象中的深度分布变化很大，因此我们采用了适应性的桶策略来安排MPI中的平面。为了表示复杂的几何结构和多尺度细节，我们还引入了层次修复分支，从而实现高质量的合成新视图。我们的方法在KITTI数据集上Synthesizing large-scale unbounded outdoor scenes using a single image demonstrates considerable performance gains and generalizes well to the unseen Tanks and Temples dataset.我们很快将代码和模型公开。
+</details></li>
+</ul>
+<hr>
+<h2 id="Semantic-and-Articulated-Pedestrian-Sensing-Onboard-a-Moving-Vehicle"><a href="#Semantic-and-Articulated-Pedestrian-Sensing-Onboard-a-Moving-Vehicle" class="headerlink" title="Semantic and Articulated Pedestrian Sensing Onboard a Moving Vehicle"></a>Semantic and Articulated Pedestrian Sensing Onboard a Moving Vehicle</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06313">http://arxiv.org/abs/2309.06313</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Maria Priisalu</li>
+<li>for: 本研究旨在提高交通安全性，通过利用LiDAR数据进行人体探测和预测。</li>
+<li>methods: 本研究使用LiDAR数据直接测量深度，并对人体部位进行探测和跟踪。</li>
+<li>results: 研究发现，利用LiDAR数据进行人体探测和预测可以提高交通安全性，尤其是在车辆前进速度较快的情况下。<details>
+<summary>Abstract</summary>
+It is difficult to perform 3D reconstruction from on-vehicle gathered video due to the large forward motion of the vehicle. Even object detection and human sensing models perform significantly worse on onboard videos when compared to standard benchmarks because objects often appear far away from the camera compared to the standard object detection benchmarks, image quality is often decreased by motion blur and occlusions occur often. This has led to the popularisation of traffic data-specific benchmarks. Recently Light Detection And Ranging (LiDAR) sensors have become popular to directly estimate depths without the need to perform 3D reconstructions. However, LiDAR-based methods still lack in articulated human detection at a distance when compared to image-based methods. We hypothesize that benchmarks targeted at articulated human sensing from LiDAR data could bring about increased research in human sensing and prediction in traffic and could lead to improved traffic safety for pedestrians.
+</details>
+<details>
+<summary>摘要</summary>
+“对于车辆上收集的影像进行3D重建很难，因为车辆前进速度很快，使得物体识别和人体感应模型在车辆上影像上表现比标准参考模型更差，物体常常在摄像头相比较远，影像质量受到运动模糊和遮挡的影响。这导致了交通数据特有的参考标准的出现。然而，激光探测（LiDAR）仪仍然缺乏在距离中探测人体的细节，与影像基本方法相比。我们假设，对于LiDAR数据的人体探测参考标准可能会带来更多的人体感应和预测研究，从而提高了交通安全性。”
+</details></li>
+</ul>
+<hr>
+<h2 id="Towards-High-Quality-Specular-Highlight-Removal-by-Leveraging-Large-Scale-Synthetic-Data"><a href="#Towards-High-Quality-Specular-Highlight-Removal-by-Leveraging-Large-Scale-Synthetic-Data" class="headerlink" title="Towards High-Quality Specular Highlight Removal by Leveraging Large-Scale Synthetic Data"></a>Towards High-Quality Specular Highlight Removal by Leveraging Large-Scale Synthetic Data</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06302">http://arxiv.org/abs/2309.06302</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Gang Fu, Qing Zhang, Lei Zhu, Chunxia Xiao, Ping Li</li>
+<li>for: 去除单个物体图像中的抛光 highlights</li>
+<li>methods: 提议一种三个阶段网络来解决这个问题，包括对输入图像进行颜色抽象、颜色修正和音调调整等步骤。</li>
+<li>results: 对于实际图像，网络能够广泛适用并且能够生成高质量的抛光自由图像。<details>
+<summary>Abstract</summary>
+This paper aims to remove specular highlights from a single object-level image. Although previous methods have made some progresses, their performance remains somewhat limited, particularly for real images with complex specular highlights. To this end, we propose a three-stage network to address them. Specifically, given an input image, we first decompose it into the albedo, shading, and specular residue components to estimate a coarse specular-free image. Then, we further refine the coarse result to alleviate its visual artifacts such as color distortion. Finally, we adjust the tone of the refined result to match that of the input as closely as possible. In addition, to facilitate network training and quantitative evaluation, we present a large-scale synthetic dataset of object-level images, covering diverse objects and illumination conditions. Extensive experiments illustrate that our network is able to generalize well to unseen real object-level images, and even produce good results for scene-level images with multiple background objects and complex lighting.
+</details>
+<details>
+<summary>摘要</summary>
+这个论文目标是从单个物体图像中去除反射高光。先前的方法有一定的进步，但其性能仍然有一定的限制，特别是对于真实的图像来说，它们的反射高光非常复杂。为此，我们提议一个三个阶段的网络来解决这个问题。具体来说，给定一个输入图像，我们首先将其分解为反射、阴影和反射剩余组成来估算一个粗略的反射减少后的图像。然后，我们进一步修正这个粗略结果，以消除它的视觉artefacts，如颜色扭曲。最后，我们将修正后的结果与输入图像的颜色匹配到一样多少可能。此外，为了训练网络和量化评估，我们提供了一个大规模的Synthetic数据集，覆盖了多种物体和照明条件。广泛的实验表明，我们的网络能够通过训练来泛化到未经看过的真实物体图像，甚至对多个背景物体和复杂的照明条件进行好的处理。
+</details></li>
+</ul>
+<hr>
+<h2 id="Self-Training-and-Multi-Task-Learning-for-Limited-Data-Evaluation-Study-on-Object-Detection"><a href="#Self-Training-and-Multi-Task-Learning-for-Limited-Data-Evaluation-Study-on-Object-Detection" class="headerlink" title="Self-Training and Multi-Task Learning for Limited Data: Evaluation Study on Object Detection"></a>Self-Training and Multi-Task Learning for Limited Data: Evaluation Study on Object Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06288">http://arxiv.org/abs/2309.06288</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hoàng-Ân Lê, Minh-Tan Pham</li>
+<li>for: 本研究探讨了自动学习和多任务学习在对数据匮乏情况下的表现。</li>
+<li>methods: 本研究使用了自动学习和多任务学习两种方法，其中自动学习是通过学生模型从教师模型的预测中学习，而多任务学习是通过同时优化不同目标来学习突出相关性。</li>
+<li>results: 实验结果显示，在没有教师训练数据的情况下，使用弱教师和未见数据进行自动学习可以提高性能。此外，在部分注释的数据情况下，多任务学习也可以提高性能。<details>
+<summary>Abstract</summary>
+Self-training allows a network to learn from the predictions of a more complicated model, thus often requires well-trained teacher models and mixture of teacher-student data while multi-task learning jointly optimizes different targets to learn salient interrelationship and requires multi-task annotations for each training example. These frameworks, despite being particularly data demanding have potentials for data exploitation if such assumptions can be relaxed. In this paper, we compare self-training object detection under the deficiency of teacher training data where students are trained on unseen examples by the teacher, and multi-task learning with partially annotated data, i.e. single-task annotation per training example. Both scenarios have their own limitation but potentially helpful with limited annotated data. Experimental results show the improvement of performance when using a weak teacher with unseen data for training a multi-task student. Despite the limited setup we believe the experimental results show the potential of multi-task knowledge distillation and self-training, which could be beneficial for future study. Source code is at https://lhoangan.github.io/multas.
+</details>
+<details>
+<summary>摘要</summary>
+自我训练允许网络从更复杂的模型的预测中学习，因此通常需要Well-trained教师模型和学生数据的混合，而多任务学习则是同时优化不同目标以学习突出关系的方法。这些框架，尽管特别是数据具有潜在的可优化假设，但它们具有潜在的数据利用潜力。在这篇论文中，我们比较了无教师训练数据的情况下，学生通过不види的教师训练来进行自我训练，以及具有部分注释数据的多任务学习。两种情况都具有自己的局限性，但它们可能帮助处理有限的注释数据。实验结果表明，使用弱教师和未见数据进行学生训练可以提高性能。尽管我们的设置有限，但我们认为实验结果表明了多任务知识储存和自我训练的潜力，这可能对未来的研究有所帮助。源代码可以在 <https://lhoangan.github.io/multas> 中找到。
+</details></li>
+</ul>
+<hr>
+<h2 id="Fg-T2M-Fine-Grained-Text-Driven-Human-Motion-Generation-via-Diffusion-Model"><a href="#Fg-T2M-Fine-Grained-Text-Driven-Human-Motion-Generation-via-Diffusion-Model" class="headerlink" title="Fg-T2M: Fine-Grained Text-Driven Human Motion Generation via Diffusion Model"></a>Fg-T2M: Fine-Grained Text-Driven Human Motion Generation via Diffusion Model</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06284">http://arxiv.org/abs/2309.06284</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yin Wang, Zhiying Leng, Frederick W. B. Li, Shun-Cheng Wu, Xiaohui Liang</li>
+<li>for: 文章描述人类动作生成，以充分利用文本描述来生成高质量的人类动作序列。</li>
+<li>methods: 方法包括两个关键组件：1）语言结构帮助模块，通过准确地构造语言特征来完全利用文本信息；2）语义语言特征学习模块，通过浅浅层和深层图 neuron 网络学习语义语言特征，实现多步推理。</li>
+<li>results: 实验表明，我们的方法在 HumanML3D 和 KIT 测试集上比文本驱动动作生成方法表现出色，生成更好的视觉确认动作序列。<details>
+<summary>Abstract</summary>
+Text-driven human motion generation in computer vision is both significant and challenging. However, current methods are limited to producing either deterministic or imprecise motion sequences, failing to effectively control the temporal and spatial relationships required to conform to a given text description. In this work, we propose a fine-grained method for generating high-quality, conditional human motion sequences supporting precise text description. Our approach consists of two key components: 1) a linguistics-structure assisted module that constructs accurate and complete language feature to fully utilize text information; and 2) a context-aware progressive reasoning module that learns neighborhood and overall semantic linguistics features from shallow and deep graph neural networks to achieve a multi-step inference. Experiments show that our approach outperforms text-driven motion generation methods on HumanML3D and KIT test sets and generates better visually confirmed motion to the text conditions.
+</details>
+<details>
+<summary>摘要</summary>
+文本驱动人体动作生成在计算机视觉中具有重要性和挑战。然而，当前的方法仅能生成决定性或不准确的动作序列，无法有效控制文本描述中的时间和空间关系。在这项工作中，我们提出了细化的方法，用于生成高质量、条件人体动作序列，支持精确的文本描述。我们的方法包括两个关键组件：1）语言结构协助模块，通过准确地构建语言特征来完全利用文本信息；2）上下文感知进程理解模块，通过浅混合图神经网络和深度图神经网络学习上下文和整体语义特征，实现多步推理。实验表明，我们的方法在人体ML3D和KIT测试集上超越文本驱动动作生成方法，并生成更好的视觉确认的动作序列。
+</details></li>
+</ul>
+<hr>
+<h2 id="IBAFormer-Intra-batch-Attention-Transformer-for-Domain-Generalized-Semantic-Segmentation"><a href="#IBAFormer-Intra-batch-Attention-Transformer-for-Domain-Generalized-Semantic-Segmentation" class="headerlink" title="IBAFormer: Intra-batch Attention Transformer for Domain Generalized Semantic Segmentation"></a>IBAFormer: Intra-batch Attention Transformer for Domain Generalized Semantic Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06282">http://arxiv.org/abs/2309.06282</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Qiyu Sun, Huilin Chen, Meng Zheng, Ziyan Wu, Michael Felsberg, Yang Tang<br>for:* 这个论文旨在解决领域总体 semantic segmentation (DGSS) 问题，即使用无法访问目标数据的情况下，使模型具备更好的泛化能力。methods:* 该论文提出了两种替代性内批注机制：mean-based intra-batch attention (MIBA) 和 element-wise intra-batch attention (EIBA)，以捕捉不同批次之间的相关性，提高特征表示和泛化能力。results:* 该论文提出的 IBAFormer 模型在 DGSS 问题上实现了最佳性能，并通过精心设计的实验证明了每个引入的组件的效果。<details>
+<summary>Abstract</summary>
+Domain generalized semantic segmentation (DGSS) is a critical yet challenging task, where the model is trained only on source data without access to any target data. Despite the proposal of numerous DGSS strategies, the generalization capability remains limited in CNN architectures. Though some Transformer-based segmentation models show promising performance, they primarily focus on capturing intra-sample attentive relationships, disregarding inter-sample correlations which can potentially benefit DGSS. To this end, we enhance the attention modules in Transformer networks for improving DGSS by incorporating information from other independent samples in the same batch, enriching contextual information, and diversifying the training data for each attention block. Specifically, we propose two alternative intra-batch attention mechanisms, namely mean-based intra-batch attention (MIBA) and element-wise intra-batch attention (EIBA), to capture correlations between different samples, enhancing feature representation and generalization capabilities. Building upon intra-batch attention, we introduce IBAFormer, which integrates self-attention modules with the proposed intra-batch attention for DGSS. Extensive experiments demonstrate that IBAFormer achieves SOTA performance in DGSS, and ablation studies further confirm the effectiveness of each introduced component.
+</details>
+<details>
+<summary>摘要</summary>
+域面泛化 semantic segmentation (DGSS) 是一项关键但受挑战的任务，模型只在源数据上训练，无法访问目标数据。 DESPITE  numerous DGSS strategies 的提议，模型的泛化能力仍然有限。 虽然一些基于 Transformer 的 segmentation 模型表现出色，但它们主要是 capture 内样关系，忽略了 между样关系，这可能会增强 DGSS。为此，我们在 Transformer 网络中增强注意模块，以便提高 DGSS 的泛化能力。 Specifically, we propose  two alternative intra-batch attention mechanisms, namely mean-based intra-batch attention (MIBA) and element-wise intra-batch attention (EIBA), to capture correlations between different samples, enrich contextual information, and diversify the training data for each attention block。 Building upon intra-batch attention, we introduce IBAFormer, which integrates self-attention modules with the proposed intra-batch attention for DGSS。 Extensive experiments demonstrate that IBAFormer achieves SOTA performance in DGSS, and ablation studies further confirm the effectiveness of each introduced component。
+</details></li>
+</ul>
+<hr>
+<h2 id="OTAS-Unsupervised-Boundary-Detection-for-Object-Centric-Temporal-Action-Segmentation"><a href="#OTAS-Unsupervised-Boundary-Detection-for-Object-Centric-Temporal-Action-Segmentation" class="headerlink" title="OTAS: Unsupervised Boundary Detection for Object-Centric Temporal Action Segmentation"></a>OTAS: Unsupervised Boundary Detection for Object-Centric Temporal Action Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06276">http://arxiv.org/abs/2309.06276</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yuerong Li, Zhengrong Xue, Huazhe Xu</li>
+<li>for: 本研究旨在提高视觉 temporal action segmentation 的精度和效率，通过发现 global visual descriptors 中的剧烈变化。</li>
+<li>methods: 本研究提出了一种不需要监督的 Object-centric Temporal Action Segmentation (OTAS) 框架，包括自动提取 global 和 local feature 模块以及一个综合Feature fusion 模块，用于检测行为分割的精度。</li>
+<li>results: 对比之前的状态对抗方法，OTAS 在我们建议的 F1 Score 上提高了41%的平均值，并且在用户研究中还能够超越人工标注。此外，OTAS 具有实时推理的能力。<details>
+<summary>Abstract</summary>
+Temporal action segmentation is typically achieved by discovering the dramatic variances in global visual descriptors. In this paper, we explore the merits of local features by proposing the unsupervised framework of Object-centric Temporal Action Segmentation (OTAS). Broadly speaking, OTAS consists of self-supervised global and local feature extraction modules as well as a boundary selection module that fuses the features and detects salient boundaries for action segmentation. As a second contribution, we discuss the pros and cons of existing frame-level and boundary-level evaluation metrics. Through extensive experiments, we find OTAS is superior to the previous state-of-the-art method by $41\%$ on average in terms of our recommended F1 score. Surprisingly, OTAS even outperforms the ground-truth human annotations in the user study. Moreover, OTAS is efficient enough to allow real-time inference.
+</details>
+<details>
+<summary>摘要</summary>
+通常情况下，时间动作分割通过发现全局视觉特征的异常变化来实现。在这篇论文中，我们探讨了本地特征的优势，并提出了无监督的对象中心时间动作分割（OTAS）框架。OTAS包括自我监督全局和本地特征提取模块以及边界选择模块，这些模块共同协同做出动作分割。作为第二个贡献，我们评估了现有帧级和边界级评价指标的优缺点。经过广泛的实验，我们发现OTAS在我们建议的F1分数上比前一代方法提高41%的平均值。更 surprisngly，OTAS甚至超过了用户研究中的人工标注。此外，OTAS具有实时推理的能力。
+</details></li>
+</ul>
+<hr>
+<h2 id="Modality-Unifying-Network-for-Visible-Infrared-Person-Re-Identification"><a href="#Modality-Unifying-Network-for-Visible-Infrared-Person-Re-Identification" class="headerlink" title="Modality Unifying Network for Visible-Infrared Person Re-Identification"></a>Modality Unifying Network for Visible-Infrared Person Re-Identification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06262">http://arxiv.org/abs/2309.06262</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hao Yu, Xu Cheng, Wei Peng, Weihao Liu, Guoying Zhao</li>
+<li>for: 提高可见光和无可见光人识别任务的性能，增强模态之间的共同特征表示。</li>
+<li>methods: 提出了一种新的模态统一网络（MUN），通过将提posed的跨模态学习器和内部模态学习器结合在一起，可以动态模型模态特征和人识别特征，从而减少模态之间和内部模态的差异。</li>
+<li>results: 对多个公共数据集进行了广泛的实验，结果表明，提出的方法可以在可见光和无可见光人识别任务中显著超越当前状态的方法。<details>
+<summary>Abstract</summary>
+Visible-infrared person re-identification (VI-ReID) is a challenging task due to large cross-modality discrepancies and intra-class variations. Existing methods mainly focus on learning modality-shared representations by embedding different modalities into the same feature space. As a result, the learned feature emphasizes the common patterns across modalities while suppressing modality-specific and identity-aware information that is valuable for Re-ID. To address these issues, we propose a novel Modality Unifying Network (MUN) to explore a robust auxiliary modality for VI-ReID. First, the auxiliary modality is generated by combining the proposed cross-modality learner and intra-modality learner, which can dynamically model the modality-specific and modality-shared representations to alleviate both cross-modality and intra-modality variations. Second, by aligning identity centres across the three modalities, an identity alignment loss function is proposed to discover the discriminative feature representations. Third, a modality alignment loss is introduced to consistently reduce the distribution distance of visible and infrared images by modality prototype modeling. Extensive experiments on multiple public datasets demonstrate that the proposed method surpasses the current state-of-the-art methods by a significant margin.
+</details>
+<details>
+<summary>摘要</summary>
+visible-infrared人识别（VI-ReID）是一个具有大量交叉模式差异和内类变化的挑战任务。现有方法主要集中于学习共同特征空间中的模式共享表示。这使得学习的特征强调共同模式 across modalities 而忽略模式特定和身份意识的信息，这些信息对于 Re-ID 是有价值的。为解决这些问题，我们提出了一种新的 Modality Unifying Network（MUN），以探索一种robust的辅助模式 для VI-ReID。首先，辅助模式是通过我们提出的交叉模式学习器和内模式学习器组合生成的，这些学习器可以动态模型模式特定和共同模式，从而缓解交叉模式和内模式变化。其次，通过将身份中心对三个模式进行对应，我们提出了一个身份对齐loss函数，以发现特征表示。最后，我们引入了一个模式对齐损失，以均衡可见和红外图像的分布距离，通过模式prototype模型。我们在多个公共数据集上进行了广泛的实验，结果表明，我们的方法在与当前状态艺术方法相比，具有显著的超越。
+</details></li>
+</ul>
+<hr>
+<h2 id="Use-neural-networks-to-recognize-students’-handwritten-letters-and-incorrect-symbols"><a href="#Use-neural-networks-to-recognize-students’-handwritten-letters-and-incorrect-symbols" class="headerlink" title="Use neural networks to recognize students’ handwritten letters and incorrect symbols"></a>Use neural networks to recognize students’ handwritten letters and incorrect symbols</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06221">http://arxiv.org/abs/2309.06221</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: JiaJun Zhu, Zichuan Yang, Binjie Hong, Jiacheng Song, Jiwei Wang, Tianhao Chen, Shuilan Yang, Zixun Lan, Fei Ma</li>
+<li>for: 这篇论文是为了自动纠正学生多选题答案而写的。</li>
+<li>methods: 该论文使用了图像多类别化技术，设置了五种分类，包括四种可能正确的选项和一种其他错误写入选项。</li>
+<li>results: 该论文通过使用图像多类别化技术，能够准确地纠正学生的多选题答案。<details>
+<summary>Abstract</summary>
+Correcting students' multiple-choice answers is a repetitive and mechanical task that can be considered an image multi-classification task. Assuming possible options are 'abcd' and the correct option is one of the four, some students may write incorrect symbols or options that do not exist. In this paper, five classifications were set up - four for possible correct options and one for other incorrect writing. This approach takes into account the possibility of non-standard writing options.
+</details>
+<details>
+<summary>摘要</summary>
+更正学生的多项选择答案是一项 repetitive 和机械化的任务，可以被视为一种图像多类别化任务。假设可能的选项是 'abcdef'，而正确的选项是其中之一，一些学生可能写入错误的符号或不存在的选项。在这篇论文中，设置了五个分类 - 四个可能正确的选项和一个其他错误写入。这种方法考虑了非标准写入选项的可能性。Note: The translation is in Simplified Chinese, which is the standard writing system used in mainland China. If you need Traditional Chinese, please let me know.
+</details></li>
+</ul>
+<hr>
+<h2 id="SGFeat-Salient-Geometric-Feature-for-Point-Cloud-Registration"><a href="#SGFeat-Salient-Geometric-Feature-for-Point-Cloud-Registration" class="headerlink" title="SGFeat: Salient Geometric Feature for Point Cloud Registration"></a>SGFeat: Salient Geometric Feature for Point Cloud Registration</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06207">http://arxiv.org/abs/2309.06207</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Qianliang Wu, Yaqing Ding, Lei Luo, Chuanwei Zhou, Jin Xie, Jian Yang</li>
+<li>for: 本研究的目的是提出一种新的点云注册框架，以解决现有方法在面对精度和稳定性方面存在挑战。</li>
+<li>methods: 该框架包括几种新的技术，包括一个具有semantic-aware的几何编码器，可以减少patch层级的匹配歧义，以及一个新型的转换器，可以编码高阶（HO）几何特征，以便在全局高阶几何含义上寻找重要的精roit点。</li>
+<li>results: 在3DMatch&#x2F;3DLoMatch和KITTI等知名数据集上进行的实验表明，该方法在精度和稳定性方面具有显著的优势，证明了该方法的效iveness。<details>
+<summary>Abstract</summary>
+Point Cloud Registration (PCR) is a critical and challenging task in computer vision. One of the primary difficulties in PCR is identifying salient and meaningful points that exhibit consistent semantic and geometric properties across different scans. Previous methods have encountered challenges with ambiguous matching due to the similarity among patch blocks throughout the entire point cloud and the lack of consideration for efficient global geometric consistency. To address these issues, we propose a new framework that includes several novel techniques. Firstly, we introduce a semantic-aware geometric encoder that combines object-level and patch-level semantic information. This encoder significantly improves registration recall by reducing ambiguity in patch-level superpoint matching. Additionally, we incorporate a prior knowledge approach that utilizes an intrinsic shape signature to identify salient points. This enables us to extract the most salient super points and meaningful dense points in the scene. Secondly, we introduce an innovative transformer that encodes High-Order (HO) geometric features. These features are crucial for identifying salient points within initial overlap regions while considering global high-order geometric consistency. To optimize this high-order transformer further, we introduce an anchor node selection strategy. By encoding inter-frame triangle or polyhedron consistency features based on these anchor nodes, we can effectively learn high-order geometric features of salient super points. These high-order features are then propagated to dense points and utilized by a Sinkhorn matching module to identify key correspondences for successful registration. In our experiments conducted on well-known datasets such as 3DMatch/3DLoMatch and KITTI, our approach has shown promising results, highlighting the effectiveness of our novel method.
+</details>
+<details>
+<summary>摘要</summary>
+点云注册（PCR）是计算机视觉中的一项关键和挑战性任务。一个主要的困难在PCR中是在不同扫描中标识符合Semantic和Geometric性质的精彩点。先前的方法在patch块之间的模糊匹配和缺乏全局高级几何一致性导致困难。为解决这些问题，我们提出了一个新的框架，包括多种新技术。首先，我们引入了一个Semantic-aware geometric encoder，该encoder结合物体层和patch层Semantic信息。这使得精彩点匹配减少了模糊性，提高了注册回归率。其次，我们采用了一种基于内在形状签名的高级知识方法，以便在场景中提取最精彩的超点和有意义的稠密点。其次，我们引入了一种创新的变换器，用于编码高级几何特征。这些特征在初始重叠区域内识别精彩点，同时考虑全局高级几何一致性。为了进一步优化这种高级变换器，我们引入了一种锚节选择策略。通过基于锚节的inter-frame三角形或多面体一致性特征编码，我们可以有效地学习高级几何特征。这些高级特征然后被传递到稠密点，并由Sinkhorn匹配模块进行成功注册。在我们对3DMatch/3DLoMatch和KITTI等知名数据集进行的实验中，我们的方法表现出了扎实的效果，证明了我们的新方法的效果。
+</details></li>
+</ul>
+<hr>
+<h2 id="Fast-Sparse-PCA-via-Positive-Semidefinite-Projection-for-Unsupervised-Feature-Selection"><a href="#Fast-Sparse-PCA-via-Positive-Semidefinite-Projection-for-Unsupervised-Feature-Selection" class="headerlink" title="Fast Sparse PCA via Positive Semidefinite Projection for Unsupervised Feature Selection"></a>Fast Sparse PCA via Positive Semidefinite Projection for Unsupervised Feature Selection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06202">http://arxiv.org/abs/2309.06202</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/zjj20212035/spca-psd">https://github.com/zjj20212035/spca-psd</a></li>
+<li>paper_authors: Junjing Zheng, Xinyu Zhang, Yongxiang Liu, Weidong Jiang, Kai Huo, Li Liu</li>
+<li>for: 本研究旨在提出一种基于POSitive Semidefinite（PSD）矩阵的半监督特征选择方法，用于非监督特征选择领域。</li>
+<li>methods: 本研究使用了原始SPCA方法，并对其进行了减小到一个半监督模型。在这个模型中，重建矩阵被视为优化变量，并且添加了PSD约束，以保证重建矩阵的正定性。</li>
+<li>results: 本研究提出了一种基于PSD约束的半监督特征选择方法，并提供了一种加速方法和一种参数设置策略。经过实验 validate that the proposed method is effective and efficient on synthetic and real-world datasets.<details>
+<summary>Abstract</summary>
+In the field of unsupervised feature selection, sparse principal component analysis (SPCA) methods have attracted more and more attention recently. Compared to spectral-based methods, SPCA methods don't rely on the construction of a similarity matrix and show better feature selection ability on real-world data. The original SPCA formulates a nonconvex optimization problem. Existing convex SPCA methods reformulate SPCA as a convex model by regarding the reconstruction matrix as an optimization variable. However, they are lack of constraints equivalent to the orthogonality restriction in SPCA, leading to larger solution space. In this paper, it's proved that the optimal solution to a convex SPCA model falls onto the Positive Semidefinite (PSD) cone. A standard convex SPCA-based model with PSD constraint for unsupervised feature selection is proposed. Further, a two-step fast optimization algorithm via PSD projection is presented to solve the proposed model. Two other existing convex SPCA-based models are also proven to have their solutions optimized on the PSD cone in this paper. Therefore, the PSD versions of these two models are proposed to accelerate their convergence as well. We also provide a regularization parameter setting strategy for our proposed method. Experiments on synthetic and real-world datasets demonstrate the effectiveness and efficiency of the proposed methods.
+</details>
+<details>
+<summary>摘要</summary>
+在无监督特征选择领域，贪婪原始Component分析（SPCA）方法在最近吸引了越来越多的注意。相比spectral-based方法，SPCA方法不需要建立一个相似矩阵，在实际数据上表现更好的特征选择能力。原始SPCA方法转化为一个非凸优化问题。现有的凸SPCA方法将SPCA转化为一个凸模型，但是它们缺乏与SPCA中的正交约束相当的约束，导致更大的解空间。在这篇论文中，证明了凸SPCA模型的优解在Positive Semidefinite（PSD）树上。我们提出了一种标准的凸SPCA基于PSD约束的模型，并提供了一种快速优化算法via PSD投影来解决该模型。此外，我们还证明了其他两种现有的凸SPCA基于模型在PSD树上有优解。因此，我们提出了PSD版本的这两个模型，以加速它们的收敛。我们还提供了我们提posed方法的正则化参数设定策略。实验表明，我们的提posed方法在synthetic和实际数据上具有良好的效果和效率。
+</details></li>
+</ul>
+<hr>
+<h2 id="Computer-Vision-Pipeline-for-Automated-Antarctic-Krill-Analysis"><a href="#Computer-Vision-Pipeline-for-Automated-Antarctic-Krill-Analysis" class="headerlink" title="Computer Vision Pipeline for Automated Antarctic Krill Analysis"></a>Computer Vision Pipeline for Automated Antarctic Krill Analysis</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06188">http://arxiv.org/abs/2309.06188</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mazvydas Gudelis, Michal Mackiewicz, Julie Bremner, Sophie Fielding</li>
+<li>for: 这项研究用于估计南极 krill 生物质和评估当前环境对这一关键marine food chain Component的影响。</li>
+<li>methods: 研究人员使用了网络图像注释工具和深度学习图像分类和回归模型来自动化数据采集和分析过程。</li>
+<li>results: 研究人员在krill实例分割方面获得了77.28%的AP分数，并可以分别估计krill的成熟阶段和长度，并且Length error为1.96 mm。<details>
+<summary>Abstract</summary>
+British Antarctic Survey (BAS) researchers launch annual expeditions to the Antarctic in order to estimate Antarctic Krill biomass and assess the change from previous years. These comparisons provide insight into the effects of the current environment on this key component of the marine food chain. In this work we have developed tools for automating the data collection and analysis process, using web-based image annotation tools and deep learning image classification and regression models. We achieve highly accurate krill instance segmentation results with an average 77.28% AP score, as well as separate maturity stage and length estimation of krill specimens with 62.99% accuracy and a 1.96 mm length error respectively.
+</details>
+<details>
+<summary>摘要</summary>
+英国南极调查（BAS）研究人员每年到南极进行调查，以估计南极 krill 生物质量和评估过去年的变化。这些比较提供有关当前环境对这一关键海洋食物链成分的影响的见解。在这个工作中，我们已经开发了自动数据收集和分析工具，使用网络上的图像标注工具和深度学习图像分类和回归模型。我们得到了高度精确的 krill 实体分 segmentation 结果，具体的话是平均77.28% AP 分数，以及分类 krill 虫的成熟阶段和长度估计，具体的话是62.99% 的准确率和1.96 mm 的长度误差。
+</details></li>
+</ul>
+<hr>
+<h2 id="Dual-Path-Temporal-Map-Optimization-for-Make-up-Temporal-Video-Grounding"><a href="#Dual-Path-Temporal-Map-Optimization-for-Make-up-Temporal-Video-Grounding" class="headerlink" title="Dual-Path Temporal Map Optimization for Make-up Temporal Video Grounding"></a>Dual-Path Temporal Map Optimization for Make-up Temporal Video Grounding</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06176">http://arxiv.org/abs/2309.06176</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jiaxiu Li, Kun Li, Jia Li, Guoliang Chen, Dan Guo, Meng Wang</li>
+<li>for: 本研究 targets 化妆活动的视频地理Localization, aiming to accurately locate the target video segment that is semantically related to a sentence describing a make-up activity, given a long video.</li>
+<li>methods: 该 paper proposes a novel framework named Dual-Path Temporal Map Optimization Network (DPTMO), which utilizes both query-agnostic and query-guided features to construct two proposal sets and uses specific evaluation methods for the two sets. The dual-path structure mines more semantic information in make-up videos and distinguishes fine-grained actions well.</li>
+<li>results:  compared with existing methods, the proposed DPTMO framework demonstrates superior performance in fine-grained semantic comprehension, as shown in comprehensive experiments on the YouMakeup dataset.<details>
+<summary>Abstract</summary>
+Make-up temporal video grounding (MTVG) aims to localize the target video segment which is semantically related to a sentence describing a make-up activity, given a long video. Compared with the general video grounding task, MTVG focuses on meticulous actions and changes on the face. The make-up instruction step, usually involving detailed differences in products and facial areas, is more fine-grained than general activities (e.g, cooking activity and furniture assembly). Thus, existing general approaches cannot locate the target activity effectually. More specifically, existing proposal generation modules are not yet fully developed in providing semantic cues for the more fine-grained make-up semantic comprehension. To tackle this issue, we propose an effective proposal-based framework named Dual-Path Temporal Map Optimization Network (DPTMO) to capture fine-grained multimodal semantic details of make-up activities. DPTMO extracts both query-agnostic and query-guided features to construct two proposal sets and uses specific evaluation methods for the two sets. Different from the commonly used single structure in previous methods, our dual-path structure can mine more semantic information in make-up videos and distinguish fine-grained actions well. These two candidate sets represent the cross-modal makeup video-text similarity and multi-modal fusion relationship, complementing each other. Each set corresponds to its respective optimization perspective, and their joint prediction enhances the accuracy of video timestamp prediction. Comprehensive experiments on the YouMakeup dataset demonstrate our proposed dual structure excels in fine-grained semantic comprehension.
+</details>
+<details>
+<summary>摘要</summary>
+make-up temporal video grounding (MTVG) 目标是将视频中相关的目标视频段本地化，给定一个长视频。相比通用视频固定任务，MTVG更关注面部细节和变化。make-up instruction step 通常包括细节的产品和面部区域差异，比如制作餐食和家具组装。因此，现有的通用方法无法准确定位目标活动。更 Specifically，现有的提议生成模块没有充分发展出提供semantic cue для更细化的化妆 semantic comprehension。为解决这个问题，我们提出了一种有效的提议基于框架，named Dual-Path Temporal Map Optimization Network (DPTMO)，用于捕捉化妆活动的细化多模式semantic detail。DPTMO提取了both query-agnostic和query-guided特征，并使用特定的评估方法来构建两个提议集。与之前的方法不同，我们的双路结构可以在化妆视频中挖掘更多的semantic information，并且能够区分细化的动作。这两个候选集表示cross-modal makeup video-text similarity和多模式融合关系，互补 Each other。每个集对应了自己的优化视角，并且他们的联合预测可以提高视频时间戳预测的准确性。通过对YouMakeup dataset的全面实验，我们的提议双结构表明其在细化semantic comprehension中表现出色。
+</details></li>
+</ul>
+<hr>
+<h2 id="Elucidating-the-solution-space-of-extended-reverse-time-SDE-for-diffusion-models"><a href="#Elucidating-the-solution-space-of-extended-reverse-time-SDE-for-diffusion-models" class="headerlink" title="Elucidating the solution space of extended reverse-time SDE for diffusion models"></a>Elucidating the solution space of extended reverse-time SDE for diffusion models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06169">http://arxiv.org/abs/2309.06169</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/qinpengcui/er-sde-solver">https://github.com/qinpengcui/er-sde-solver</a></li>
+<li>paper_authors: Qinpeng Cui, Xinyi Zhang, Zongqing Lu, Qingmin Liao<br>for:这种论文旨在提高Diffusion Model（DM）的采样速度，使其在不同的生成模型任务中表现更加突出。methods:这篇论文使用了扩展的反时域SDE（ER SDE）来表述采样过程，并提出了精确解和高级别approx解方法。results:实验结果表明，ER SDE Solvers可以减少采样时间，达到过去无法达到的水平，例如在ImageNet 64×64 dataset上取得2.24 FID在50次评估中，和3.45 FID在20次评估中。<details>
+<summary>Abstract</summary>
+Diffusion models (DMs) demonstrate potent image generation capabilities in various generative modeling tasks. Nevertheless, their primary limitation lies in slow sampling speed, requiring hundreds or thousands of sequential function evaluations through large neural networks to generate high-quality images. Sampling from DMs can be seen as solving corresponding stochastic differential equations (SDEs) or ordinary differential equations (ODEs). In this work, we formulate the sampling process as an extended reverse-time SDE (ER SDE), unifying prior explorations into ODEs and SDEs. Leveraging the semi-linear structure of ER SDE solutions, we offer exact solutions and arbitrarily high-order approximate solutions for VP SDE and VE SDE, respectively. Based on the solution space of the ER SDE, we yield mathematical insights elucidating the superior performance of ODE solvers over SDE solvers in terms of fast sampling. Additionally, we unveil that VP SDE solvers stand on par with their VE SDE counterparts. Finally, we devise fast and training-free samplers, ER-SDE Solvers, elevating the efficiency of stochastic samplers to unprecedented levels. Experimental results demonstrate achieving 3.45 FID in 20 function evaluations and 2.24 FID in 50 function evaluations on the ImageNet 64$\times$64 dataset.
+</details>
+<details>
+<summary>摘要</summary>
+Diffusion models (DMs) 表现出了杰出的图像生成能力在各种生成模型任务中。然而，它们的主要限制在于慢的采样速度，需要数百或千次的顺序函数评估通过大 neural network 来生成高质量图像。从 DMs 的采样角度来看，可以看作解决对应的随机 diffeomorphism equation (SDE) 或 ordinary differential equation (ODE)。在这种工作中，我们将采样过程推广为延长的反时间 SDE (ER SDE)，整合先前的探索 ODE 和 SDE 中。利用 ER SDE 解的半线性结构，我们提供了精确解和高阶近似解 для VP SDE 和 VE SDE，分别。基于 ER SDE 的解空间，我们获得了数学意义，解释了 ODE 解算法在采样速度方面的超越性。此外，我们发现 VP SDE 解算法与其对应的 VE SDE 解算法一样强。最后，我们设计了快速和无需训练的采样器，ER-SDE Solvers，使得随机采样的效率提升到了历史最高水平。实验结果表明在 ImageNet 64$\times$64 数据集上，我们可以在 20 次函数评估中达到 3.45 FID，并在 50 次函数评估中达到 2.24 FID。
+</details></li>
+</ul>
+<hr>
+<h2 id="Certified-Robust-Models-with-Slack-Control-and-Large-Lipschitz-Constants"><a href="#Certified-Robust-Models-with-Slack-Control-and-Large-Lipschitz-Constants" class="headerlink" title="Certified Robust Models with Slack Control and Large Lipschitz Constants"></a>Certified Robust Models with Slack Control and Large Lipschitz Constants</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06166">http://arxiv.org/abs/2309.06166</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/mlosch/cll">https://github.com/mlosch/cll</a></li>
+<li>paper_authors: Max Losch, David Stutz, Bernt Schiele, Mario Fritz</li>
+<li>for: 提高预测精度和证明鲁棒性</li>
+<li>methods: 利用Calibrated Lipschitz-Margin Loss（CLL）来提高鲁棒性和预测精度</li>
+<li>results: 在CIFAR-10、CIFAR-100和Tiny-ImageNet上，模型consistently outperform其他损失函数，并在CIFAR-100和Tiny-ImageNet上提高了状态之最佳 deterministic $L_2$ 鲁棒精度。<details>
+<summary>Abstract</summary>
+Despite recent success, state-of-the-art learning-based models remain highly vulnerable to input changes such as adversarial examples. In order to obtain certifiable robustness against such perturbations, recent work considers Lipschitz-based regularizers or constraints while at the same time increasing prediction margin. Unfortunately, this comes at the cost of significantly decreased accuracy. In this paper, we propose a Calibrated Lipschitz-Margin Loss (CLL) that addresses this issue and improves certified robustness by tackling two problems: Firstly, commonly used margin losses do not adjust the penalties to the shrinking output distribution; caused by minimizing the Lipschitz constant $K$. Secondly, and most importantly, we observe that minimization of $K$ can lead to overly smooth decision functions. This limits the model's complexity and thus reduces accuracy. Our CLL addresses these issues by explicitly calibrating the loss w.r.t. margin and Lipschitz constant, thereby establishing full control over slack and improving robustness certificates even with larger Lipschitz constants. On CIFAR-10, CIFAR-100 and Tiny-ImageNet, our models consistently outperform losses that leave the constant unattended. On CIFAR-100 and Tiny-ImageNet, CLL improves upon state-of-the-art deterministic $L_2$ robust accuracies. In contrast to current trends, we unlock potential of much smaller models without $K=1$ constraints.
+</details>
+<details>
+<summary>摘要</summary>
+Despite recent success, state-of-the-art learning-based models remain highly vulnerable to input changes such as adversarial examples. In order to obtain certifiable robustness against such perturbations, recent work considers Lipschitz-based regularizers or constraints while at the same time increasing prediction margin. Unfortunately, this comes at the cost of significantly decreased accuracy. In this paper, we propose a Calibrated Lipschitz-Margin Loss (CLL) that addresses this issue and improves certified robustness by tackling two problems: Firstly, commonly used margin losses do not adjust the penalties to the shrinking output distribution; caused by minimizing the Lipschitz constant $K$. Secondly, and most importantly, we observe that minimization of $K$ can lead to overly smooth decision functions. This limits the model's complexity and thus reduces accuracy. Our CLL addresses these issues by explicitly calibrating the loss w.r.t. margin and Lipschitz constant, thereby establishing full control over slack and improving robustness certificates even with larger Lipschitz constants. On CIFAR-10, CIFAR-100 and Tiny-ImageNet, our models consistently outperform losses that leave the constant unattended. On CIFAR-100 and Tiny-ImageNet, CLL improves upon state-of-the-art deterministic $L_2$ robust accuracies. In contrast to current trends, we unlock potential of much smaller models without $K=1$ constraints.Here's the translation in Traditional Chinese:虽然最近的成果优秀，但现代学习型模型仍然具有对输入更改的高度敏感性，如攻击例子。以获取可认证的防护性，现在的工作会考虑使用Liп希茨基于的正则化或限制，同时增加预测margin。然而，这会导致减少精度。在这篇论文中，我们提出了单位Lipschitz-Margin损失函数（CLL），以解决这个问题，并提高认证性质证明。我们的CLL通过调整损失函数对margin和Lipschitz常数的控制，以确保全面控制 sobre slack，并提高防护性证明，即使Lipschitz常数较大。在CIFAR-10、CIFAR-100和Tiny-ImageNet上，我们的模型一致地超过不考虑K常数的损失函数。在CIFAR-100和Tiny-ImageNet上，CLL超过了现有的决定性$L_2$防护精度。相比于现有的趋势，我们解锁了许多小型模型的潜力，不需要$K=1$的限制。
+</details></li>
+</ul>
+<hr>
+<h2 id="Active-Label-Refinement-for-Semantic-Segmentation-of-Satellite-Images"><a href="#Active-Label-Refinement-for-Semantic-Segmentation-of-Satellite-Images" class="headerlink" title="Active Label Refinement for Semantic Segmentation of Satellite Images"></a>Active Label Refinement for Semantic Segmentation of Satellite Images</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06159">http://arxiv.org/abs/2309.06159</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Tuan Pham Minh, Jayan Wijesingha, Daniel Kottke, Marek Herde, Denis Huseljic, Bernhard Sick, Michael Wachendorf, Thomas Esch</li>
+<li>for: 本研究使用卫星图像semantic segmentation来理解和利用地球表面。</li>
+<li>methods: 本研究提议使用低成本方法，如众包或预训练网络，来标注卫星图像。然后，使用活动学习策略来成本效果地更正标注。</li>
+<li>results: 我们通过使用印度بengooru的卫星图像，发现活动标注更新可以提高semantic segmentation网络的性能。<details>
+<summary>Abstract</summary>
+Remote sensing through semantic segmentation of satellite images contributes to the understanding and utilisation of the earth's surface. For this purpose, semantic segmentation networks are typically trained on large sets of labelled satellite images. However, obtaining expert labels for these images is costly. Therefore, we propose to rely on a low-cost approach, e.g. crowdsourcing or pretrained networks, to label the images in the first step. Since these initial labels are partially erroneous, we use active learning strategies to cost-efficiently refine the labels in the second step. We evaluate the active learning strategies using satellite images of Bengaluru in India, labelled with land cover and land use labels. Our experimental results suggest that an active label refinement to improve the semantic segmentation network's performance is beneficial.
+</details>
+<details>
+<summary>摘要</summary>
+通过卫星图像 semantics 分割来理解和利用地球表面，这需要 semantic 分割网络在大量标注卫星图像上进行训练。然而，获得专业标注是成本高昂的。因此，我们提议使用低成本方法，如招募或预训练网络，来标注图像。由于这些初始标注有误，我们使用活动学习策略来经济性地修正标注。我们通过印度本革的孟买诺亚卫星图像进行实验，发现活动标注修正可以提高 semantic 分割网络的性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="Improving-Generalization-Capability-of-Deep-Learning-Based-Nuclei-Instance-Segmentation-by-Non-deterministic-Train-Time-and-Deterministic-Test-Time-Stain-Normalization"><a href="#Improving-Generalization-Capability-of-Deep-Learning-Based-Nuclei-Instance-Segmentation-by-Non-deterministic-Train-Time-and-Deterministic-Test-Time-Stain-Normalization" class="headerlink" title="Improving Generalization Capability of Deep Learning-Based Nuclei Instance Segmentation by Non-deterministic Train Time and Deterministic Test Time Stain Normalization"></a>Improving Generalization Capability of Deep Learning-Based Nuclei Instance Segmentation by Non-deterministic Train Time and Deterministic Test Time Stain Normalization</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06143">http://arxiv.org/abs/2309.06143</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Amirreza Mahbod, Georg Dorffner, Isabella Ellinger, Ramona Woitek, Sepideh Hatamikia</li>
+<li>for: This paper aims to improve the generalization capability of a deep learning-based automatic segmentation approach for nuclei instance segmentation in digital histopathological images.</li>
+<li>methods: The proposed method incorporates non-deterministic train time and deterministic test time stain normalization, and uses one single training set to evaluate the segmentation performance on seven test datasets.</li>
+<li>results: The proposed method provides up to 5.77%, 5.36%, and 5.27% better performance in segmenting nuclei based on Dice score, aggregated Jaccard index, and panoptic quality score, respectively, compared to the baseline segmentation model.Here’s the Chinese translation of the three key points:</li>
+<li>for: 这篇论文目的是提高深度学习基于自动分割模型的总化能力，用于核实体分割在数字 histopathological 图像中。</li>
+<li>methods: 提议的方法包括在训练时使用不确定的时间和测试时使用确定的时间杂化病理样本Normalization，并使用一个单一的训练集来评估分割性能在七个测试集中。</li>
+<li>results: 提议的方法在分割核实体方面提供了5.77%, 5.36%, 和5.27%的提升，根据 dice 分数、总和 Jacard 指标和精确性分数。<details>
+<summary>Abstract</summary>
+With the advent of digital pathology and microscopic systems that can scan and save whole slide histological images automatically, there is a growing trend to use computerized methods to analyze acquired images. Among different histopathological image analysis tasks, nuclei instance segmentation plays a fundamental role in a wide range of clinical and research applications. While many semi- and fully-automatic computerized methods have been proposed for nuclei instance segmentation, deep learning (DL)-based approaches have been shown to deliver the best performances. However, the performance of such approaches usually degrades when tested on unseen datasets.   In this work, we propose a novel approach to improve the generalization capability of a DL-based automatic segmentation approach. Besides utilizing one of the state-of-the-art DL-based models as a baseline, our method incorporates non-deterministic train time and deterministic test time stain normalization. We trained the model with one single training set and evaluated its segmentation performance on seven test datasets. Our results show that the proposed method provides up to 5.77%, 5.36%, and 5.27% better performance in segmenting nuclei based on Dice score, aggregated Jaccard index, and panoptic quality score, respectively, compared to the baseline segmentation model.
+</details>
+<details>
+<summary>摘要</summary>
+To address this challenge, we propose a novel approach to improve the generalization capability of a DL-based automatic segmentation method. Our approach incorporates non-deterministic train time and deterministic test time stain normalization. We trained the model with a single training set and evaluated its segmentation performance on seven test datasets. Our results show that the proposed method provides up to 5.77%, 5.36%, and 5.27% better performance in segmenting nuclei based on Dice score, aggregated Jaccard index, and panoptic quality score, respectively, compared to the baseline segmentation model.
+</details></li>
+</ul>
+<hr>
+<h2 id="Towards-Reliable-Domain-Generalization-A-New-Dataset-and-Evaluations"><a href="#Towards-Reliable-Domain-Generalization-A-New-Dataset-and-Evaluations" class="headerlink" title="Towards Reliable Domain Generalization: A New Dataset and Evaluations"></a>Towards Reliable Domain Generalization: A New Dataset and Evaluations</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06142">http://arxiv.org/abs/2309.06142</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jiao Zhang, Xu-Yao Zhang, Cheng-Lin Liu</li>
+<li>for: 提高手写中文字识别器的鲁棒性，推广领域特征学的研究领域。</li>
+<li>methods:  eighteen种领域特征学方法在PaHCC dataset上的评估，以及一种动态领域特征学设定的研究。</li>
+<li>results: 现有方法在PaHCC dataset上的性能不满足，只有离开一个领域的协议是可靠的。我们的 dataset 和评估将为领域特征学社区带来新的视角，推动更大的进步。<details>
+<summary>Abstract</summary>
+There are ubiquitous distribution shifts in the real world. However, deep neural networks (DNNs) are easily biased towards the training set, which causes severe performance degradation when they receive out-of-distribution data. Many methods are studied to train models that generalize under various distribution shifts in the literature of domain generalization (DG). However, the recent DomainBed and WILDS benchmarks challenged the effectiveness of these methods. Aiming at the problems in the existing research, we propose a new domain generalization task for handwritten Chinese character recognition (HCCR) to enrich the application scenarios of DG method research. We evaluate eighteen DG methods on the proposed PaHCC (Printed and Handwritten Chinese Characters) dataset and show that the performance of existing methods on this dataset is still unsatisfactory. Besides, under a designed dynamic DG setting, we reveal more properties of DG methods and argue that only the leave-one-domain-out protocol is unreliable. We advocate that researchers in the DG community refer to dynamic performance of methods for more comprehensive and reliable evaluation. Our dataset and evaluations bring new perspectives to the community for more substantial progress. We will make our dataset public with the article published to facilitate the study of domain generalization.
+</details>
+<details>
+<summary>摘要</summary>
+“世界上存在普遍的分布Shift。然而，深度神经网络（DNNs）容易受到训练集的偏袋影响，导致接收不同分布的数据时表现下降。许多领域通用化（Domain Generalization，DG）的方法已经被研究，但是最近的DomainBed和WILDS benchmarks表明这些方法的有效性存在问题。为了解决现有研究中的问题，我们提出了一个新的领域通用化任务：手写中文字识别（HCCR），以推广DG方法的应用场景。我们在提出的PaHCC（印刷和手写中文字）数据集上评估了 eighteen 个 DG 方法的性能，并发现现有方法在这个数据集上的性能仍然不满足。此外，在我们设计的动态 DG 设定下，我们发现了更多的 DG 方法的性能特性，并认为只有离开一个领域的协议是不可靠的。我们建议研究人员在 DG 社区中参考方法的动态性能进行更全面和可靠的评估。我们将在发表文章时公开我们的数据集，以便研究领域通用化的人们进行更进一步的研究。”
+</details></li>
+</ul>
+<hr>
+<h2 id="Dynamic-Visual-Prompt-Tuning-for-Parameter-Efficient-Transfer-Learning"><a href="#Dynamic-Visual-Prompt-Tuning-for-Parameter-Efficient-Transfer-Learning" class="headerlink" title="Dynamic Visual Prompt Tuning for Parameter Efficient Transfer Learning"></a>Dynamic Visual Prompt Tuning for Parameter Efficient Transfer Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06123">http://arxiv.org/abs/2309.06123</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Chunqing Ruan, Hongjian Wang</li>
+<li>for: 这个研究旨在发展具有大规模预训模型的实时转移学习方法，以减少储存和计算成本。</li>
+<li>methods: 我们提出了一个动态类别推导框架（DVPT），可以生成每个图像的动态具体化图示。这样可以捕捉每个图像的唯一视觉特征，并且更适合下游视觉任务。我们还设计了一个元件网络模组（Meta-Net），可以根据每个图像生成可读的推导。</li>
+<li>results: 实验结果显示，DVPT在许多下游识别任务上表现更好，甚至超过了完整的精确调整方法。另外，DVPT可以保持高度的参数效率，并且在17个中的19个下游任务上表现更好。我们将代码发布 soon。<details>
+<summary>Abstract</summary>
+Parameter efficient transfer learning (PETL) is an emerging research spot that aims to adapt large-scale pre-trained models to downstream tasks. Recent advances have achieved great success in saving storage and computation costs. However, these methods do not take into account instance-specific visual clues for visual tasks. In this paper, we propose a Dynamic Visual Prompt Tuning framework (DVPT), which can generate a dynamic instance-wise token for each image. In this way, it can capture the unique visual feature of each image, which can be more suitable for downstream visual tasks. We designed a Meta-Net module that can generate learnable prompts based on each image, thereby capturing dynamic instance-wise visual features. Extensive experiments on a wide range of downstream recognition tasks show that DVPT achieves superior performance than other PETL methods. More importantly, DVPT even outperforms full fine-tuning on 17 out of 19 downstream tasks while maintaining high parameter efficiency. Our code will be released soon.
+</details>
+<details>
+<summary>摘要</summary>
+Parameter efficient transfer learning (PETL) 是一个快速发展的研究领域，旨在适应大规模预训练模型下推断任务。近期的进展有效地降低了存储和计算成本。然而，这些方法没有考虑每个图像的特定视觉特征。在这篇论文中，我们提出了一种动态视觉提示调整框架（DVPT），可以生成每个图像的动态实例化 tokens。这种方法可以捕捉每个图像独特的视觉特征，更适合下游视觉任务。我们设计了一个 Meta-Net 模块，可以基于每个图像生成学习的提示，以捕捉动态实例化视觉特征。我们进行了广泛的实验，证明 DVPT 在多种下游认知任务上超过其他 PETL 方法表现。此外，DVPT 甚至超过了全部精细调整，在 17 个下游任务中表现优于其他方法。我们即将发布代码。
+</details></li>
+</ul>
+<hr>
+<h2 id="C-RITNet-Set-Infrared-and-Visible-Image-Fusion-Free-from-Complementary-Information-Mining"><a href="#C-RITNet-Set-Infrared-and-Visible-Image-Fusion-Free-from-Complementary-Information-Mining" class="headerlink" title="C-RITNet: Set Infrared and Visible Image Fusion Free from Complementary Information Mining"></a>C-RITNet: Set Infrared and Visible Image Fusion Free from Complementary Information Mining</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06118">http://arxiv.org/abs/2309.06118</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yafei Zhang, Keying Du, Huafeng Li, Zhengtao Yu, Yu Liu</li>
+<li>for: 本研究的目的是提出一种新的图像融合方法，以提高图像融合的质量和精度。</li>
+<li>methods: 本研究使用了一种名为Complementary-Redundant Information Transfer Network（C-RITNet）的新网络模型，该模型可以有效地传输两个模式之间的相似和不同的信息，从而生成高质量的融合图像。</li>
+<li>results: 对比于传统图像融合方法，C-RITNet可以更好地保留图像的细节和结构信息，同时也可以提高图像的明暗ratio和对比度。这意味着C-RITNet可以生成更加自然和真实的融合图像。<details>
+<summary>Abstract</summary>
+Infrared and visible image fusion (IVIF) aims to extract and integrate the complementary information in two different modalities to generate high-quality fused images with salient targets and abundant texture details. However, current image fusion methods go to great lengths to excavate complementary features, which is generally achieved through two efforts. On the one hand, the feature extraction network is expected to have excellent performance in extracting complementary information. On the other hand, complex fusion strategies are often designed to aggregate the complementary information. In other words, enabling the network to perceive and extract complementary information is extremely challenging. Complicated fusion strategies, while effective, still run the risk of losing weak edge details. To this end, this paper rethinks the IVIF outside the box, proposing a complementary-redundant information transfer network (C-RITNet). It reasonably transfers complementary information into redundant one, which integrates both the shared and complementary features from two modalities. Hence, the proposed method is able to alleviate the challenges posed by the complementary information extraction and reduce the reliance on sophisticated fusion strategies. Specifically, to skillfully sidestep aggregating complementary information in IVIF, we first design the mutual information transfer (MIT) module to mutually represent features from two modalities, roughly transferring complementary information into redundant one. Then, a redundant information acquisition supervised by source image (RIASSI) module is devised to further ensure the complementary-redundant information transfer after MIT. Meanwhile, we also propose a structure information preservation (SIP) module to guarantee that the edge structure information of the source images can be transferred to the fusion results.
+</details>
+<details>
+<summary>摘要</summary>
+infrared和可见图像融合（IVIF）目的是抽取并融合两个不同模式的补充信息，以生成高质量融合图像，具有突出的目标和丰富的текстура细节。然而，当前的图像融合方法通常会努力挖掘补充特征，通常通过两种方法来实现。一方面，特征提取网络应该具有出色的性能，以抽取补充信息。另一方面，复杂的融合策略通常会用于聚合补充信息。也就是说，使网络感受到和抽取补充信息是极其困难的。复杂的融合策略，虽然有效，仍然存在脆弱的边缘细节的风险。为了解决这些问题，本文尝试外部思考IVIF，提出一种补充-重复信息传输网络（C-RITNet）。它有理性地将补充信息转换为重复信息，并将两种模式的共享和补充特征融合在一起。因此，提出的方法可以减轻IVIF中补充信息抽取的挑战，降低复杂的融合策略的依赖。具体来说，为了绕过IVIF中补充信息的聚合，我们首先设计了共享信息传输模块（MIT），以便互相表示两种模式的特征，粗略地将补充信息转换为重复信息。然后，我们设计了源图像领导的重复信息获取模块（RIASSI），以确保补充-重复信息传输后MIT。同时，我们还提出了保持结构信息模块（SIP），以确保源图像的边缘结构信息可以传递到融合结果中。
+</details></li>
+</ul>
+<hr>
+<h2 id="HOC-Search-Efficient-CAD-Model-and-Pose-Retrieval-from-RGB-D-Scans"><a href="#HOC-Search-Efficient-CAD-Model-and-Pose-Retrieval-from-RGB-D-Scans" class="headerlink" title="HOC-Search: Efficient CAD Model and Pose Retrieval from RGB-D Scans"></a>HOC-Search: Efficient CAD Model and Pose Retrieval from RGB-D Scans</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06107">http://arxiv.org/abs/2309.06107</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Stefan Ainetter, Sinisa Stekovic, Friedrich Fraundorfer, Vincent Lepetit<br>for: 本文提出了一种自动化和高效的方法，用于从移动RGB-D摄像头捕获场景中的物体和其pose的高质量CAD模型。methods: 本文首先研究了不同的目标函数，用于度量候选CAD模型和可用数据之间的相似性，并发现最佳目标函数是一种”渲染并比较”方法， comparing depth和mask渲染。本文引入了一种快速搜索方法，该方法通过这个目标函数同时 retrieve object category, CAD模型和object pose，给出了一个approximate 3D bounding box。这种方法基于一个搜索树，该树将CAD模型和物体属性，包括物体类别和pose，组织成fast retrieval。results: 本文表明，这种方法可以很好地适应实际情况，与极限搜索相比，提高了10倍至120倍的速度。<details>
+<summary>Abstract</summary>
+We present an automated and efficient approach for retrieving high-quality CAD models of objects and their poses in a scene captured by a moving RGB-D camera. We first investigate various objective functions to measure similarity between a candidate CAD object model and the available data, and the best objective function appears to be a "render-and-compare" method comparing depth and mask rendering. We thus introduce a fast-search method that approximates an exhaustive search based on this objective function for simultaneously retrieving the object category, a CAD model, and the pose of an object given an approximate 3D bounding box. This method involves a search tree that organizes the CAD models and object properties including object category and pose for fast retrieval and an algorithm inspired by Monte Carlo Tree Search, that efficiently searches this tree. We show that this method retrieves CAD models that fit the real objects very well, with a speed-up factor of 10x to 120x compared to exhaustive search.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出了一种自动化和高效的方法，用于从移动RGB-D摄像头捕捉的场景中检索高质量的CAD模型和其姿态。我们首先调查了各种目标函数，用于测量候选CAD对象模型和可用数据之间的相似性，最佳目标函数则是一种“渲染并比较”方法，该方法 Compares the depth and mask rendering of the candidate CAD object model with the available data. We therefore introduce a fast-search method that approximates an exhaustive search based on this objective function, which simultaneously retrieves the object category, a CAD model, and the pose of an object given an approximate 3D bounding box. This method uses a search tree that organizes the CAD models and object properties, including object category and pose, for fast retrieval, and an algorithm inspired by Monte Carlo Tree Search, which efficiently searches this tree. We show that this method retrieves CAD models that fit the real objects very well, with a speed-up factor of 10x to 120x compared to exhaustive search.
+</details></li>
+</ul>
+<hr>
+<h2 id="Can-we-predict-the-Most-Replayed-data-of-video-streaming-platforms"><a href="#Can-we-predict-the-Most-Replayed-data-of-video-streaming-platforms" class="headerlink" title="Can we predict the Most Replayed data of video streaming platforms?"></a>Can we predict the Most Replayed data of video streaming platforms?</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06102">http://arxiv.org/abs/2309.06102</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ombretta/most-replayed-data">https://github.com/ombretta/most-replayed-data</a></li>
+<li>paper_authors: Alessandro Duico, Ombretta Strafforello, Jan van Gemert</li>
+<li>for: 预测YouTube视频用户重复观看哪些部分很重要，有多种应用场景，如视频平台上的Targeted advertisement placement和助手视频创作者。</li>
+<li>methods: 我们在这项工作中探讨了是否可以预测YouTube视频的最多重播 (MR) 数据。为此，我们筹集了一个大型视频benchmark，即YTMR500 dataset，包含500个YouTube视频的MR数据注解。我们评估了不同复杂度的深度学习 (DL) 模型在我们的dataset上，并进行了广泛的ablation study。</li>
+<li>results: 我们的结果显示，虽然只有在Random predictions之上微弱，但所有评估DL模型都超过了人类性能。此外，它们还超过了人类水平的准确率。这表明预测MR数据是一项具有挑战性的任务，可以通过DL的帮助进一步提高。最后，我们认为DL在MR数据预测方面的性能还可以进一步提高，例如通过多Modal learning。我们鼓励研究者使用我们的benchmark dataset进一步调查自动MR数据预测。<details>
+<summary>Abstract</summary>
+Predicting which specific parts of a video users will replay is important for several applications, including targeted advertisement placement on video platforms and assisting video creators. In this work, we explore whether it is possible to predict the Most Replayed (MR) data from YouTube videos. To this end, we curate a large video benchmark, the YTMR500 dataset, which comprises 500 YouTube videos with MR data annotations. We evaluate Deep Learning (DL) models of varying complexity on our dataset and perform an extensive ablation study. In addition, we conduct a user study to estimate the human performance on MR data prediction. Our results show that, although by a narrow margin, all the evaluated DL models outperform random predictions. Additionally, they exceed human-level accuracy. This suggests that predicting the MR data is a difficult task that can be enhanced through the assistance of DL. Finally, we believe that DL performance on MR data prediction can be further improved, for example, by using multi-modal learning. We encourage the research community to use our benchmark dataset to further investigate automatic MR data prediction.
+</details>
+<details>
+<summary>摘要</summary>
+预测视频用户会重复观看哪些 especific parts是重要的，有多种应用场景，如视频平台上的受argeted广告推送和助手视频创作者。在这种工作中，我们是否可以预测YouTube视频中的 Most Replayed（MR）数据？为此，我们筹集了一个大型视频 benchmark，即 YTMR500 数据集，该数据集包含 500 个 YouTube 视频MR数据注解。我们评估了不同复杂度的深度学习（DL）模型在我们的数据集上，并进行了广泛的减少研究。此外，我们还进行了用户研究，以估计人类在 MR 数据预测上的性能。我们的结果显示，虽然只有通过一定的窄 margins，所有评估的 DL 模型都高于随机预测。此外，它们还超过了人类水平的准确率。这表明预测 MR 数据是一个具有挑战性的任务，可以通过DL的协助进行提高。最后，我们认为DL在 MR 数据预测中的性能可以进一步提高，例如通过多Modal learning。我们鼓励研究社区使用我们的 benchmark 数据集进一步调查自动 MR 数据预测。
+</details></li>
+</ul>
+<hr>
+<h2 id="Estimating-exercise-induced-fatigue-from-thermal-facial-images"><a href="#Estimating-exercise-induced-fatigue-from-thermal-facial-images" class="headerlink" title="Estimating exercise-induced fatigue from thermal facial images"></a>Estimating exercise-induced fatigue from thermal facial images</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06095">http://arxiv.org/abs/2309.06095</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Manuel Lage Cañellas, Constantino Álvarez Casado, Le Nguyen, Miguel Bordallo López</li>
+<li>for: 预测运动训练过程中的肥胖疲劳水平</li>
+<li>methods: 使用深度学习模型和热成像技术对用户的面部和热图进行自动分析</li>
+<li>results: 结果表明，只需要一幅热图，可以准确预测运动训练过程中的肥胖疲劳水平，误差在15%以下。这些结果表明使用热成像技术和深度学习模型可以实现可靠的肥胖疲劳预测。<details>
+<summary>Abstract</summary>
+Exercise-induced fatigue resulting from physical activity can be an early indicator of overtraining, illness, or other health issues. In this article, we present an automated method for estimating exercise-induced fatigue levels through the use of thermal imaging and facial analysis techniques utilizing deep learning models. Leveraging a novel dataset comprising over 400,000 thermal facial images of rested and fatigued users, our results suggest that exercise-induced fatigue levels could be predicted with only one static thermal frame with an average error smaller than 15\%. The results emphasize the viability of using thermal imaging in conjunction with deep learning for reliable exercise-induced fatigue estimation.
+</details>
+<details>
+<summary>摘要</summary>
+физи活动引起的疲劳可能是过度训练、疾病或其他健康问题的早期指标。在这篇文章中，我们提出了一种自动化的方法，通过使用热成像和面部分析技术，使用深度学习模型来估计 физи活动引起的疲劳水平。利用一个新的数据集，包括超过400,000个热成像的休息和疲劳用户的面部图像，我们的结果表明，只需要一帧热成像，可以准确地预测Physical activity-induced fatigue level，误差在15%以下。结果表明，使用热成像和深度学习可靠地估计Physical activity-induced fatigue level。
+</details></li>
+</ul>
+<hr>
+<h2 id="Plasticity-Optimized-Complementary-Networks-for-Unsupervised-Continual-Learning"><a href="#Plasticity-Optimized-Complementary-Networks-for-Unsupervised-Continual-Learning" class="headerlink" title="Plasticity-Optimized Complementary Networks for Unsupervised Continual Learning"></a>Plasticity-Optimized Complementary Networks for Unsupervised Continual Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06086">http://arxiv.org/abs/2309.06086</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/alviur/pocon_wacv2024">https://github.com/alviur/pocon_wacv2024</a></li>
+<li>paper_authors: Alex Gomez-Villa, Bartlomiej Twardowski, Kai Wang, Joost van de Weijer</li>
+<li>for: 本研究旨在解决现有的 continual learning (CL) 方法在面对多个任务时的表现下降问题，通过采用一个专家网络来减少过去知识的影响，以提高新任务的学习效果。</li>
+<li>methods: 本研究使用了一种新的 adaptation-retrospection 策略，将新的知识与过去网络的知识结合在一起，以避免忘记并Initialize一个新的专家网络。此外，本研究还使用了一种新的损失函数，以优化新任务的学习。</li>
+<li>results: 本研究的实验结果表明，提出的方法在 few-task 和 many-task 分割Setting中都能够达到其他自由 exemplar-free 方法的高度表现，并且在 semi-supervised continual learning  Setting中也能够达到其他 exemplar-free 方法的表现水平。<details>
+<summary>Abstract</summary>
+Continuous unsupervised representation learning (CURL) research has greatly benefited from improvements in self-supervised learning (SSL) techniques. As a result, existing CURL methods using SSL can learn high-quality representations without any labels, but with a notable performance drop when learning on a many-tasks data stream. We hypothesize that this is caused by the regularization losses that are imposed to prevent forgetting, leading to a suboptimal plasticity-stability trade-off: they either do not adapt fully to the incoming data (low plasticity), or incur significant forgetting when allowed to fully adapt to a new SSL pretext-task (low stability). In this work, we propose to train an expert network that is relieved of the duty of keeping the previous knowledge and can focus on performing optimally on the new tasks (optimizing plasticity). In the second phase, we combine this new knowledge with the previous network in an adaptation-retrospection phase to avoid forgetting and initialize a new expert with the knowledge of the old network. We perform several experiments showing that our proposed approach outperforms other CURL exemplar-free methods in few- and many-task split settings. Furthermore, we show how to adapt our approach to semi-supervised continual learning (Semi-SCL) and show that we surpass the accuracy of other exemplar-free Semi-SCL methods and reach the results of some others that use exemplars.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="A2V-A-Semi-Supervised-Domain-Adaptation-Framework-for-Brain-Vessel-Segmentation-via-Two-Phase-Training-Angiography-to-Venography-Translation"><a href="#A2V-A-Semi-Supervised-Domain-Adaptation-Framework-for-Brain-Vessel-Segmentation-via-Two-Phase-Training-Angiography-to-Venography-Translation" class="headerlink" title="A2V: A Semi-Supervised Domain Adaptation Framework for Brain Vessel Segmentation via Two-Phase Training Angiography-to-Venography Translation"></a>A2V: A Semi-Supervised Domain Adaptation Framework for Brain Vessel Segmentation via Two-Phase Training Angiography-to-Venography Translation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06075">http://arxiv.org/abs/2309.06075</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Francesco Galati, Daniele Falcetta, Rosa Cortese, Barbara Casolla, Ferran Prados, Ninon Burgos, Maria A. Zuluaga</li>
+<li>for: 这个研究旨在提供一个半监督领域适应框架，用于不同类型的脑血管分类图像。</li>
+<li>methods: 这个框架使用了标注的 angeography 和有限标注的 venography，进行图像转换和semantic分类，并且利用分离的和semantically rich的对应空间来表示多元数据，实现图像水平适应和多Modalities 类别分类。</li>
+<li>results: 这个方法在磁共振影像和 Venography 上评估，实现了源领域中的最佳性能，并在目标领域中仅有8.9%的Dice分数下降，显示其在不同类型的脑血管图像分类中的可靠性和可行性。<details>
+<summary>Abstract</summary>
+We present a semi-supervised domain adaptation framework for brain vessel segmentation from different image modalities. Existing state-of-the-art methods focus on a single modality, despite the wide range of available cerebrovascular imaging techniques. This can lead to significant distribution shifts that negatively impact the generalization across modalities. By relying on annotated angiographies and a limited number of annotated venographies, our framework accomplishes image-to-image translation and semantic segmentation, leveraging a disentangled and semantically rich latent space to represent heterogeneous data and perform image-level adaptation from source to target domains. Moreover, we reduce the typical complexity of cycle-based architectures and minimize the use of adversarial training, which allows us to build an efficient and intuitive model with stable training. We evaluate our method on magnetic resonance angiographies and venographies. While achieving state-of-the-art performance in the source domain, our method attains a Dice score coefficient in the target domain that is only 8.9% lower, highlighting its promising potential for robust cerebrovascular image segmentation across different modalities.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出了一种半监督频道适应框架，用于从不同影像模式下的脑血管分 segmentation。现有的state-of-the-art方法偏向单一模式，即使有许多可用的脑血管成像技术。这会导致分布shift的问题，这会负面影响 across modalities。我们的框架通过使用注解的 angiographies 和有限多个注解 venographies，实现了图像到图像的翻译和 semantics 的 segmentation，利用分离和具有 semantic richness的秘密空间来表示不同数据，并在目标频道上进行图像级适应。此外，我们减少了典型的 cycle-based 架构的复杂性，并减少了对 adversarial training 的使用，这使得我们可以构建一个高效和直观的模型，并保持稳定的训练。我们在核磁共振 angiographies 和 venographies 上评估了我们的方法，在源频道中达到了 state-of-the-art 性能，而在目标频道中，我们的方法实现了 Dice 分数系数，与目标频道的性能差异为8.9%，这表明我们的方法在不同模式下的脑血管图像分 segmentation中具有良好的潜力。
+</details></li>
+</ul>
+<hr>
+<h2 id="Batch-Implicit-Neural-Representation-for-MRI-Parallel-Reconstruction"><a href="#Batch-Implicit-Neural-Representation-for-MRI-Parallel-Reconstruction" class="headerlink" title="Batch Implicit Neural Representation for MRI Parallel Reconstruction"></a>Batch Implicit Neural Representation for MRI Parallel Reconstruction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06067">http://arxiv.org/abs/2309.06067</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hao Li, Yusheng Zhou, Jianan Liu, Xiling Liu, Tao Huang, Zhihan Lv</li>
+<li>for: 提高MRI扫描时间的问题</li>
+<li>methods: 使用深度学习方法 implicit neural representation（INR）和scale-embedded encoder来重建MRI图像</li>
+<li>results: 提出了一种新的MRI重建方法，能够在不同的抽样率下实现自适应的图像重建，并且在公共可用的MRI数据集上进行了实验和比较，表明该方法在重建图像方面具有优于其他方法。<details>
+<summary>Abstract</summary>
+Magnetic resonance imaging (MRI) always suffered from the problem of long acquisition time. MRI reconstruction is one solution to reduce scan time by skipping certain phase-encoding lines and then restoring high-quality images from undersampled measurements. Recently, implicit neural representation (INR) has emerged as a new deep learning method that represents an object as a continuous function of spatial coordinates, and this function is normally parameterized by a multilayer perceptron (MLP). In this paper, we propose a novel MRI reconstruction method based on INR, which represents the fully-sampled images as the function of pixel coordinates and prior feature vectors of undersampled images for overcoming the generalization problem of INR. Specifically, we introduce a scale-embedded encoder to produce scale-independent pixel-specific features from MR images with different undersampled scales and then concatenate with coordinates vectors to recover fully-sampled MR images via an MLP, thus achieving arbitrary scale reconstruction. The performance of the proposed method was assessed by experimenting on publicly available MRI datasets and compared with other reconstruction methods. Our quantitative evaluation demonstrates the superiority of the proposed method over alternative reconstruction methods.
+</details>
+<details>
+<summary>摘要</summary>
+magnetic resonance imaging (MRI) 总是受到长时间探测问题的困扰。MRI重建是一种解决减少扫描时间的方法，通过跳过certain phase-encoding line并从不完全探测的数据中重建高质量图像。最近，implicit neural representation (INR)  emerged as a new deep learning method, representing an object as a continuous function of spatial coordinates, and this function is normally parameterized by a multilayer perceptron (MLP).在这篇论文中，我们提出了一种基于 INR 的新的 MRI重建方法。specifically, we introduce a scale-embedded encoder to produce scale-independent pixel-specific features from MR images with different undersampled scales and then concatenate with coordinates vectors to recover fully-sampled MR images via an MLP, thus achieving arbitrary scale reconstruction.我们对公共可用的 MRI 数据集进行实验，与其他重建方法进行比较，并评估了我们的方法的性能。我们的量化评估表明了我们的方法的优越性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Selection-of-contributing-factors-for-predicting-landslide-susceptibility-using-machine-learning-and-deep-learning-models"><a href="#Selection-of-contributing-factors-for-predicting-landslide-susceptibility-using-machine-learning-and-deep-learning-models" class="headerlink" title="Selection of contributing factors for predicting landslide susceptibility using machine learning and deep learning models"></a>Selection of contributing factors for predicting landslide susceptibility using machine learning and deep learning models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06062">http://arxiv.org/abs/2309.06062</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Cheng Chen, Lei Fan</li>
+<li>for: 预测滥覆潜在风险地点的滥覆发生可能性，以避免人员伤亡、财产损失和经济损害。</li>
+<li>methods: 使用机器学习（ML）模型，如逻辑回归（LR）、支持向量机（SVM）、Random Forest（RF）、极限卷积树（Xgboost）和深度学习（DL）模型，例如卷积神经网络（CNN）和长短期记忆（LSTM）。</li>
+<li>results:  investigate the impact of selecting contributing factors on the accuracy of landslide susceptibility predictions using ML and DL models, and compare the performances of four methods for selecting contributing factors, including Information Gain Ratio (IGR), Recursive Feature Elimination (RFE), Particle Swarm Optimization (PSO), Least Absolute Shrinkage and Selection Operators (LASSO) and Harris Hawk Optimization (HHO), as well as autoencoder-based factor selection methods for DL models.<details>
+<summary>Abstract</summary>
+Landslides are a common natural disaster that can cause casualties, property safety threats and economic losses. Therefore, it is important to understand or predict the probability of landslide occurrence at potentially risky sites. A commonly used means is to carry out a landslide susceptibility assessment based on a landslide inventory and a set of landslide contributing factors. This can be readily achieved using machine learning (ML) models such as logistic regression (LR), support vector machine (SVM), random forest (RF), extreme gradient boosting (Xgboost), or deep learning (DL) models such as convolutional neural network (CNN) and long short time memory (LSTM). As the input data for these models, landslide contributing factors have varying influences on landslide occurrence. Therefore, it is logically feasible to select more important contributing factors and eliminate less relevant ones, with the aim of increasing the prediction accuracy of these models. However, selecting more important factors is still a challenging task and there is no generally accepted method. Furthermore, the effects of factor selection using various methods on the prediction accuracy of ML and DL models are unclear. In this study, the impact of the selection of contributing factors on the accuracy of landslide susceptibility predictions using ML and DL models was investigated. Four methods for selecting contributing factors were considered for all the aforementioned ML and DL models, which included Information Gain Ratio (IGR), Recursive Feature Elimination (RFE), Particle Swarm Optimization (PSO), Least Absolute Shrinkage and Selection Operators (LASSO) and Harris Hawk Optimization (HHO). In addition, autoencoder-based factor selection methods for DL models were also investigated. To assess their performances, an exhaustive approach was adopted,...
+</details>
+<details>
+<summary>摘要</summary>
+landalide是一种常见的自然灾害，可以导致人员伤亡、财产安全威胁和经济损失。因此，了解或预测潜在风险地点附近垃圾滥致的可能性非常重要。一种常用的方法是通过垃圾滥致评估基于垃圾发现和一组垃圾带动因素。这可以通过机器学习（ML）模型 such as logistic regression（LR）、support vector machine（SVM）、Random Forest（RF）、extreme gradient boosting（Xgboost）或深度学习（DL）模型 such as convolutional neural network（CNN）和long short time memory（LSTM）来实现。作为输入数据，垃圾带动因素具有不同的影响度，因此可以选择更重要的带动因素，并将不重要的带动因素排除，以提高这些模型的预测精度。然而，选择更重要的因素仍然是一项具有挑战性的任务，并没有一般accepted方法。此外，不同方法选择垃圾带动因素的影响于ML和DL模型的预测精度也未得到了清楚的回答。本研究旨在调查垃圾滥致可能性预测使用ML和DL模型时，选择垃圾带动因素的影响。本研究考虑了四种方法选择垃圾带动因素，包括Information Gain Ratio（IGR）、Recursive Feature Elimination（RFE）、Particle Swarm Optimization（PSO）和Least Absolute Shrinkage and Selection Operators（LASSO）以及Harris Hawk Optimization（HHO）。此外，对于深度学习模型，也调查了基于自适应器的因素选择方法。为了评估它们的表现，本研究采用了一种极客方法。
+</details></li>
+</ul>
+<hr>
+<h2 id="Real-Time-Semantic-Segmentation-A-Brief-Survey-Comparative-Study-in-Remote-Sensing"><a href="#Real-Time-Semantic-Segmentation-A-Brief-Survey-Comparative-Study-in-Remote-Sensing" class="headerlink" title="Real-Time Semantic Segmentation: A Brief Survey &amp; Comparative Study in Remote Sensing"></a>Real-Time Semantic Segmentation: A Brief Survey &amp; Comparative Study in Remote Sensing</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06047">http://arxiv.org/abs/2309.06047</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Clifford Broni-Bediako, Junshi Xia, Naoto Yokoya</li>
+<li>for: 本研究的目的是提出一种高效的深度学习方法，用于实时Remote Sensing图像Semantic Segmentation。</li>
+<li>methods: 本研究使用了几种常见的深度学习方法，包括Convolutional Neural Networks (CNNs)、Recurrent Neural Networks (RNNs) 和 Generative Adversarial Networks (GANs)。</li>
+<li>results: 实验结果表明，大多数现有的高效深度学习方法具有良好的分割质量，但它们具有较高的执行速率（即延迟率），这可能限制了它们在实时应用中的可行性。<details>
+<summary>Abstract</summary>
+Real-time semantic segmentation of remote sensing imagery is a challenging task that requires a trade-off between effectiveness and efficiency. It has many applications including tracking forest fires, detecting changes in land use and land cover, crop health monitoring, and so on. With the success of efficient deep learning methods (i.e., efficient deep neural networks) for real-time semantic segmentation in computer vision, researchers have adopted these efficient deep neural networks in remote sensing image analysis. This paper begins with a summary of the fundamental compression methods for designing efficient deep neural networks and provides a brief but comprehensive survey, outlining the recent developments in real-time semantic segmentation of remote sensing imagery. We examine several seminal efficient deep learning methods, placing them in a taxonomy based on the network architecture design approach. Furthermore, we evaluate the quality and efficiency of some existing efficient deep neural networks on a publicly available remote sensing semantic segmentation benchmark dataset, the OpenEarthMap. The experimental results of an extensive comparative study demonstrate that most of the existing efficient deep neural networks have good segmentation quality, but they suffer low inference speed (i.e., high latency rate), which may limit their capability of deployment in real-time applications of remote sensing image segmentation. We provide some insights into the current trend and future research directions for real-time semantic segmentation of remote sensing imagery.
+</details>
+<details>
+<summary>摘要</summary>
+实时 semantic segmentation of remote sensing imagery 是一项复杂的任务，需要考虑效率和准确性之间的平衡。它有许多应用，如追踪森林火灾、检测土地用途和土地覆盖变化、耕地健康监测等。随着计算机视觉中高效的深度学习方法（i.e., 高效的深度神经网络）的成功，研究人员在 remote sensing 图像分析中采用了这些高效的深度神经网络。本文从基本压缩方法的概述开始，并提供了一个简短但全面的报告，概述了最近的 remote sensing 图像semantic segmentation 技术的发展。我们对几种具有代表性的高效深度学习方法进行了分类，根据网络架构设计方法。此外，我们对一个公共可用的 remote sensing semantic segmentation 数据集（OpenEarthMap）进行了评估，并对一些现有的高效深度神经网络进行了比较性研究。实验结果表明，大多数现有的高效深度神经网络具有良好的分割质量，但它们具有低执行速度（即高延迟率），这可能限制它们在实时应用中的可用性。我们提供了一些关于当前趋势和未来研究方向的思考。
+</details></li>
+</ul>
+<hr>
+<h2 id="Federated-Learning-for-Large-Scale-Scene-Modeling-with-Neural-Radiance-Fields"><a href="#Federated-Learning-for-Large-Scale-Scene-Modeling-with-Neural-Radiance-Fields" class="headerlink" title="Federated Learning for Large-Scale Scene Modeling with Neural Radiance Fields"></a>Federated Learning for Large-Scale Scene Modeling with Neural Radiance Fields</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06030">http://arxiv.org/abs/2309.06030</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Teppei Suzuki</li>
+<li>for: 建立一个持续性地建立和维护基于地球尺度对应的神经透射场（NeRF），使用车辆和无人机所收集的数据进行生命周期式学习。</li>
+<li>methods: 使用联邦学习管线，将NeRF模型聚合在一起，以进行大规模模型化。在联邦学习中，我们修改了NeRF模型的聚合步骤，以容许本地更新NeRF模型。在联邦学习中，客户端的全球姿态精度是 kritical。因此，我们还提出了全球姿态调整，以对客户端的随机全球姿态进行调整。</li>
+<li>results: 在Mill19大规模景景集中进行实验，显示了提案的姿态调整和联邦学习管线的效果。<details>
+<summary>Abstract</summary>
+We envision a system to continuously build and maintain a map based on earth-scale neural radiance fields (NeRF) using data collected from vehicles and drones in a lifelong learning manner. However, existing large-scale modeling by NeRF has problems in terms of scalability and maintainability when modeling earth-scale environments. Therefore, to address these problems, we propose a federated learning pipeline for large-scale modeling with NeRF. We tailor the model aggregation pipeline in federated learning for NeRF, thereby allowing local updates of NeRF. In the aggregation step, the accuracy of the clients' global pose is critical. Thus, we also propose global pose alignment to align the noisy global pose of clients before the aggregation step. In experiments, we show the effectiveness of the proposed pose alignment and the federated learning pipeline on the large-scale scene dataset, Mill19.
+</details>
+<details>
+<summary>摘要</summary>
+我们想要构建一个系统，通过持续地使用地球规模神经辐射场（NeRF）收集自汽车和无人机数据来建立和维护地球规模环境的地球规模神经辐射场地图。然而，现有的大规模模型化使用NeRF时存在扩展性和可维护性问题，因此我们提议一种联邦学习管道来解决这些问题。我们修改了NeRF模型聚合管道，以便在联邦学习中进行本地更新。在聚合步骤中，客户端的全球姿态精度是关键的，因此我们还提议用于客户端全球姿态的对齐。在实验中，我们证明了我们提议的姿态对齐和联邦学习管道在大规模场景数据集Mill19上的效果。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-new-meteor-detection-application-robust-to-camera-movements"><a href="#A-new-meteor-detection-application-robust-to-camera-movements" class="headerlink" title="A new meteor detection application robust to camera movements"></a>A new meteor detection application robust to camera movements</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06027">http://arxiv.org/abs/2309.06027</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Clara Ciocan, Mathuran Kandeepan, Adrien Cassagne, Jeremie Vaubaillon, Fabian Zander, Lionel Lacassagne</li>
+<li>for: 本研究开发了一个自动检测流星的工具，以便实现在气球或飞机上的实时检测。</li>
+<li>methods: 研究人员使用了称为FMDT的工具组合，包括了稳定分析和影像处理技术，以检测影像中的流星视域。</li>
+<li>results: 研究人员成功开发了一个能够在25帧每秒的实时运算下，实现10瓦的电力耗用的流星检测工具组合。<details>
+<summary>Abstract</summary>
+This article presents a new tool for the automatic detection of meteors. Fast Meteor Detection Toolbox (FMDT) is able to detect meteor sightings by analyzing videos acquired by cameras onboard weather balloons or within airplane with stabilization. The challenge consists in designing a processing chain composed of simple algorithms, that are robust to the high fluctuation of the videos and that satisfy the constraints on power consumption (10 W) and real-time processing (25 frames per second).
+</details>
+<details>
+<summary>摘要</summary>
+这篇文章介绍了一种新的自动探测陨星工具。它可以通过气球上或飞机内的摄像机记录的视频来探测陨星现象，并且可以通过稳定化来减少视频的波动。挑战在于设计一个简单的处理链，可以对视频进行稳定化，并且满足功耗控制（10 W）和实时处理（25帧每秒）的要求。
+</details></li>
+</ul>
+<hr>
+<h2 id="Learning-from-History-Task-agnostic-Model-Contrastive-Learning-for-Image-Restoration"><a href="#Learning-from-History-Task-agnostic-Model-Contrastive-Learning-for-Image-Restoration" class="headerlink" title="Learning from History: Task-agnostic Model Contrastive Learning for Image Restoration"></a>Learning from History: Task-agnostic Model Contrastive Learning for Image Restoration</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06023">http://arxiv.org/abs/2309.06023</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/aitical/task-agnostic_model_contrastive_learning_image_restoration">https://github.com/aitical/task-agnostic_model_contrastive_learning_image_restoration</a></li>
+<li>paper_authors: Gang Wu, Junjun Jiang, Kui Jiang, Xianming Liu</li>
+<li>for: 高级视觉任务的contrastive学习方法，以及低级视觉任务的启发式学习方法</li>
+<li>methods: 自动生成适应性负样本，通过目标模型自身来准确地预测负样本</li>
+<li>results: 对各种任务和架构进行重新训练，显著提高图像修复效果，比如FFANet和DehazeFormer在RESIDEindoordataset上的图像震扫比进行3.41dB的提升，同样在SPA-Data上的图像雨减比进行0.47dB的提升，以及在Manga109上的4倍缩放超解像比进行0.12dB的提升。<details>
+<summary>Abstract</summary>
+Contrastive learning has emerged as a prevailing paradigm for high-level vision tasks, which, by introducing properly negative samples, has also been exploited for low-level vision tasks to achieve a compact optimization space to account for their ill-posed nature. However, existing methods rely on manually predefined, task-oriented negatives, which often exhibit pronounced task-specific biases. In this paper, we propose a innovative approach for the adaptive generation of negative samples directly from the target model itself, called ``learning from history``. We introduce the Self-Prior guided Negative loss for image restoration (SPNIR) to enable this approach. Our approach is task-agnostic and generic, making it compatible with any existing image restoration method or task. We demonstrate the effectiveness of our approach by retraining existing models with SPNIR. The results show significant improvements in image restoration across various tasks and architectures. For example, models retrained with SPNIR outperform the original FFANet and DehazeFormer by 3.41 dB and 0.57 dB on the RESIDE indoor dataset for image dehazing. Similarly, they achieve notable improvements of 0.47 dB on SPA-Data over IDT for image deraining and 0.12 dB on Manga109 for a 4x scale super-resolution over lightweight SwinIR, respectively. Code and retrained models are available at https://github.com/Aitical/Task-agnostic_Model_Contrastive_Learning_Image_Restoration.
+</details>
+<details>
+<summary>摘要</summary>
+对比学习在高级视觉任务中成为主流方法，并且运用到低级视觉任务中以获得一个较为紧密的优化空间，以应对它们的不确定性。然而，现有的方法通常靠manual地定义任务特有的负面样本，这些样本经常会受到任务特有的偏见。在这篇论文中，我们提出了一种创新的方法，即“学习历史”，可以自动生成适当的负面样本。我们称之为Self-Prior guided Negative loss for image restoration（SPNIR）。我们的方法是任务不特定的和通用的，因此可以与任何现有的图像修复方法或任务搭配使用。我们通过 retrained 现有模型使用 SPNIR，以证明我们的方法的有效性。结果显示，使用 SPNIR  retrained 模型可以在不同任务和架构上实现明显的图像修复改善。例如，使用 SPNIR  retrained FFANet 和 DehazeFormer 可以在 RESIDE 室内dataset 上实现这些模型的3.41 dB和0.57 dB的视觉修复提升。同样地，它们在 SPA-Data 上运用 IDT 的图像雨侦测任务上也可以获得0.47 dB的提升。代码和 retrained 模型可以在 https://github.com/Aitical/Task-agnostic_Model_Contrastive_Learning_Image_Restoration 上找到。
+</details></li>
+</ul>
+<hr>
+<h2 id="Feature-Aggregation-Network-for-Building-Extraction-from-High-resolution-Remote-Sensing-Images"><a href="#Feature-Aggregation-Network-for-Building-Extraction-from-High-resolution-Remote-Sensing-Images" class="headerlink" title="Feature Aggregation Network for Building Extraction from High-resolution Remote Sensing Images"></a>Feature Aggregation Network for Building Extraction from High-resolution Remote Sensing Images</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06017">http://arxiv.org/abs/2309.06017</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Xuan Zhou, Xuefeng Wei</li>
+<li>for: 本研究旨在提高高分辨率卫星遥感数据处理中的表面特征提取精度。</li>
+<li>methods: 本文提出了一种名为Feature Aggregation Network（FANet）的新方法，通过捕捉全球特征和本地特征，实现细致的表面特征提取。</li>
+<li>results: 广泛的实验表明，FANet在高分辨率卫星遥感图像中提取表面特征时表现出色，代表了Remote Sensing图像处理领域的一大突破。<details>
+<summary>Abstract</summary>
+The rapid advancement in high-resolution satellite remote sensing data acquisition, particularly those achieving submeter precision, has uncovered the potential for detailed extraction of surface architectural features. However, the diversity and complexity of surface distributions frequently lead to current methods focusing exclusively on localized information of surface features. This often results in significant intraclass variability in boundary recognition and between buildings. Therefore, the task of fine-grained extraction of surface features from high-resolution satellite imagery has emerged as a critical challenge in remote sensing image processing. In this work, we propose the Feature Aggregation Network (FANet), concentrating on extracting both global and local features, thereby enabling the refined extraction of landmark buildings from high-resolution satellite remote sensing imagery. The Pyramid Vision Transformer captures these global features, which are subsequently refined by the Feature Aggregation Module and merged into a cohesive representation by the Difference Elimination Module. In addition, to ensure a comprehensive feature map, we have incorporated the Receptive Field Block and Dual Attention Module, expanding the receptive field and intensifying attention across spatial and channel dimensions. Extensive experiments on multiple datasets have validated the outstanding capability of FANet in extracting features from high-resolution satellite images. This signifies a major breakthrough in the field of remote sensing image processing. We will release our code soon.
+</details>
+<details>
+<summary>摘要</summary>
+高解度卫星遥感数据获取的快速进步，尤其是实现 submeter 精度，揭示了表面建筑特征的详细EXTRACT的 potential.然而，表面分布的多样性和复杂性常常导致当前方法仅专注于本地特征信息。这经常导致边界认知的内部多样性和建筑之间的差异。因此，从高解度卫星遥感图像中细化EXTRACT表面特征成为了远程感知图像处理中的核心挑战。在这种情况下，我们提出了特征聚合网络（FANet），旨在EXTRACT高解度卫星遥感图像中的全球和本地特征。Pyramid Vision Transformer 捕捉到全球特征，然后通过特征聚合模块和差异消除模块将其融合成一个准确的表征。此外，为确保全面的表征地图，我们采用了抽象块和双向注意模块，扩展了受感器场和精细注意力。广泛的实验表明FANet在高解度卫星图像中EXTRACT特征的能力强大，这标志着远程感知图像处理领域的一次重要突破。我们即将发布代码。
+</details></li>
+</ul>
+<hr>
+<h2 id="TSSAT-Two-Stage-Statistics-Aware-Transformation-for-Artistic-Style-Transfer"><a href="#TSSAT-Two-Stage-Statistics-Aware-Transformation-for-Artistic-Style-Transfer" class="headerlink" title="TSSAT: Two-Stage Statistics-Aware Transformation for Artistic Style Transfer"></a>TSSAT: Two-Stage Statistics-Aware Transformation for Artistic Style Transfer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.06004">http://arxiv.org/abs/2309.06004</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Haibo Chen, Lei Zhao, Jun Li, Jian Yang</li>
+<li>For: 这个论文的目的是提出一种基于人类绘画过程的艺术风格传递方法，以便创造出新的艺术图像。* Methods: 这个方法使用了两个新的损失函数：一个关注内容损失函数和一个块基于风格损失函数，以及一个两个阶段统计意识转换模块（TSSAT），用于在patchwise进行风格细节的替换，从而提高风格效果。* Results: 对比其他方法，这个方法可以更好地捕捉到艺术风格的多样性和多样性，同时保持内容图像的semantic关系。广泛的量化和质量实验证明了我们的方法的有效性。<details>
+<summary>Abstract</summary>
+Artistic style transfer aims to create new artistic images by rendering a given photograph with the target artistic style. Existing methods learn styles simply based on global statistics or local patches, lacking careful consideration of the drawing process in practice. Consequently, the stylization results either fail to capture abundant and diversified local style patterns, or contain undesired semantic information of the style image and deviate from the global style distribution. To address this issue, we imitate the drawing process of humans and propose a Two-Stage Statistics-Aware Transformation (TSSAT) module, which first builds the global style foundation by aligning the global statistics of content and style features and then further enriches local style details by swapping the local statistics (instead of local features) in a patch-wise manner, significantly improving the stylization effects. Moreover, to further enhance both content and style representations, we introduce two novel losses: an attention-based content loss and a patch-based style loss, where the former enables better content preservation by enforcing the semantic relation in the content image to be retained during stylization, and the latter focuses on increasing the local style similarity between the style and stylized images. Extensive qualitative and quantitative experiments verify the effectiveness of our method.
+</details>
+<details>
+<summary>摘要</summary>
+To address this issue, we propose a Two-Stage Statistics-Aware Transformation (TSSAT) module that imitates the drawing process of humans. The first stage builds a global style foundation by aligning the global statistics of content and style features. The second stage enriches local style details by swapping local statistics in a patch-wise manner, significantly improving stylization effects.Moreover, we introduce two novel losses to enhance both content and style representations: an attention-based content loss that enforces the semantic relation in the content image to be retained during stylization, and a patch-based style loss that focuses on increasing local style similarity between the style and stylized images. Extensive experiments demonstrate the effectiveness of our method.
+</details></li>
+</ul>
+<hr>
+<h2 id="ATTA-Anomaly-aware-Test-Time-Adaptation-for-Out-of-Distribution-Detection-in-Segmentation"><a href="#ATTA-Anomaly-aware-Test-Time-Adaptation-for-Out-of-Distribution-Detection-in-Segmentation" class="headerlink" title="ATTA: Anomaly-aware Test-Time Adaptation for Out-of-Distribution Detection in Segmentation"></a>ATTA: Anomaly-aware Test-Time Adaptation for Out-of-Distribution Detection in Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.05994">http://arxiv.org/abs/2309.05994</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/gaozhitong/atta">https://github.com/gaozhitong/atta</a></li>
+<li>paper_authors: Zhitong Gao, Shipeng Yan, Xuming He</li>
+<li>for: 本文主要针对在相似领域下进行训练和测试的 dense out-of-distribution (OOD) 检测方法，即假设训练和测试数据集之间没有领域变换。</li>
+<li>methods: 我们提议一种 dual-level OOD 检测框架，同时处理领域变换和语义变换。第一层使用全域低级特征来判断图像是否存在领域变换，第二层使用高级特征图来检测像素的语义变换。</li>
+<li>results: 我们在多个 OOD 分割benchmark上验证了我们的提议方法，包括具有显著领域变换的benchmark，并观察到了不同基础模型的表现改善。<details>
+<summary>Abstract</summary>
+Recent advancements in dense out-of-distribution (OOD) detection have primarily focused on scenarios where the training and testing datasets share a similar domain, with the assumption that no domain shift exists between them. However, in real-world situations, domain shift often exits and significantly affects the accuracy of existing out-of-distribution (OOD) detection models. In this work, we propose a dual-level OOD detection framework to handle domain shift and semantic shift jointly. The first level distinguishes whether domain shift exists in the image by leveraging global low-level features, while the second level identifies pixels with semantic shift by utilizing dense high-level feature maps. In this way, we can selectively adapt the model to unseen domains as well as enhance model's capacity in detecting novel classes. We validate the efficacy of our proposed method on several OOD segmentation benchmarks, including those with significant domain shifts and those without, observing consistent performance improvements across various baseline models.
+</details>
+<details>
+<summary>摘要</summary>
+最近的高精度异类检测技术主要集中在同一个领域下进行训练和测试数据集的情况下，假设没有领域转移。然而，在实际情况下，领域转移经常存在并对现有的异类检测模型的准确性产生重要影响。在这种情况下，我们提出了一种双级异类检测框架，同时处理领域转移和 semantic shift。第一级检测图像中是否存在领域转移，通过利用全像的低级别特征；第二级通过使用高级别特征图像来标识具有semantic shift的像素。这种方法可以使我们在未看过的领域中选择性地适应模型，同时提高模型的检测新类的能力。我们在多个OOD分割标准评测上验证了我们的提议方法，包括具有显著领域转移的和无领域转移的多个基eline模型，并观察到了一致的性能提高。
+</details></li>
+</ul>
+<hr>
+<h2 id="FLDNet-A-Foreground-Aware-Network-for-Polyp-Segmentation-Leveraging-Long-Distance-Dependencies"><a href="#FLDNet-A-Foreground-Aware-Network-for-Polyp-Segmentation-Leveraging-Long-Distance-Dependencies" class="headerlink" title="FLDNet: A Foreground-Aware Network for Polyp Segmentation Leveraging Long-Distance Dependencies"></a>FLDNet: A Foreground-Aware Network for Polyp Segmentation Leveraging Long-Distance Dependencies</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.05987">http://arxiv.org/abs/2309.05987</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Xuefeng Wei, Xuan Zhou</li>
+<li>for: 检测和分类 COLONOSCOPY 图像中的肠穿孔瘤，以便早期检测和治疗肠穿孔癌。</li>
+<li>methods: 提议使用 Transformer 基于网络，包括三个主要模块：pyramid-based transformer encoder、local context module 和 foreground-Aware module。</li>
+<li>results: 比较现有方法表现出色，在常用的评价指标上达到了最高水平。<details>
+<summary>Abstract</summary>
+Given the close association between colorectal cancer and polyps, the diagnosis and identification of colorectal polyps play a critical role in the detection and surgical intervention of colorectal cancer. In this context, the automatic detection and segmentation of polyps from various colonoscopy images has emerged as a significant problem that has attracted broad attention. Current polyp segmentation techniques face several challenges: firstly, polyps vary in size, texture, color, and pattern; secondly, the boundaries between polyps and mucosa are usually blurred, existing studies have focused on learning the local features of polyps while ignoring the long-range dependencies of the features, and also ignoring the local context and global contextual information of the combined features. To address these challenges, we propose FLDNet (Foreground-Long-Distance Network), a Transformer-based neural network that captures long-distance dependencies for accurate polyp segmentation. Specifically, the proposed model consists of three main modules: a pyramid-based Transformer encoder, a local context module, and a foreground-Aware module. Multilevel features with long-distance dependency information are first captured by the pyramid-based transformer encoder. On the high-level features, the local context module obtains the local characteristics related to the polyps by constructing different local context information. The coarse map obtained by decoding the reconstructed highest-level features guides the feature fusion process in the foreground-Aware module of the high-level features to achieve foreground enhancement of the polyps. Our proposed method, FLDNet, was evaluated using seven metrics on common datasets and demonstrated superiority over state-of-the-art methods on widely-used evaluation measures.
+</details>
+<details>
+<summary>摘要</summary>
+giventext  close association colorectal cancer polyps diagnosis identification colorectal polyps critical role detection surgical intervention context automatic detection segmentation various colonoscopy images emerged significant problem attracted broad attention current polyp segmentation techniques challenges firstly polyps vary size texture color pattern secondly boundaries polyps mucosa blurred existing studies focused learning local features ignoring long-range dependencies features ignoring local context global contextual information combined features address challenges propose FLDNet (Foreground-Long-Distance Network) Transformer-based neural network captures long-distance dependencies accurate polyp segmentation specifically proposed model consists three main modules pyramid-based Transformer encoder local context module foreground-Aware module multilevel features long-distance dependency information first captured pyramid-based transformer encoder high-level features local context module obtains local characteristics related polyps constructing different local context information coarse map obtained decoding reconstructed highest-level features guides feature fusion process foreground-Aware module achieve foreground enhancement polyps our proposed method FLDNet evaluated seven metrics common datasets demonstrated superiority state-of-art methods widely-used evaluation measures.
+</details></li>
+</ul>
+<hr>
+<h2 id="Self-supervised-Extraction-of-Human-Motion-Structures-via-Frame-wise-Discrete-Features"><a href="#Self-supervised-Extraction-of-Human-Motion-Structures-via-Frame-wise-Discrete-Features" class="headerlink" title="Self-supervised Extraction of Human Motion Structures via Frame-wise Discrete Features"></a>Self-supervised Extraction of Human Motion Structures via Frame-wise Discrete Features</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.05972">http://arxiv.org/abs/2309.05972</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Tetsuya Abe, Ryusuke Sagawa, Ko Ayusawa, Wataru Takano</li>
+<li>for: 提出了一种基于encoder-decoder模型的自然语言处理方法，用于从框架级别的不同特征中提取人体运动结构。</li>
+<li>methods: 使用自我注意力层和 вектор聚合块来找到缺省的键帧和离散特征，并通过训练约束来确保这些码可以在多个序列之间共享。</li>
+<li>results: 通过使用这些缺省的运动码，可以将人体运动的关系图示出来，并通过线性探测发现这些码在不同序列之间的差异。同时，这些运动码也可以用于多个认知任务中，并且可以达到与任务优化方法相同的性能水平。<details>
+<summary>Abstract</summary>
+The present paper proposes an encoder-decoder model for extracting the structures of human motions represented by frame-wise discrete features in a self-supervised manner. In the proposed method, features are extracted as codes in a motion codebook without the use of human knowledge, and the relationship between these codes can be visualized on a graph. Since the codes are expected to be temporally sparse compared to the captured frame rate and can be shared by multiple sequences, the proposed network model also addresses the need for training constraints. Specifically, the model consists of self-attention layers and a vector clustering block. The attention layers contribute to finding sparse keyframes and discrete features as motion codes, which are then extracted by vector clustering. The constraints are realized as training losses so that the same motion codes can be as contiguous as possible and can be shared by multiple sequences. In addition, we propose the use of causal self-attention as a method by which to calculate attention for long sequences consisting of numerous frames. In our experiments, the sparse structures of motion codes were used to compile a graph that facilitates visualization of the relationship between the codes and the differences between sequences. We then evaluated the effectiveness of the extracted motion codes by applying them to multiple recognition tasks and found that performance levels comparable to task-optimized methods could be achieved by linear probing.
+</details>
+<details>
+<summary>摘要</summary>
+现在的论文提出了一种encoder-decoder模型，用于自主监测人体动作的结构，通过frame-wise不同特征来自动提取这些结构。在提posed方法中，特征被视为码在动作码本中，而这些码之间的关系可以在图上可视化。由于码预计会比捕捉的帧率更加稀疏，因此提出的网络模型也解决了训练约束的需求。具体来说，模型包括自我注意层和 вектор聚合块。注意层帮助找到简短的关键帧和特征码，然后通过 вектор聚合提取这些码。约束被实现为训练损失，以便在多个序列之间共享相同的动作码。此外，我们还提出了使用 causal self-attention 来计算注意力的方法，以便对长序列中的多个帧进行注意力计算。在我们的实验中，通过使用稀疏的动作码，编译了一个图，方便了动作码之间和序列之间的关系的可视化。然后，我们通过将这些动作码应用到多个认知任务中，发现可以达到与任务优化方法相同的性能水平。
+</details></li>
+</ul>
+<hr>
+<h2 id="Beyond-Generation-Harnessing-Text-to-Image-Models-for-Object-Detection-and-Segmentation"><a href="#Beyond-Generation-Harnessing-Text-to-Image-Models-for-Object-Detection-and-Segmentation" class="headerlink" title="Beyond Generation: Harnessing Text to Image Models for Object Detection and Segmentation"></a>Beyond Generation: Harnessing Text to Image Models for Object Detection and Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.05956">http://arxiv.org/abs/2309.05956</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yunhao Ge, Jiashu Xu, Brian Nlong Zhao, Neel Joshi, Laurent Itti, Vibhav Vineet</li>
+<li>for:  This paper proposes a new approach to generate training data with accurate labels at scale for object detection and segmentation tasks.</li>
+<li>methods: The proposed approach decouples training data generation into foreground object generation and contextually coherent background generation, using text-to-image synthesis frameworks such as DALL-E and Stable Diffusion.</li>
+<li>results: The authors demonstrate the advantages of their approach on five object detection and segmentation datasets, including Pascal VOC and COCO, and show that detectors trained solely on synthetic data produced by their method achieve performance comparable to those trained on real data. Additionally, the authors emphasize the compositional nature of their data generation approach in out-of-distribution and zero-shot data generation scenarios.<details>
+<summary>Abstract</summary>
+We propose a new paradigm to automatically generate training data with accurate labels at scale using the text-to-image synthesis frameworks (e.g., DALL-E, Stable Diffusion, etc.). The proposed approach1 decouples training data generation into foreground object generation, and contextually coherent background generation. To generate foreground objects, we employ a straightforward textual template, incorporating the object class name as input prompts. This is fed into a text-to-image synthesis framework, producing various foreground images set against isolated backgrounds. A foreground-background segmentation algorithm is then used to generate foreground object masks. To generate context images, we begin by creating language descriptions of the context. This is achieved by applying an image captioning method to a small set of images representing the desired context. These textual descriptions are then transformed into a diverse array of context images via a text-to-image synthesis framework. Subsequently, we composite these with the foreground object masks produced in the initial step, utilizing a cut-and-paste method, to formulate the training data. We demonstrate the advantages of our approach on five object detection and segmentation datasets, including Pascal VOC and COCO. We found that detectors trained solely on synthetic data produced by our method achieve performance comparable to those trained on real data (Fig. 1). Moreover, a combination of real and synthetic data yields even much better results. Further analysis indicates that the synthetic data distribution complements the real data distribution effectively. Additionally, we emphasize the compositional nature of our data generation approach in out-of-distribution and zero-shot data generation scenarios. We open-source our code at https://github.com/gyhandy/Text2Image-for-Detection
+</details>
+<details>
+<summary>摘要</summary>
+我们提出一种新的思路，用于自动生成具有准确标签的训练数据量化，使用文本到图像合成框架（如DALL-E、稳定扩散等）。我们的方法将训练数据生成划分为前景对象生成和文脉凝合的背景生成。为前景对象生成，我们使用直观文本模板，将对象类名作为输入提示。这些文本模板被 feed into 文本到图像合成框架，生成多种前景图像，其中每个图像具有隔离的背景。然后，我们使用前景-背景分割算法生成前景对象mask。为生成背景图像，我们首先创建语言描述，用于描述愿意的背景。我们使用一小组图像的图像描述算法来生成这些语言描述。这些文本描述被转换成一个多样化的背景图像数组via 文本到图像合成框架。最后，我们将这些背景图像与前景对象mask进行组合，使用剪辑方法，以生成训练数据。我们在 Pascal VOC 和 COCO 等五个对象检测和分割数据集上示出了我们的方法的优势（图1）。我们发现，由我们的方法生成的假数据可以与实际数据一样高效地训练检测器。此外，我们发现在将实际数据和假数据混合在一起时，性能更好。我们还发现，我们的数据生成方法在尝试数据和零shot数据生成方面具有组合性。我们将代码开源在 GitHub 上，可以在 <https://github.com/gyhandy/Text2Image-for-Detection> 中下载。
+</details></li>
+</ul>
+<hr>
+<h2 id="Introducing-Shape-Prior-Module-in-Diffusion-Model-for-Medical-Image-Segmentation"><a href="#Introducing-Shape-Prior-Module-in-Diffusion-Model-for-Medical-Image-Segmentation" class="headerlink" title="Introducing Shape Prior Module in Diffusion Model for Medical Image Segmentation"></a>Introducing Shape Prior Module in Diffusion Model for Medical Image Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.05929">http://arxiv.org/abs/2309.05929</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zhiqing Zhang, Guojia Fan, Tianyong Liu, Nan Li, Yuyang Liu, Ziyu Liu, Canwei Dong, Shoujun Zhou</li>
+<li>for: 这个研究旨在提供高精度和多标的脊梗医学像分割模板，以支持专科医生在诊断和治疗中使用。</li>
+<li>methods: 这种方法利用了减轻扩散 probabilistic modeling（DDPM），并与标准的U型架构结合，以精确地导向扩散方向。此外，这种方法还包括一个形态预设模组，以提取医疗影像中的结构 semantic信息。</li>
+<li>results:  compared to其他现有方法，VerseDiff-UNet 在精度方面表现出色，同时保持了医疗影像中自然的特征和变化。<details>
+<summary>Abstract</summary>
+Medical image segmentation is critical for diagnosing and treating spinal disorders. However, the presence of high noise, ambiguity, and uncertainty makes this task highly challenging. Factors such as unclear anatomical boundaries, inter-class similarities, and irrational annotations contribute to this challenge. Achieving both accurate and diverse segmentation templates is essential to support radiologists in clinical practice. In recent years, denoising diffusion probabilistic modeling (DDPM) has emerged as a prominent research topic in computer vision. It has demonstrated effectiveness in various vision tasks, including image deblurring, super-resolution, anomaly detection, and even semantic representation generation at the pixel level. Despite the robustness of existing diffusion models in visual generation tasks, they still struggle with discrete masks and their various effects. To address the need for accurate and diverse spine medical image segmentation templates, we propose an end-to-end framework called VerseDiff-UNet, which leverages the denoising diffusion probabilistic model (DDPM). Our approach integrates the diffusion model into a standard U-shaped architecture. At each step, we combine the noise-added image with the labeled mask to guide the diffusion direction accurately towards the target region. Furthermore, to capture specific anatomical a priori information in medical images, we incorporate a shape a priori module. This module efficiently extracts structural semantic information from the input spine images. We evaluate our method on a single dataset of spine images acquired through X-ray imaging. Our results demonstrate that VerseDiff-UNet significantly outperforms other state-of-the-art methods in terms of accuracy while preserving the natural features and variations of anatomy.
+</details>
+<details>
+<summary>摘要</summary>
+医疗图像分割是诊断和治疗脊椎疾病的关键。然而，高噪音、不确定性和潜在的混淆使得这项任务具有极高的挑战性。因为脊椎图像中的解剖边界不够明确，同类图像之间存在相似性，而且标注不具有合理性，这些因素都使得图像分割变得更加困难。为了支持医生在临床实践中，获得高精度和多样化的图像分割模板是必要的。在过去几年，推 diffusion probabilistic modeling（DDPM）在计算机视觉领域得到了广泛的关注。DDPM在多种视觉任务中表现出色，包括图像滤清、超分解、异常检测和甚至像素级semantic representation生成。虽然现有的推散模型在视觉生成任务中具有强大的稳定性，但它们仍然在精度束和其多种效果上困难。为了解决医疗图像分割中的精度和多样化问题，我们提出了一种综合框架called VerseDiff-UNet。我们的方法将推散模型与标准的U型架构结合起来。在每个步骤中，我们将噪声添加的图像和标注推散向导准确地指向目标区域。此外，为了从医疗图像中提取高效的结构semantic信息，我们添加了一个形状先验模块。这个模块高效地提取了输入脊椎图像中的结构semantic信息。我们在X射线成像获取的一个单个数据集上进行了测试。我们的结果表明，VerseDiff-UNet在精度方面与其他状态对比方法有显著的优势，同时保持了自然的特征和变化。
+</details></li>
+</ul>
+<hr>
+<h2 id="Deep-evidential-fusion-with-uncertainty-quantification-and-contextual-discounting-for-multimodal-medical-image-segmentation"><a href="#Deep-evidential-fusion-with-uncertainty-quantification-and-contextual-discounting-for-multimodal-medical-image-segmentation" class="headerlink" title="Deep evidential fusion with uncertainty quantification and contextual discounting for multimodal medical image segmentation"></a>Deep evidential fusion with uncertainty quantification and contextual discounting for multimodal medical image segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.05919">http://arxiv.org/abs/2309.05919</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ling Huang, Su Ruan, Pierre Decazes, Thierry Denoeux<br>for:多modal医疗影像通常无法提供充分的信息，因此医生通常基于多modal影像进行诊断，如PET&#x2F;CT。将多modal信息有效融合是重要的，以确保做出可靠的判断并解释judgment的决策过程。methods:本文提出了基于深度学习和Dempster-Shafer理论的多modal医疗影像分类框架。在这个框架中，每个单 modal 影像中的可靠性在分类不同的物体时被考虑。各个modal 影像的折扣 pieces of evidence 然后由Dempster’s rule 联合，以获得最终的决策。results:实验结果显示，我们的方法在PET-CT dataset中与悉尼肿瘤检测中的lymphomas，以及多modal MRI dataset中的脑肿瘤检测中，具有较高的精度和可靠性。<details>
+<summary>Abstract</summary>
+Single-modality medical images generally do not contain enough information to reach an accurate and reliable diagnosis. For this reason, physicians generally diagnose diseases based on multimodal medical images such as, e.g., PET/CT. The effective fusion of multimodal information is essential to reach a reliable decision and explain how the decision is made as well. In this paper, we propose a fusion framework for multimodal medical image segmentation based on deep learning and the Dempster-Shafer theory of evidence. In this framework, the reliability of each single modality image when segmenting different objects is taken into account by a contextual discounting operation. The discounted pieces of evidence from each modality are then combined by Dempster's rule to reach a final decision. Experimental results with a PET-CT dataset with lymphomas and a multi-MRI dataset with brain tumors show that our method outperforms the state-of-the-art methods in accuracy and reliability.
+</details>
+<details>
+<summary>摘要</summary>
+单Modal的医疗影像通常不含足够的信息以确定精确和可靠的诊断。为此， Physician 通常根据多Modal的医疗影像，如 PET/CT，诊断疾病。多Modal信息的有效融合是必要的，以确定可靠的决策并解释如何做出这个决策。在这篇论文中，我们提出了基于深度学习和德мп斯特-沙佛理论的融合框架，用于多Modal医疗影像分割。在这个框架中，每种单Modal图像在分割不同对象时的可靠性被考虑。每种模式的减少的证据后，通过德мп斯特规则组合，以达到最终决策。实验结果表明，使用 PET-CT 数据集和多MRI 数据集，我们的方法在准确性和可靠性方面都高于当前的方法。
+</details></li>
+</ul>
+<hr>
+<h2 id="Medical-Image-Segmentation-with-Belief-Function-Theory-and-Deep-Learning"><a href="#Medical-Image-Segmentation-with-Belief-Function-Theory-and-Deep-Learning" class="headerlink" title="Medical Image Segmentation with Belief Function Theory and Deep Learning"></a>Medical Image Segmentation with Belief Function Theory and Deep Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.05914">http://arxiv.org/abs/2309.05914</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ling Huang<br>for:This paper focuses on medical image segmentation approaches using belief function theory and deep learning, specifically addressing the challenges of reasoning with imperfect information.methods:The paper presents a semi-supervised medical image segmentation framework that incorporates evidential segmentation and evidence fusion to reduce uncertainty caused by limited annotations. The authors also compare two evidential classifiers, evidential neural network and radial basis function network, and use them with deep neural networks to construct deep evidential models for lymphoma segmentation.results:The paper presents a multimodal medical image fusion framework that takes into account the reliability of each MR image source when performing different segmentation tasks using mass functions and contextual discounting. The authors show the effectiveness of belief function theory in uncertainty quantification and demonstrate the improved performance of their approach compared to traditional methods.<details>
+<summary>Abstract</summary>
+Deep learning has shown promising contributions in medical image segmentation with powerful learning and feature representation abilities. However, it has limitations for reasoning with and combining imperfect (imprecise, uncertain, and partial) information. In this thesis, we study medical image segmentation approaches with belief function theory and deep learning, specifically focusing on information modeling and fusion based on uncertain evidence.   First, we review existing belief function theory-based medical image segmentation methods and discuss their advantages and challenges. Second, we present a semi-supervised medical image segmentation framework to decrease the uncertainty caused by the lack of annotations with evidential segmentation and evidence fusion. Third, we compare two evidential classifiers, evidential neural network and radial basis function network, and show the effectiveness of belief function theory in uncertainty quantification; we use the two evidential classifiers with deep neural networks to construct deep evidential models for lymphoma segmentation. Fourth, we present a multimodal medical image fusion framework taking into account the reliability of each MR image source when performing different segmentation tasks using mass functions and contextual discounting.
+</details>
+<details>
+<summary>摘要</summary>
+深度学习在医疗影像分割中表现出了扎实的贡献，具有强大的学习和特征表示能力。然而，深度学习在处理不准确、uncertain和部分的信息时存在限制。在这个论文中，我们研究医疗影像分割方法，使用信念函数理论和深度学习，特别是关于信息模型化和融合基于不确定证据。首先，我们查看了现有的信念函数理论基于的医疗影像分割方法，并讨论了它们的优点和挑战。其次，我们提出了一种半监督医疗影像分割框架，以减少由缺乏标注所导致的不确定性。第三，我们比较了两种信念分类器，即信念神经网络和卷积函数网络，并证明了信念函数理论在不确定评估中的效果。我们使用了两种信念分类器与深度神经网络构建了深度信念模型以进行淋巴癌分 segmentation。最后，我们提出了一种多Modal医疗影像融合框架，考虑每个MRI图像来源的可靠性，并在不同的 segmentation 任务中使用质量函数和上下文折扣来进行融合。
+</details></li>
+</ul>
+<hr>
+<h2 id="Enhancing-Representation-in-Radiography-Reports-Foundation-Model-A-Granular-Alignment-Algorithm-Using-Masked-Contrastive-Learning"><a href="#Enhancing-Representation-in-Radiography-Reports-Foundation-Model-A-Granular-Alignment-Algorithm-Using-Masked-Contrastive-Learning" class="headerlink" title="Enhancing Representation in Radiography-Reports Foundation Model: A Granular Alignment Algorithm Using Masked Contrastive Learning"></a>Enhancing Representation in Radiography-Reports Foundation Model: A Granular Alignment Algorithm Using Masked Contrastive Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.05904">http://arxiv.org/abs/2309.05904</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Weijian Huang, Cheng Li, Hao Yang, Jiarun Liu, Shanshan Wang</li>
+<li>for: 这个研究目的是为了提出一个新的多modal医疗基础模型，以便在各种医疗影像 зада务中进行精细的掌握和零shot学习。</li>
+<li>methods: 这个研究使用了封装问题学习的masked对称学习方法，以提高基础学习能力。此外，它还具有一个相互调整对称关系机制，以进一步增强基础学习能力。</li>
+<li>results: 这个研究在六个常用的开源X射像数据集上进行了评估，结果显示MaCo比七种现有的方法在类别、分类和零shot阶段固定掌握中表现出色，demonstrating its great potential to promote a wide range of medical image analysis tasks。<details>
+<summary>Abstract</summary>
+Recently, multi-modal vision-language foundation models have gained significant attention in the medical field. While these models offer great opportunities, they still face a number of challenges, such as the requirement for fine-grained knowledge understanding in computer-aided diagnosis and capability of utilizing very limited or no task-specific labeled data in real-world clinical applications. In this study, we present MaCo, a novel multi-modal medical foundation model that explores masked contrastive learning to achieve granular alignment and zero-shot learning for a variety of medical imaging tasks. MaCo incorporates a correlation weighting mechanism to adjust the correlation between masked image patches and their corresponding reports, thereby enhancing the representation learning capabilities. We evaluate MaCo on six well-known open-source X-ray datasets, and the experimental results show it outperforms seven state-of-the-art approaches for classification, segmentation, and zero-shot phase grounding, demonstrating its great potential to promote a wide range of medical image analysis tasks.
+</details>
+<details>
+<summary>摘要</summary>
+近期，多模态视语言基础模型在医疗领域得到了广泛关注。虽然这些模型具有很大的潜力，但仍面临许多挑战，如计算机辅助诊断中细化知识理解的需求以及在实际临床应用中使用非常有限或无任务特定标注数据的能力。在本研究中，我们提出了MaCo，一种新的多模态医疗基础模型，利用掩码对比学习来实现精细对Alignment和零shot学习，以涵盖各种医学影像任务。MaCo通过调整掩码图像块和其相应的报告之间的相关性权重，进而提高了表征学习能力。我们在六个常见的开源X射线数据集上进行了实验，结果显示MaCo超过了七种现状最佳方法，包括分类、分割和零shot阶段定位，这表明它在各种医学影像分析任务中具有极大的潜力。
+</details></li>
+</ul>
+<hr>
+<h2 id="Adversarial-Attacks-Assessment-of-Salient-Object-Detection-via-Symbolic-Learning"><a href="#Adversarial-Attacks-Assessment-of-Salient-Object-Detection-via-Symbolic-Learning" class="headerlink" title="Adversarial Attacks Assessment of Salient Object Detection via Symbolic Learning"></a>Adversarial Attacks Assessment of Salient Object Detection via Symbolic Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.05900">http://arxiv.org/abs/2309.05900</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Gustavo Olague, Roberto Pineda, Gerardo Ibarra-Vazquez, Matthieu Olague, Axel Martinez, Sambit Bakshi, Jonathan Vargas, Isnardo Reducindo</li>
+<li>for: 这个论文的目的是提出一种符号学习方法来设计可靠的视觉注意力系统，并证明这种方法在面对恶意攻击和干扰时具有更高的Robustness。</li>
+<li>methods: 这个论文使用的方法包括了生成 adversarial attacks和噪声攻击，并对这些攻击进行了对比分析，以证明符号学习方法的Robustness。</li>
+<li>results: 研究发现，符号学习方法在面对恶意攻击和干扰时表现更好，与深度学习方法不同，它们在攻击下表现出了显著的性能下降。<details>
+<summary>Abstract</summary>
+Machine learning is at the center of mainstream technology and outperforms classical approaches to handcrafted feature design. Aside from its learning process for artificial feature extraction, it has an end-to-end paradigm from input to output, reaching outstandingly accurate results. However, security concerns about its robustness to malicious and imperceptible perturbations have drawn attention since its prediction can be changed entirely. Salient object detection is a research area where deep convolutional neural networks have proven effective but whose trustworthiness represents a significant issue requiring analysis and solutions to hackers' attacks. Brain programming is a kind of symbolic learning in the vein of good old-fashioned artificial intelligence. This work provides evidence that symbolic learning robustness is crucial in designing reliable visual attention systems since it can withstand even the most intense perturbations. We test this evolutionary computation methodology against several adversarial attacks and noise perturbations using standard databases and a real-world problem of a shorebird called the Snowy Plover portraying a visual attention task. We compare our methodology with five different deep learning approaches, proving that they do not match the symbolic paradigm regarding robustness. All neural networks suffer significant performance losses, while brain programming stands its ground and remains unaffected. Also, by studying the Snowy Plover, we remark on the importance of security in surveillance activities regarding wildlife protection and conservation.
+</details>
+<details>
+<summary>摘要</summary>
+machine learning 是现代科技中最重要的核心技术，其超越了经典的手动特征设计方法。除了学习过程中的人工特征提取外，它还具有从输入到输出的端到端模式，达到了极高的准确率。然而，由于其鲁棒性问题，它的预测结果可以被 entirely 改变。静观检测是一个研究领域，深度卷积神经网络在这个领域中表现出色，但是其可靠性问题吸引了广泛的关注。Brain programming 是一种符号学习，与传统的人工智能有着类似的思想。我们的工作提供了证据，表明符号学习的鲁棒性是设计可靠视觉注意力系统的关键。我们对多个敌意攻击和噪声扰动使用标准数据库和实际问题进行测试，并与五种深度学习方法进行比较。我们发现，深度学习方法在鲁棒性方面不能与符号学习相匹敌。所有神经网络都受到了重大的性能损失，而 brain programming 则保持不变。此外，通过研究雪亚鸥（Snowy Plover），我们强调了野生动物保护和保育活动中的安全问题的重要性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Hierarchical-Conditional-Semi-Paired-Image-to-Image-Translation-For-Multi-Task-Image-Defect-Correction-On-Shopping-Websites"><a href="#Hierarchical-Conditional-Semi-Paired-Image-to-Image-Translation-For-Multi-Task-Image-Defect-Correction-On-Shopping-Websites" class="headerlink" title="Hierarchical Conditional Semi-Paired Image-to-Image Translation For Multi-Task Image Defect Correction On Shopping Websites"></a>Hierarchical Conditional Semi-Paired Image-to-Image Translation For Multi-Task Image Defect Correction On Shopping Websites</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.05883">http://arxiv.org/abs/2309.05883</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Moyan Li, Jinmiao Fu, Shaoyuan Xu, Huidong Liu, Jia Liu, Bryan Wang</li>
+<li>for:  correggere多种产品图像的 defects （ corrected multiple product image defects）</li>
+<li>methods: 使用 Image-to-Image （I2I）翻译模型，具有高级别损害组和具体损害类型的注意机制，以干涯各种产品类型的损害图像。（ using an Image-to-Image translation model with an attention mechanism to correct multiple defects of different product types）</li>
+<li>results: 相比MONCE，our model reduces the Frechet Inception Distance（FID）by 24.6% on average，并在一个商业化的购物网站上降低了FID的平均值by 63.2% compared with WS-I2I。（ compared with MONCE, our model reduces the Frechet Inception Distance by 24.6% on average, and reduces the average value of FID by 63.2% on a commercial shopping website）<details>
+<summary>Abstract</summary>
+On shopping websites, product images of low quality negatively affect customer experience. Although there are plenty of work in detecting images with different defects, few efforts have been dedicated to correct those defects at scale. A major challenge is that there are thousands of product types and each has specific defects, therefore building defect specific models is unscalable. In this paper, we propose a unified Image-to-Image (I2I) translation model to correct multiple defects across different product types. Our model leverages an attention mechanism to hierarchically incorporate high-level defect groups and specific defect types to guide the network to focus on defect-related image regions. Evaluated on eight public datasets, our model reduces the Frechet Inception Distance (FID) by 24.6% in average compared with MoNCE, the state-of-the-art I2I method. Unlike public data, another practical challenge on shopping websites is that some paired images are of low quality. Therefore we design our model to be semi-paired by combining the L1 loss of paired data with the cycle loss of unpaired data. Tested on a shopping website dataset to correct three image defects, our model reduces (FID) by 63.2% in average compared with WS-I2I, the state-of-the art semi-paired I2I method.
+</details>
+<details>
+<summary>摘要</summary>
+在购物网站上，产品图像质量低下影响用户体验。尽管有很多研究检测不同损害的图像，但几乎没有努力用于大规模修复这些损害。主要挑战是每种产品都有特定的损害类型，因此建立特定损害模型是不可能的。在这篇论文中，我们提出了一种通用的图像到图像（I2I）翻译模型，用于修复不同产品类型的多个损害。我们的模型利用注意力机制，将高级损害组和特定损害类型注入到网络中，以便指导网络专注于图像中的损害关键区域。经过八个公共数据集的评估，我们的模型与MoNCE，当前I2I方法的状态OF THE ARTS，相比下降24.6%的Frechet Inception Distance（FID）。与公共数据不同的另一个实际挑战是，一些购物网站上的对应图像质量较低。因此我们设计了我们的模型为半相对的，将L1损失与相对损失结合在一起。在一个购物网站数据集上测试，我们的模型可以降低（FID）的平均值为63.2%，相比WS-I2I，当前半相对I2I方法的状态OF THE ARTS。
+</details></li>
+</ul>
+<hr>
+<h2 id="Generalized-Attacks-on-Face-Verification-Systems"><a href="#Generalized-Attacks-on-Face-Verification-Systems" class="headerlink" title="Generalized Attacks on Face Verification Systems"></a>Generalized Attacks on Face Verification Systems</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.05879">http://arxiv.org/abs/2309.05879</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ehsan Nazari, Paula Branco, Guy-Vincent Jourdan</li>
+<li>for: 本研究的目的是对Face Verification（FV）系统进行深入的研究，特别是对FV系统受到的攻击进行分类和分析。</li>
+<li>methods: 本研究使用了深度神经网络模型，并提出了一种新的攻击方法 called DodgePersonation Attack，可以在FV系统中创造出可以欺骗人类识别的面部图像。此外，本研究还提出了一种新的攻击分类方法，可以帮助更好地理解和防范FV系统受到的攻击。</li>
+<li>results: 本研究的结果显示，DodgePersonation Attack可以在一个well-known scenario中实现state-of-the-art的性能，可以创造出9张图像，覆盖43.82%的身份。此外，本研究还发现，使用9张图像可以覆盖57.27%到58.5%的身份，并且这些图像看起来都是完全一致的。<details>
+<summary>Abstract</summary>
+Face verification (FV) using deep neural network models has made tremendous progress in recent years, surpassing human accuracy and seeing deployment in various applications such as border control and smartphone unlocking. However, FV systems are vulnerable to Adversarial Attacks, which manipulate input images to deceive these systems in ways usually unnoticeable to humans. This paper provides an in-depth study of attacks on FV systems. We introduce the DodgePersonation Attack that formulates the creation of face images that impersonate a set of given identities while avoiding being identified as any of the identities in a separate, disjoint set. A taxonomy is proposed to provide a unified view of different types of Adversarial Attacks against FV systems, including Dodging Attacks, Impersonation Attacks, and Master Face Attacks. Finally, we propose the ''One Face to Rule Them All'' Attack which implements the DodgePersonation Attack with state-of-the-art performance on a well-known scenario (Master Face Attack) and which can also be used for the new scenarios introduced in this paper. While the state-of-the-art Master Face Attack can produce a set of 9 images to cover 43.82% of the identities in their test database, with 9 images our attack can cover 57.27% to 58.5% of these identifies while giving the attacker the choice of the identity to use to create the impersonation. Moreover, the 9 generated attack images appear identical to a casual observer.
+</details>
+<details>
+<summary>摘要</summary>
+面部验证（FV）使用深度神经网络模型已经在最近几年内做出了巨大的进步，超过了人类准确率并在不同的应用中部署，如边境控制和智能手机锁定。然而，FV系统受到了抗击攻击的威胁，这些攻击可以通过修改输入图像来让FV系统错误地认为图像是其他人的。本文提供了FV系统攻击的深入研究，我们介绍了创建一个名为“掩饰人格攻击”的新攻击方法，该方法可以在不同的人脸库中创建一个掩饰人格，以避免被识别为任何其他人的人。此外，我们还提出了一种攻击分类法，以提供对FV系统攻击的一般视角，包括掩饰攻击、冒充攻击和主人脸攻击。最后，我们提出了一种“一个人脸征服全部”的攻击，该攻击可以在一个已知的enario（主人脸攻击）中实现state-of-the-art性能，并且可以在新提出的scenario中使用。而现状的主人脸攻击可以生成9张图像，覆盖43.82%的人脸库，而我们的攻击可以生成9张图像，覆盖57.27%到58.5%的人脸库，同时给攻击者选择创建假装的人脸。此外，生成的9张攻击图像都看起来都是一般人类无法分辨的。
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/09/12/cs.CV_2023_09_12/" data-id="clmvt7t9o00cu26rd3iae419s" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/09/12/eess.AS_2023_09_12/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          eess.AS - 2023-09-12
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/09/12/cs.AI_2023_09_12/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.AI - 2023-09-12</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">21</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">150</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,692 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CV - 2023-08-05 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Where and How: Mitigating Confusion in Neural Radiance Fields from Sparse Inputs paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2308.02908 repo_url: https:&#x2F;&#x2F;github.com&#x2F;bbbbby-99&#x2F;wah-nerf paper_authors: Yanqi Bao, Yu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CV - 2023-08-05">
+<meta property="og:url" content="https://nullscc.github.io/2023/08/05/cs.CV_2023_08_05/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="Where and How: Mitigating Confusion in Neural Radiance Fields from Sparse Inputs paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2308.02908 repo_url: https:&#x2F;&#x2F;github.com&#x2F;bbbbby-99&#x2F;wah-nerf paper_authors: Yanqi Bao, Yu">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-05T13:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-23T08:44:42.367Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CV_2023_08_05" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/08/05/cs.CV_2023_08_05/" class="article-date">
+  <time datetime="2023-08-05T13:00:00.000Z" itemprop="datePublished">2023-08-05</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CV/">cs.CV</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CV - 2023-08-05
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Where-and-How-Mitigating-Confusion-in-Neural-Radiance-Fields-from-Sparse-Inputs"><a href="#Where-and-How-Mitigating-Confusion-in-Neural-Radiance-Fields-from-Sparse-Inputs" class="headerlink" title="Where and How: Mitigating Confusion in Neural Radiance Fields from Sparse Inputs"></a>Where and How: Mitigating Confusion in Neural Radiance Fields from Sparse Inputs</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02908">http://arxiv.org/abs/2308.02908</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/bbbbby-99/wah-nerf">https://github.com/bbbbby-99/wah-nerf</a></li>
+<li>paper_authors: Yanqi Bao, Yuxin Li, Jing Huo, Tianyu Ding, Xinyue Liang, Wenbin Li, Yang Gao</li>
+<li>for: 这个论文的目的是提高NeRF-S的synthesizing能力，使得它能够更好地生成新的视角。</li>
+<li>methods: 这个论文使用了一种新的学习框架，即WaH-NeRF，来解决NeRF-S中的“CONFUSION”问题。这个框架包括一种可变 sampling策略和一种Weight-based Mutual Information Loss，以及一种semi-supervised learning paradigm和一种Pixel-Patch Correspondence Loss。</li>
+<li>results: 根据实验结果，WaH-NeRF在NeRF-S Setting下表现出色，超越了之前的方法。<details>
+<summary>Abstract</summary>
+Neural Radiance Fields from Sparse input} (NeRF-S) have shown great potential in synthesizing novel views with a limited number of observed viewpoints. However, due to the inherent limitations of sparse inputs and the gap between non-adjacent views, rendering results often suffer from over-fitting and foggy surfaces, a phenomenon we refer to as "CONFUSION" during volume rendering. In this paper, we analyze the root cause of this confusion and attribute it to two fundamental questions: "WHERE" and "HOW". To this end, we present a novel learning framework, WaH-NeRF, which effectively mitigates confusion by tackling the following challenges: (i)"WHERE" to Sample? in NeRF-S -- we introduce a Deformable Sampling strategy and a Weight-based Mutual Information Loss to address sample-position confusion arising from the limited number of viewpoints; and (ii) "HOW" to Predict? in NeRF-S -- we propose a Semi-Supervised NeRF learning Paradigm based on pose perturbation and a Pixel-Patch Correspondence Loss to alleviate prediction confusion caused by the disparity between training and testing viewpoints. By integrating our proposed modules and loss functions, WaH-NeRF outperforms previous methods under the NeRF-S setting. Code is available https://github.com/bbbbby-99/WaH-NeRF.
+</details>
+<details>
+<summary>摘要</summary>
+neural radiance fields from sparse input (NeRF-S) 有很大的潜力synthesize novel views with a limited number of observed viewpoints. However, due to the inherent limitations of sparse inputs and the gap between non-adjacent views, rendering results often suffer from over-fitting and foggy surfaces, a phenomenon we refer to as "CONFUSION" during volume rendering. In this paper, we analyze the root cause of this confusion and attribute it to two fundamental questions: "WHERE" and "HOW". To this end, we present a novel learning framework, WaH-NeRF, which effectively mitigates confusion by tackling the following challenges: (i)"WHERE" to Sample? in NeRF-S -- we introduce a Deformable Sampling strategy and a Weight-based Mutual Information Loss to address sample-position confusion arising from the limited number of viewpoints; and (ii) "HOW" to Predict? in NeRF-S -- we propose a Semi-Supervised NeRF learning Paradigm based on pose perturbation and a Pixel-Patch Correspondence Loss to alleviate prediction confusion caused by the disparity between training and testing viewpoints. By integrating our proposed modules and loss functions, WaH-NeRF outperforms previous methods under the NeRF-S setting. Code is available at https://github.com/bbbbby-99/WaH-NeRF.
+</details></li>
+</ul>
+<hr>
+<h2 id="FAST-Font-Agnostic-Scene-Text-Editing"><a href="#FAST-Font-Agnostic-Scene-Text-Editing" class="headerlink" title="FAST: Font-Agnostic Scene Text Editing"></a>FAST: Font-Agnostic Scene Text Editing</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02905">http://arxiv.org/abs/2308.02905</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Alloy Das, Prasun Roy, Saumik Bhattacharya, Subhankar Ghosh, Umapada Pal, Michael Blumenstein</li>
+<li>for: 提高Scene Text Editing（STE）的研究表现，解决现有文本修改方法的缺点，包括复杂的背景、多种字体风格和文本内容的变化。</li>
+<li>methods: 提出了一种新的font-agnostic Scene Text Editing框架，named FAST，可以同时生成文本在任意风格和位置，保持自然和现实的外观，通过组合掩码生成和风格传递来实现。与传统方法不同，该方法不直接修改整个图像像素，而是引入了一种滤波机制，以除掉背景干扰，让网络专注于需要修改的文本区域。此外，还设计了一个文本风格传递模块，以解决文本内容的变化。</li>
+<li>results: 对比传统方法，提出的方法在质量和量化两个方面均有显著提高，可以更好地修改图像中的文本。<details>
+<summary>Abstract</summary>
+Scene Text Editing (STE) is a challenging research problem, and it aims to modify existing texts in an image while preserving the background and the font style of the original text of the image. Due to its various real-life applications, researchers have explored several approaches toward STE in recent years. However, most of the existing STE methods show inferior editing performance because of (1) complex image backgrounds, (2) various font styles, and (3) varying word lengths within the text. To address such inferior editing performance issues, in this paper, we propose a novel font-agnostic scene text editing framework, named FAST, for simultaneously generating text in arbitrary styles and locations while preserving a natural and realistic appearance through combined mask generation and style transfer. The proposed approach differs from the existing methods as they directly modify all image pixels. Instead, the proposed method has introduced a filtering mechanism to remove background distractions, allowing the network to focus solely on the text regions where editing is required. Additionally, a text-style transfer module has been designed to mitigate the challenges posed by varying word lengths. Extensive experiments and ablations have been conducted, and the results demonstrate that the proposed method outperforms the existing methods both qualitatively and quantitatively.
+</details>
+<details>
+<summary>摘要</summary>
+场景文本编辑（STE）是一个具有挑战性的研究问题，它目标是修改图像中的文本而不改变图像背景和字体风格。由于它在实际生活中的多种应用，研究人员在过去几年内对STE进行了许多研究。然而，大多数现有的STE方法具有质量不高的编辑性能，主要归结于图像背景的复杂性、字体风格的多样性以及文本中单词的变化。为解决这些问题，在这篇论文中，我们提出了一种新的字体无关场景文本编辑框架，名为FAST，它可以同时生成文本在任意风格和位置上，并保持自然和现实的外观。我们的方法与现有方法不同，它们直接修改所有图像像素。相反，我们的方法引入了一种过滤机制，以除除背景干扰，让网络专注于需要编辑的文本区域。此外，我们还设计了一个文本风格传递模块，以适应文本中单词的变化。我们进行了广泛的实验和缺省分析，结果表明，我们的方法在质量和量上都超越了现有的方法。
+</details></li>
+</ul>
+<hr>
+<h2 id="An-Adaptive-Model-Ensemble-Adversarial-Attack-for-Boosting-Adversarial-Transferability"><a href="#An-Adaptive-Model-Ensemble-Adversarial-Attack-for-Boosting-Adversarial-Transferability" class="headerlink" title="An Adaptive Model Ensemble Adversarial Attack for Boosting Adversarial Transferability"></a>An Adaptive Model Ensemble Adversarial Attack for Boosting Adversarial Transferability</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02897">http://arxiv.org/abs/2308.02897</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/CHENBIN99/AdaEA">https://github.com/CHENBIN99/AdaEA</a></li>
+<li>paper_authors: Bin Chen, Jia-Li Yin, Shukai Chen, Bo-Hao Chen, Ximeng Liu</li>
+<li>for: 本研究的目的是提出一种适应 ensemble 攻击方法，以提高攻击 Transfer-based 黑客攻击的效果。</li>
+<li>methods: 本研究使用的方法包括 adaptive ensemble attack (AdaEA) 和额外的 disparity-reduced filter。AdaEA 可以适应控制输出的融合，以capture和amplify adversarial example的内在传递信息。</li>
+<li>results: 对于多个数据集，提出的 AdaEA 可以获得显著的提高，并且可以further boost 现有的传递基于攻击。这表明 AdaEA 的效果和多样性。<details>
+<summary>Abstract</summary>
+While the transferability property of adversarial examples allows the adversary to perform black-box attacks (i.e., the attacker has no knowledge about the target model), the transfer-based adversarial attacks have gained great attention. Previous works mostly study gradient variation or image transformations to amplify the distortion on critical parts of inputs. These methods can work on transferring across models with limited differences, i.e., from CNNs to CNNs, but always fail in transferring across models with wide differences, such as from CNNs to ViTs. Alternatively, model ensemble adversarial attacks are proposed to fuse outputs from surrogate models with diverse architectures to get an ensemble loss, making the generated adversarial example more likely to transfer to other models as it can fool multiple models concurrently. However, existing ensemble attacks simply fuse the outputs of the surrogate models evenly, thus are not efficacious to capture and amplify the intrinsic transfer information of adversarial examples. In this paper, we propose an adaptive ensemble attack, dubbed AdaEA, to adaptively control the fusion of the outputs from each model, via monitoring the discrepancy ratio of their contributions towards the adversarial objective. Furthermore, an extra disparity-reduced filter is introduced to further synchronize the update direction. As a result, we achieve considerable improvement over the existing ensemble attacks on various datasets, and the proposed AdaEA can also boost existing transfer-based attacks, which further demonstrates its efficacy and versatility.
+</details>
+<details>
+<summary>摘要</summary>
+而 transferability 性能的敌方例可以进行黑盒攻击（即攻击者没有对目标模型的知识），而转移基于敌方例的攻击吸引了大量关注。先前的工作主要研究了梯度变化或图像变换以增强输入的扰动部分。这些方法可以在有限差异的模型之间传输，例如从CNNs到CNNs，但总是失败在差异较广的模型之间，如从CNNs到ViTs。作为一个替代方案，我们提出了一种ensemble攻击，即将多个模型的输出 fusion 到一起，以获得一个ensemble损失，使得生成的敌方例更可能传输到其他模型，因为它可以同时欺骗多个模型。然而，现有的ensemble攻击简单地将每个模型的输出平均 fusion，因此无法捕捉和增强敌方例的内在传输信息。在这篇论文中，我们提出了一种适应 ensemble 攻击，称为AdaEA，以适应控制每个模型的输出 fusión。我们通过监测敌方例的扰动率来控制输出的权重，并 introduce 了一个降低差异的滤波器，以进一步同步更新方向。因此，我们实现了对多个数据集的现有ensemble攻击的显著改进，并且我们的提案的AdaEA还可以增强现有的传输基于攻击，这再次证明了它的有效性和多样性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Cross-modal-Cross-domain-Learning-for-Unsupervised-LiDAR-Semantic-Segmentation"><a href="#Cross-modal-Cross-domain-Learning-for-Unsupervised-LiDAR-Semantic-Segmentation" class="headerlink" title="Cross-modal &amp; Cross-domain Learning for Unsupervised LiDAR Semantic Segmentation"></a>Cross-modal &amp; Cross-domain Learning for Unsupervised LiDAR Semantic Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02883">http://arxiv.org/abs/2308.02883</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yiyang Chen, Shanshan Zhao, Changxing Ding, Liyao Tang, Chaoyue Wang, Dacheng Tao</li>
+<li>for: 这个论文主要针对的问题是如何在只有2D图像和无注意的3D LiDAR数据的情况下实现3D LiDAR semantic segmentation（3DLSS）？</li>
+<li>methods: 该论文提出了一种新的3DLSS设定，其中有一个2D数据集（源） WITH semantic annotation，并有一个paired but unannotated 2D图像和3D LiDAR数据（目标）。以实现3DLSS在这种情况下，该论文提出了一种名为 Cross-Modal and Cross-Domain Learning（CoMoDaL）的方法。CoMoDaL的目标是模型1) 不同模式和频谱之间的交叉频谱域distillation，以及2) 目标数据集中不同模式之间的交叉模式引导。</li>
+<li>results: 在该论文中，CoMoDaL可以在没有标注的LiDAR数据的情况下实现3DLSS。在几个数据集上进行了实验，并进行了ablations来提供更多的分析。<details>
+<summary>Abstract</summary>
+In recent years, cross-modal domain adaptation has been studied on the paired 2D image and 3D LiDAR data to ease the labeling costs for 3D LiDAR semantic segmentation (3DLSS) in the target domain. However, in such a setting the paired 2D and 3D data in the source domain are still collected with additional effort. Since the 2D-3D projections can enable the 3D model to learn semantic information from the 2D counterpart, we ask whether we could further remove the need of source 3D data and only rely on the source 2D images. To answer it, this paper studies a new 3DLSS setting where a 2D dataset (source) with semantic annotations and a paired but unannotated 2D image and 3D LiDAR data (target) are available. To achieve 3DLSS in this scenario, we propose Cross-Modal and Cross-Domain Learning (CoMoDaL). Specifically, our CoMoDaL aims at modeling 1) inter-modal cross-domain distillation between the unpaired source 2D image and target 3D LiDAR data, and 2) the intra-domain cross-modal guidance between the target 2D image and 3D LiDAR data pair. In CoMoDaL, we propose to apply several constraints, such as point-to-pixel and prototype-to-pixel alignments, to associate the semantics in different modalities and domains by constructing mixed samples in two modalities. The experimental results on several datasets show that in the proposed setting, the developed CoMoDaL can achieve segmentation without the supervision of labeled LiDAR data. Ablations are also conducted to provide more analysis. Code will be available publicly.
+</details>
+<details>
+<summary>摘要</summary>
+近年来，跨Modal频率适应（Cross-Modal Domain Adaptation，CMDA）在paired 2D图像和3D LiDAR数据上进行研究，以减少目标频率上的标注成本 для3D LiDAR semantic segmentation（3DLSS）。然而，在这种设置下，paired 2D和3D数据在源频率上仍然需要额外努力收集。由于2D-3D投影可以帮助3D模型从2D对应的semantic信息，我们问 whether we could further remove the need of source 3D data and only rely on the source 2D images。为了回答这个问题，这篇论文研究了一种新的3DLSS设置，其中一个2D数据集（源）具有semantic标注，以及一个paired但未标注的2D图像和3D LiDAR数据（目标）。为了实现3DLSS在这种enario中，我们提出了 Cross-Modal and Cross-Domain Learning（CoMoDaL）。具体来说，CoMoDaL的目标是模型：1.  между不同模式和频率之间的跨Modal频率适应（inter-modal cross-domain distillation），从未标注的源2D图像和目标3D LiDAR数据中学习semantic信息。2. 目标2D图像和3D LiDAR数据对的内部模式协调（intra-domain cross-modal guidance），从目标2D图像和3D LiDAR数据对中学习semantic信息。在CoMoDaL中，我们提出了一些约束，例如点对像和原型对像的匹配约束，以将不同模式和频率之间的semantic信息相关联。我们通过构建两个模式之间的混合样本来实现这一点。实验结果表明，在我们的设置下，我们提出的CoMoDaL可以在未supervise的LiDAR数据上实现semantic segmentation。我们还进行了一些ablation来提供更多的分析。代码将公开发布。
+</details></li>
+</ul>
+<hr>
+<h2 id="Sketch-and-Text-Guided-Diffusion-Model-for-Colored-Point-Cloud-Generation"><a href="#Sketch-and-Text-Guided-Diffusion-Model-for-Colored-Point-Cloud-Generation" class="headerlink" title="Sketch and Text Guided Diffusion Model for Colored Point Cloud Generation"></a>Sketch and Text Guided Diffusion Model for Colored Point Cloud Generation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02874">http://arxiv.org/abs/2308.02874</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zijie Wu, Yaonan Wang, Mingtao Feng, He Xie, Ajmal Mian</li>
+<li>for: 本研究旨在提出一种基于绘图和文本描述的颜色点云生成模型，以解决文本导向图像生成中3D形状的生成困难。</li>
+<li>methods: 该模型使用混合激发模型进行颜色点云生成，并通过绘图和文本描述进行联合激发。模型采用级联激发方法，首先激发点坐标和颜色值，然后通过文本描述和绘图来conditioning进行反激发。</li>
+<li>results: 实验结果显示，该模型在颜色点云生成任务上表现出色，比之前的状态当中的模型有更好的表现。<details>
+<summary>Abstract</summary>
+Diffusion probabilistic models have achieved remarkable success in text guided image generation. However, generating 3D shapes is still challenging due to the lack of sufficient data containing 3D models along with their descriptions. Moreover, text based descriptions of 3D shapes are inherently ambiguous and lack details. In this paper, we propose a sketch and text guided probabilistic diffusion model for colored point cloud generation that conditions the denoising process jointly with a hand drawn sketch of the object and its textual description. We incrementally diffuse the point coordinates and color values in a joint diffusion process to reach a Gaussian distribution. Colored point cloud generation thus amounts to learning the reverse diffusion process, conditioned by the sketch and text, to iteratively recover the desired shape and color. Specifically, to learn effective sketch-text embedding, our model adaptively aggregates the joint embedding of text prompt and the sketch based on a capsule attention network. Our model uses staged diffusion to generate the shape and then assign colors to different parts conditioned on the appearance prompt while preserving precise shapes from the first stage. This gives our model the flexibility to extend to multiple tasks, such as appearance re-editing and part segmentation. Experimental results demonstrate that our model outperforms recent state-of-the-art in point cloud generation.
+</details>
+<details>
+<summary>摘要</summary>
+Diffusion probabilistic models have achieved remarkable success in text-guided image generation. However, generating 3D shapes is still challenging due to the lack of sufficient data containing 3D models along with their descriptions. Moreover, text-based descriptions of 3D shapes are inherently ambiguous and lack details. In this paper, we propose a sketch and text-guided probabilistic diffusion model for colored point cloud generation that conditions the denoising process jointly with a hand-drawn sketch of the object and its textual description. We incrementally diffuse the point coordinates and color values in a joint diffusion process to reach a Gaussian distribution. Colored point cloud generation thus amounts to learning the reverse diffusion process, conditioned by the sketch and text, to iteratively recover the desired shape and color. Specifically, to learn effective sketch-text embedding, our model adaptively aggregates the joint embedding of text prompt and the sketch based on a capsule attention network. Our model uses staged diffusion to generate the shape and then assigns colors to different parts conditioned on the appearance prompt while preserving precise shapes from the first stage. This gives our model the flexibility to extend to multiple tasks, such as appearance re-editing and part segmentation. Experimental results demonstrate that our model outperforms recent state-of-the-art in point cloud generation.Here's the translation in Traditional Chinese:Diffusion probabilistic models have achieved remarkable success in text-guided image generation. However, generating 3D shapes is still challenging due to the lack of sufficient data containing 3D models along with their descriptions. Moreover, text-based descriptions of 3D shapes are inherently ambiguous and lack details. In this paper, we propose a sketch and text-guided probabilistic diffusion model for colored point cloud generation that conditions the denoising process jointly with a hand-drawn sketch of the object and its textual description. We incrementally diffuse the point coordinates and color values in a joint diffusion process to reach a Gaussian distribution. Colored point cloud generation thus amounts to learning the reverse diffusion process, conditioned by the sketch and text, to iteratively recover the desired shape and color. Specifically, to learn effective sketch-text embedding, our model adaptively aggregates the joint embedding of text prompt and the sketch based on a capsule attention network. Our model uses staged diffusion to generate the shape and then assigns colors to different parts conditioned on the appearance prompt while preserving precise shapes from the first stage. This gives our model the flexibility to extend to multiple tasks, such as appearance re-editing and part segmentation. Experimental results demonstrate that our model outperforms recent state-of-the-art in point cloud generation.
+</details></li>
+</ul>
+<hr>
+<h2 id="NP-SemiSeg-When-Neural-Processes-meet-Semi-Supervised-Semantic-Segmentation"><a href="#NP-SemiSeg-When-Neural-Processes-meet-Semi-Supervised-Semantic-Segmentation" class="headerlink" title="NP-SemiSeg: When Neural Processes meet Semi-Supervised Semantic Segmentation"></a>NP-SemiSeg: When Neural Processes meet Semi-Supervised Semantic Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02866">http://arxiv.org/abs/2308.02866</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/jianf-wang/np-semiseg">https://github.com/jianf-wang/np-semiseg</a></li>
+<li>paper_authors: Jianfeng Wang, Daniela Massiceti, Xiaolin Hu, Vladimir Pavlovic, Thomas Lukasiewicz</li>
+<li>for: 本研究旨在提高semi-supervised semantic segmentation中的模型精度和可靠性，通过使用神经网络过程（NP）来实现uncertainty量化。</li>
+<li>methods: 本研究使用NP来实现semi-supervised semantic segmentation，并在不同的训练设置下进行实验评估。</li>
+<li>results: 实验结果表明，NP-SemiSeg模型在PASCAL VOC 2012和Cityscapes公共benchmark上具有效果，并且在不同的训练设置下可以达到比较高的精度和可靠性。<details>
+<summary>Abstract</summary>
+Semi-supervised semantic segmentation involves assigning pixel-wise labels to unlabeled images at training time. This is useful in a wide range of real-world applications where collecting pixel-wise labels is not feasible in time or cost. Current approaches to semi-supervised semantic segmentation work by predicting pseudo-labels for each pixel from a class-wise probability distribution output by a model. If the predicted probability distribution is incorrect, however, this leads to poor segmentation results, which can have knock-on consequences in safety critical systems, like medical images or self-driving cars. It is, therefore, important to understand what a model does not know, which is mainly achieved by uncertainty quantification. Recently, neural processes (NPs) have been explored in semi-supervised image classification, and they have been a computationally efficient and effective method for uncertainty quantification. In this work, we move one step forward by adapting NPs to semi-supervised semantic segmentation, resulting in a new model called NP-SemiSeg. We experimentally evaluated NP-SemiSeg on the public benchmarks PASCAL VOC 2012 and Cityscapes, with different training settings, and the results verify its effectiveness.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>> semi-supervised semantic segmentation 涉及到在训练时对无标图像进行像素级标注。这在各种实际应用中非常有用，因为收集像素级标注的时间和成本不符合要求。现有的半监督 semantic segmentation 方法是通过从模型输出的类别概率分布中预测每个像素的 Pseudo-labels，如果预测的概率分布错误，则会导致 segmentation 结果差，这可能会对安全关键系统，如医疗图像或自动驾驶车辆，产生不良影响。因此，了解模型无法捕捉的信息非常重要。在最近的研究中，神经过程（NP）在半监督图像分类中被探索，并被证明是计算效率高并且有效的不确定性评估方法。在这项工作中，我们将NP应用到半监督semantic segmentation，得到了NP-SemiSeg模型。我们对公共 benchmarks PASCAL VOC 2012 和 Cityscapes 进行了不同的训练设置，并得到了 resultado，证明了NP-SemiSeg 的有效性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Improving-Generalization-of-Image-Captioning-with-Unsupervised-Prompt-Learning"><a href="#Improving-Generalization-of-Image-Captioning-with-Unsupervised-Prompt-Learning" class="headerlink" title="Improving Generalization of Image Captioning with Unsupervised Prompt Learning"></a>Improving Generalization of Image Captioning with Unsupervised Prompt Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02862">http://arxiv.org/abs/2308.02862</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hongchen Wei, Zhenzhong Chen</li>
+<li>for: 提高图像描述（GeneIC）的通用性，不需要标注数据。</li>
+<li>methods: 使用无监督提问学习方法，利用CLIP模型对目标领域的域pecific提问向量进行优化，从两个方面进行优化：Attribute和Semantic一致性。</li>
+<li>results: 通过Attribute和Semantic一致性来约束提问向量，从而学习域pecific的知识，提高图像描述的通用性。<details>
+<summary>Abstract</summary>
+Pretrained visual-language models have demonstrated impressive zero-shot abilities in image captioning, when accompanied by hand-crafted prompts. Meanwhile, hand-crafted prompts utilize human prior knowledge to guide the model. However, due to the diversity between different domains, such hand-crafted prompt that provide invariant prior knowledge may result in mode collapse for some domains. Some researches attempted to incorporate expert knowledge and instruction datasets, but the results were costly and led to hallucinations. In this paper, we propose an unsupervised prompt learning method to improve Generalization of Image Captioning (GeneIC), which learns a domain-specific prompt vector for the target domain without requiring annotated data. GeneIC aligns visual and language modalities with a pre-trained Contrastive Language-Image Pre-Training (CLIP) model, thus optimizing the domain-specific prompt vector from two aspects: attribute and semantic consistency. Specifically, GeneIC first generates attribute-transferred images with differing attributes, while retaining semantic similarity with original images. Then, GeneIC uses CLIP to measure the similarity between the images and the generated sentences. By exploring the variable and invariant features in the original images and attribute-transferred images, attribute consistency constrains the attribute change direction of both images and sentences to learn domain-specific knowledge. The semantic consistency directly measures the similarity between the generated sentences and images to ensure the accuracy and comprehensiveness of the generated sentences. Consequently, GeneIC only optimizes the prompt vectors, which effectively retains the knowledge in the large model and introduces domain-specific knowledge.
+</details>
+<details>
+<summary>摘要</summary>
+《Image Captioning 总结》中，我们提出了一种不需要标注数据的无监督提问学习方法，以提高图文描述（GeneIC）的通用性。我们使用预训练的 Contrastive Language-Image Pre-Training（CLIP）模型，将视觉和语言模式align，从两个方面优化域pecific提问向量：Attribute和Semantic相同性。具体来说，GeneIC首先生成了不同特征的图像，保持了原始图像的Semantic相同性。然后，GeneIC使用CLIP测量图像和生成的句子之间的相似性。通过探索原始图像和特征转移图像中的变量和不变量特征，Attribute相同性确定了特征变化方向的限制。Semantic相同性直接测量生成句子和图像之间的相似性，以确保生成句子的准确性和全面性。因此，GeneIC只优化提问向量，Effectively retains the knowledge in the large model and introduces domain-specific knowledge。
+</details></li>
+</ul>
+<hr>
+<h2 id="Generative-Adversarial-Networks-for-Stain-Normalisation-in-Histopathology"><a href="#Generative-Adversarial-Networks-for-Stain-Normalisation-in-Histopathology" class="headerlink" title="Generative Adversarial Networks for Stain Normalisation in Histopathology"></a>Generative Adversarial Networks for Stain Normalisation in Histopathology</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02851">http://arxiv.org/abs/2308.02851</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jack Breen, Kieran Zucker, Katie Allen, Nishant Ravikumar, Nicolas M. Orsi</li>
+<li>for: 研究人员希望通过人工智能技术提高诊断的准确性和效率，但是受到数位病理学像的视觉差异问题导致模型对未见到的数据偏预测不好。</li>
+<li>methods: 当研究人员使用生成对抗网络（GAN）来实现染色调整时，通常会比非生成方法表现更好，但是需要更高的计算资源。不过，不同的GAN和非GAN方法在不同的情况下和根据不同的表现指标都会出perform differently。</li>
+<li>results: 目前研究人员正在寻找一种能够有效地和有效率地标准化病理学像的方法，以使AI模型更加普遍和可靠。<details>
+<summary>Abstract</summary>
+The rapid growth of digital pathology in recent years has provided an ideal opportunity for the development of artificial intelligence-based tools to improve the accuracy and efficiency of clinical diagnoses. One of the significant roadblocks to current research is the high level of visual variability across digital pathology images, causing models to generalise poorly to unseen data. Stain normalisation aims to standardise the visual profile of digital pathology images without changing the structural content of the images. In this chapter, we explore different techniques which have been used for stain normalisation in digital pathology, with a focus on approaches which utilise generative adversarial networks (GANs). Typically, GAN-based methods outperform non-generative approaches but at the cost of much greater computational requirements. However, it is not clear which method is best for stain normalisation in general, with different GAN and non-GAN approaches outperforming each other in different scenarios and according to different performance metrics. This is an ongoing field of study as researchers aim to identify a method which efficiently and effectively normalises pathology images to make AI models more robust and generalisable.
+</details>
+<details>
+<summary>摘要</summary>
+随着数字病理学的快速发展，现在提供了一个 идеal 的机会，以便通过人工智能技术来提高临床诊断的准确性和效率。然而，一个 significante 的障碍是数字病理图像之间的视觉变化很高，使模型很难泛化到未看到的数据。图像标准化的目的是为了标准化数字病理图像的视觉oprofile，而不是改变图像的结构内容。在这个章节中，我们探讨了不同的技术，以便在数字病理中实现图像标准化，特别是使用生成对抗网络（GAN）。通常，GAN基本技术在性能上表现更好，但是需要许多更高的计算需求。然而，不清楚哪种方法是最佳的标准化方法，因为不同的 GAN 和非 GAN 方法在不同的情况下和按照不同的表现指标而出performancedifferently。这是一个持续的研究领域，研究人员希望能够找到一种能够有效地和高效地标准化病理图像的方法，以便使 AI 模型更加Robust 和泛化。
+</details></li>
+</ul>
+<hr>
+<h2 id="Flashlight-Search-Medial-Axis-A-Pixel-Free-Pore-Network-Extraction-Algorithm"><a href="#Flashlight-Search-Medial-Axis-A-Pixel-Free-Pore-Network-Extraction-Algorithm" class="headerlink" title="Flashlight Search Medial Axis: A Pixel-Free Pore-Network Extraction Algorithm"></a>Flashlight Search Medial Axis: A Pixel-Free Pore-Network Extraction Algorithm</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.10990">http://arxiv.org/abs/2308.10990</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jie Liu, Tao Zhang, Shuyu Sun</li>
+<li>for: 本研究使用 Flashlight Search Medial Axis（FSMA）算法来提取porous media中的细胞网络，以提高流体流动研究的准确性。</li>
+<li>methods: 该算法基于笔画空间，在二维或三维空间中使用搜索域来寻找细胞网络。它采用维度减少的思想，只需要在搜索域中选择一些点，而不是计算整个空间中的每个点。这使得计算复杂性得到了显著减少，从而实现了大规模的细胞网络提取。</li>
+<li>results: 研究表明，FSMA算法在不同的两维和三维porous media中都表现良好，无论细胞网络的topological结构如何或缺口和喉孔中心的位置如何。此外，该算法还可以处理关闭和开放边界的情况。最重要的是，FSMA算法可以搜索死绕的细胞，这在多相流动研究中具有重要意义。<details>
+<summary>Abstract</summary>
+Pore-network models (PNMs) have become an important tool in the study of fluid flow in porous media over the last few decades, and the accuracy of their results highly depends on the extraction of pore networks. Traditional methods of pore-network extraction are based on pixels and require images with high quality. Here, a pixel-free method called the flashlight search medial axis (FSMA) algorithm is proposed for pore-network extraction in a continuous space. The search domain in a two-dimensional space is a line, whereas a surface domain is searched in a three-dimensional scenario. Thus, the FSMA algorithm follows the dimensionality reduction idea; the medial axis can be identified using only a few points instead of calculating every point in the void space. In this way, computational complexity of this method is greatly reduced compared to that of traditional pixel-based extraction methods, thus enabling large-scale pore-network extraction. Based on cases featuring two- and three-dimensional porous media, the FSMA algorithm performs well regardless of the topological structure of the pore network or the positions of the pore and throat centers. This algorithm can also be used to examine both closed- and open-boundary cases. Finally, the FSMA algorithm can search dead-end pores, which is of great significance in the study of multiphase flow in porous media.
+</details>
+<details>
+<summary>摘要</summary>
+PORE-NETWORK MODELS (PNMs) 在过去几十年内已成为观察 fluid 流动在孔隙媒体中的重要工具，其精度准确性强度取决于绘制孔隙网络的方法。传统的方法基于像素，需要高质量的图像。在这篇文章中，我们提出了一种不基于像素的方法，即 flashlight search medial axis (FSMA) 算法，用于在连续空间中提取孔隙网络。在两维空间中，搜索域是一条线，而在三维情况下，搜索域是一个表面。因此，FSMA 算法遵循维度减少的想法，通过仅使用几个点来识别中心轴，而不是计算整个空心空间中的每个点。这种方法的计算复杂度与传统基于像素的提取方法相比，减少了很多，因此可以实现大规模的孔隙网络提取。基于二维和三维孔隙媒体的实验，FSMA 算法在不同的 topological 结构和孔隙中心位置下表现良好。此外，这种算法还可以用于考虑关闭和开放边界的情况。最后，FSMA 算法可以搜索死绕孔，这对多相流动在孔隙媒体中的研究具有重要性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Landmark-Detection-using-Transformer-Toward-Robot-assisted-Nasal-Airway-Intubation"><a href="#Landmark-Detection-using-Transformer-Toward-Robot-assisted-Nasal-Airway-Intubation" class="headerlink" title="Landmark Detection using Transformer Toward Robot-assisted Nasal Airway Intubation"></a>Landmark Detection using Transformer Toward Robot-assisted Nasal Airway Intubation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02845">http://arxiv.org/abs/2308.02845</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/conorlth/airway_intubation_landmarks_detection">https://github.com/conorlth/airway_intubation_landmarks_detection</a></li>
+<li>paper_authors: Tianhang Liu, Hechen Li, Long Bai, Yanan Wu, An Wang, Mobarakol Islam, Hongliang Ren</li>
+<li>for: 这篇研究旨在提出一个基于 transformer 的 landmark 检测解决方案，用于 robot-assisted 气管 intubation 中更高精度地位检测关键目标和器官。</li>
+<li>methods: 本研究使用了 deformable DeTR 和 semantic-aligned-matching 模组，实现了更高精度的 landmark 检测。</li>
+<li>results: 实验结果显示，我们的解决方案在检测精度方面具有竞争力，并且可以帮助提高 robot-assisted 气管 intubation 的精度和效率。<details>
+<summary>Abstract</summary>
+Robot-assisted airway intubation application needs high accuracy in locating targets and organs. Two vital landmarks, nostrils and glottis, can be detected during the intubation to accommodate the stages of nasal intubation. Automated landmark detection can provide accurate localization and quantitative evaluation. The Detection Transformer (DeTR) leads object detectors to a new paradigm with long-range dependence. However, current DeTR requires long iterations to converge, and does not perform well in detecting small objects. This paper proposes a transformer-based landmark detection solution with deformable DeTR and the semantic-aligned-matching module for detecting landmarks in robot-assisted intubation. The semantics aligner can effectively align the semantics of object queries and image features in the same embedding space using the most discriminative features. To evaluate the performance of our solution, we utilize a publicly accessible glottis dataset and automatically annotate a nostril detection dataset. The experimental results demonstrate our competitive performance in detection accuracy. Our code is publicly accessible.
+</details>
+<details>
+<summary>摘要</summary>
+robot-assisted 气管 Intubation 应用需要高精度在目标和器官位置进行定位。两个重要的标志物，鼻孔和聊肉，可以在气管 Intubation 中被探测出来，以便进行不同的气管 Intubation 阶段。自动化标志物检测可以提供准确的定位和评估。 transformer （DeTR） 引导 object 检测器进入新的 paradigm 中，但现有的 DeTR 需要长时间迭代才能平衡，并不适合检测小型 объек。这篇论文提出了基于 transformer 的标志物检测解决方案，其中包括可变 DeTR 和 semantic-aligned-matching 模块。semantic aligner 可以很好地对 object 查询和图像特征在同一个 embedding 空间进行Semantic 对齐。为了评估我们的解决方案的性能，我们利用了公共可访问的 glottis 数据集，并自动注意nostril 检测数据集。实验结果表明我们的竞争性表现。我们的代码公开 accessible。
+</details></li>
+</ul>
+<hr>
+<h2 id="Learning-Unified-Decompositional-and-Compositional-NeRF-for-Editable-Novel-View-Synthesis"><a href="#Learning-Unified-Decompositional-and-Compositional-NeRF-for-Editable-Novel-View-Synthesis" class="headerlink" title="Learning Unified Decompositional and Compositional NeRF for Editable Novel View Synthesis"></a>Learning Unified Decompositional and Compositional NeRF for Editable Novel View Synthesis</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02840">http://arxiv.org/abs/2308.02840</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yuxin Wang, Wayne Wu, Dan Xu</li>
+<li>for: 本文targets joint scene novel view synthesis and editing based on implicit neural scene representations, with a unified Neural Radiance Field (NeRF) framework to effectively perform scene decomposition and composition.</li>
+<li>methods: 该方法使用两个阶段NeRF框架，首先学习一个全局辐射场为指导点抽象，然后在第二个细化阶段使用一个新的一颗对象辐射场regulatory模块和 pseudo监督via填充来处理不确定背景区域。</li>
+<li>results: 该方法可以有效地进行Scene decomposition和Composition，并且在novel-view synthesis和 editing任务上表现出色，超越了state-of-the-art方法。<details>
+<summary>Abstract</summary>
+Implicit neural representations have shown powerful capacity in modeling real-world 3D scenes, offering superior performance in novel view synthesis. In this paper, we target a more challenging scenario, i.e., joint scene novel view synthesis and editing based on implicit neural scene representations. State-of-the-art methods in this direction typically consider building separate networks for these two tasks (i.e., view synthesis and editing). Thus, the modeling of interactions and correlations between these two tasks is very limited, which, however, is critical for learning high-quality scene representations. To tackle this problem, in this paper, we propose a unified Neural Radiance Field (NeRF) framework to effectively perform joint scene decomposition and composition for modeling real-world scenes. The decomposition aims at learning disentangled 3D representations of different objects and the background, allowing for scene editing, while scene composition models an entire scene representation for novel view synthesis. Specifically, with a two-stage NeRF framework, we learn a coarse stage for predicting a global radiance field as guidance for point sampling, and in the second fine-grained stage, we perform scene decomposition by a novel one-hot object radiance field regularization module and a pseudo supervision via inpainting to handle ambiguous background regions occluded by objects. The decomposed object-level radiance fields are further composed by using activations from the decomposition module. Extensive quantitative and qualitative results show the effectiveness of our method for scene decomposition and composition, outperforming state-of-the-art methods for both novel-view synthesis and editing tasks.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>> translate into Simplified Chinese实现了卷积神经表示法的有力的场景模型，对实际世界场景的synthesys提供了更高的性能。在这篇论文中，我们面临更加困难的场景，即对卷积神经场景表示的同时synthesys和编辑。现有的方法通常是建立不同的网络来解决这两个任务（即synthesys和编辑），因此模型这两个任务之间的交互和相互关系很有限，这在学习高质量场景表示方面是关键。为了解决这个问题，在这篇论文中，我们提出了一个统一的神经频谱场景（NeRF）框架，以有效地进行场景的分解和组合，以模型现实世界场景。分解目标在学习独立的3D对象和背景的分解，以便场景编辑，而场景组合模型整个场景的表示，用于新视角synthesys。具体来说，我们采用了两个阶段的NeRF框架，在第一阶段，我们学习一个全局的频谱场景，作为点抽象的指导，在第二阶段，我们使用一种新的一键对象频谱场景 régularization模块，以及一种 Pseudo supervision via inpainting来处理隐藏在对象后面的背景区域。分解出的对象级频谱场景被进一步组合使用活动从分解模块。广泛的量化和质量测试结果表明，我们的方法在场景分解和组合方面具有优秀的效果，在新视角synthesys和编辑任务中都高于状态艺术方法。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Comprehensive-Analysis-of-Real-World-Image-Captioning-and-Scene-Identification"><a href="#A-Comprehensive-Analysis-of-Real-World-Image-Captioning-and-Scene-Identification" class="headerlink" title="A Comprehensive Analysis of Real-World Image Captioning and Scene Identification"></a>A Comprehensive Analysis of Real-World Image Captioning and Scene Identification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02833">http://arxiv.org/abs/2308.02833</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Sai Suprabhanu Nallapaneni, Subrahmanyam Konakanchi</li>
+<li>for: 本研究旨在evaluating the performance of various image captioning models in real-world environments, where images are often poor in quality and there are numerous points of attention.</li>
+<li>methods: 本研究使用了不同的编码机制、语言解码器和训练方法，并使用了MIT Indoor scenes dataset中的800多个图像和65多个场景类来训练和测试模型。</li>
+<li>results: 研究发现，使用IC3方法生成更细致的描述可以提高图像描述的准确率和完整性。<details>
+<summary>Abstract</summary>
+Image captioning is a computer vision task that involves generating natural language descriptions for images. This method has numerous applications in various domains, including image retrieval systems, medicine, and various industries. However, while there has been significant research in image captioning, most studies have focused on high quality images or controlled environments, without exploring the challenges of real-world image captioning. Real-world image captioning involves complex and dynamic environments with numerous points of attention, with images which are often very poor in quality, making it a challenging task, even for humans. This paper evaluates the performance of various models that are built on top of different encoding mechanisms, language decoders and training procedures using a newly created real-world dataset that consists of over 800+ images of over 65 different scene classes, built using MIT Indoor scenes dataset. This dataset is captioned using the IC3 approach that generates more descriptive captions by summarizing the details that are covered by standard image captioning models from unique view-points of the image.
+</details>
+<details>
+<summary>摘要</summary>
+Image captioning 是一种计算机视觉任务，它涉及生成图像的自然语言描述。这种方法在各个领域有广泛的应用，如图像检索系统、医学和各种产业。然而，许多研究都集中在高质量图像或控制环境下进行了研究，而忽略了实际世界中的挑战。实际世界中的图像描述 task 面临着复杂和动态的环境，以及众多的关注点，图像的质量也往往很差，这使得这个任务变得非常困难，连人类也有困难。这篇论文评估了基于不同编码机制、语言解码器和训练方法的多种模型的性能，使用了MIT室内场景 dataset 创建的超过 800 张图像、65 个不同场景类的新 dataset。这个 dataset 使用 IC3 方法进行描述，该方法通过从不同视角把握图像的细节来生成更加描述性的描述。
+</details></li>
+</ul>
+<hr>
+<h2 id="SwinGar-Spectrum-Inspired-Neural-Dynamic-Deformation-for-Free-Swinging-Garments"><a href="#SwinGar-Spectrum-Inspired-Neural-Dynamic-Deformation-for-Free-Swinging-Garments" class="headerlink" title="SwinGar: Spectrum-Inspired Neural Dynamic Deformation for Free-Swinging Garments"></a>SwinGar: Spectrum-Inspired Neural Dynamic Deformation for Free-Swinging Garments</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02827">http://arxiv.org/abs/2308.02827</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Tianxing Li, Rui Shi, Qing Zhu, Takashi Kanai</li>
+<li>for: 本研究提出了一种基于spectrum学习的新方法，用于生成具有动态效果和个性化细节的服装弯曲。现有的服装动画方法受限于static行为或特定的网络模型，这限制了它们在实际场景中的应用。本方法可以解决这些限制，并提供一个统一的框架，以预测不同服装的动态行为，并且能够生成多种自然和实际的弯曲。</li>
+<li>methods: 我们首先观察到，supervised learning中的问题是偏好低频，导致弯曲变得过于平滑。为解决这个问题，我们引入了一种频谱控制策略，从spectrum的角度来增强弯曲的生成。此外，为使网络能够高度普适和有效地学习不同服装的弯曲，我们提出了spectral描述符，以实现全局形状信息的总体描述。基于以上策略，我们开发了一种频谱控制的动态服装弯曲估算器，并将其与长短时间记忆（LSTM）结合使用。该估算器能够自动输出不同服装类型的连续弯曲，无论服装的网格结构或 vertex 数。</li>
+<li>results: 我们的实验结果表明，我们的方法在多种自由摆服装上具有remarkable的效果，并且超越了现有的方法。<details>
+<summary>Abstract</summary>
+Our work presents a novel spectrum-inspired learning-based approach for generating clothing deformations with dynamic effects and personalized details. Existing methods in the field of clothing animation are limited to either static behavior or specific network models for individual garments, which hinders their applicability in real-world scenarios where diverse animated garments are required. Our proposed method overcomes these limitations by providing a unified framework that predicts dynamic behavior for different garments with arbitrary topology and looseness, resulting in versatile and realistic deformations. First, we observe that the problem of bias towards low frequency always hampers supervised learning and leads to overly smooth deformations. To address this issue, we introduce a frequency-control strategy from a spectral perspective that enhances the generation of high-frequency details of the deformation. In addition, to make the network highly generalizable and able to learn various clothing deformations effectively, we propose a spectral descriptor to achieve a generalized description of the global shape information. Building on the above strategies, we develop a dynamic clothing deformation estimator that integrates frequency-controllable attention mechanisms with long short-term memory. The estimator takes as input expressive features from garments and human bodies, allowing it to automatically output continuous deformations for diverse clothing types, independent of mesh topology or vertex count. Finally, we present a neural collision handling method to further enhance the realism of garments. Our experimental results demonstrate the effectiveness of our approach on a variety of free-swinging garments and its superiority over state-of-the-art methods.
+</details>
+<details>
+<summary>摘要</summary>
+我们的工作提出了一种新的spectrum-inspired学习基于方法，用于生成动态效果和个性化细节的服装扭曲。现有的服装动画方法在场景中有限， either static behavior or specific network models for individual garments，这限制了它们在实际应用中的可用性。我们的提议方法继承了这些限制，提供了一个统一框架，预测不同服装的动态行为，包括任意的服装结构和松弛度，从而实现了多样化和现实的扭曲。首先，我们发现了低频偏见问题，常常妨碍超级vised学习，导致扭曲过于平滑。为解决这个问题，我们引入了spectral perspective的频率控制策略，提高生成扭曲的高频细节。此外，为使网络具有高度普适性和能够有效地学习多种服装扭曲，我们提议了spectral描述器，实现了全局形状信息的总体描述。基于以上策略，我们开发了一个频率可控的注意力机制，并将其与长短期记忆相结合。该机制能够自动输出不同服装类型的连续扭曲，无论服装的结构或 vertex 数。最后，我们提出了一种神经网络碰撞处理方法，以进一步提高服装的现实性。我们的实验结果表明，我们的方法在多种自由挥移服装上得到了效果，并且与现状方法相比，具有更高的实用性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Deep-Image-Harmonization-in-Dual-Color-Spaces"><a href="#Deep-Image-Harmonization-in-Dual-Color-Spaces" class="headerlink" title="Deep Image Harmonization in Dual Color Spaces"></a>Deep Image Harmonization in Dual Color Spaces</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02813">http://arxiv.org/abs/2308.02813</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Linfeng Tan, Jiangtong Li, Li Niu, Liqing Zhang</li>
+<li>for:  This paper focuses on addressing the issue of image inconsistency in image composition, specifically in the context of foreground and background.</li>
+<li>methods:  The proposed method utilizes dual color spaces, specifically $RGB$ and $Lab$, to decorrelate the color and illumination features in the image. The method consists of a $RGB$ harmonization backbone, an $Lab$ encoding module, and an $Lab$ control module.</li>
+<li>results:  The proposed method alleviates the workload in the harmonization process and provides disentangled color and illumination statistics, leading to improved image harmonization results.<details>
+<summary>Abstract</summary>
+Image harmonization is an essential step in image composition that adjusts the appearance of composite foreground to address the inconsistency between foreground and background. Existing methods primarily operate in correlated $RGB$ color space, leading to entangled features and limited representation ability. In contrast, decorrelated color space (e.g., $Lab$) has decorrelated channels that provide disentangled color and illumination statistics. In this paper, we explore image harmonization in dual color spaces, which supplements entangled $RGB$ features with disentangled $L$, $a$, $b$ features to alleviate the workload in harmonization process. The network comprises a $RGB$ harmonization backbone, an $Lab$ encoding module, and an $Lab$ control module. The backbone is a U-Net network translating composite image to harmonized image. Three encoders in $Lab$ encoding module extract three control codes independently from $L$, $a$, $b$ channels, which are used to manipulate the decoder features in harmonization backbone via $Lab$ control module. Our code and model are available at \href{https://github.com/bcmi/DucoNet-Image-Harmonization}{https://github.com/bcmi/DucoNet-Image-Harmonization}.
+</details>
+<details>
+<summary>摘要</summary>
+Image harmonization 是一个重要的图像组合步骤，它调整了 composite foreground 的外观，以解决背景和前景的不一致。现有的方法主要在相关的 $RGB$ 色彩空间中进行操作，导致特征被束缚在一起，表达能力有限。与此相反，decorrelated color space （例如 $Lab$）具有分离的通道，提供了分离的色度和照明统计。在这篇论文中，我们探讨了图像协调在双色空间中，该空间补充了束缚 $RGB$ 特征的 $L$, $a$, $b$ 特征，以减轻协调过程中的工作负担。网络包括 $RGB$ 协调背bone， $Lab$ 编码模块，和 $Lab$ 控制模块。背bone 是一个 U-Net 网络，将 composite image 翻译成协调后的图像。 $Lab$ 编码模块 中的三个encoder 独立地从 $L$, $a$, $b$ 通道提取三个控制代码，这些代码用于在协调背bone 中 manipulate Decoder 特征。我们的代码和模型可以在 \href{https://github.com/bcmi/DucoNet-Image-Harmonization}{https://github.com/bcmi/DucoNet-Image-Harmonization} 上获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="Thin-On-Sensor-Nanophotonic-Array-Cameras"><a href="#Thin-On-Sensor-Nanophotonic-Array-Cameras" class="headerlink" title="Thin On-Sensor Nanophotonic Array Cameras"></a>Thin On-Sensor Nanophotonic Array Cameras</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02797">http://arxiv.org/abs/2308.02797</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Praneeth Chakravarthula, Jipeng Sun, Xiao Li, Chenyang Lei, Gene Chou, Mario Bijelic, Johannes Froesch, Arka Majumdar, Felix Heide</li>
+<li>for: The paper is written for exploring an alternative to traditional compound optics in commodity camera systems, using flat nanophotonic computational cameras that employ an array of skewed lenslets and a learned reconstruction approach.</li>
+<li>methods: The paper proposes a differentiable optimization method that continuously samples over the visible spectrum and factorizes the optical modulation for different incident fields into individual lenses. The authors also use a generative diffusion model for probabilistic reconstruction.</li>
+<li>results: The paper demonstrates the ability to recover images from diverse scenes in broadband with a single nanophotonic layer, using both simulation and an experimental prototype. The proposed flat camera design is capable of achieving high-quality image reconstruction with a flat and thin metasurface.<details>
+<summary>Abstract</summary>
+Today's commodity camera systems rely on compound optics to map light originating from the scene to positions on the sensor where it gets recorded as an image. To record images without optical aberrations, i.e., deviations from Gauss' linear model of optics, typical lens systems introduce increasingly complex stacks of optical elements which are responsible for the height of existing commodity cameras. In this work, we investigate flat nanophotonic computational cameras as an alternative that employs an array of skewed lenslets and a learned reconstruction approach. The optical array is embedded on a metasurface that, at 700~nm height, is flat and sits on the sensor cover glass at 2.5~mm focal distance from the sensor. To tackle the highly chromatic response of a metasurface and design the array over the entire sensor, we propose a differentiable optimization method that continuously samples over the visible spectrum and factorizes the optical modulation for different incident fields into individual lenses. We reconstruct a megapixel image from our flat imager with a learned probabilistic reconstruction method that employs a generative diffusion model to sample an implicit prior. To tackle scene-dependent aberrations in broadband, we propose a method for acquiring paired captured training data in varying illumination conditions. We assess the proposed flat camera design in simulation and with an experimental prototype, validating that the method is capable of recovering images from diverse scenes in broadband with a single nanophotonic layer.
+</details>
+<details>
+<summary>摘要</summary>
+Translated into Simplified Chinese:今天的商用相机系统依靠复合光学来将场景中的光映射到感光器上的位置，并以图像的形式记录下来。为了不受光学偏差的影响，常见的镜系统会引入越来越复杂的光学元件，这些元件负责现有的商用相机的高度。在这个工作中，我们研究了使用平板光学计算相机，该设计包括一个倾斜的透镜阵列和一种学习重建方法。该光学阵列被嵌入在700nm的高度上的金属表面上，并位于感光器保护玻璃上的2.5mm距离上。为了解决金属表面的高度吸收和设计阵列，我们提出了一种可 diferenciable 优化方法，该方法可以不断样本在可见光谱中，并将不同的入射场分解成各个透镜。我们使用一种学习涂抹模型来重建一个兆像，并使用一种生成扩散模型来采样一个隐藏的先验。为了解决场景相依的偏差，我们提出了一种获得包含变化照明条件的对应训练数据的方法。我们在实验和模拟中验证了我们的平板相机设计，并证明了该方法可以从多种场景中恢复宽频图像，只需一个单一的 nanophotonic 层。
+</details></li>
+</ul>
+<hr>
+<h2 id="Unfolding-Once-is-Enough-A-Deployment-Friendly-Transformer-Unit-for-Super-Resolution"><a href="#Unfolding-Once-is-Enough-A-Deployment-Friendly-Transformer-Unit-for-Super-Resolution" class="headerlink" title="Unfolding Once is Enough: A Deployment-Friendly Transformer Unit for Super-Resolution"></a>Unfolding Once is Enough: A Deployment-Friendly Transformer Unit for Super-Resolution</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02794">http://arxiv.org/abs/2308.02794</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/yongliuy/ditn">https://github.com/yongliuy/ditn</a></li>
+<li>paper_authors: Yong Liu, Hang Dong, Boyang Liang, Songwei Liu, Qingji Dong, Kai Chen, Fangmin Chen, Lean Fu, Fei Wang</li>
+<li>for: 这个论文主要是为了提出一个可部署的内部单元Transformer网络（DITN），用于单一图像超解析（SISR）任务。</li>
+<li>methods: 这个论文使用了一个内部单元Transformer层（ITL）和一个空间意识层（SAL）来有效地重建本地结构信息和探索距离依赖，以提高SISR任务的性能。</li>
+<li>results: 这个论文的模型可以在训练和部署平台上实现高效的性能，并且提供了一些实验证明这个模型的可行性和高效性。<details>
+<summary>Abstract</summary>
+Recent years have witnessed a few attempts of vision transformers for single image super-resolution (SISR). Since the high resolution of intermediate features in SISR models increases memory and computational requirements, efficient SISR transformers are more favored. Based on some popular transformer backbone, many methods have explored reasonable schemes to reduce the computational complexity of the self-attention module while achieving impressive performance. However, these methods only focus on the performance on the training platform (e.g., Pytorch/Tensorflow) without further optimization for the deployment platform (e.g., TensorRT). Therefore, they inevitably contain some redundant operators, posing challenges for subsequent deployment in real-world applications. In this paper, we propose a deployment-friendly transformer unit, namely UFONE (i.e., UnFolding ONce is Enough), to alleviate these problems. In each UFONE, we introduce an Inner-patch Transformer Layer (ITL) to efficiently reconstruct the local structural information from patches and a Spatial-Aware Layer (SAL) to exploit the long-range dependencies between patches. Based on UFONE, we propose a Deployment-friendly Inner-patch Transformer Network (DITN) for the SISR task, which can achieve favorable performance with low latency and memory usage on both training and deployment platforms. Furthermore, to further boost the deployment efficiency of the proposed DITN on TensorRT, we also provide an efficient substitution for layer normalization and propose a fusion optimization strategy for specific operators. Extensive experiments show that our models can achieve competitive results in terms of qualitative and quantitative performance with high deployment efficiency. Code is available at \url{https://github.com/yongliuy/DITN}.
+</details>
+<details>
+<summary>摘要</summary>
+近年来，Single Image Super-Resolution（SISR）领域内有一些视力 трансформа器的尝试。由于高级别特征的存储和计算需求增加，efficient SISR transformer更受欢迎。基于一些流行的transformer backbone，许多方法已经探索了合理的减少自注意模块的计算复杂度的方法，以达到出色的表现。然而，这些方法只关注在训练平台（如PyTorch/TensorFlow）上的表现，没有进一步优化 для部署平台（如TensorRT）。因此，它们绝对包含一些冗余的运算符，对实际应用中的部署带来挑战。在这篇论文中，我们提出了一种部署友好的transformer单元，称为UFONE（即UnFolding ONce is Enough），以解决这些问题。在每个UFONE中，我们引入了 Inner-patch Transformer Layer（ITL），以有效地重构局部结构信息，并在每个patch之间引入Spatial-Aware Layer（SAL），以利用远程依赖关系。基于UFONE，我们提出了一种部署友好的Inner-patch Transformer Network（DITN），用于SISR任务，可以在训练和部署平台上达到低延迟和内存使用率的良好性能。此外，为了进一步提高提档端的部署效率，我们还提供了一种高效的层normalization替换方法和一种特定运算符的融合优化策略。广泛的实验表明，我们的模型可以在qualitative和quantitative方面具有竞争性的性能，同时具有高部署效率。代码可以在\url{https://github.com/yongliuy/DITN}上获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="Few-shot-Class-Incremental-Semantic-Segmentation-via-Pseudo-Labeling-and-Knowledge-Distillation"><a href="#Few-shot-Class-Incremental-Semantic-Segmentation-via-Pseudo-Labeling-and-Knowledge-Distillation" class="headerlink" title="Few-shot Class-Incremental Semantic Segmentation via Pseudo-Labeling and Knowledge Distillation"></a>Few-shot Class-Incremental Semantic Segmentation via Pseudo-Labeling and Knowledge Distillation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02790">http://arxiv.org/abs/2308.02790</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/chasonjiang/fscilss">https://github.com/chasonjiang/fscilss</a></li>
+<li>paper_authors: Chengjia Jiang, Tao Wang, Sien Li, Jinyang Wang, Shirui Wang, Antonios Antoniou<br>for:The paper addresses the problem of learning new classes for semantic segmentation models from few examples, which is challenging due to limited novel data and avoiding catastrophic forgetting.methods:The proposed approach uses a pseudo-labeling strategy to augment few-shot training annotations, transferring knowledge from labeled images to unlabeled images with a coarse-to-fine approach. This includes matching labeled images to their nearest neighbors in the unlabeled image set at the scene level, and obtaining pseudo-labels within this neighborhood using classifiers learned on the few-shot annotations. Knowledge distillation is also used on both labeled and unlabeled data to retain knowledge on existing classes.results:The proposed approach is validated on the Cityscapes and KITTI datasets in the self-driving domain, with extensive experiments showing its efficacy in learning new classes from few examples while retaining knowledge on existing classes.<details>
+<summary>Abstract</summary>
+We address the problem of learning new classes for semantic segmentation models from few examples, which is challenging because of the following two reasons. Firstly, it is difficult to learn from limited novel data to capture the underlying class distribution. Secondly, it is challenging to retain knowledge for existing classes and to avoid catastrophic forgetting. For learning from limited data, we propose a pseudo-labeling strategy to augment the few-shot training annotations in order to learn novel classes more effectively. Given only one or a few images labeled with the novel classes and a much larger set of unlabeled images, we transfer the knowledge from labeled images to unlabeled images with a coarse-to-fine pseudo-labeling approach in two steps. Specifically, we first match each labeled image to its nearest neighbors in the unlabeled image set at the scene level, in order to obtain images with a similar scene layout. This is followed by obtaining pseudo-labels within this neighborhood by applying classifiers learned on the few-shot annotations. In addition, we use knowledge distillation on both labeled and unlabeled data to retain knowledge on existing classes. We integrate the above steps into a single convolutional neural network with a unified learning objective. Extensive experiments on the Cityscapes and KITTI datasets validate the efficacy of the proposed approach in the self-driving domain. Code is available from https://github.com/ChasonJiang/FSCILSS.
+</details>
+<details>
+<summary>摘要</summary>
+我们面临的问题是从几个示例学习新的类型，这是因为以下两个原因困难：首先，从有限的新数据中学习到基于类型分布的下面是困难的；其次，保持现有类型的知识，而不是忘记旧类型。为了学习几个示例，我们提议使用假标注策略来增强几个示例的训练签名，以便更好地学习新类型。我们给每个标注的图像找到与其相似的场景图像，然后在这个场景图像集中获取pseudo-标签，并在这个邻居集中应用经过几个示例签名学习的分类器。此外，我们还使用知识继承来保持现有类型的知识。我们将上述步骤 integrate into a single convolutional neural network with a unified learning objective。我们在Cityscapes和KITTI数据集上进行了广泛的实验，并证明了我们的方法在自动驾驶领域的有效性。代码可以从https://github.com/ChasonJiang/FSCILSS中下载。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Voting-Stacking-Ensemble-of-Inception-Networks-for-Cervical-Cytology-Classification"><a href="#A-Voting-Stacking-Ensemble-of-Inception-Networks-for-Cervical-Cytology-Classification" class="headerlink" title="A Voting-Stacking Ensemble of Inception Networks for Cervical Cytology Classification"></a>A Voting-Stacking Ensemble of Inception Networks for Cervical Cytology Classification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02781">http://arxiv.org/abs/2308.02781</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Linyi Qian, Qian Huang, Yulin Chen, Junzhou Chen<br>for: 这个研究旨在提高乳腺癌早期检测和诊断精度，以减少女性健康威胁。methods: 本研究使用了三个Inception网络作为基础学习者，并通过投票组合集成了他们的输出。遗传学习者在投票组合集成模型中的错误样本上进行了进一步的训练，并使用了多层 Stacking 组合架构以提高性能。results: 研究在 SIPakMed、Herlev 和 Mendeley 数据集上进行了评估，实现了准确率100%、100% 和 100% 分别。评估结果超越了目前州先的方法，显示出本方法在实际应用中具有优秀的潜力，可以帮助病理学家早期检测乳腺癌。<details>
+<summary>Abstract</summary>
+Cervical cancer is one of the most severe diseases threatening women's health. Early detection and diagnosis can significantly reduce cancer risk, in which cervical cytology classification is indispensable. Researchers have recently designed many networks for automated cervical cancer diagnosis, but the limited accuracy and bulky size of these individual models cannot meet practical application needs. To address this issue, we propose a Voting-Stacking ensemble strategy, which employs three Inception networks as base learners and integrates their outputs through a voting ensemble. The samples misclassified by the ensemble model generate a new training set on which a linear classification model is trained as the meta-learner and performs the final predictions. In addition, a multi-level Stacking ensemble framework is designed to improve performance further. The method is evaluated on the SIPakMed, Herlev, and Mendeley datasets, achieving accuracies of 100%, 100%, and 100%, respectively. The experimental results outperform the current state-of-the-art (SOTA) methods, demonstrating its potential for reducing screening workload and helping pathologists detect cervical cancer.
+</details>
+<details>
+<summary>摘要</summary>
+cervical cancer 是女性健康中最严重的一种疾病。早期检测和诊断可以显著降低 cancer 的风险，在这个过程中，预防细胞学分类是不可或缺的。研究人员最近设计了许多自动诊断 cervical cancer 的网络，但这些个体模型的准确率和大小均不能满足实际应用需求。为解决这个问题，我们提出了一种投票汇聚策略，该策略使用三个 Inception 网络作为基础学习器，并将其输出集成到投票 ensemble。样本被模型错分类后生成一个新的训练集，并在这个集合上训练一个线性分类模型，并进行最终预测。此外，我们还设计了多级汇聚框架，以进一步提高性能。我们在 SIPakMed、Herlev 和 Mendeley 数据集上进行了实验，实现了100%、100% 和 100% 的准确率，分别。实验结果超出当前状态艺术（SOTA）方法的性能，demonstrating its potential for reducing screening workload and helping pathologists detect cervical cancer.
+</details></li>
+</ul>
+<hr>
+<h2 id="Dual-Degradation-Inspired-Deep-Unfolding-Network-for-Low-Light-Image-Enhancement"><a href="#Dual-Degradation-Inspired-Deep-Unfolding-Network-for-Low-Light-Image-Enhancement" class="headerlink" title="Dual Degradation-Inspired Deep Unfolding Network for Low-Light Image Enhancement"></a>Dual Degradation-Inspired Deep Unfolding Network for Low-Light Image Enhancement</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02776">http://arxiv.org/abs/2308.02776</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Huake Wang, Xingsong Hou, Xiaoyang Yan<br>for: This paper proposes a novel deep learning network called DASUNet for low-light image enhancement, which explicitly simulates the deterioration mechanism of low-light images and learns two distinct image priors via considering degradation specificity between luminance and chrominance spaces.methods: The proposed DASUNet uses a dual degradation model (DDM) to simulate the deterioration mechanism of low-light images, and an alternating optimization solution to solve the proposed DDM. Additionally, the network uses a prior modeling module (PMM) to enhance the representation capability of dual degradation priors, and a space aggregation module (SAM) to boost the interaction of two degradation models.results: Extensive experiments on multiple popular low-light image datasets validate the effectiveness of DASUNet compared to canonical state-of-the-art low-light image enhancement methods.<details>
+<summary>Abstract</summary>
+Although low-light image enhancement has achieved great stride based on deep enhancement models, most of them mainly stress on enhancement performance via an elaborated black-box network and rarely explore the physical significance of enhancement models. Towards this issue, we propose a Dual degrAdation-inSpired deep Unfolding network, termed DASUNet, for low-light image enhancement. Specifically, we construct a dual degradation model (DDM) to explicitly simulate the deterioration mechanism of low-light images. It learns two distinct image priors via considering degradation specificity between luminance and chrominance spaces. To make the proposed scheme tractable, we design an alternating optimization solution to solve the proposed DDM. Further, the designed solution is unfolded into a specified deep network, imitating the iteration updating rules, to form DASUNet. Local and long-range information are obtained by prior modeling module (PMM), inheriting the advantages of convolution and Transformer, to enhance the representation capability of dual degradation priors. Additionally, a space aggregation module (SAM) is presented to boost the interaction of two degradation models. Extensive experiments on multiple popular low-light image datasets validate the effectiveness of DASUNet compared to canonical state-of-the-art low-light image enhancement methods. Our source code and pretrained model will be publicly available.
+</details>
+<details>
+<summary>摘要</summary>
+although low-light image enhancement has made great strides based on deep enhancement models, most of them focus on improving performance through complex black-box networks and rarely explore the physical significance of enhancement models. To address this issue, we propose a Dual degradation-inspired deep Unfolding network, termed DASUNet, for low-light image enhancement. Specifically, we construct a dual degradation model (DDM) to explicitly simulate the deterioration mechanism of low-light images. It learns two distinct image priors by considering the degradation specificity between luminance and chrominance spaces. To make the proposed scheme tractable, we design an alternating optimization solution to solve the proposed DDM. Further, the designed solution is unfolded into a specified deep network, imitating the iteration updating rules, to form DASUNet. Local and long-range information are obtained by prior modeling module (PMM), inheriting the advantages of convolution and Transformer, to enhance the representation capability of dual degradation priors. Additionally, a space aggregation module (SAM) is presented to boost the interaction of two degradation models. Extensive experiments on multiple popular low-light image datasets validate the effectiveness of DASUNet compared to canonical state-of-the-art low-light image enhancement methods. Our source code and pretrained model will be publicly available.Note: The translation is in Simplified Chinese, which is one of the two standard Chinese scripts used in mainland China and Singapore. The other script is Traditional Chinese, which is used in Taiwan, Hong Kong, and other countries.
+</details></li>
+</ul>
+<hr>
+<h2 id="One-stage-Low-resolution-Text-Recognition-with-High-resolution-Knowledge-Transfer"><a href="#One-stage-Low-resolution-Text-Recognition-with-High-resolution-Knowledge-Transfer" class="headerlink" title="One-stage Low-resolution Text Recognition with High-resolution Knowledge Transfer"></a>One-stage Low-resolution Text Recognition with High-resolution Knowledge Transfer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02770">http://arxiv.org/abs/2308.02770</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/csguoh/kd-ltr">https://github.com/csguoh/kd-ltr</a></li>
+<li>paper_authors: Hang Guo, Tao Dai, Mingyan Zhu, Guanghao Meng, Bin Chen, Zhi Wang, Shu-Tao Xia</li>
+<li>for: 提高低分辨率文本识别精度和效率，适用于实际应用场景。</li>
+<li>methods: 基于知识传递的一Stage框架，包括视觉吸引损失、semantic contrastive loss和软幂损失等多种损失函数，以提高模型的学习效果和稳定性。</li>
+<li>results: 对多种低分辨率文本数据进行了广泛的实验，表明提出的方法可以效果地提高低分辨率文本识别精度和效率，并且比 tradicional two-stage 框架更加高效和稳定。<details>
+<summary>Abstract</summary>
+Recognizing characters from low-resolution (LR) text images poses a significant challenge due to the information deficiency as well as the noise and blur in low-quality images. Current solutions for low-resolution text recognition (LTR) typically rely on a two-stage pipeline that involves super-resolution as the first stage followed by the second-stage recognition. Although this pipeline is straightforward and intuitive, it has to use an additional super-resolution network, which causes inefficiencies during training and testing. Moreover, the recognition accuracy of the second stage heavily depends on the reconstruction quality of the first stage, causing ineffectiveness. In this work, we attempt to address these challenges from a novel perspective: adapting the recognizer to low-resolution inputs by transferring the knowledge from the high-resolution. Guided by this idea, we propose an efficient and effective knowledge distillation framework to achieve multi-level knowledge transfer. Specifically, the visual focus loss is proposed to extract the character position knowledge with resolution gap reduction and character region focus, the semantic contrastive loss is employed to exploit the contextual semantic knowledge with contrastive learning, and the soft logits loss facilitates both local word-level and global sequence-level learning from the soft teacher label. Extensive experiments show that the proposed one-stage pipeline significantly outperforms super-resolution based two-stage frameworks in terms of effectiveness and efficiency, accompanied by favorable robustness. Code is available at https://github.com/csguoh/KD-LTR.
+</details>
+<details>
+<summary>摘要</summary>
+Current solutions for low-resolution text recognition (LTR) typically rely on a two-stage pipeline that involves super-resolution as the first stage followed by the second-stage recognition. However, this pipeline is not efficient and effective due to the additional super-resolution network and the heavy dependence of the second stage on the reconstruction quality of the first stage. In this work, we propose a novel approach to address these challenges by adapting the recognizer to low-resolution inputs through knowledge transfer from high-resolution inputs. Specifically, we use a knowledge distillation framework that includes visual focus loss, semantic contrastive loss, and soft logits loss to extract character position knowledge, exploit contextual semantic knowledge, and facilitate both local word-level and global sequence-level learning. Extensive experiments show that our one-stage pipeline outperforms super-resolution based two-stage frameworks in terms of effectiveness and efficiency, with favorable robustness. Code is available at https://github.com/csguoh/KD-LTR.Here's the Chinese text with Traditional Chinese characters:现有的低分辨率文本识别（LTR）解决方案通常是以二阶段管道为基础，首先使用超解析，然后进行第二阶段识别。然而，这个管道并不是非常有效和高效，因为需要额外的超解析网络，并且第二阶段识别的精度仅仅取决于第一阶段的重建质量。在这个工作中，我们尝试通过将知识传递到低分辨率输入中来解决这些挑战。我们提出了一个高效和有效的知识传递框架，包括视觉钩损传学、semantic contrastive learning和软顶掌握损传学。实验结果显示，我们的一阶段管道明显超过了基于超解析的二阶段管道，在效率和稳定性方面具有优势。代码可以在https://github.com/csguoh/KD-LTR中找到。
+</details></li>
+</ul>
+<hr>
+<h2 id="DeDrift-Robust-Similarity-Search-under-Content-Drift"><a href="#DeDrift-Robust-Similarity-Search-under-Content-Drift" class="headerlink" title="DeDrift: Robust Similarity Search under Content Drift"></a>DeDrift: Robust Similarity Search under Content Drift</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02752">http://arxiv.org/abs/2308.02752</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Dmitry Baranchuk, Matthijs Douze, Yash Upadhyay, I. Zeki Yalniz</li>
+<li>for: 这个研究旨在探讨媒体分享网站上内容的统计分布随着时间的变化，以及这种变化对大规模相似搜寻工具的影响。</li>
+<li>methods: 这篇研究使用 nearest neighbor search in embedding space 来 investigate the impact of content drift on large-scale similarity search tools, and introduces a method called DeDrift to continuously adapt the indexing structures on-the-fly.</li>
+<li>results: DeDrift 可以几乎完全消除因查询和数据库内容迁移而导致的搜寻精度下降，并且比全 indexes reconstruction 更快速，可以达到 100 倍的速度提升。<details>
+<summary>Abstract</summary>
+The statistical distribution of content uploaded and searched on media sharing sites changes over time due to seasonal, sociological and technical factors. We investigate the impact of this "content drift" for large-scale similarity search tools, based on nearest neighbor search in embedding space. Unless a costly index reconstruction is performed frequently, content drift degrades the search accuracy and efficiency. The degradation is especially severe since, in general, both the query and database distributions change.   We introduce and analyze real-world image and video datasets for which temporal information is available over a long time period. Based on the learnings, we devise DeDrift, a method that updates embedding quantizers to continuously adapt large-scale indexing structures on-the-fly. DeDrift almost eliminates the accuracy degradation due to the query and database content drift while being up to 100x faster than a full index reconstruction.
+</details>
+<details>
+<summary>摘要</summary>
+随着时间的推移，媒体分享网站上上传和搜索的内容分布也发生变化，这些变化受到季节性、社会性和技术因素的影响。我们研究这些内容漂移（content drift）对大规模相似搜索工具的影响，基于最近邻居搜索空间中的嵌入式搜索。如果不定期更新索引，内容漂移会导致搜索精度和效率下降，特别是查询和数据库分布都发生变化。我们使用实际世界的图像和视频数据集，其中具有长时间的时间信息，以便学习内容漂移的影响。根据这些学习，我们提出了DeDrift方法，它可以在运行中continuously更新大规模索引结构，以适应内容漂移。DeDrift可以减少查询和数据库内容漂移导致的精度下降，同时比全Index重建更快，可以达到100倍的提升。
+</details></li>
+</ul>
+<hr>
+<h2 id="Discrimination-of-Radiologists-Utilizing-Eye-Tracking-Technology-and-Machine-Learning-A-Case-Study"><a href="#Discrimination-of-Radiologists-Utilizing-Eye-Tracking-Technology-and-Machine-Learning-A-Case-Study" class="headerlink" title="Discrimination of Radiologists Utilizing Eye-Tracking Technology and Machine Learning: A Case Study"></a>Discrimination of Radiologists Utilizing Eye-Tracking Technology and Machine Learning: A Case Study</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02748">http://arxiv.org/abs/2308.02748</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Stanford Martinez, Carolina Ramirez-Tamayo, Syed Hasib Akhter Faruqui, Kal L. Clark, Adel Alaeddini, Nicholas Czarnek, Aarushi Aggarwal, Sahra Emamzadeh, Jeffrey R. Mock, Edward J. Golob</li>
+<li>for: 鉴别医生经验水平</li>
+<li>methods: 使用个性化高维度视搜策略和精度编码方法</li>
+<li>results: 比较现有方法表现出色，可以帮助鉴别医生的经验水平和需要进一步培训<details>
+<summary>Abstract</summary>
+Perception-related errors comprise most diagnostic mistakes in radiology. To mitigate this problem, radiologists employ personalized and high-dimensional visual search strategies, otherwise known as search patterns. Qualitative descriptions of these search patterns, which involve the physician verbalizing or annotating the order he/she analyzes the image, can be unreliable due to discrepancies in what is reported versus the actual visual patterns. This discrepancy can interfere with quality improvement interventions and negatively impact patient care. This study presents a novel discretized feature encoding based on spatiotemporal binning of fixation data for efficient geometric alignment and temporal ordering of eye movement when reading chest X-rays. The encoded features of the eye-fixation data are employed by machine learning classifiers to discriminate between faculty and trainee radiologists. We include a clinical trial case study utilizing the Area Under the Curve (AUC), Accuracy, F1, Sensitivity, and Specificity metrics for class separability to evaluate the discriminability between the two subjects in regard to their level of experience. We then compare the classification performance to state-of-the-art methodologies. A repeatability experiment using a separate dataset, experimental protocol, and eye tracker was also performed using eight subjects to evaluate the robustness of the proposed approach. The numerical results from both experiments demonstrate that classifiers employing the proposed feature encoding methods outperform the current state-of-the-art in differentiating between radiologists in terms of experience level. This signifies the potential impact of the proposed method for identifying radiologists' level of expertise and those who would benefit from additional training.
+</details>
+<details>
+<summary>摘要</summary>
+诊断错误主要由视觉相关错误引起，以避免这个问题，辐射医生使用个性化高维度视觉搜索策略，即搜索模式。但是，这些搜索模式的 качеitative描述可能不准确，因为医生所报告的与实际视觉模式之间存在差异。这种差异可能会对质量改进 intervención和患者护理产生负面影响。本研究提出了一种新的Feature编码方法，基于维度分割和时间排序的眼动数据，以实现高效的几何对齐和时间排序。这些编码的特征被用于机器学习分类器，以分别抑制faculty和学生医生的诊断能力。我们在使用AUC、准确率、F1、感知率和特征率等度量进行评估分类表达的临床试验中，与现有方法进行比较。此外，我们还进行了使用不同数据集、实验室和眼动仪的重复试验，以评估提案的稳定性。 numerically的结果表明，使用提案的特征编码方法的分类器，在分别抑制faculty和学生医生的诊断能力方面表现出色，而且比现有方法更高效。这表明提案的方法可能对于诊断能力水平的识别和需要进行更多训练的医生进行了深刻的影响。
+</details></li>
+</ul>
+<hr>
+<h2 id="Exploring-Part-Informed-Visual-Language-Learning-for-Person-Re-Identification"><a href="#Exploring-Part-Informed-Visual-Language-Learning-for-Person-Re-Identification" class="headerlink" title="Exploring Part-Informed Visual-Language Learning for Person Re-Identification"></a>Exploring Part-Informed Visual-Language Learning for Person Re-Identification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02738">http://arxiv.org/abs/2308.02738</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yin Lin, Cong Liu, Yehansen Chen, Jinshui Hu, Bing Yin, Baocai Yin, Zengfu Wang<br>for:* 本研究旨在提高基于视觉语言学习的人识别（ReID）任务中的细腻特征。methods:* 该方法提出使用部分指导语言监督来增强细腻视觉特征。* 该方法包括人体分割指南尝试策略和层次融合方式来确保在部分特征semantic consistency。results:* 该方法在四个常用的ReID benchmark上 achieve substantial improvements，特别是在MSMT17数据集上report 90.3% Rank-1和76.5% mAP。<details>
+<summary>Abstract</summary>
+Recently, visual-language learning has shown great potential in enhancing visual-based person re-identification (ReID). Existing visual-language learning-based ReID methods often focus on whole-body scale image-text feature alignment, while neglecting supervisions on fine-grained part features. This choice simplifies the learning process but cannot guarantee within-part feature semantic consistency thus hindering the final performance. Therefore, we propose to enhance fine-grained visual features with part-informed language supervision for ReID tasks. The proposed method, named Part-Informed Visual-language Learning ($\pi$-VL), suggests that (i) a human parsing-guided prompt tuning strategy and (ii) a hierarchical fusion-based visual-language alignment paradigm play essential roles in ensuring within-part feature semantic consistency. Specifically, we combine both identity labels and parsing maps to constitute pixel-level text prompts and fuse multi-stage visual features with a light-weight auxiliary head to perform fine-grained image-text alignment. As a plug-and-play and inference-free solution, our $\pi$-VL achieves substantial improvements over previous state-of-the-arts on four common-used ReID benchmarks, especially reporting 90.3% Rank-1 and 76.5% mAP for the most challenging MSMT17 database without bells and whistles.
+</details>
+<details>
+<summary>摘要</summary>
+最近，视觉语言学习已经显示出增强视觉基于人识别（ReID）的潜在能力。现有的视觉语言学习基于ReID方法通常会关注全身图像特征对齐，而忽略细节特征的监督。这种选择可以简化学习过程，但无法保证内部特征 semantics的一致性，从而降低最终性能。因此，我们提出了在ReID任务中增强细节视觉特征的方法，即Part-Informed Visual-language Learning（$\pi$-VL）。我们的方法包括以下两个关键组成部分：1. 人体分割指导的提问调整策略。2. 层次融合基于视觉语言对齐方法。具体来说，我们将标签和分割地图组合成像素级文本提示，并将多stage视觉特征与轻量级辅助头进行集成，以实现细节图像-文本对齐。我们的$\pi$-VL方法可以作为插件和推理自由解决方案，在四个常用的ReID benchmark上实现了显著的提高，特别是在MSMT17数据集上Report 90.3% Rank-1和76.5% mAP的最高得分。
+</details></li>
+</ul>
+<hr>
+<h2 id="EndoDepthL-Lightweight-Endoscopic-Monocular-Depth-Estimation-with-CNN-Transformer"><a href="#EndoDepthL-Lightweight-Endoscopic-Monocular-Depth-Estimation-with-CNN-Transformer" class="headerlink" title="EndoDepthL: Lightweight Endoscopic Monocular Depth Estimation with CNN-Transformer"></a>EndoDepthL: Lightweight Endoscopic Monocular Depth Estimation with CNN-Transformer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02716">http://arxiv.org/abs/2308.02716</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yangke Li</li>
+<li>for: 提高endoscopic imaging中深度估计的准确率和效果，特别是实时推理和光泽反射的影响。</li>
+<li>methods: 提出一种轻量级解决方案，名为EndoDepthL，它将Convolutional Neural Networks (CNN)和Transformers结合使用，预测多尺度深度地图。我们的方法包括优化网络架构、扩展多尺度扩展 convolution 和多通道注意机制。我们还引入了一个统计信息边界面面 mask，以降低光泽反射区域的影响。</li>
+<li>results: 我们对假象深度估计在endoscopic imaging中的性能进行了全面评估，并与现有基eline解决方案进行了比较。结果表明，EndoDepthL  Ensures depth estimation accuracy with a lightweight structure。<details>
+<summary>Abstract</summary>
+In this study, we address the key challenges concerning the accuracy and effectiveness of depth estimation for endoscopic imaging, with a particular emphasis on real-time inference and the impact of light reflections. We propose a novel lightweight solution named EndoDepthL that integrates Convolutional Neural Networks (CNN) and Transformers to predict multi-scale depth maps. Our approach includes optimizing the network architecture, incorporating multi-scale dilated convolution, and a multi-channel attention mechanism. We also introduce a statistical confidence boundary mask to minimize the impact of reflective areas. To better evaluate the performance of monocular depth estimation in endoscopic imaging, we propose a novel complexity evaluation metric that considers network parameter size, floating-point operations, and inference frames per second. We comprehensively evaluate our proposed method and compare it with existing baseline solutions. The results demonstrate that EndoDepthL ensures depth estimation accuracy with a lightweight structure.
+</details>
+<details>
+<summary>摘要</summary>
+在本研究中，我们解决了投射精度和效果的关键挑战，尤其是实时推理和光折射的影响。我们提出了一种新的轻量级解决方案，名为EndoDepthL，它将Convolutional Neural Networks（CNN）和Transformers结合以预测多尺度深度地图。我们的方法包括优化网络架构、使用多尺度扩展 convolution 和多通道注意机制。我们还引入了一个统计信息边界面面来最小化反射区域的影响。为更好地评估单摄深度估计在内窥影像中的性能，我们提出了一个新的复杂度评估指标，考虑网络参数大小、浮点运算和推理帧数。我们对我们的提议方法进行了全面评估，并与现有的基线解决方案进行比较。结果显示，EndoDepthL  Ensures depth estimation accuracy with a lightweight structure。
+</details></li>
+</ul>
+<hr>
+<h2 id="Exploring-the-Effect-of-Sparse-Recovery-on-the-Quality-of-Image-Superresolution"><a href="#Exploring-the-Effect-of-Sparse-Recovery-on-the-Quality-of-Image-Superresolution" class="headerlink" title="Exploring the Effect of Sparse Recovery on the Quality of Image Superresolution"></a>Exploring the Effect of Sparse Recovery on the Quality of Image Superresolution</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02714">http://arxiv.org/abs/2308.02714</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Antonio Castro</li>
+<li>for: 这个论文的目的是研究用字典学习来进行图像超分解。</li>
+<li>methods: 这个论文使用了一对关联的字典来学习图像块的高分和低分对应关系，使得对于低分输入图像，可以使用高分字典来恢复对应的高分图像块。</li>
+<li>results: 这个论文的实验结果表明，使用不同的简单恢复算法可以影响图像恢复的质量。<details>
+<summary>Abstract</summary>
+Dictionary learning can be used for image superresolution by learning a pair of coupled dictionaries of image patches from high-resolution and low-resolution image pairs such that the corresponding pairs share the same sparse vector when represented by the coupled dictionaries. These dictionaries then can be used to to reconstruct the corresponding high-resolution patches from low-resolution input images based on sparse recovery. The idea is to recover the shared sparse vector using the low-resolution dictionary and then multiply it by the high-resolution dictionary to recover the corresponding high-resolution image patch. In this work, we study the effect of the sparse recovery algorithm that we use on the quality of the reconstructed images. We offer empirical experiments to search for the best sparse recovery algorithm that can be used for this purpose.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>对于图像超分解，词典学习可以用来学习一对对应的高分辨率和低分辨率图像对的词典，使得这对对应的词典元素共享同一个简约 вектор。这些词典然后可以用来从低分辨率输入图像中重建对应的高分辨率图像片段，基于简约恢复。我们的想法是通过低分辨率词典来恢复共享的简约 вектор，然后将其乘以高分辨率词典来恢复对应的高分辨率图像片段。在这个工作中，我们研究了使用不同的简约恢复算法对图像质量的影响，并通过实验搜索最佳的简约恢复算法。Note: Simplified Chinese is also known as "Mandarin" Chinese, and it is the official language of China. It is written using the same characters as Traditional Chinese, but with simpler stroke orders and fewer characters.
+</details></li>
+</ul>
+<hr>
+<h2 id="EDI-ESKF-based-Disjoint-Initialization-for-Visual-Inertial-SLAM-Systems"><a href="#EDI-ESKF-based-Disjoint-Initialization-for-Visual-Inertial-SLAM-Systems" class="headerlink" title="EDI: ESKF-based Disjoint Initialization for Visual-Inertial SLAM Systems"></a>EDI: ESKF-based Disjoint Initialization for Visual-Inertial SLAM Systems</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02670">http://arxiv.org/abs/2308.02670</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Weihan Wang, Jiani Li, Yuhang Ming, Philippos Mordohai</li>
+<li>for: 这篇论文的目的是提出一种快速、精准、可靠的视像运动初始化方法（EDI），以解决现有的视像运动初始化方法存在的问题。</li>
+<li>methods: 这篇论文使用的方法包括误差状态库检测器（ESKF）来估计陀螺偏差和纯单眼SLAM中的旋转估计的误差，以及一个关键几何方法来估计初速度、尺度、重力和加速度偏差。</li>
+<li>results: 根据评估数据，这篇论文的EDI方法在几个挑战性环境中（包括人工散射误差）可以在几秒钟内实现精准的视像运动初始化，并且超过了其他状态艺术的视像运动初始化方法。<details>
+<summary>Abstract</summary>
+Visual-inertial initialization can be classified into joint and disjoint approaches. Joint approaches tackle both the visual and the inertial parameters together by aligning observations from feature-bearing points based on IMU integration then use a closed-form solution with visual and acceleration observations to find initial velocity and gravity. In contrast, disjoint approaches independently solve the Structure from Motion (SFM) problem and determine inertial parameters from up-to-scale camera poses obtained from pure monocular SLAM. However, previous disjoint methods have limitations, like assuming negligible acceleration bias impact or accurate rotation estimation by pure monocular SLAM. To address these issues, we propose EDI, a novel approach for fast, accurate, and robust visual-inertial initialization. Our method incorporates an Error-state Kalman Filter (ESKF) to estimate gyroscope bias and correct rotation estimates from monocular SLAM, overcoming dependence on pure monocular SLAM for rotation estimation. To estimate the scale factor without prior information, we offer a closed-form solution for initial velocity, scale, gravity, and acceleration bias estimation. To address gravity and acceleration bias coupling, we introduce weights in the linear least-squares equations, ensuring acceleration bias observability and handling outliers. Extensive evaluation on the EuRoC dataset shows that our method achieves an average scale error of 5.8% in less than 3 seconds, outperforming other state-of-the-art disjoint visual-inertial initialization approaches, even in challenging environments and with artificial noise corruption.
+</details>
+<details>
+<summary>摘要</summary>
+“视听初始化可以分为联合和分割两种方法。联合方法同时处理视听参数，通过IMU综合 integrating 视觉特征点的观察结果，并使用关闭式解决方案来计算初速度和重力。相比之下，分割方法独立解决 Структура从 Move（SFM）问题，并从纯粹的一频单摄像头SLAM中获取各种相机位置。然而，以往的分割方法有一些限制，如假设加速度偏移的影响为零或纯粹的一频单摄像头SLAM中的旋转估计准确。为解决这些问题，我们提出了一种新的方法——EDI，它是一种快速、准确和Robust的视听初始化方法。我们的方法通过Error-state Kalman Filter（ESKF）来估算陀螺偏移和纯粹的一频单摄像头SLAM中的旋转估计，从而超越了依赖于纯粹的一频单摄像头SLAM中的旋转估计。为估计初速度、比例因子、重力和加速度偏移的问题，我们提供了一个关闭式解决方案。为处理重力和加速度偏移之间的相互作用，我们引入了权重，确保加速度偏移的观察可见性和承受扰动。我们的方法在EuRoC数据集上进行了广泛的评估，结果显示，我们的方法在 less than 3 秒内，覆盖率Error 5.8%，超越了其他当前最佳的分割视听初始化方法，即使在复杂的环境下和人工噪声损害。”
+</details></li>
+</ul>
+<hr>
+<h2 id="ReCLIP-Refine-Contrastive-Language-Image-Pre-Training-with-Source-Free-Domain-Adaptation"><a href="#ReCLIP-Refine-Contrastive-Language-Image-Pre-Training-with-Source-Free-Domain-Adaptation" class="headerlink" title="ReCLIP: Refine Contrastive Language Image Pre-Training with Source Free Domain Adaptation"></a>ReCLIP: Refine Contrastive Language Image Pre-Training with Source Free Domain Adaptation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.03793">http://arxiv.org/abs/2308.03793</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Xuefeng Hu, Ke Zhang, Lu Xia, Albert Chen, Jiajia Luo, Yuyin Sun, Ken Wang, Nan Qiao, Xiao Zeng, Min Sun, Cheng-Hao Kuo, Ram Nevatia</li>
+<li>for: 提高 CLIP 模型在下游领域中的表现，即使没有源数据或目标标签数据。</li>
+<li>methods: 提出了一种源自无关领域适应方法，通过学习投影空间来减轻视文混合的嵌入推断，然后通过跨Modal自我训练来更新视觉编码器和文本编码器，并且不断更新标签以减少领域差异和混合错误。</li>
+<li>results: 实验结果显示，ReCLIP 可以将 CLIP 模型的平均错误率从 30.17% 降低至 25.06% 在 22 个图像分类benchmark上。<details>
+<summary>Abstract</summary>
+Large-scale Pre-Training Vision-Language Model such as CLIP has demonstrated outstanding performance in zero-shot classification, e.g. achieving 76.3% top-1 accuracy on ImageNet without seeing any example, which leads to potential benefits to many tasks that have no labeled data. However, while applying CLIP to a downstream target domain, the presence of visual and text domain gaps and cross-modality misalignment can greatly impact the model performance. To address such challenges, we propose ReCLIP, the first source-free domain adaptation method for vision-language models, which does not require any source data or target labeled data. ReCLIP first learns a projection space to mitigate the misaligned visual-text embeddings and learns pseudo labels, and then deploys cross-modality self-training with the pseudo labels, to update visual and text encoders, refine labels and reduce domain gaps and misalignments iteratively. With extensive experiments, we demonstrate ReCLIP reduces the average error rate of CLIP from 30.17% to 25.06% on 22 image classification benchmarks.
+</details>
+<details>
+<summary>摘要</summary>
+大规模预训练视语模型如CLIP已经表现出色的零例推断能力，例如在ImageNet上达到76.3%的顶部一准确率无需见过任何示例，这可能会带来许多无标示数据的任务中的优势。然而，在应用CLIP到下游目标领域时，视语频域差和交叉Modal不一致可能会对模型表现产生很大的影响。为了解决这些挑战，我们提出了ReCLIP，首个无源频段适应方法，不需要源数据或目标标记数据。ReCLIP首先学习一个抑制覆盖视语嵌入的投影空间，然后通过交叉模式自动训练，使视和文批处程序更新、精细标签和减少频段差异和不一致。经过广泛的实验，我们示出ReCLIP可以将CLIP的平均错误率从30.17%降低到25.06%。
+</details></li>
+</ul>
+<hr>
+<h2 id="Convolutions-Die-Hard-Open-Vocabulary-Segmentation-with-Single-Frozen-Convolutional-CLIP"><a href="#Convolutions-Die-Hard-Open-Vocabulary-Segmentation-with-Single-Frozen-Convolutional-CLIP" class="headerlink" title="Convolutions Die Hard: Open-Vocabulary Segmentation with Single Frozen Convolutional CLIP"></a>Convolutions Die Hard: Open-Vocabulary Segmentation with Single Frozen Convolutional CLIP</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02487">http://arxiv.org/abs/2308.02487</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/bytedance/fc-clip">https://github.com/bytedance/fc-clip</a></li>
+<li>paper_authors: Qihang Yu, Ju He, Xueqing Deng, Xiaohui Shen, Liang-Chieh Chen</li>
+<li>for: 本研究的目的是提出一种单stage的多Modal模型，以解决开放词汇分割的挑战。</li>
+<li>methods: 该模型使用了共享冻结Convolutional CLIP backbone，并利用图像和文本特征在共享embedding空间中进行桥接，从而 Addressing the challenge of open-vocabulary segmentation.</li>
+<li>results: 研究显示，FC-CLIP在Zero-shot manner测试时，在ADE20K、Mapillary Vistas和Cityscapes等 datasets上达到了26.8 PQ、16.8 AP、34.1 mIoU、18.2 PQ、27.9 mIoU、44.0 PQ、26.8 AP、56.2 mIoU的最高表现，与之前的艺术品相比，提高了4.2 PQ、2.4 AP、4.2 mIoU、4.0 PQ、20.1 PQ的表现。同时，FC-CLIP的训练和测试时间相比之前的艺术品快7.5倍和6.6倍，使用参数数量相对减少5.9倍。<details>
+<summary>Abstract</summary>
+Open-vocabulary segmentation is a challenging task requiring segmenting and recognizing objects from an open set of categories. One way to address this challenge is to leverage multi-modal models, such as CLIP, to provide image and text features in a shared embedding space, which bridges the gap between closed-vocabulary and open-vocabulary recognition. Hence, existing methods often adopt a two-stage framework to tackle the problem, where the inputs first go through a mask generator and then through the CLIP model along with the predicted masks. This process involves extracting features from images multiple times, which can be ineffective and inefficient. By contrast, we propose to build everything into a single-stage framework using a shared Frozen Convolutional CLIP backbone, which not only significantly simplifies the current two-stage pipeline, but also remarkably yields a better accuracy-cost trade-off. The proposed FC-CLIP, benefits from the following observations: the frozen CLIP backbone maintains the ability of open-vocabulary classification and can also serve as a strong mask generator, and the convolutional CLIP generalizes well to a larger input resolution than the one used during contrastive image-text pretraining. When training on COCO panoptic data only and testing in a zero-shot manner, FC-CLIP achieve 26.8 PQ, 16.8 AP, and 34.1 mIoU on ADE20K, 18.2 PQ, 27.9 mIoU on Mapillary Vistas, 44.0 PQ, 26.8 AP, 56.2 mIoU on Cityscapes, outperforming the prior art by +4.2 PQ, +2.4 AP, +4.2 mIoU on ADE20K, +4.0 PQ on Mapillary Vistas and +20.1 PQ on Cityscapes, respectively. Additionally, the training and testing time of FC-CLIP is 7.5x and 6.6x significantly faster than the same prior art, while using 5.9x fewer parameters. FC-CLIP also sets a new state-of-the-art performance across various open-vocabulary semantic segmentation datasets. Code at https://github.com/bytedance/fc-clip
+</details>
+<details>
+<summary>摘要</summary>
+开放词汇 segmentation 是一项具有挑战性的任务，需要将图像和文本分割和识别到开放集的类别中。一种 Addressing this challenge is to leverage multi-modal models, such as CLIP, to provide image and text features in a shared embedding space, which bridges the gap between closed-vocabulary and open-vocabulary recognition. Existing methods often adopt a two-stage framework to tackle the problem, where the inputs first go through a mask generator and then through the CLIP model along with the predicted masks. This process involves extracting features from images multiple times, which can be ineffective and inefficient.By contrast, we propose a single-stage framework using a shared Frozen Convolutional CLIP backbone, which not only significantly simplifies the current two-stage pipeline, but also remarkably yields a better accuracy-cost trade-off. The proposed FC-CLIP benefits from the following observations: the frozen CLIP backbone maintains the ability of open-vocabulary classification and can also serve as a strong mask generator, and the convolutional CLIP generalizes well to a larger input resolution than the one used during contrastive image-text pretraining.When training on COCO panoptic data only and testing in a zero-shot manner, FC-CLIP achieves 26.8 PQ, 16.8 AP, and 34.1 mIoU on ADE20K, 18.2 PQ, 27.9 mIoU on Mapillary Vistas, 44.0 PQ, 26.8 AP, 56.2 mIoU on Cityscapes, outperforming the prior art by +4.2 PQ, +2.4 AP, +4.2 mIoU on ADE20K, +4.0 PQ on Mapillary Vistas, and +20.1 PQ on Cityscapes, respectively. Additionally, the training and testing time of FC-CLIP is 7.5x and 6.6x significantly faster than the same prior art, while using 5.9x fewer parameters. FC-CLIP also sets a new state-of-the-art performance across various open-vocabulary semantic segmentation datasets.Code: <https://github.com/bytedance/fc-clip>
+</details></li>
+</ul>
+<hr>
+<h2 id="Uncertainty-Estimation-and-Propagation-in-Accelerated-MRI-Reconstruction"><a href="#Uncertainty-Estimation-and-Propagation-in-Accelerated-MRI-Reconstruction" class="headerlink" title="Uncertainty Estimation and Propagation in Accelerated MRI Reconstruction"></a>Uncertainty Estimation and Propagation in Accelerated MRI Reconstruction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.02631">http://arxiv.org/abs/2308.02631</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/paulkogni/mr-recon-uq">https://github.com/paulkogni/mr-recon-uq</a></li>
+<li>paper_authors: Paul Fischer, Thomas Küstner, Christian F. Baumgartner</li>
+<li>for: 这个论文是关于MR成像技术基于深度学习的重建方法，尤其在高速下进行重建时得到了无 precedent的重建质量。</li>
+<li>methods: 该论文提出了一种基于conditional hierarchical variational autoencoders的概率重建技术（PHiRec），以提高MR成像重建的质量和不确定性评估。</li>
+<li>results: 研究人员发现，PHiRec可以生成高质量的重建结果，同时也可以更好地评估MR成像重建过程中的不确定性，并且可以传播这些不确定性到下游分割任务中。<details>
+<summary>Abstract</summary>
+MRI reconstruction techniques based on deep learning have led to unprecedented reconstruction quality especially in highly accelerated settings. However, deep learning techniques are also known to fail unexpectedly and hallucinate structures. This is particularly problematic if reconstructions are directly used for downstream tasks such as real-time treatment guidance or automated extraction of clinical paramters (e.g. via segmentation). Well-calibrated uncertainty quantification will be a key ingredient for safe use of this technology in clinical practice. In this paper we propose a novel probabilistic reconstruction technique (PHiRec) building on the idea of conditional hierarchical variational autoencoders. We demonstrate that our proposed method produces high-quality reconstructions as well as uncertainty quantification that is substantially better calibrated than several strong baselines. We furthermore demonstrate how uncertainties arising in the MR econstruction can be propagated to a downstream segmentation task, and show that PHiRec also allows well-calibrated estimation of segmentation uncertainties that originated in the MR reconstruction process.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/08/05/cs.CV_2023_08_05/" data-id="clmvt7t9900as26rdhqtsf4hc" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/08/05/cs.SD_2023_08_05/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cs.SD - 2023-08-05
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/08/05/cs.AI_2023_08_05/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.AI - 2023-08-05</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">21</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">150</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

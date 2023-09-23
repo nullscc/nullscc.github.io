@@ -7,15 +7,15 @@
   
   <title>cs.SD - 2023-08-31 | Fun Paper</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="General Purpose Audio Effect Removal paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2308.16177 repo_url: https:&#x2F;&#x2F;github.com&#x2F;mhrice&#x2F;RemFx paper_authors: Matthew Rice, Christian J. Steinmetz, George Fazekas, Joshua D.">
+  <meta name="description" content="LightGrad: Lightweight Diffusion Probabilistic Model for Text-to-Speech paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2308.16569 repo_url: None paper_authors: Jie Chen, Xingchen Song, Zhendong Peng, Binbin Zhang, F">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs.SD - 2023-08-31">
 <meta property="og:url" content="https://nullscc.github.io/2023/08/31/cs.SD_2023_08_31/index.html">
 <meta property="og:site_name" content="Fun Paper">
-<meta property="og:description" content="General Purpose Audio Effect Removal paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2308.16177 repo_url: https:&#x2F;&#x2F;github.com&#x2F;mhrice&#x2F;RemFx paper_authors: Matthew Rice, Christian J. Steinmetz, George Fazekas, Joshua D.">
+<meta property="og:description" content="LightGrad: Lightweight Diffusion Probabilistic Model for Text-to-Speech paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2308.16569 repo_url: None paper_authors: Jie Chen, Xingchen Song, Zhendong Peng, Binbin Zhang, F">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-08-31T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-31T13:36:18.360Z">
+<meta property="article:modified_time" content="2023-09-23T08:55:16.125Z">
 <meta property="article:author" content="nullscc">
 <meta name="twitter:card" content="summary">
   
@@ -104,19 +104,99 @@
     <div class="article-entry" itemprop="articleBody">
       
         
-        <h2 id="General-Purpose-Audio-Effect-Removal"><a href="#General-Purpose-Audio-Effect-Removal" class="headerlink" title="General Purpose Audio Effect Removal"></a>General Purpose Audio Effect Removal</h2><ul>
-<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.16177">http://arxiv.org/abs/2308.16177</a></li>
-<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/mhrice/RemFx">https://github.com/mhrice/RemFx</a></li>
-<li>paper_authors: Matthew Rice, Christian J. Steinmetz, George Fazekas, Joshua D. Reiss</li>
-<li>for:  removes audio effects from realistic scenarios with multiple effects and varying source content</li>
-<li>methods:  uses deep learning and a dataset of five audio effects across four different sources to train and evaluate a set of existing architectures</li>
-<li>results:  outperforms single model baselines, but examples with many effects present remain challenging<details>
+        <h2 id="LightGrad-Lightweight-Diffusion-Probabilistic-Model-for-Text-to-Speech"><a href="#LightGrad-Lightweight-Diffusion-Probabilistic-Model-for-Text-to-Speech" class="headerlink" title="LightGrad: Lightweight Diffusion Probabilistic Model for Text-to-Speech"></a>LightGrad: Lightweight Diffusion Probabilistic Model for Text-to-Speech</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.16569">http://arxiv.org/abs/2308.16569</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jie Chen, Xingchen Song, Zhendong Peng, Binbin Zhang, Fuping Pan, Zhiyong Wu</li>
+<li>for: 这篇论文的目的是提出一个轻量级的干扰机制（LightGrad），以减少对于资源有限的设备的需求，并且降低干扰步骤的数量，以提高干扰速度和质量。</li>
+<li>methods: 这篇论文使用了一个名为U-Net的散射解oder，以及一种无需训练的快速抽样技术，以减少模型的参数数量和干扰步骤的数量。</li>
+<li>results: 相比 Grad-TTS，LightGrad 可以降低参数数量62.2%，降低干扰步骤65.7%，并且保持中文和英文干扰质量相似的表现，具体为4个步骤。<details>
 <summary>Abstract</summary>
-Although the design and application of audio effects is well understood, the inverse problem of removing these effects is significantly more challenging and far less studied. Recently, deep learning has been applied to audio effect removal; however, existing approaches have focused on narrow formulations considering only one effect or source type at a time. In realistic scenarios, multiple effects are applied with varying source content. This motivates a more general task, which we refer to as general purpose audio effect removal. We developed a dataset for this task using five audio effects across four different sources and used it to train and evaluate a set of existing architectures. We found that no single model performed optimally on all effect types and sources. To address this, we introduced RemFX, an approach designed to mirror the compositionality of applied effects. We first trained a set of the best-performing effect-specific removal models and then leveraged an audio effect classification model to dynamically construct a graph of our models at inference. We found our approach to outperform single model baselines, although examples with many effects present remain challenging.
+Recent advances in neural text-to-speech (TTS) models bring thousands of TTS applications into daily life, where models are deployed in cloud to provide services for customs. Among these models are diffusion probabilistic models (DPMs), which can be stably trained and are more parameter-efficient compared with other generative models. As transmitting data between customs and the cloud introduces high latency and the risk of exposing private data, deploying TTS models on edge devices is preferred. When implementing DPMs onto edge devices, there are two practical problems. First, current DPMs are not lightweight enough for resource-constrained devices. Second, DPMs require many denoising steps in inference, which increases latency. In this work, we present LightGrad, a lightweight DPM for TTS. LightGrad is equipped with a lightweight U-Net diffusion decoder and a training-free fast sampling technique, reducing both model parameters and inference latency. Streaming inference is also implemented in LightGrad to reduce latency further. Compared with Grad-TTS, LightGrad achieves 62.2% reduction in paramters, 65.7% reduction in latency, while preserving comparable speech quality on both Chinese Mandarin and English in 4 denoising steps.
 </details>
 <details>
 <summary>摘要</summary>
-TRANSLATION:尽管音频效果的设计和应用已经非常了解，但去除这些效果是非常困难的，而且对此还未有充分的研究。在现实情况下，多种效果会同时应用于不同的音频内容，这种情况下的音频效果去除是一个更加普遍的任务。我们使用了五种音频效果，在四种不同的音频源上进行了数据集的构建，并使用了这些数据集来训练和评估一些现有的架构。我们发现，没有任何一个模型能够在所有的效果类型和源类型上表现最佳。为解决这个问题，我们提出了RemFX，一种基于效果的组合性来设计的方法。我们首先训练了一些最佳的效果特定的去除模型，然后通过音频效果分类模型来动态构建一个图结构，以便在推理时使用。我们发现，我们的方法可以超过单个模型的基线，但是存在多个效果存在的例子仍然是一个挑战。
+最近的神经文本至语音（TTS）模型技术发展，已经带动数千个TTS应用程序进入日常生活中，这些模型通常被部署在云端提供服务。其中，扩散概率模型（DPM）是一种可以稳定地训练并且比其他生成模型更parameter-efficient的模型。由于在customs和云端之间传输数据会带来高延迟和披露私人数据的风险，因此在边缘设备上部署TTS模型是更好的选择。在实现DPMonto边缘设备时，存在两个实际问题。一个是现有DPM都不够轻量级，二是DPM在推理过程中需要多个净化步骤，这会增加延迟。在这种情况下，我们提出了LightGrad，一种轻量级的DPM для TTS。LightGrad配备了轻量级的U-Net扩散解码器和无需训练的快速采样技术，从而降低了模型参数和推理延迟。此外，LightGrad还实现了流动推理，进一步降低延迟。相比 Grad-TTS，LightGrad实现了参数减少62.2%，推理延迟减少65.7%，保持了中文普通话和英语的语音质量在4个净化步骤中相似。
+</details></li>
+</ul>
+<hr>
+<h2 id="PhonMatchNet-Phoneme-Guided-Zero-Shot-Keyword-Spotting-for-User-Defined-Keywords"><a href="#PhonMatchNet-Phoneme-Guided-Zero-Shot-Keyword-Spotting-for-User-Defined-Keywords" class="headerlink" title="PhonMatchNet: Phoneme-Guided Zero-Shot Keyword Spotting for User-Defined Keywords"></a>PhonMatchNet: Phoneme-Guided Zero-Shot Keyword Spotting for User-Defined Keywords</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.16511">http://arxiv.org/abs/2308.16511</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ncsoft/PhonMatchNet">https://github.com/ncsoft/PhonMatchNet</a></li>
+<li>paper_authors: Yong-Hyeok Lee, Namhyun Cho</li>
+<li>for: 本研究旨在提出一种新的零shot用户定义关键词检索模型，利用关键词的音频-phoneme关系提高表现。与先前的方法一样，我们使用话语和phoneme两级信息。</li>
+<li>methods: 我们提出的方法包括两核心音频编码器架构、自注意力基于模式EXTractor以及phoneme级别检测损失，以实现在不同发音环境下高性能。</li>
+<li>results: 根据实验结果，我们的提议模型比基eline模型表现更好，并与全shot关键词检索模型相当。我们的模型在所有数据集上显著提高了EER和AUC，平均相对提高67%和80%。<details>
+<summary>Abstract</summary>
+This study presents a novel zero-shot user-defined keyword spotting model that utilizes the audio-phoneme relationship of the keyword to improve performance. Unlike the previous approach that estimates at utterance level, we use both utterance and phoneme level information. Our proposed method comprises a two-stream speech encoder architecture, self-attention-based pattern extractor, and phoneme-level detection loss for high performance in various pronunciation environments. Based on experimental results, our proposed model outperforms the baseline model and achieves competitive performance compared with full-shot keyword spotting models. Our proposed model significantly improves the EER and AUC across all datasets, including familiar words, proper nouns, and indistinguishable pronunciations, with an average relative improvement of 67% and 80%, respectively. The implementation code of our proposed model is available at https://github.com/ncsoft/PhonMatchNet.
+</details>
+<details>
+<summary>摘要</summary>
+本研究提出了一种新的零shot用户定义关键词检测模型，利用关键词的音频-phoneme关系提高性能。与前一种方法不同，我们使用了utterance和phoneme两级信息。我们提出的方法包括了两树speech编码器架构，基于自我注意力的模式提取器，以及phoneme级别检测损失，以实现在不同发音环境中高性能。根据实验结果，我们的提议模型在baseline模型和全shot关键词检测模型的比较中具有竞争力，并且在各种数据集上（包括熟语、地名和不可识别发音）实现了显著的EER和AUC提升，均为67%和80%。实现代码可以在https://github.com/ncsoft/PhonMatchNet中找到。
+</details></li>
+</ul>
+<hr>
+<h2 id="RAMP-Retrieval-Augmented-MOS-Prediction-via-Confidence-based-Dynamic-Weighting"><a href="#RAMP-Retrieval-Augmented-MOS-Prediction-via-Confidence-based-Dynamic-Weighting" class="headerlink" title="RAMP: Retrieval-Augmented MOS Prediction via Confidence-based Dynamic Weighting"></a>RAMP: Retrieval-Augmented MOS Prediction via Confidence-based Dynamic Weighting</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.16488">http://arxiv.org/abs/2308.16488</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hui Wang, Shiwan Zhao, Xiguang Zheng, Yong Qin</li>
+<li>for: 评估合成语音的主观评分（Mean Opinion Score，MOS）是非常重要的，但是现有的方法仅部分地解决了特征提取器的数据缺乏问题，导致decoder的性能下降。为了解决这个挑战，我们提出了一种基于检索的MOS预测方法，名为{\bf RAMP}。</li>
+<li>methods: 我们提出了一种基于检索的MOS预测方法，包括一个检索网络和一个权重融合网络。检索网络可以在不同的实例中动态调整检索范围和融合权重，以提高decoder的表现。</li>
+<li>results: 我们的方法在多种场景下表现出色，比如在不同的语音样本和不同的MOS评分情况下。实验结果表明，我们的方法可以更好地预测MOS，并且在数据缺乏问题下表现更为优化。<details>
+<summary>Abstract</summary>
+Automatic Mean Opinion Score (MOS) prediction is crucial to evaluate the perceptual quality of the synthetic speech. While recent approaches using pre-trained self-supervised learning (SSL) models have shown promising results, they only partly address the data scarcity issue for the feature extractor. This leaves the data scarcity issue for the decoder unresolved and leading to suboptimal performance. To address this challenge, we propose a retrieval-augmented MOS prediction method, dubbed {\bf RAMP}, to enhance the decoder's ability against the data scarcity issue. A fusing network is also proposed to dynamically adjust the retrieval scope for each instance and the fusion weights based on the predictive confidence. Experimental results show that our proposed method outperforms the existing methods in multiple scenarios.
+</details>
+<details>
+<summary>摘要</summary>
+自动 Mean Opinion Score（MOS）预测是评估人工语音质量的关键。latest approaches使用预训练的自动学习（SSL）模型已经显示了有前途，但它们只是部分地解决了特征提取器的数据缺乏问题。这 leaves the decoder的数据缺乏问题未解决，导致表现下标。To address this challenge, we propose a retrieval-augmented MOS prediction method, dubbed RAMP, to enhance the decoder's ability against the data scarcity issue. A fusing network is also proposed to dynamically adjust the retrieval scope for each instance and the fusion weights based on the predictive confidence. Experimental results show that our proposed method outperforms the existing methods in multiple scenarios.Here's a word-for-word translation of the text into Simplified Chinese:自动MOS预测是评估人工语音质量的关键。latest approaches使用预训练的自动学习（SSL）模型已经显示了有前途，但它们只是部分地解决了特征提取器的数据缺乏问题。这 leaves the decoder的数据缺乏问题未解决，导致表现下标。为了解决这个挑战，我们提议一种增强decoder的可信度预测方法，称为RAMP，以解决数据缺乏问题。我们还提出了一种拼接网络，以动态调整每个实例的检索范围和拼接权重基于预测可信度。实验结果显示，我们的提议方法在多种场景下表现出色。
+</details></li>
+</ul>
+<hr>
+<h2 id="Supervised-Contrastive-Learning-with-Nearest-Neighbor-Search-for-Speech-Emotion-Recognition"><a href="#Supervised-Contrastive-Learning-with-Nearest-Neighbor-Search-for-Speech-Emotion-Recognition" class="headerlink" title="Supervised Contrastive Learning with Nearest Neighbor Search for Speech Emotion Recognition"></a>Supervised Contrastive Learning with Nearest Neighbor Search for Speech Emotion Recognition</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.16485">http://arxiv.org/abs/2308.16485</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Xuechen Wang, Shiwan Zhao, Yong Qin</li>
+<li>for: 这篇论文的目的是提高speech emotion recognition（SER）性能，因为现有数据有限和感受的分界难以定义。</li>
+<li>methods: 该论文提出了一种全面的方法来提高SER模型的生命周期，包括预训练、精度调整和推断阶段。在预训练阶段，我们利用了pre-trained模型wav2vec2.0。在精度调整阶段，我们提出了一种新的损失函数，将cross-entropy损失与超级vised contrastive learning损失相结合，以提高模型的识别能力。这种方法使得间类距离增大，同类距离减小，从而解决感受分界不清晰的问题。最后，在推断阶段，我们提出了一种 interpolating方法，将模型预测结果与k-nearest neighbors模型的输出结果相结合。</li>
+<li>results: 我们在IEMOCAP数据集上进行了实验，并证明了我们提出的方法可以超越当前状态的最佳结果。<details>
+<summary>Abstract</summary>
+Speech Emotion Recognition (SER) is a challenging task due to limited data and blurred boundaries of certain emotions. In this paper, we present a comprehensive approach to improve the SER performance throughout the model lifecycle, including pre-training, fine-tuning, and inference stages. To address the data scarcity issue, we utilize a pre-trained model, wav2vec2.0. During fine-tuning, we propose a novel loss function that combines cross-entropy loss with supervised contrastive learning loss to improve the model's discriminative ability. This approach increases the inter-class distances and decreases the intra-class distances, mitigating the issue of blurred boundaries. Finally, to leverage the improved distances, we propose an interpolation method at the inference stage that combines the model prediction with the output from a k-nearest neighbors model. Our experiments on IEMOCAP demonstrate that our proposed methods outperform current state-of-the-art results.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>> translate "Speech Emotion Recognition (SER) is a challenging task due to limited data and blurred boundaries of certain emotions. In this paper, we present a comprehensive approach to improve the SER performance throughout the model lifecycle, including pre-training, fine-tuning, and inference stages. To address the data scarcity issue, we utilize a pre-trained model, wav2vec2.0. During fine-tuning, we propose a novel loss function that combines cross-entropy loss with supervised contrastive learning loss to improve the model's discriminative ability. This approach increases the inter-class distances and decreases the intra-class distances, mitigating the issue of blurred boundaries. Finally, to leverage the improved distances, we propose an interpolation method at the inference stage that combines the model prediction with the output from a k-nearest neighbors model. Our experiments on IEMOCAP demonstrate that our proposed methods outperform current state-of-the-art results."Translation:<<SYS>>语音情感识别（SER）是一个复杂的任务，因为数据的有限性和某些情感的模糊boundaries。在这篇论文中，我们提出了一种全面的方法来提高SER性能，包括预训练、细化和推理阶段。为了解决数据稀缺问题，我们利用了预训练模型wav2vec2.0。在细化阶段，我们提出了一种新的损失函数，将权重损失与监督对比学习损失结合在一起，以提高模型的分类能力。这种方法可以提高类间距离并降低类内距离，从而解决模糊boundaries的问题。最后，我们在推理阶段提出了一种 interpolating 方法，将模型预测结果与k最近邻居模型的输出结果结合在一起。我们在IEMOCAP上进行了实验，并证明了我们提出的方法可以超越当前状态的杰出结果。
+</details></li>
+</ul>
+<hr>
+<h2 id="Sequential-Pitch-Distributions-for-Raga-Detection"><a href="#Sequential-Pitch-Distributions-for-Raga-Detection" class="headerlink" title="Sequential Pitch Distributions for Raga Detection"></a>Sequential Pitch Distributions for Raga Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.16421">http://arxiv.org/abs/2308.16421</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Vishwaas Narasinh, Senthil Raja G</li>
+<li>for: 本研究旨在提出一种新的特征来检测印度古典音乐（IAM）中的拉加（raga）。</li>
+<li>methods: 本研究使用了一种新的特征，即时间序列抽象（SPD），来捕捉音频示例中的Sequential Pitch Distributions。</li>
+<li>results: 研究在两个Hindustani和Carnatic音乐数据集上实现了state-of-the-art的准确率，即99%和88.13%。SPD在标准抽取器上表现出了显著的提升。<details>
+<summary>Abstract</summary>
+Raga is a fundamental melodic concept in Indian Art Music (IAM). It is characterized by complex patterns. All performances and compositions are based on the raga framework. Raga and tonic detection have been a long-standing research problem in the field of Music Information Retrieval. In this paper, we attempt to detect the raga using a novel feature to extract sequential or temporal information from an audio sample. We call these Sequential Pitch Distributions (SPD), which are distributions taken over pitch values between two given pitch values over time. We also achieve state-of-the-art results on both Hindustani and Carnatic music raga data sets with an accuracy of 99% and 88.13%, respectively. SPD gives a great boost in accuracy over a standard pitch distribution. The main goal of this paper, however, is to present an alternative approach to modeling the temporal aspects of the melody and thereby deducing the raga.
+</details>
+<details>
+<summary>摘要</summary>
+印度古典音乐（IAM）中的拉格（raga）是一种基本的旋律概念，具有复杂的模式。所有演奏和作曲都基于拉格框架。拉格和和声检测是音乐信息检索领域的长期研究问题。在这篇论文中，我们尝试通过一种新的特征来提取音频样本中的时间信息。我们称之为时间扩展的涨落分布（SPD），它是在两个给定的把拍值上的涨落分布的时间变化。我们在印度古典音乐和卡尔那提克音乐的拉格数据集上达到了最佳的结果，印度古典音乐的准确率为99%，卡尔那提克音乐的准确率为88.13%。SPD提供了对标准把拍分布的大幅提升。本文的主要目标是提出一种新的方法，用于模型旋律的时间方面，从而推测拉格。
+</details></li>
+</ul>
+<hr>
+<h2 id="The-Biased-Journey-of-MSD-AUDIO-ZIP"><a href="#The-Biased-Journey-of-MSD-AUDIO-ZIP" class="headerlink" title="The Biased Journey of MSD_AUDIO.ZIP"></a>The Biased Journey of MSD_AUDIO.ZIP</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.16389">http://arxiv.org/abs/2308.16389</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Haven Kim, Keunwoo Choi, Mateusz Modrzejewski, Cynthia C. S. Liem</li>
+<li>for: 本研究的目的是探讨Million Song Dataset中的音频数据访问问题，以及这些数据的可用性和平等访问权的问题。</li>
+<li>methods: 本研究使用了22名参与者的经验和回忆，包括那些尝试使用API访问数据以及创建数据的人。</li>
+<li>results: 研究发现，由于API的复杂性和Million Song Dataset中的数据报告问题（前2016年）以及API的终止（后2016年），使得这些数据的访问已经变得受限，只有某些机构的成员才能访问。这些结果希望能够促进MIR社区中更多的对访问权的思考和对话。<details>
+<summary>Abstract</summary>
+The equitable distribution of academic data is crucial for ensuring equal research opportunities, and ultimately further progress. Yet, due to the complexity of using the API for audio data that corresponds to the Million Song Dataset along with its misreporting (before 2016) and the discontinuation of this API (after 2016), access to this data has become restricted to those within certain affiliations that are connected peer-to-peer. In this paper, we delve into this issue, drawing insights from the experiences of 22 individuals who either attempted to access the data or played a role in its creation. With this, we hope to initiate more critical dialogue and more thoughtful consideration with regard to access privilege in the MIR community.
+</details>
+<details>
+<summary>摘要</summary>
+“学术数据的公平分享是确保同等研究机会的关键，而 ultimately 进一步发展的关键。然而，由于 Million Song Dataset 的 API 使用问题（前2016年）和该 API 的终止（后2016年），对于这些数据的存取已经受到限制，只有特定的机构之间的连接可以获得存取权。在这篇文章中，我们深入探讨这个问题，从 22 名参与者的经验中获得了启发。我们希望透过这篇文章，导入更多的对话和更加认真的考虑，以便在 MIR 社区中更好地处理存取特权问题。”
 </details></li>
 </ul>
 
@@ -125,7 +205,7 @@ TRANSLATION:尽管音频效果的设计和应用已经非常了解，但去除�
     <footer class="article-footer">
       <div class="article-footer-content">
         
-        <a data-url="https://nullscc.github.io/2023/08/31/cs.SD_2023_08_31/" data-id="clmjn91o800bj0j8826si8bhl" class="article-share-link">Share</a>
+        <a data-url="https://nullscc.github.io/2023/08/31/cs.SD_2023_08_31/" data-id="clmvt7tbk00l726rdg5iza6h8" class="article-share-link">Share</a>
         
       </div>
     </footer>
@@ -136,11 +216,11 @@ TRANSLATION:尽管音频效果的设计和应用已经非常了解，但去除�
     
 <nav id="article-nav">
   
-    <a href="/2023/09/01/eess.IV_2023_09_01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2023/09/01/eess.SP_2023_09_01/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          eess.IV - 2023-09-01
+          eess.SP - 2023-09-01
         
       </div>
     </a>
@@ -171,7 +251,7 @@ TRANSLATION:尽管音频效果的设计和应用已经非常了解，但去除�
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">27</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">27</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">73</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">69</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">69</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">21</span></li></ul>
     </div>
   </div>
 
@@ -180,7 +260,7 @@ TRANSLATION:尽管音频效果的设计和应用已经非常了解，但去除�
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">42</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">112</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">169</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/1970/01/">January 1970</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">150</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
     </div>
   </div>
 

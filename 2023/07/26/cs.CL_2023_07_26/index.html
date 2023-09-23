@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CL - 2023-07-26 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Say Goodbye to RNN-T Loss: A Novel CIF-based Transducer Architecture for Automatic Speech Recognition paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2307.14132 repo_url: None paper_authors: Tian-Hao Zhang, Dinghao Z">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CL - 2023-07-26">
+<meta property="og:url" content="https://nullscc.github.io/2023/07/26/cs.CL_2023_07_26/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="Say Goodbye to RNN-T Loss: A Novel CIF-based Transducer Architecture for Automatic Speech Recognition paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2307.14132 repo_url: None paper_authors: Tian-Hao Zhang, Dinghao Z">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-26T11:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-23T08:40:48.618Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CL_2023_07_26" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/07/26/cs.CL_2023_07_26/" class="article-date">
+  <time datetime="2023-07-26T11:00:00.000Z" itemprop="datePublished">2023-07-26</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CL/">cs.CL</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CL - 2023-07-26
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Say-Goodbye-to-RNN-T-Loss-A-Novel-CIF-based-Transducer-Architecture-for-Automatic-Speech-Recognition"><a href="#Say-Goodbye-to-RNN-T-Loss-A-Novel-CIF-based-Transducer-Architecture-for-Automatic-Speech-Recognition" class="headerlink" title="Say Goodbye to RNN-T Loss: A Novel CIF-based Transducer Architecture for Automatic Speech Recognition"></a>Say Goodbye to RNN-T Loss: A Novel CIF-based Transducer Architecture for Automatic Speech Recognition</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.14132">http://arxiv.org/abs/2307.14132</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Tian-Hao Zhang, Dinghao Zhou, Guiping Zhong, Baoxiang Li</li>
+<li>for: 提高 ASR 模型的效率和性能</li>
+<li>methods: 提出一种新的 CIF-Transducer 模型，具有 Continuous Integrate-and-Fire 机制，避免 RNN-T 损失，并具有更多的预测网络作用</li>
+<li>results: 在 AISHELL-1 和 WenetSpeech 数据集上实现了 state-of-the-art 的效果，并且比 RNN-T 模型具有更低的计算开销<details>
+<summary>Abstract</summary>
+RNN-T models are widely used in ASR, which rely on the RNN-T loss to achieve length alignment between input audio and target sequence. However, the implementation complexity and the alignment-based optimization target of RNN-T loss lead to computational redundancy and a reduced role for predictor network, respectively. In this paper, we propose a novel model named CIF-Transducer (CIF-T) which incorporates the Continuous Integrate-and-Fire (CIF) mechanism with the RNN-T model to achieve efficient alignment. In this way, the RNN-T loss is abandoned, thus bringing a computational reduction and allowing the predictor network a more significant role. We also introduce Funnel-CIF, Context Blocks, Unified Gating and Bilinear Pooling joint network, and auxiliary training strategy to further improve performance. Experiments on the 178-hour AISHELL-1 and 10000-hour WenetSpeech datasets show that CIF-T achieves state-of-the-art results with lower computational overhead compared to RNN-T models.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Leveraging-Implicit-Feedback-from-Deployment-Data-in-Dialogue"><a href="#Leveraging-Implicit-Feedback-from-Deployment-Data-in-Dialogue" class="headerlink" title="Leveraging Implicit Feedback from Deployment Data in Dialogue"></a>Leveraging Implicit Feedback from Deployment Data in Dialogue</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.14117">http://arxiv.org/abs/2307.14117</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Richard Yuanzhe Pang, Stephen Roller, Kyunghyun Cho, He He, Jason Weston</li>
+<li>for: 本研究旨在提高社交对话机器人，通过学习自然对话中的用户和模型之间的交互。</li>
+<li>methods: 本研究使用自然对话中的用户响应长度、情感和未来的人类响应作为机器生成句子质量的隐式指标，来训练新模型。</li>
+<li>results: 人工评估表明新模型的回答比基础模型更高质量，但是某些代理指标可能会导致更多的不良特性，如争议性或不友好的回答。<details>
+<summary>Abstract</summary>
+We study improving social conversational agents by learning from natural dialogue between users and a deployed model, without extra annotations. To implicitly measure the quality of a machine-generated utterance, we leverage signals like user response length, sentiment and reaction of the future human utterances in the collected dialogue episodes. Our experiments use the publicly released deployment data from BlenderBot (Xu et al., 2023). Human evaluation indicates improvements in our new models over baseline responses; however, we find that some proxy signals can lead to more generations with undesirable properties as well. For example, optimizing for conversation length can lead to more controversial or unfriendly generations compared to the baseline, whereas optimizing for positive sentiment or reaction can decrease these behaviors.
+</details>
+<details>
+<summary>摘要</summary>
+我们研究改进社交对话代理人，学习自然的用户对话和部署模型之间的自然对话，不需要额外的标注。为了隐式地衡量机器生成的句子质量，我们利用用户回应长度、情感和未来人类对话的反映信号。我们的实验使用公共发布的部署数据集from BlenderBot（Xu et al., 2023）。人类评估显示我们的新模型比基线响应提高，但我们发现一些代理信号可能会导致更多的不良特性。例如，优化对话长度可能会导致更多的争议性或不友好的生成，而优化正面情感或反应可能会降低这些行为。
+</details></li>
+</ul>
+<hr>
+<h2 id="Decoding-ChatGPT-A-Taxonomy-of-Existing-Research-Current-Challenges-and-Possible-Future-Directions"><a href="#Decoding-ChatGPT-A-Taxonomy-of-Existing-Research-Current-Challenges-and-Possible-Future-Directions" class="headerlink" title="Decoding ChatGPT: A Taxonomy of Existing Research, Current Challenges, and Possible Future Directions"></a>Decoding ChatGPT: A Taxonomy of Existing Research, Current Challenges, and Possible Future Directions</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.14107">http://arxiv.org/abs/2307.14107</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Shahab Saquib Sohail, Faiza Farhat, Yassine Himeur, Mohammad Nadeem, Dag Øivind Madsen, Yashbir Singh, Shadi Atalla, Wathiq Mansoor</li>
+<li>for: 本研究的目的是为了提供一份关于ChatGPT研究的综述，探讨ChatGPT在不同领域的应用和潜在问题。</li>
+<li>methods: 本研究使用了Scopus检索的 более чем100篇论文，进行了分类和 crítical分析，描述了不同领域的应用和挑战。</li>
+<li>results: 研究发现了ChatGPT在医疗、市场营销、金融服务、软件工程、学术科研写作、环境科学和自然语言处理等领域的潜在应用，并提出了解决存在的问题和未来研究方向。<details>
+<summary>Abstract</summary>
+Chat Generative Pre-trained Transformer (ChatGPT) has gained significant interest and attention since its launch in November 2022. It has shown impressive performance in various domains, including passing exams and creative writing. However, challenges and concerns related to biases and trust persist. In this work, we present a comprehensive review of over 100 Scopus-indexed publications on ChatGPT, aiming to provide a taxonomy of ChatGPT research and explore its applications. We critically analyze the existing literature, identifying common approaches employed in the studies. Additionally, we investigate diverse application areas where ChatGPT has found utility, such as healthcare, marketing and financial services, software engineering, academic and scientific writing, research and education, environmental science, and natural language processing. Through examining these applications, we gain valuable insights into the potential of ChatGPT in addressing real-world challenges. We also discuss crucial issues related to ChatGPT, including biases and trustworthiness, emphasizing the need for further research and development in these areas. Furthermore, we identify potential future directions for ChatGPT research, proposing solutions to current challenges and speculating on expected advancements. By fully leveraging the capabilities of ChatGPT, we can unlock its potential across various domains, leading to advancements in conversational AI and transformative impacts in society.
+</details>
+<details>
+<summary>摘要</summary>
+chat生成预训练变换器（chatGPT）已经在2022年11月发布以来引起了广泛的关注和注意。它在不同领域展现出了卓越的表现，包括考试和创作写作。然而，关于偏见和信任的问题和担忧仍然存在。在这项工作中，我们对Scopus检索的 более than 100篇论文进行了全面的回顾，以提供 chatGPT 研究的分类和探讨其应用。我们critically analyze existing literature, identifying common approaches employed in the studies. In addition, we investigate diverse application areas where chatGPT has found utility, such as healthcare, marketing and financial services, software engineering, academic and scientific writing, research and education, environmental science, and natural language processing. Through examining these applications, we gain valuable insights into the potential of chatGPT in addressing real-world challenges. We also discuss crucial issues related to chatGPT, including biases and trustworthiness, emphasizing the need for further research and development in these areas. Furthermore, we identify potential future directions for chatGPT research, proposing solutions to current challenges and speculating on expected advancements. By fully leveraging the capabilities of chatGPT, we can unlock its potential across various domains, leading to advancements in conversational AI and transformative impacts in society.
+</details></li>
+</ul>
+<hr>
+<h2 id="Multi3WOZ-A-Multilingual-Multi-Domain-Multi-Parallel-Dataset-for-Training-and-Evaluating-Culturally-Adapted-Task-Oriented-Dialog-Systems"><a href="#Multi3WOZ-A-Multilingual-Multi-Domain-Multi-Parallel-Dataset-for-Training-and-Evaluating-Culturally-Adapted-Task-Oriented-Dialog-Systems" class="headerlink" title="Multi3WOZ: A Multilingual, Multi-Domain, Multi-Parallel Dataset for Training and Evaluating Culturally Adapted Task-Oriented Dialog Systems"></a>Multi3WOZ: A Multilingual, Multi-Domain, Multi-Parallel Dataset for Training and Evaluating Culturally Adapted Task-Oriented Dialog Systems</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.14031">http://arxiv.org/abs/2307.14031</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/cambridgeltl/multi3woz">https://github.com/cambridgeltl/multi3woz</a></li>
+<li>paper_authors: Songbo Hu, Han Zhou, Mete Hergul, Milan Gritta, Guchun Zhang, Ignacio Iacobacci, Ivan Vulić, Anna Korhonen</li>
+<li>For: The paper aims to create a large-scale, culturally adapted, and multi-domain task-oriented dialog (ToD) dataset for multiple languages.* Methods: The paper introduces a novel dataset called Multi3WOZ, which is collected through a complex bottom-up process that includes human evaluation and cultural adaptation.* Results: The paper presents the first sets of baseline scores across different ToD-related tasks for future reference, highlighting the challenging nature of the dataset.Here’s the information in Simplified Chinese text:* For: 这篇论文的目的是创建多种语言的多频道任务对话（ToD）数据集，以便训练和评估多语言和跨语言的ToD系统。* Methods: 这篇论文引入了一个新的数据集called Multi3WOZ，它是通过复杂的底层数据收集过程，包括人工评估和文化适应，而收集的。* Results: 这篇论文提供了首次的基线分数，用于未来参考，同时强调数据集的挑战性。<details>
+<summary>Abstract</summary>
+Creating high-quality annotated data for task-oriented dialog (ToD) is known to be notoriously difficult, and the challenges are amplified when the goal is to create equitable, culturally adapted, and large-scale ToD datasets for multiple languages. Therefore, the current datasets are still very scarce and suffer from limitations such as translation-based non-native dialogs with translation artefacts, small scale, or lack of cultural adaptation, among others. In this work, we first take stock of the current landscape of multilingual ToD datasets, offering a systematic overview of their properties and limitations. Aiming to reduce all the detected limitations, we then introduce Multi3WOZ, a novel multilingual, multi-domain, multi-parallel ToD dataset. It is large-scale and offers culturally adapted dialogs in 4 languages to enable training and evaluation of multilingual and cross-lingual ToD systems. We describe a complex bottom-up data collection process that yielded the final dataset, and offer the first sets of baseline scores across different ToD-related tasks for future reference, also highlighting its challenging nature.
+</details>
+<details>
+<summary>摘要</summary>
+In this work, we first provide a systematic overview of the current landscape of multilingual ToD datasets, highlighting their properties and limitations. To address these limitations, we introduce Multi3WOZ, a novel multilingual, multi-domain, multi-parallel ToD dataset. It is large-scale and offers culturally adapted dialogs in 4 languages to enable training and evaluation of multilingual and cross-lingual ToD systems.We describe a complex bottom-up data collection process that yielded the final dataset, and offer the first sets of baseline scores across different ToD-related tasks for future reference. The dataset is challenging, and we highlight the difficulties in collecting and annotating the data.
+</details></li>
+</ul>
+<hr>
+<h2 id="Unsupervised-extraction-of-local-and-global-keywords-from-a-single-text"><a href="#Unsupervised-extraction-of-local-and-global-keywords-from-a-single-text" class="headerlink" title="Unsupervised extraction of local and global keywords from a single text"></a>Unsupervised extraction of local and global keywords from a single text</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.14005">http://arxiv.org/abs/2307.14005</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Lida Aleksanyan, Armen E. Allahverdyan</li>
+<li>for: 本研究旨在提出一种无监督、文库独立的方法，用于从单个文本中提取关键词。</li>
+<li>methods: 该方法基于文本中词语的空间分布，以及这种分布对Random Permutation of Words的响应。与现有方法（如YAKE）相比，该方法具有三个优势：首先，它在长文本中更有效地提取关键词。第二，它可以推导出两种类型的关键词：本地关键词和全局关键词。第三，它揭示了文本中的基本主题。此外，该方法语言独立，适用于短文本。结果由人工笔评员（具有文库作品数据库中的先驱知识）进行验证，并通过人工独立的论证，基于EXTRACTED CONTENT WORDS的平均长度和EXTRACTED WORDS中的平均数量词。</li>
+<li>results: 研究发现，关键词与更高阶文本特征之间存在关系，同时还发现关键词与章节分区之间的连接。<details>
+<summary>Abstract</summary>
+We propose an unsupervised, corpus-independent method to extract keywords from a single text. It is based on the spatial distribution of words and the response of this distribution to a random permutation of words. As compared to existing methods (such as e.g. YAKE) our method has three advantages. First, it is significantly more effective at extracting keywords from long texts. Second, it allows inference of two types of keywords: local and global. Third, it uncovers basic themes in texts. Additionally, our method is language-independent and applies to short texts. The results are obtained via human annotators with previous knowledge of texts from our database of classical literary works (the agreement between annotators is from moderate to substantial). Our results are supported via human-independent arguments based on the average length of extracted content words and on the average number of nouns in extracted words. We discuss relations of keywords with higher-order textual features and reveal a connection between keywords and chapter divisions.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出了一种无监督、文献自主的方法，用于从单个文本中提取关键词。该方法基于文本中词语的空间分布和词语随机Permutation的响应。与现有方法（如YAKE）相比，我们的方法有三个优势：首先，它更有效地从长文本中提取关键词。第二，它可以推断两种类型的关键词：本地和全局。第三，它揭示了文本中基本主题。此外，我们的方法语言独立，适用于短文本。结果由人工标注者通过文本数据库中的古典文学作品的先验知识获得，并且人工标注者之间的一致度从中到substantial。我们的结果得到了人工独立的证明，基于提取的内容词的平均长度和提取词中的平均名称数。我们讨论关键词与高阶文本特征之间的关系，并发现关键词和章节分区之间的连接。
+</details></li>
+</ul>
+<hr>
+<h2 id="Affective-Natural-Language-Generation-of-Event-Descriptions-through-Fine-grained-Appraisal-Conditions"><a href="#Affective-Natural-Language-Generation-of-Event-Descriptions-through-Fine-grained-Appraisal-Conditions" class="headerlink" title="Affective Natural Language Generation of Event Descriptions through Fine-grained Appraisal Conditions"></a>Affective Natural Language Generation of Event Descriptions through Fine-grained Appraisal Conditions</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.14004">http://arxiv.org/abs/2307.14004</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yarik Menchaca Resendiz, Roman Klinger</li>
+<li>for: 这 paper 的目的是提高文本生成模型中的情感表达，并且使用评估理论来更加细化控制文本的内容和情感表达。</li>
+<li>methods: 这 paper 使用了 Bart 和 T5 两种基本的文本生成模型，并在training过程中添加了评估变量来控制文本的内容和情感表达。</li>
+<li>results: 这 paper 的实验结果表明，在添加评估变量时，文本生成模型的准确率提高了10个百分点，并且文本中含有更多的细节和情感表达。这表明用户可以通过评估变量来更加细化控制文本的内容和情感表达。<details>
+<summary>Abstract</summary>
+Models for affective text generation have shown a remarkable progress, but they commonly rely only on basic emotion theories or valance/arousal values as conditions. This is appropriate when the goal is to create explicit emotion statements ("The kid is happy."). Emotions are, however, commonly communicated implicitly. For instance, the emotional interpretation of an event ("Their dog died.") does often not require an explicit emotion statement. In psychology, appraisal theories explain the link between a cognitive evaluation of an event and the potentially developed emotion. They put the assessment of the situation on the spot, for instance regarding the own control or the responsibility for what happens. We hypothesize and subsequently show that including appraisal variables as conditions in a generation framework comes with two advantages. (1) The generation model is informed in greater detail about what makes a specific emotion and what properties it has. This leads to text generation that better fulfills the condition. (2) The variables of appraisal allow a user to perform a more fine-grained control of the generated text, by stating properties of a situation instead of only providing the emotion category. Our Bart and T5-based experiments with 7 emotions (Anger, Disgust, Fear, Guilt, Joy, Sadness, Shame), and 7 appraisals (Attention, Responsibility, Control, Circumstance, Pleasantness, Effort, Certainty) show that (1) adding appraisals during training improves the accurateness of the generated texts by 10 pp in F1. Further, (2) the texts with appraisal variables are longer and contain more details. This exemplifies the greater control for users.
+</details>
+<details>
+<summary>摘要</summary>
+模型 для生成情感文本已经取得了非常出色的进步，但它们通常只是基于基本情感理论或振荡/兴奋值作为条件。这是当目标是创建明确的情感声明("这个孩子很高兴。")时非常适用。然而，情感通常会通过各种不同的方式表达。在心理学中，评估理论解释了情感与情感表达之间的联系。它们将情感评估纳入了框架中，例如负责任、控制等。我们提出并证明了，在生成框架中包含评估变量来自动生成文本会带来两点优势。（1）生成模型在更加细化的情况下了解情感的特点和性质，这会导致生成的文本更加符合条件。（2）评估变量使得用户可以通过指定情感表达的属性来进行更加细化的控制，而不是仅提供情感类别。我们使用Bart和T5搭配7种情感（愤怒、厌恶、恐慌、负罪感、喜乐、悲伤、耻辱）和7种评估（注意力、负责任、控制、情况、愉悦、努力、确定）进行实验，结果显示：（1）在训练中添加评估可以提高生成文本准确率10个百分点。此外，（2）包含评估变量的文本比较详细，更容易控制。这是用户的优势。
+</details></li>
+</ul>
+<hr>
+<h2 id="Diff-E-Diffusion-based-Learning-for-Decoding-Imagined-Speech-EEG"><a href="#Diff-E-Diffusion-based-Learning-for-Decoding-Imagined-Speech-EEG" class="headerlink" title="Diff-E: Diffusion-based Learning for Decoding Imagined Speech EEG"></a>Diff-E: Diffusion-based Learning for Decoding Imagined Speech EEG</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.14389">http://arxiv.org/abs/2307.14389</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/yorgoon/diffe">https://github.com/yorgoon/diffe</a></li>
+<li>paper_authors: Soowon Kim, Young-Eun Lee, Seo-Hyun Lee, Seong-Whan Lee</li>
+<li>for: 用于干预神经网络中的意义语言传输</li>
+<li>methods: 使用泛化抽象模型（DDPM）和条件自适应网络（Diff-E）来解决EEG信号的干扰问题</li>
+<li>results: 比传统机器学习技术和基线模型有更高的准确率，表明DDPM可以有效地处理EEG信号，有potential应用于through imagined speech的脑机器交互。I hope that helps! Let me know if you have any further questions or if there’s anything else I can help with.<details>
+<summary>Abstract</summary>
+Decoding EEG signals for imagined speech is a challenging task due to the high-dimensional nature of the data and low signal-to-noise ratio. In recent years, denoising diffusion probabilistic models (DDPMs) have emerged as promising approaches for representation learning in various domains. Our study proposes a novel method for decoding EEG signals for imagined speech using DDPMs and a conditional autoencoder named Diff-E. Results indicate that Diff-E significantly improves the accuracy of decoding EEG signals for imagined speech compared to traditional machine learning techniques and baseline models. Our findings suggest that DDPMs can be an effective tool for EEG signal decoding, with potential implications for the development of brain-computer interfaces that enable communication through imagined speech.
+</details>
+<details>
+<summary>摘要</summary>
+“对于想像语音的EEG信号解oding是一个具有高维度和低信号对频率的挑战。近年来，散射扩散概率模型（DDPMs）在不同领域的表示学习中兴起了重要的位置。我们的研究提出了一种使用DDPMs和 conditional autoencoder（Diff-E）来解码EEG信号的新方法。结果显示，Diff-E可以与传统机器学习技术和基准模型相比，对于想像语音的EEG信号解oding具有明显的改善。我们的发现表明，DDPMs可以是EEG信号解oding的有效工具，具有潜在的应用于通过想像语音的脑computer接口的开发。”Note: Please keep in mind that the translation is done by a machine and may not be perfect. If you have any specific requirements or preferences, please let me know and I'll be happy to help.
+</details></li>
+</ul>
+<hr>
+<h2 id="This-is-not-correct-Negation-aware-Evaluation-of-Language-Generation-Systems"><a href="#This-is-not-correct-Negation-aware-Evaluation-of-Language-Generation-Systems" class="headerlink" title="This is not correct! Negation-aware Evaluation of Language Generation Systems"></a>This is not correct! Negation-aware Evaluation of Language Generation Systems</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.13989">http://arxiv.org/abs/2307.13989</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/dmlls/cannot-dataset">https://github.com/dmlls/cannot-dataset</a></li>
+<li>paper_authors: Miriam Anschütz, Diego Miguel Lozano, Georg Groh</li>
+<li>for: 这篇论文的目的是提出一种能够识别谓语否定的评价指标 NegBLEURT，以解决现有的语言模型在识别谓语否定时的下降性问题。</li>
+<li>methods: 该论文使用了一种基于规则的句子否定工具，并使用该工具生成了CANNOT negation evaluation dataset。然后，该论文使用了一种句子转换器和评价指标的微调版本，以提高其对谓语否定的敏感性。</li>
+<li>results: 对现有的评价指标进行评测，该论文的微调版本在对谓语否定句子的评测中表现出色，而不会影响其对其他句子的评测。<details>
+<summary>Abstract</summary>
+Large language models underestimate the impact of negations on how much they change the meaning of a sentence. Therefore, learned evaluation metrics based on these models are insensitive to negations. In this paper, we propose NegBLEURT, a negation-aware version of the BLEURT evaluation metric. For that, we designed a rule-based sentence negation tool and used it to create the CANNOT negation evaluation dataset. Based on this dataset, we fine-tuned a sentence transformer and an evaluation metric to improve their negation sensitivity. Evaluating these models on existing benchmarks shows that our fine-tuned models outperform existing metrics on the negated sentences by far while preserving their base models' performances on other perturbations.
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型会对句子意思的改变低估，因此学习的评估指标基于这些模型可能不敏感于否定。这篇论文提出了NegBLEURT，一个对否定意识的BLEURT评估指标。我们设计了一个基于规则的句子否定工具，并使用这个工具创建了CANNOT否定评估集。基于这个集合，我们精心调整了句子转换器和评估指标，以提高它们对否定句子的敏感性。在现有的评估准确表上评估这些模型，我们发现我们的精心调整模型在否定句子上大幅提高了表现，而且保持了基本模型在其他损害上的表现。
+</details></li>
+</ul>
+<hr>
+<h2 id="Mental-LLM-Leveraging-Large-Language-Models-for-Mental-Health-Prediction-via-Online-Text-Data"><a href="#Mental-LLM-Leveraging-Large-Language-Models-for-Mental-Health-Prediction-via-Online-Text-Data" class="headerlink" title="Mental-LLM: Leveraging Large Language Models for Mental Health Prediction via Online Text Data"></a>Mental-LLM: Leveraging Large Language Models for Mental Health Prediction via Online Text Data</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.14385">http://arxiv.org/abs/2307.14385</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/neuhai/mental-llm">https://github.com/neuhai/mental-llm</a></li>
+<li>paper_authors: Xuhai Xu, Bingshen Yao, Yuanzhe Dong, Saadia Gabriel, Hong Yu, James Hendler, Marzyeh Ghassemi, Anind K. Dey, Dakuo Wang<br>for:This paper aims to evaluate the performance of multiple large language models (LLMs) on various mental health prediction tasks using online text data.methods:The authors use zero-shot prompting, few-shot prompting, and instruction fine-tuning to evaluate the performance of LLMs on mental health tasks.results:The results show that instruction fine-tuning can significantly boost the performance of LLMs for all tasks simultaneously, with the best-finetuned models outperforming the best prompt design of GPT-3.5 and GPT-4 by a significant margin. The authors also conduct an exploratory case study on LLMs’ capability on mental health reasoning tasks and highlight the important ethical risks accompanying this line of research.Here’s the summary in Simplified Chinese text:for: 这 paper 的目的是评估多种大语言模型（LLMs）在在线文本数据上进行心理健康预测任务的性能。methods: 作者使用零shot prompting、几shot prompting和指令 fine-tuning 来评估 LLMs 在心理健康任务上的性能。results: 结果显示，指令 fine-tuning 可以在所有任务上同时提高 LLMs 的性能，最好的 fine-tuned 模型可以与 GPT-3.5 和 GPT-4 的最佳提示设计相比，提高10.9%的平衡准确率。作者还进行了一个探索性的案例研究，探讨 LLMs 在心理健康逻辑任务上的可能性。<details>
+<summary>Abstract</summary>
+Advances in large language models (LLMs) have empowered a variety of applications. However, there is still a significant gap in research when it comes to understanding and enhancing the capabilities of LLMs in the field of mental health. In this work, we present the first comprehensive evaluation of multiple LLMs, including Alpaca, Alpaca-LoRA, FLAN-T5, GPT-3.5, and GPT-4, on various mental health prediction tasks via online text data. We conduct a broad range of experiments, covering zero-shot prompting, few-shot prompting, and instruction fine-tuning. The results indicate a promising yet limited performance of LLMs with zero-shot and few-shot prompt designs for the mental health tasks. More importantly, our experiments show that instruction finetuning can significantly boost the performance of LLMs for all tasks simultaneously. Our best-finetuned models, Mental-Alpaca and Mental-FLAN-T5, outperform the best prompt design of GPT-3.5 (25 and 15 times bigger) by 10.9% on balanced accuracy and the best of GPT-4 (250 and 150 times bigger) by 4.8%. They further perform on par with the state-of-the-art task-specific language model. We also conduct an exploratory case study on LLMs' capability on the mental health reasoning tasks, illustrating the promising capability of certain models such as GPT-4. We summarize our findings into a set of action guidelines for potential methods to enhance LLMs' capability for mental health tasks. Meanwhile, we also emphasize the important limitations before achieving deployability in real-world mental health settings, such as known racial and gender bias. We highlight the important ethical risks accompanying this line of research.
+</details>
+<details>
+<summary>摘要</summary>
+大语言模型（LLM）的进步已经授权了许多应用程序。然而，在理解和提高 LLM 在心理健康领域的能力方面仍存在一定的研究差距。在这项工作中，我们首次对多种 LLM 进行了全面的评估，包括 Alpaca、Alpaca-LoRA、FLAN-T5、GPT-3.5 和 GPT-4，在在线文本数据上进行了多种心理健康预测任务的测试。我们进行了广泛的实验，涵盖零容量提示、几容量提示和指令精细调整。结果表明 LLM 在零容量和几容量提示设计下的性能有前提，而且指令精细调整可以显著提高 LLM 的性能。我们的最佳调整模型（Mental-Alpaca和Mental-FLAN-T5）在balanced accuracy方面比 GPT-3.5 的最佳提示设计（25和15倍大）高出10.9%，并比 GPT-4 的最佳提示设计（250和150倍大）高出4.8%。此外，我们的模型还与状态当前的任务特定语言模型在同等水平。我们还进行了一项探索性的案例研究，探讨 LLM 在心理健康逻辑任务上的能力，并证明了某些模型，如 GPT-4，具有潜在的可能性。我们将我们的发现总结为了各种可能的方法来提高 LLM 在心理健康任务中的能力，同时也注意到了现有的种族和性别偏见，以及这种研究的重要道德风险。
+</details></li>
+</ul>
+<hr>
+<h2 id="GrammarGPT-Exploring-Open-Source-LLMs-for-Native-Chinese-Grammatical-Error-Correction-with-Supervised-Fine-Tuning"><a href="#GrammarGPT-Exploring-Open-Source-LLMs-for-Native-Chinese-Grammatical-Error-Correction-with-Supervised-Fine-Tuning" class="headerlink" title="GrammarGPT: Exploring Open-Source LLMs for Native Chinese Grammatical Error Correction with Supervised Fine-Tuning"></a>GrammarGPT: Exploring Open-Source LLMs for Native Chinese Grammatical Error Correction with Supervised Fine-Tuning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.13923">http://arxiv.org/abs/2307.13923</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/freedomintelligence/grammargpt">https://github.com/freedomintelligence/grammargpt</a></li>
+<li>paper_authors: Yaxin Fan, Feng Jiang, Peifeng Li, Haizhou Li</li>
+<li>for: 本研究旨在探索开源大语言模型（LLMs）在Native Chinese Grammatical Error Correction（CGEC）中的潜力。</li>
+<li>methods: 我们提出了一种使用开源LMMs（如Phoenix）进行 instrucion tuning，并使用 hybrid 数据集（包括 ChatGPT 生成和人工标注）来驱动模型的改进。 我们还提出了一种error-invariant augmentation方法，以增强模型对native Chinese grammatical errors的抗讯息能力。</li>
+<li>results: 我们的实验结果显示，GrammarGPT 可以与当前最佳系统相比，显著超越其。尽管模型参数的大小为20倍，但需要的数据量 для instrucion tuning 只需1200倍，这说明开源LMMs在native CGEC 中的潜力。我们的 GrammarGPT 在 NLPCC2023 SharedTask1 中排名第三，证明我们的方法的效果。<details>
+<summary>Abstract</summary>
+Grammatical error correction aims to correct ungrammatical sentences automatically. Recently, some work has demonstrated the excellent capabilities of closed-source Large Language Models (LLMs, e.g., ChatGPT) in grammatical error correction. However, the potential of open-source LLMs remains unexplored. In this paper, we introduced GrammarGPT, an open-source LLM, to preliminary explore its potential for native Chinese grammatical error correction. The core recipe of GrammarGPT is to leverage the hybrid dataset of ChatGPT-generated and human-annotated. For grammatical errors with clues, we proposed a heuristic method to guide ChatGPT to generate ungrammatical sentences by providing those clues. For grammatical errors without clues, we collected ungrammatical sentences from publicly available websites and manually corrected them. In addition, we employed an error-invariant augmentation method to enhance the ability of the model to correct native Chinese grammatical errors. We ultimately constructed about 1k parallel data and utilized these data to fine-tune open-source LLMs (e.g., Phoenix, released by The Chinese University of Hong Kong, Shenzhen) with instruction tuning. The experimental results show that GrammarGPT outperforms the existing SOTA system significantly. Although model parameters are 20x larger than the SOTA baseline, the required amount of data for instruction tuning is 1200x smaller, illustrating the potential of open-source LLMs on native CGEC. Our GrammarGPT ranks $3^{rd}$ on NLPCC2023 SharedTask1, demonstrating our approach's effectiveness. The code and data are available at \url{https://github.com/FreedomIntelligence/GrammarGPT}.
+</details>
+<details>
+<summary>摘要</summary>
+grammatical error correction旨在自动 corrections grammatical errors。最近的一些工作表明了关闭源的大语言模型（LLMs，例如ChatGPT）在grammatical error correction方面的出色表现。然而，开源的LLMs的潜力尚未得到探索。在这篇论文中，我们引入了 GrammarGPT，一个开源的LLM，以预liminary explore its potential for native Chinese grammatical error correction。GrammarGPT的核心方法是利用ChatGPT生成的和人类标注的混合数据集。对于带有提示的 grammatical errors，我们提出了一种规则方法，使ChatGPT生成不 grammatical sentences。对于无提示的 grammatical errors，我们收集了来自公共可用网站的不 grammatical sentences，并手动 corrections。此外，我们采用了一种不变 augmentation方法，以增强模型对native Chinese grammatical errors的 corrected。最后，我们构建了约1k的并行数据，并使用这些数据来精度调整开源LLMs（例如Phoenix，由香港中文大学深圳分校发布）。实验结果表明，GrammarGPT在native CGEC方面significantly outperforms现有的SOTA系统。虽然模型参数的数量为SOTA基线的20倍，但需要的数据量 дляinstruction tuning是1200倍 smaller，强调了开源LLMs的潜力。我们的GrammarGPT在NLPCC2023 SharedTask1中排名第三，证明了我们的方法的有效性。代码和数据可以在https://github.com/FreedomIntelligence/GrammarGPT中获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="Trustworthiness-of-Children-Stories-Generated-by-Large-Language-Models"><a href="#Trustworthiness-of-Children-Stories-Generated-by-Large-Language-Models" class="headerlink" title="Trustworthiness of Children Stories Generated by Large Language Models"></a>Trustworthiness of Children Stories Generated by Large Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2308.00073">http://arxiv.org/abs/2308.00073</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Prabin Bhandari, Hannah Marie Brennan</li>
+<li>for: 这个研究是为了评估大语言模型（LLMs）在生成儿童故事方面的可靠性，并对其与实际儿童故事进行比较和对比。</li>
+<li>methods: 这个研究使用了多种指标评估LLMs生成的儿童故事的可靠性，并与经典和新儿童故事进行比较和对比。</li>
+<li>results: 研究发现，LLMs仍然很难生成与实际儿童故事一样高质量和细腻的故事。<details>
+<summary>Abstract</summary>
+Large Language Models (LLMs) have shown a tremendous capacity for generating literary text. However, their effectiveness in generating children's stories has yet to be thoroughly examined. In this study, we evaluate the trustworthiness of children's stories generated by LLMs using various measures, and we compare and contrast our results with both old and new children's stories to better assess their significance. Our findings suggest that LLMs still struggle to generate children's stories at the level of quality and nuance found in actual stories
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型（LLM）已经表现出很大的可能性来生成文学作品。然而，它们在生成儿童故事方面的效果还未得到了全面的评估。在这项研究中，我们使用不同的指标来评估 LLM 生成的儿童故事的可靠性，并与旧和新的儿童故事进行比较和对比，以更好地评估它们的意义。我们发现 LLM 仍然在生成儿童故事方面存在质量和细节上的困难。
+</details></li>
+</ul>
+<hr>
+<h2 id="ARC-NLP-at-Multimodal-Hate-Speech-Event-Detection-2023-Multimodal-Methods-Boosted-by-Ensemble-Learning-Syntactical-and-Entity-Features"><a href="#ARC-NLP-at-Multimodal-Hate-Speech-Event-Detection-2023-Multimodal-Methods-Boosted-by-Ensemble-Learning-Syntactical-and-Entity-Features" class="headerlink" title="ARC-NLP at Multimodal Hate Speech Event Detection 2023: Multimodal Methods Boosted by Ensemble Learning, Syntactical and Entity Features"></a>ARC-NLP at Multimodal Hate Speech Event Detection 2023: Multimodal Methods Boosted by Ensemble Learning, Syntactical and Entity Features</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.13829">http://arxiv.org/abs/2307.13829</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Umitcan Sahin, Izzet Emre Kucukkaya, Oguzhan Ozcelik, Cagri Toraman</li>
+<li>for: 本研究旨在提出一种基于多模态深度学习和语法文本特征的 hate speech 检测方法，以及基于命名实体特征的目标检测方法，以满足 Multimodal Hate Speech Event Detection 2023 的两个子任务。</li>
+<li>methods: 本研究使用了多模态深度学习模型，并通过ensemble学习和语法文本特征进行增强。在第一个子任务中，我们使用了这些模型来检测 hate speech。在第二个子任务中，我们使用了命名实体特征来进行目标检测。</li>
+<li>results: 我们的模型在两个子任务中表现出色，比基于全文本、视觉和文本视觉的基线模型都有更高的性能。此外，我们的模型在两个子任务的最终排名中名列第一。<details>
+<summary>Abstract</summary>
+Text-embedded images can serve as a means of spreading hate speech, propaganda, and extremist beliefs. Throughout the Russia-Ukraine war, both opposing factions heavily relied on text-embedded images as a vehicle for spreading propaganda and hate speech. Ensuring the effective detection of hate speech and propaganda is of utmost importance to mitigate the negative effect of hate speech dissemination. In this paper, we outline our methodologies for two subtasks of Multimodal Hate Speech Event Detection 2023. For the first subtask, hate speech detection, we utilize multimodal deep learning models boosted by ensemble learning and syntactical text attributes. For the second subtask, target detection, we employ multimodal deep learning models boosted by named entity features. Through experimentation, we demonstrate the superior performance of our models compared to all textual, visual, and text-visual baselines employed in multimodal hate speech detection. Furthermore, our models achieve the first place in both subtasks on the final leaderboard of the shared task.
+</details>
+<details>
+<summary>摘要</summary>
+文本嵌入图像可以作为散布仇恨言论、宣传和极端思想的途径。在俄乌战争期间，两方都重视使用文本嵌入图像来散布宣传和仇恨言论。确保恐怖言论检测的有效性非常重要，以避免恐怖言论的散布。在这篇论文中，我们介绍了我们的方法ologies，用于两个子任务：仇恨言论检测和目标检测。在首个子任务中，我们使用多Modal深度学习模型，并通过ensemble学习和 syntax文本特征来提高检测性能。在第二个子任务中，我们使用多Modal深度学习模型，并通过名称实体特征来提高检测性能。通过实验，我们证明了我们的模型在文本-视觉恐怖言论检测中的超越性。此外，我们的模型在最终领导板的两个子任务中获得了第一名。
+</details></li>
+</ul>
+<hr>
+<h2 id="Watermarking-Conditional-Text-Generation-for-AI-Detection-Unveiling-Challenges-and-a-Semantic-Aware-Watermark-Remedy"><a href="#Watermarking-Conditional-Text-Generation-for-AI-Detection-Unveiling-Challenges-and-a-Semantic-Aware-Watermark-Remedy" class="headerlink" title="Watermarking Conditional Text Generation for AI Detection: Unveiling Challenges and a Semantic-Aware Watermark Remedy"></a>Watermarking Conditional Text Generation for AI Detection: Unveiling Challenges and a Semantic-Aware Watermark Remedy</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.13808">http://arxiv.org/abs/2307.13808</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yu Fu, Deyi Xiong, Yue Dong</li>
+<li>for: 降低人工智能检测中的风险，研究人员提出了在机器生成文本中添加水印的方法，通过随机词汇限制来实现。</li>
+<li>methods: 该方法通过随机限制词汇，对机器生成文本中的水印进行植入，以便在检测中使用。</li>
+<li>results: 我们的实验结果表明，我们提议的Semantic-aware watermarking算法可以在文本生成任务中提供显著改进，包括摘要和数据转文本生成，而且保持检测能力。<details>
+<summary>Abstract</summary>
+To mitigate potential risks associated with language models, recent AI detection research proposes incorporating watermarks into machine-generated text through random vocabulary restrictions and utilizing this information for detection. While these watermarks only induce a slight deterioration in perplexity, our empirical investigation reveals a significant detriment to the performance of conditional text generation. To address this issue, we introduce a simple yet effective semantic-aware watermarking algorithm that considers the characteristics of conditional text generation and the input context. Experimental results demonstrate that our proposed method yields substantial improvements across various text generation models, including BART and Flan-T5, in tasks such as summarization and data-to-text generation while maintaining detection ability.
+</details>
+<details>
+<summary>摘要</summary>
+为了减轻语言模型中存在的风险，当前的AI探测研究提议将水印 incorporated into machine-generated text through random vocabulary restrictions,并利用这些信息进行探测。although these watermarks only cause a slight decrease in perplexity,our empirical investigation reveals a significant negative impact on the performance of conditional text generation.to address this issue,we propose a simple yet effective semantic-aware watermarking algorithm that takes into account the characteristics of conditional text generation and the input context.our experimental results show that our proposed method achieves significant improvements across various text generation models,including BART and Flan-T5,in tasks such as summarization and data-to-text generation while maintaining detection ability.
+</details></li>
+</ul>
+<hr>
+<h2 id="Evaluating-Large-Language-Models-for-Radiology-Natural-Language-Processing"><a href="#Evaluating-Large-Language-Models-for-Radiology-Natural-Language-Processing" class="headerlink" title="Evaluating Large Language Models for Radiology Natural Language Processing"></a>Evaluating Large Language Models for Radiology Natural Language Processing</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.13693">http://arxiv.org/abs/2307.13693</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/zhaozh10/LLM_CMP">https://github.com/zhaozh10/LLM_CMP</a></li>
+<li>paper_authors: Zhengliang Liu, Tianyang Zhong, Yiwei Li, Yutong Zhang, Yi Pan, Zihao Zhao, Peixin Dong, Chao Cao, Yuxiao Liu, Peng Shu, Yaonai Wei, Zihao Wu, Chong Ma, Jiaqi Wang, Sheng Wang, Mengyue Zhou, Zuowei Jiang, Chunlin Li, Jason Holmes, Shaochen Xu, Lu Zhang, Haixing Dai, Kai Zhang, Lin Zhao, Yuanhao Chen, Xu Liu, Peilong Wang, Pingkun Yan, Jun Liu, Bao Ge, Lichao Sun, Dajiang Zhu, Xiang Li, Wei Liu, Xiaoyan Cai, Xintao Hu, Xi Jiang, Shu Zhang, Xin Zhang, Tuo Zhang, Shijie Zhao, Quanzheng Li, Hongtu Zhu, Dinggang Shen, Tianming Liu</li>
+<li>for: This study aims to evaluate the performance of 32 large language models (LLMs) in interpreting radiology reports and deriving impressions from radiologic findings.</li>
+<li>methods: The study uses a dataset of radiology reports and assesses the LLMs’ ability to extract relevant information and provide accurate impressions.</li>
+<li>results: The study provides insights into the strengths and weaknesses of the LLMs in this task, informing their practical applications within the medical domain.Here’s the same information in Simplified Chinese text:</li>
+<li>for: 这个研究旨在评估32个大语言模型（LLMs）在阅读医学报告时的表现，特别是从医学成像中提取有用信息并提供准确的印象。</li>
+<li>methods: 研究使用医学报告 dataset，评估 LLMs 在这个任务中的能力。</li>
+<li>results: 研究提供了 LLMS 在这个任务中的优劣点，为医疗领域的实际应用提供指导。<details>
+<summary>Abstract</summary>
+The rise of large language models (LLMs) has marked a pivotal shift in the field of natural language processing (NLP). LLMs have revolutionized a multitude of domains, and they have made a significant impact in the medical field. Large language models are now more abundant than ever, and many of these models exhibit bilingual capabilities, proficient in both English and Chinese. However, a comprehensive evaluation of these models remains to be conducted. This lack of assessment is especially apparent within the context of radiology NLP. This study seeks to bridge this gap by critically evaluating thirty two LLMs in interpreting radiology reports, a crucial component of radiology NLP. Specifically, the ability to derive impressions from radiologic findings is assessed. The outcomes of this evaluation provide key insights into the performance, strengths, and weaknesses of these LLMs, informing their practical applications within the medical domain.
+</details>
+<details>
+<summary>摘要</summary>
+大型自然语言模型（LLMs）的出现标志着自然语言处理（NLP）领域的重要转折。LLMs在多个领域中取得了巨大的成就，并在医疗领域中发挥了重要作用。现在有很多大型语言模型，许多这些模型在英语和中文之间具有双语能力。然而，这些模型的全面评估仍然缺失。特别是在验图学NP中，这种缺失更为突出。本研究的目的是评估三二个LLMs在解读验图报告方面的能力，这是验图学NP中关键的一环。specifically，这些LLMs在解读验图结果中提取印象的能力被评估。研究结果提供关键的洞察和指导，用于评估这些LLMs在医疗领域的实际应用。
+</details></li>
+</ul>
+<hr>
+<h2 id="ARB-Advanced-Reasoning-Benchmark-for-Large-Language-Models"><a href="#ARB-Advanced-Reasoning-Benchmark-for-Large-Language-Models" class="headerlink" title="ARB: Advanced Reasoning Benchmark for Large Language Models"></a>ARB: Advanced Reasoning Benchmark for Large Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.13692">http://arxiv.org/abs/2307.13692</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Tomohiro Sawada, Daniel Paleka, Alexander Havrilla, Pranav Tadepalli, Paula Vidas, Alexander Kranias, John J. Nay, Kshitij Gupta, Aran Komatsuzaki</li>
+<li>for: 本研究旨在提供一个更加挑战性的语言模型评估 benchmark，以测试当今的语言模型在多个领域的高级推理能力。</li>
+<li>methods: 本研究使用了一个新的 benchmark，名为 ARB，该 benchmark 包括了多个领域的高级推理问题，如数学、物理、生物、化学和法律。</li>
+<li>results: 研究发现，当前的语言模型在更加挑战性的任务上的表现仍然落后于人类专家，而且只有在数学和物理领域的符号推理和领域知识方面表现较好。<details>
+<summary>Abstract</summary>
+Large Language Models (LLMs) have demonstrated remarkable performance on various quantitative reasoning and knowledge benchmarks. However, many of these benchmarks are losing utility as LLMs get increasingly high scores, despite not yet reaching expert performance in these domains. We introduce ARB, a novel benchmark composed of advanced reasoning problems in multiple fields. ARB presents a more challenging test than prior benchmarks, featuring problems in mathematics, physics, biology, chemistry, and law. As a subset of ARB, we introduce a challenging set of math and physics problems which require advanced symbolic reasoning and domain knowledge. We evaluate recent models such as GPT-4 and Claude on ARB and demonstrate that current models score well below 50% on more demanding tasks. In order to improve both automatic and assisted evaluation capabilities, we introduce a rubric-based evaluation approach, allowing GPT-4 to score its own intermediate reasoning steps. Further, we conduct a human evaluation of the symbolic subset of ARB, finding promising agreement between annotators and GPT-4 rubric evaluation scores.
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型（LLM）在多种量化逻辑和知识准则上表现出了很好的表现。然而，许多这些准则已经失去了用于测试LLM的价值，即使LLM的分数还没有达到专业水平。我们介绍了ARB，一个新的准则，包括多个领域的高级逻辑问题。ARB比之前的准则更加具有挑战性，包括数学、物理、生物、化学和法律等领域的问题。我们从ARB中选择了一个挑战性较高的数学和物理问题集，需要高级 симвоlic 逻辑和领域知识。我们使用GPT-4和Claude等现代模型进行评估，并证明了这些模型在更加具有挑战性的任务上的分数尚未达到50%。为了改善自动和协助评估能力，我们引入了一种基于笔记的评估方法，允许GPT-4评估自己的中间逻辑步骤。此外，我们进行了人类评估符号 subset of ARB，发现与GPT-4笔记评估分数有良好的一致性。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Comprehensive-Evaluation-and-Analysis-Study-for-Chinese-Spelling-Check"><a href="#A-Comprehensive-Evaluation-and-Analysis-Study-for-Chinese-Spelling-Check" class="headerlink" title="A Comprehensive Evaluation and Analysis Study for Chinese Spelling Check"></a>A Comprehensive Evaluation and Analysis Study for Chinese Spelling Check</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.13655">http://arxiv.org/abs/2307.13655</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Xunjian Yin, Xiaojun Wan</li>
+<li>for: 本研究旨在探讨基于预训练模型和音频GRU的中文拼写检查（CSC）模型在不同目的下的表现。</li>
+<li>methods: 本研究使用九种不同结构的模型，并在自定义的测试集上进行了详细的实验和分析。</li>
+<li>results: 本研究发现：1）合理地 fusion 音频GRU和文本信息可以提高CSC模型的性能。2）模型对测试集的错误分布有敏感性，表明模型存在缺陷，并且透露我们需要努力改进。3）模型对错误和上下文的影响很大，这也是我们需要关注的方向。4）常用的标准准则SIGHAN无法可靠地评估模型的表现。<details>
+<summary>Abstract</summary>
+With the development of pre-trained models and the incorporation of phonetic and graphic information, neural models have achieved high scores in Chinese Spelling Check (CSC). However, it does not provide a comprehensive reflection of the models' capability due to the limited test sets. In this study, we abstract the representative model paradigm, implement it with nine structures and experiment them on comprehensive test sets we constructed with different purposes. We perform a detailed analysis of the results and find that: 1) Fusing phonetic and graphic information reasonably is effective for CSC. 2) Models are sensitive to the error distribution of the test set, which reflects the shortcomings of models and reveals the direction we should work on. 3) Whether or not the errors and contexts have been seen has a significant impact on models. 4) The commonly used benchmark, SIGHAN, can not reliably evaluate models' performance.
+</details>
+<details>
+<summary>摘要</summary>
+随着预训模型的发展和音频和字形信息的包含，神经网络模型在中文拼写检查（CSC）中获得了高分。但是，这并不提供全面的模型能力反映，因为测试集的数量有限。在这种研究中，我们抽象了代表性模型思想，将其实现为九种结构，并在我们自己制作的全面测试集上进行了实验。我们进行了详细的分析结果，发现：1. 合理地汇合音频和字形信息是有效的 для CSC。2. 模型对测试集的错误分布具有敏感性，这反映了模型的缺点和我们应该努力改进的方向。3. 模型是否已经看到过错误和上下文有重要的影响。4. 常用的标准准则SIGHAN无法可靠地评估模型的性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="Contributions-to-the-Improvement-of-Question-Answering-Systems-in-the-Biomedical-Domain"><a href="#Contributions-to-the-Improvement-of-Question-Answering-Systems-in-the-Biomedical-Domain" class="headerlink" title="Contributions to the Improvement of Question Answering Systems in the Biomedical Domain"></a>Contributions to the Improvement of Question Answering Systems in the Biomedical Domain</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.13631">http://arxiv.org/abs/2307.13631</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mourad Sarrouti</li>
+<li>for: 这份论文主要目标是提高生物医学领域内的问答系统（Question Answering，简称QA）的性能。</li>
+<li>methods: 本论文提出了四个贡献，包括一种基于机器学习的问题类划分方法，一种用于各种生物医学问题的问题分类方法，一种用于从MEDLINE数据库中检索相关文献的方法，以及一种用于生成准确和理想答案的方法。</li>
+<li>results: 本论文的实验结果表明，使用提出的方法可以提高生物医学QA系统的性能，并且可以生成准确和理想的答案。<details>
+<summary>Abstract</summary>
+This thesis work falls within the framework of question answering (QA) in the biomedical domain where several specific challenges are addressed, such as specialized lexicons and terminologies, the types of treated questions, and the characteristics of targeted documents. We are particularly interested in studying and improving methods that aim at finding accurate and short answers to biomedical natural language questions from a large scale of biomedical textual documents in English. QA aims at providing inquirers with direct, short and precise answers to their natural language questions. In this Ph.D. thesis, we propose four contributions to improve the performance of QA in the biomedical domain. In our first contribution, we propose a machine learning-based method for question type classification to determine the types of given questions which enable to a biomedical QA system to use the appropriate answer extraction method. We also propose an another machine learning-based method to assign one or more topics (e.g., pharmacological, test, treatment, etc.) to given questions in order to determine the semantic types of the expected answers which are very useful in generating specific answer retrieval strategies. In the second contribution, we first propose a document retrieval method to retrieve a set of relevant documents that are likely to contain the answers to biomedical questions from the MEDLINE database. We then present a passage retrieval method to retrieve a set of relevant passages to questions. In the third contribution, we propose specific answer extraction methods to generate both exact and ideal answers. Finally, in the fourth contribution, we develop a fully automated semantic biomedical QA system called SemBioNLQA which is able to deal with a variety of natural language questions and to generate appropriate answers by providing both exact and ideal answers.
+</details>
+<details>
+<summary>摘要</summary>
+Our four contributions to improving QA performance in the biomedical domain are:1. A machine learning-based method for question type classification to determine the types of given questions and enable the use of appropriate answer extraction methods.2. A machine learning-based method to assign one or more topics (e.g., pharmacological, test, treatment, etc.) to given questions to determine the semantic types of expected answers.3. A document retrieval method to retrieve relevant documents from the MEDLINE database, followed by a passage retrieval method to retrieve relevant passages to questions.4. Specific answer extraction methods to generate both exact and ideal answers.Our proposed system, SemBioNLQA, is designed to deal with a variety of natural language questions and generate appropriate answers by providing both exact and ideal answers.
+</details></li>
+</ul>
+<hr>
+<h2 id="Diversity-and-Language-Technology-How-Techno-Linguistic-Bias-Can-Cause-Epistemic-Injustice"><a href="#Diversity-and-Language-Technology-How-Techno-Linguistic-Bias-Can-Cause-Epistemic-Injustice" class="headerlink" title="Diversity and Language Technology: How Techno-Linguistic Bias Can Cause Epistemic Injustice"></a>Diversity and Language Technology: How Techno-Linguistic Bias Can Cause Epistemic Injustice</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2307.13714">http://arxiv.org/abs/2307.13714</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Paula Helm, Gábor Bella, Gertraud Koch, Fausto Giunchiglia</li>
+<li>for: This paper aims to address the issue of techno-linguistic bias in AI-based language technology, which can result in systems that only express concepts from dominant languages and cultures, rather than accurately representing concepts from marginalized language communities.</li>
+<li>methods: The paper uses the concept of epistemic injustice to explore the systematic tendency of technology developer communities to apply a simplistic understanding of diversity, leading to a disregard for valuable aspects of diversity and an under-representation of the needs and diverse worldviews of marginalized language communities.</li>
+<li>results: The paper shows that many attempts to extend the reach of AI technology to “underserved languages” produce flawed solutions that adhere to a hard-wired representational preference for certain languages, resulting in techno-linguistic bias and a lack of accurate representation of concepts from marginalized language communities.<details>
+<summary>Abstract</summary>
+It is well known that AI-based language technology -- large language models, machine translation systems, multilingual dictionaries, and corpora -- is currently limited to 2 to 3 percent of the world's most widely spoken and/or financially and politically best supported languages. In response, recent research efforts have sought to extend the reach of AI technology to ``underserved languages.'' In this paper, we show that many of these attempts produce flawed solutions that adhere to a hard-wired representational preference for certain languages, which we call techno-linguistic bias. Techno-linguistic bias is distinct from the well-established phenomenon of linguistic bias as it does not concern the languages represented but rather the design of the technologies. As we show through the paper, techno-linguistic bias can result in systems that can only express concepts that are part of the language and culture of dominant powers, unable to correctly represent concepts from other communities. We argue that at the root of this problem lies a systematic tendency of technology developer communities to apply a simplistic understanding of diversity which does not do justice to the more profound differences that languages, and ultimately the communities that speak them, embody. Drawing on the concept of epistemic injustice, we point to the broader sociopolitical consequences of the bias we identify and show how it can lead not only to a disregard for valuable aspects of diversity but also to an under-representation of the needs and diverse worldviews of marginalized language communities.
+</details>
+<details>
+<summary>摘要</summary>
+现在的人工智能语言技术 -- 大语模型、机器翻译系统、多语言词典和语料库 -- 只能涵盖2-3%的世界上最广泛使用和/或经济和政治上最具影响力的语言。因此，latest research efforts have sought to extend the reach of AI technology to "underserved languages." However, we show that many of these attempts produce flawed solutions that adhere to a hard-wired representational preference for certain languages, which we call "techno-linguistic bias." This bias is distinct from the well-established phenomenon of linguistic bias, as it does not concern the languages represented but rather the design of the technologies. We argue that the root of this problem lies in a systematic tendency of technology developer communities to apply a simplistic understanding of diversity, which does not do justice to the more profound differences that languages and ultimately the communities that speak them, embody. Drawing on the concept of epistemic injustice, we point to the broader sociopolitical consequences of the bias we identify and show how it can lead not only to a disregard for valuable aspects of diversity but also to an under-representation of the needs and diverse worldviews of marginalized language communities.Note: The translation is in Simplified Chinese, which is the standard writing system used in mainland China and Singapore. Traditional Chinese is also widely used, particularly in Taiwan, Hong Kong, and Macau.
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/07/26/cs.CL_2023_07_26/" data-id="clmvt7t84005v26rd46ql453x" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/07/26/cs.AI_2023_07_26/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cs.AI - 2023-07-26
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/07/26/cs.LG_2023_07_26/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.LG - 2023-07-26</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">21</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">150</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

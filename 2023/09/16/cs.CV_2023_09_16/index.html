@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CV - 2023-09-16 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="FrameRS: A Video Frame Compression Model Composed by Self supervised Video Frame Reconstructor and Key Frame Selector paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2309.09083 repo_url: https:&#x2F;&#x2F;github.com&#x2F;qiqianfu&#x2F;f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CV - 2023-09-16">
+<meta property="og:url" content="https://nullscc.github.io/2023/09/16/cs.CV_2023_09_16/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="FrameRS: A Video Frame Compression Model Composed by Self supervised Video Frame Reconstructor and Key Frame Selector paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2309.09083 repo_url: https:&#x2F;&#x2F;github.com&#x2F;qiqianfu&#x2F;f">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-09-16T13:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-23T08:58:28.604Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CV_2023_09_16" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/09/16/cs.CV_2023_09_16/" class="article-date">
+  <time datetime="2023-09-16T13:00:00.000Z" itemprop="datePublished">2023-09-16</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CV/">cs.CV</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CV - 2023-09-16
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="FrameRS-A-Video-Frame-Compression-Model-Composed-by-Self-supervised-Video-Frame-Reconstructor-and-Key-Frame-Selector"><a href="#FrameRS-A-Video-Frame-Compression-Model-Composed-by-Self-supervised-Video-Frame-Reconstructor-and-Key-Frame-Selector" class="headerlink" title="FrameRS: A Video Frame Compression Model Composed by Self supervised Video Frame Reconstructor and Key Frame Selector"></a>FrameRS: A Video Frame Compression Model Composed by Self supervised Video Frame Reconstructor and Key Frame Selector</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.09083">http://arxiv.org/abs/2309.09083</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/qiqianfu/framemae">https://github.com/qiqianfu/framemae</a></li>
+<li>paper_authors: Qiqian Fu, Guanhong Wang, Gaoang Wang</li>
+<li>for: 本研究提出了一种框架重建模型：FrameRS，用于自动重建视频帧。</li>
+<li>methods: 模型包括一个自我supervised的视频帧重建器和一个关键帧选择器。帧重建器FrameMAE是基于图像MAE的原理，适应视频上下文。关键帧选择器是基于CNN结构，通过从encoder中获取高级别semantic信息，可以低计算成本预测关键帧。</li>
+<li>results: 模型可以有效地压缩视频clip，保留约30%的重要帧。性能方面，我们的模型在计算效率和竞争准确性方面表现出色，与传统的关键帧提取算法相比有所提升。代码可以在Github上下载。<details>
+<summary>Abstract</summary>
+In this paper, we present frame reconstruction model: FrameRS. It consists self-supervised video frame reconstructor and key frame selector. The frame reconstructor, FrameMAE, is developed by adapting the principles of the Masked Autoencoder for Images (MAE) for video context. The key frame selector, Frame Selector, is built on CNN architecture. By taking the high-level semantic information from the encoder of FrameMAE as its input, it can predicted the key frames with low computation costs. Integrated with our bespoke Frame Selector, FrameMAE can effectively compress a video clip by retaining approximately 30% of its pivotal frames. Performance-wise, our model showcases computational efficiency and competitive accuracy, marking a notable improvement over traditional Key Frame Extract algorithms. The implementation is available on Github
+</details>
+<details>
+<summary>摘要</summary>
+本文提出了一种框架重建模型：FrameRS。它包含自我超级视频框架重建器和关键帧选择器。框架重建器 FrameMAE 是基于图像隐藏autoencoder（MAE）的视频上的应用，而关键帧选择器 Frame Selector 是基于卷积神经网络架构。通过将高级 semantic 信息从 FrameMAE 的解码器作为输入，Frame Selector 可以预测关键帧，计算成本低。将 FrameMAE 与我们自己的 Frame Selector 结合使用，可以有效地压缩视频clip，保留约 30% 的关键帧。在性能方面，我们的模型表现出了计算效率和竞争性准确率，代表了传统关键帧提取算法的 Notable Improvement。实现可以在 Github 上找到。
+</details></li>
+</ul>
+<hr>
+<h2 id="Multi-camera-Bird’s-Eye-View-Perception-for-Autonomous-Driving"><a href="#Multi-camera-Bird’s-Eye-View-Perception-for-Autonomous-Driving" class="headerlink" title="Multi-camera Bird’s Eye View Perception for Autonomous Driving"></a>Multi-camera Bird’s Eye View Perception for Autonomous Driving</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.09080">http://arxiv.org/abs/2309.09080</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: David Unger, Nikhil Gosala, Varun Ravi Kumar, Shubhankar Borse, Abhinav Valada, Senthil Yogamani</li>
+<li>for: 这 paper 主要是为了探讨多摄像头基于深度学习模型在逻辑投影空间（BEV）中的物体表示方法。</li>
+<li>methods: 这 paper 使用的方法主要是基于深度学习模型，将摄像头图像转换到逻辑投影空间（BEV）中，并使用几何约束来保证转换的准确性。</li>
+<li>results: 这 paper 的结果表明，使用深度学习模型对摄像头图像的转换在逻辑投影空间（BEV）中可以实现更高的准确性和灵活性，并且可以与其他感知器结合进行有效的感知融合。<details>
+<summary>Abstract</summary>
+Most automated driving systems comprise a diverse sensor set, including several cameras, Radars, and LiDARs, ensuring a complete 360\deg coverage in near and far regions. Unlike Radar and LiDAR, which measure directly in 3D, cameras capture a 2D perspective projection with inherent depth ambiguity. However, it is essential to produce perception outputs in 3D to enable the spatial reasoning of other agents and structures for optimal path planning. The 3D space is typically simplified to the BEV space by omitting the less relevant Z-coordinate, which corresponds to the height dimension.The most basic approach to achieving the desired BEV representation from a camera image is IPM, assuming a flat ground surface. Surround vision systems that are pretty common in new vehicles use the IPM principle to generate a BEV image and to show it on display to the driver. However, this approach is not suited for autonomous driving since there are severe distortions introduced by this too-simplistic transformation method. More recent approaches use deep neural networks to output directly in BEV space. These methods transform camera images into BEV space using geometric constraints implicitly or explicitly in the network. As CNN has more context information and a learnable transformation can be more flexible and adapt to image content, the deep learning-based methods set the new benchmark for BEV transformation and achieve state-of-the-art performance. First, this chapter discusses the contemporary trends of multi-camera-based DNN (deep neural network) models outputting object representations directly in the BEV space. Then, we discuss how this approach can extend to effective sensor fusion and coupling downstream tasks like situation analysis and prediction. Finally, we show challenges and open problems in BEV perception.
+</details>
+<details>
+<summary>摘要</summary>
+现代自动驾驶系统通常包括多种感知器，包括数个摄像头、雷达和LiDAR，以确保完整的360度覆盖 both near and far regions。不同于雷达和LiDAR，摄像头会 Capture a 2D perspective projection with inherent depth ambiguity。然而，以便实现最佳路径规划，需要生成3D感知输出。为了简化3D空间，通常会将Z坐标（高度维度）排除，得到BEV空间（bird's eye view）。将摄像头图像转换为BEV空间的最基本方法是IPM（平面地面假设）。许多新车型的围视系统都使用IPM原理生成BEV图像，并将其显示给司机。然而，这种方法不适用于自动驾驶，因为它会引入严重的扭曲。更近期的方法使用深度神经网络直接将摄像头图像转换为BEV空间。这些方法使用摄像头图像中的几何约束，以及深度神经网络学习的变换，以生成BEV图像。由于神经网络具有更多的内容信息和可学习的变换，深度学习基于方法已经设置了新的标准 дляBEV转换，并实现了状态前景性的表现。本章首先介绍了当代多摄像头基于神经网络（deep neural network）模型，输出对象表示直接在BEV空间。然后，我们讨论了如何扩展到有效的感知融合和下游任务，如情况分析和预测。最后，我们介绍了BEV感知的挑战和开放问题。
+</details></li>
+</ul>
+<hr>
+<h2 id="Unsupervised-Green-Object-Tracker-GOT-without-Offline-Pre-training"><a href="#Unsupervised-Green-Object-Tracker-GOT-without-Offline-Pre-training" class="headerlink" title="Unsupervised Green Object Tracker (GOT) without Offline Pre-training"></a>Unsupervised Green Object Tracker (GOT) without Offline Pre-training</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.09078">http://arxiv.org/abs/2309.09078</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zhiruo Zhou, Suya You, C. -C. Jay Kuo</li>
+<li>for: 提高单个目标跟踪精度，降低标注成本和计算复杂性，实现灵活可 deployment on edge devices。</li>
+<li>methods:  ensemble of three prediction branches：1) 全局对象基 correlator，2) 本地 patch-based correlator，3) superpixel-based segmentator，使用了简单的模型和低计算复杂性。</li>
+<li>results: 与现有的半监督跟踪器相当，需要大量的Offline预训练，但GOT具有较低的计算复杂性和小型模型大小，可以轻松部署于移动和边缘设备。<details>
+<summary>Abstract</summary>
+Supervised trackers trained on labeled data dominate the single object tracking field for superior tracking accuracy. The labeling cost and the huge computational complexity hinder their applications on edge devices. Unsupervised learning methods have also been investigated to reduce the labeling cost but their complexity remains high. Aiming at lightweight high-performance tracking, feasibility without offline pre-training, and algorithmic transparency, we propose a new single object tracking method, called the green object tracker (GOT), in this work. GOT conducts an ensemble of three prediction branches for robust box tracking: 1) a global object-based correlator to predict the object location roughly, 2) a local patch-based correlator to build temporal correlations of small spatial units, and 3) a superpixel-based segmentator to exploit the spatial information of the target frame. GOT offers competitive tracking accuracy with state-of-the-art unsupervised trackers, which demand heavy offline pre-training, at a lower computation cost. GOT has a tiny model size (<3k parameters) and low inference complexity (around 58M FLOPs per frame). Since its inference complexity is between 0.1%-10% of DL trackers, it can be easily deployed on mobile and edge devices.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>将文本翻译成简化中文。<</SYS>>supervised trackers在标注数据上训练的场景下占据单个对象跟踪领域的先导地位，因为标签成本和计算复杂性而降低其应用于边缘设备。不supervised learning方法也被研究以减少标签成本，但它们的复杂度仍然高。为了实现轻量级高性能的跟踪，不需要线上预训练、算法透明度和可行性，我们在这里提出了一种新的单对象跟踪方法，称为绿色对象跟踪器（GOT）。GOT使用三个预测分支来提供粗略对象位置预测和高精度跟踪：1）全局对象基于相关器来预测对象位置，2）本地小区域基于相关器来建立时间相关性，3）超像素基于分割器来利用目标帧中的空间信息。GOT可以与现有的无监督跟踪器相比，它们需要大量的线上预训练，并且具有较低的计算成本（<3k参数）和低的计算复杂度（约58M FLOPs每帧）。由于其计算复杂度在0.1%-10%之间，因此它可以轻松部署在移动和边缘设备上。
+</details></li>
+</ul>
+<hr>
+<h2 id="MMST-ViT-Climate-Change-aware-Crop-Yield-Prediction-via-Multi-Modal-Spatial-Temporal-Vision-Transformer"><a href="#MMST-ViT-Climate-Change-aware-Crop-Yield-Prediction-via-Multi-Modal-Spatial-Temporal-Vision-Transformer" class="headerlink" title="MMST-ViT: Climate Change-aware Crop Yield Prediction via Multi-Modal Spatial-Temporal Vision Transformer"></a>MMST-ViT: Climate Change-aware Crop Yield Prediction via Multi-Modal Spatial-Temporal Vision Transformer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.09067">http://arxiv.org/abs/2309.09067</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/fudong03/mmst-vit">https://github.com/fudong03/mmst-vit</a></li>
+<li>paper_authors: Fudong Lin, Summer Crawford, Kaleb Guillot, Yihe Zhang, Yan Chen, Xu Yuan, Li Chen, Shelby Williams, Robert Minvielle, Xiangming Xiao, Drew Gholson, Nicolas Ashwell, Tri Setiyono, Brenda Tubana, Lu Peng, Magdy Bayoumi, Nian-Feng Tzeng</li>
+<li>for: 预测美国县级作物产量，考虑植物生长季节的天气变化和气候变化对作物的影响。</li>
+<li>methods: 我们开发了一种深度学习基于解决方案，即多Modal Spatial-Temporal Vision Transformer（MMST-ViT），利用视觉遥感数据和短期天气数据来模型植物生长季节的天气变化对作物生长的影响。</li>
+<li>results: 我们的MMST-ViT在200个美国县的实验中表现出色，与三个性能指标之间的比较结果都高于其他相似方法。<details>
+<summary>Abstract</summary>
+Precise crop yield prediction provides valuable information for agricultural planning and decision-making processes. However, timely predicting crop yields remains challenging as crop growth is sensitive to growing season weather variation and climate change. In this work, we develop a deep learning-based solution, namely Multi-Modal Spatial-Temporal Vision Transformer (MMST-ViT), for predicting crop yields at the county level across the United States, by considering the effects of short-term meteorological variations during the growing season and the long-term climate change on crops. Specifically, our MMST-ViT consists of a Multi-Modal Transformer, a Spatial Transformer, and a Temporal Transformer. The Multi-Modal Transformer leverages both visual remote sensing data and short-term meteorological data for modeling the effect of growing season weather variations on crop growth. The Spatial Transformer learns the high-resolution spatial dependency among counties for accurate agricultural tracking. The Temporal Transformer captures the long-range temporal dependency for learning the impact of long-term climate change on crops. Meanwhile, we also devise a novel multi-modal contrastive learning technique to pre-train our model without extensive human supervision. Hence, our MMST-ViT captures the impacts of both short-term weather variations and long-term climate change on crops by leveraging both satellite images and meteorological data. We have conducted extensive experiments on over 200 counties in the United States, with the experimental results exhibiting that our MMST-ViT outperforms its counterparts under three performance metrics of interest.
+</details>
+<details>
+<summary>摘要</summary>
+precise 农作物产量预测提供了重要的农业规划和决策过程中的信息。然而，在季节变化和气候变化的影响下，准确地预测农作物产量仍然是一项挑战。在这种情况下，我们开发了一种深度学习基于解决方案，即多Modal空间时间变换器（MMST-ViT），用于预测美国各县的农作物产量，并考虑了季节变化的短期天气影响和气候变化对农作物的影响。具体来说，我们的MMST-ViT包括多Modal变换器、空间变换器和时间变换器。多Modal变换器利用了远程感知数据和季节变化天气数据来模型季节变化对农作物生长的影响。空间变换器学习了高分辨率的空间相关性，以便准确地跟踪农作物的生长。时间变换器捕捉了长期时间相关性，以便学习气候变化对农作物的影响。此外，我们还开发了一种新的多Modal对比学习技术，以不需要大量的人工监督来预处理我们的模型。因此，我们的MMST-ViT可以 capture季节变化和气候变化对农作物的影响，并且在美国200多个县的实验结果表明，我们的MMST-ViT在三个关键性能指标上表现出色。
+</details></li>
+</ul>
+<hr>
+<h2 id="Sub-action-Prototype-Learning-for-Point-level-Weakly-supervised-Temporal-Action-Localization"><a href="#Sub-action-Prototype-Learning-for-Point-level-Weakly-supervised-Temporal-Action-Localization" class="headerlink" title="Sub-action Prototype Learning for Point-level Weakly-supervised Temporal Action Localization"></a>Sub-action Prototype Learning for Point-level Weakly-supervised Temporal Action Localization</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.09060">http://arxiv.org/abs/2309.09060</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yueyang Li, Yonghong Hou, Wanqing Li</li>
+<li>for: 提高点级弱监督时间动作地理化（PWTAL）的性能，使其能够基于唯一时间戳注释每个动作实例。</li>
+<li>methods: 提出了一种新的子动作原型学习框架（SPL-Loc），包括子动作原型归一化（SPC）和顺序原型对齐（OPA）。 SPC 适应性地提取了表现出时间尺度和空间内容变化的动作实例的表示性质。 OPA 选择了相关的原型，以提供完整性提示符 дляpseudo标签生成。</li>
+<li>results: 与现有SOTA PWTAL方法进行了广泛的实验，并显示了提档SPL-Loc可以准确地地理化动作边界。<details>
+<summary>Abstract</summary>
+Point-level weakly-supervised temporal action localization (PWTAL) aims to localize actions with only a single timestamp annotation for each action instance. Existing methods tend to mine dense pseudo labels to alleviate the label sparsity, but overlook the potential sub-action temporal structures, resulting in inferior performance. To tackle this problem, we propose a novel sub-action prototype learning framework (SPL-Loc) which comprises Sub-action Prototype Clustering (SPC) and Ordered Prototype Alignment (OPA). SPC adaptively extracts representative sub-action prototypes which are capable to perceive the temporal scale and spatial content variation of action instances. OPA selects relevant prototypes to provide completeness clue for pseudo label generation by applying a temporal alignment loss. As a result, pseudo labels are derived from alignment results to improve action boundary prediction. Extensive experiments on three popular benchmarks demonstrate that the proposed SPL-Loc significantly outperforms existing SOTA PWTAL methods.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>转换文本为简化中文。<</SYS>>点级弱监视时间动作地点（PWTAL）目标是在每个动作实例只有一个时间标签的情况下地址动作。现有方法通常是利用密集假标签来减轻标签稀疏性，但是忽略了可能存在的次动作时间结构，导致性能较差。为解决这个问题，我们提出了一种新的子动作原型学习框架（SPL-Loc），它包括子动作原型聚类（SPC）和有序原型对齐（OPA）。SPC可适应性EXTRACT Representative sub-action prototypes, which are capable of perceiving the temporal scale and spatial content variation of action instances. OPA选择相关的原型来提供完整的假标签生成的准备，通过应用时间对齐损失。因此，假标签来自对齐结果进行改进动作边界预测。广泛的实验表明，提出的 SPL-Loc 明显超过现有SOTA PWTAL方法。
+</details></li>
+</ul>
+<hr>
+<h2 id="Microscale-3-D-Capacitance-Tomography-with-a-CMOS-Sensor-Array"><a href="#Microscale-3-D-Capacitance-Tomography-with-a-CMOS-Sensor-Array" class="headerlink" title="Microscale 3-D Capacitance Tomography with a CMOS Sensor Array"></a>Microscale 3-D Capacitance Tomography with a CMOS Sensor Array</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.09039">http://arxiv.org/abs/2309.09039</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Manar Abdelatty, Joseph Incandela, Kangping Hu, Joseph W. Larkin, Sherief Reda, Jacob K. Rosenstein</li>
+<li>for: 这个论文主要是用来描述电容 Tomatoesography（ECT）技术在微型系统中的应用。</li>
+<li>methods: 该论文使用了CMOS微电极阵列来实现ECT成像，并提出了一种深度学习架构和改进的多目标训练方法来重建射电常数图像。</li>
+<li>results: 实验结果表明，提议的方法能够高精度地重建微型系统中的3D结构，包括精确地测量微球体积和细菌生物胶囊的尺寸。 predictions accuracy为91.5%和82.7%。<details>
+<summary>Abstract</summary>
+Electrical capacitance tomography (ECT) is a nonoptical imaging technique in which a map of the interior permittivity of a volume is estimated by making capacitance measurements at its boundary and solving an inverse problem. While previous ECT demonstrations have often been at centimeter scales, ECT is not limited to macroscopic systems. In this paper, we demonstrate ECT imaging of polymer microspheres and bacterial biofilms using a CMOS microelectrode array, achieving spatial resolution of 10 microns. Additionally, we propose a deep learning architecture and an improved multi-objective training scheme for reconstructing out-of-plane permittivity maps from the sensor measurements. Experimental results show that the proposed approach is able to resolve microscopic 3-D structures, achieving 91.5% prediction accuracy on the microsphere dataset and 82.7% on the biofilm dataset, including an average of 4.6% improvement over baseline computational methods.
+</details>
+<details>
+<summary>摘要</summary>
+电容测量探测技术（ECT）是一种非光学图像技术，可以测量物体内部电容 coefficient的地图，并解决一个倒逼问题。而在过去的ECT示范中，通常是在厘米级别进行，但ECT并不限于巨观系统。在这篇论文中，我们使用CMOS微电极阵列进行ECT探测，实现了10μ米的空间分辨率。此外，我们提出了深度学习架构和改进的多目标训练方案，用于从传感器测量数据中重建垂直电容地图。实验结果表明，我们的方法能够分解微观三维结构，达到91.5%的预测精度（在微球数据集上）和82.7%的预测精度（在生物质层数据集上），其中平均与基线计算方法相差4.6%。
+</details></li>
+</ul>
+<hr>
+<h2 id="RingMo-lite-A-Remote-Sensing-Multi-task-Lightweight-Network-with-CNN-Transformer-Hybrid-Framework"><a href="#RingMo-lite-A-Remote-Sensing-Multi-task-Lightweight-Network-with-CNN-Transformer-Hybrid-Framework" class="headerlink" title="RingMo-lite: A Remote Sensing Multi-task Lightweight Network with CNN-Transformer Hybrid Framework"></a>RingMo-lite: A Remote Sensing Multi-task Lightweight Network with CNN-Transformer Hybrid Framework</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.09003">http://arxiv.org/abs/2309.09003</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yuelei Wang, Ting Zhang, Liangjin Zhao, Lin Hu, Zhechao Wang, Ziqing Niu, Peirui Cheng, Kaiqiang Chen, Xuan Zeng, Zhirui Wang, Hongqi Wang, Xian Sun</li>
+<li>for: 这个论文旨在提出一个轻量级的RS类型视觉基础模型，以便在边缘设备上进行RS影像解释。</li>
+<li>methods: 这个论文使用了一个CNN-Transformer混合架构，具有一个双支结构，其中使用了Transformer模组作为低通架构，以EXTRACTRS影像的全球特征；而CNN模组则被用作堆叠高通架构，以EXTRACTRS影像的细节特征。</li>
+<li>results: 相比于RingMo，这个提案的RingMo-lite将参数减少了大约60%，并在不同的RS影像解释任务中保持了缩减的几成比，而且在大多数场景下，其精度下降了不到2%。此外，这个研究将在未来与MindSpore computng平台集成。<details>
+<summary>Abstract</summary>
+In recent years, remote sensing (RS) vision foundation models such as RingMo have emerged and achieved excellent performance in various downstream tasks. However, the high demand for computing resources limits the application of these models on edge devices. It is necessary to design a more lightweight foundation model to support on-orbit RS image interpretation. Existing methods face challenges in achieving lightweight solutions while retaining generalization in RS image interpretation. This is due to the complex high and low-frequency spectral components in RS images, which make traditional single CNN or Vision Transformer methods unsuitable for the task. Therefore, this paper proposes RingMo-lite, an RS multi-task lightweight network with a CNN-Transformer hybrid framework, which effectively exploits the frequency-domain properties of RS to optimize the interpretation process. It is combined by the Transformer module as a low-pass filter to extract global features of RS images through a dual-branch structure, and the CNN module as a stacked high-pass filter to extract fine-grained details effectively. Furthermore, in the pretraining stage, the designed frequency-domain masked image modeling (FD-MIM) combines each image patch's high-frequency and low-frequency characteristics, effectively capturing the latent feature representation in RS data. As shown in Fig. 1, compared with RingMo, the proposed RingMo-lite reduces the parameters over 60% in various RS image interpretation tasks, the average accuracy drops by less than 2% in most of the scenes and achieves SOTA performance compared to models of the similar size. In addition, our work will be integrated into the MindSpore computing platform in the near future.
+</details>
+<details>
+<summary>摘要</summary>
+在近年，远程感知（RS）视觉基础模型如RingMo出现并在各种下游任务中表现出色。然而，计算资源的高需求限制了这些模型在边缘设备上的应用。为了解决这个问题，这篇论文提出了RingMo-lite，一种RS多任务轻量级网络，它采用了CNN-Transformer混合框架，并且有效地利用RS图像的频率频谱特性来优化解释过程。RingMo-lite由Transformer模块作为低通滤波器，EXTRACTRS图像的全面特征，而CNN模块作为堆叠高通滤波器，EXTRACTRS图像的细腻细节。此外，在预训练阶段，我们设计了频率频谱遮盲图像模型（FD-MIM），该模型可以有效地捕捉RS数据中各个图像块的高频和低频特征，从而获得RS数据的秘密特征表示。根据图1，相比RingMo，我们提出的RingMo-lite减少了参数超过60%，在各种RS图像解释任务中，均低于2%的场景下，保持了SOTA的性能。此外，我们计划将这些工作与MindSpore计算平台集成。
+</details></li>
+</ul>
+<hr>
+<h2 id="OmniLRS-A-Photorealistic-Simulator-for-Lunar-Robotics"><a href="#OmniLRS-A-Photorealistic-Simulator-for-Lunar-Robotics" class="headerlink" title="OmniLRS: A Photorealistic Simulator for Lunar Robotics"></a>OmniLRS: A Photorealistic Simulator for Lunar Robotics</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08997">http://arxiv.org/abs/2309.08997</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/antoinerichard/lunarsim">https://github.com/antoinerichard/lunarsim</a></li>
+<li>paper_authors: Antoine Richard, Junnosuke Kamohara, Kentaro Uno, Shreya Santra, Dave van der Meer, Miguel Olivares-Mendez, Kazuya Yoshida</li>
+<li>for: The paper is written for developers and researchers who are interested in developing algorithms for lunar robotic exploration and need a high-fidelity simulator to evaluate their algorithms.</li>
+<li>methods: The paper proposes a new lunar simulator called OmniLRS, which is based on Nvidia’s robotic simulator Isaac Sim. The simulator provides fast procedural environment generation, multi-robot capabilities, and a synthetic data pipeline for machine-learning applications.</li>
+<li>results: The paper demonstrates the effectiveness of the simulator for image-based perception by performing sim-to-real rock instance segmentation. The results show that a YOLOv8 model trained on the simulator’s synthetic data achieves performance close to a model trained on real-world data, with a 5% performance gap. When finetuned with real data, the model achieves 14% higher average precision than the model trained on real-world data, demonstrating the simulator’s photorealism.Here’s the information in Simplified Chinese text:</li>
+<li>for: 这篇论文是为开发 lunar 机器人探索算法而写的，需要高度实验环境来评估其算法。</li>
+<li>methods: 这篇论文提出了一个基于 Nvidia 的 Isaac Sim 的 lunar 模拟器 OmniLRS，它提供了快速的生成环境、多机器人能力以及机器学习应用程序的数据管道。</li>
+<li>results: 论文通过进行 sim-to-real 矿石实例分割来证明其模拟器的效果，结果显示一个 YOLOv8 模型在模拟器上训练的数据上达到与实际数据训练的模型几乎相同的性能，差距仅5%。当再进行 fine-tuning 后，模型与实际数据训练的模型之间的差距提高了14%。这示明了模拟器的真实性。<details>
+<summary>Abstract</summary>
+Developing algorithms for extra-terrestrial robotic exploration has always been challenging. Along with the complexity associated with these environments, one of the main issues remains the evaluation of said algorithms. With the regained interest in lunar exploration, there is also a demand for quality simulators that will enable the development of lunar robots. % In this paper, we explain how we built a Lunar simulator based on Isaac Sim, Nvidia's robotic simulator. In this paper, we propose Omniverse Lunar Robotic-Sim (OmniLRS) that is a photorealistic Lunar simulator based on Nvidia's robotic simulator. This simulation provides fast procedural environment generation, multi-robot capabilities, along with synthetic data pipeline for machine-learning applications. It comes with ROS1 and ROS2 bindings to control not only the robots, but also the environments. This work also performs sim-to-real rock instance segmentation to show the effectiveness of our simulator for image-based perception. Trained on our synthetic data, a yolov8 model achieves performance close to a model trained on real-world data, with 5% performance gap. When finetuned with real data, the model achieves 14% higher average precision than the model trained on real-world data, demonstrating our simulator's photorealism.% to realize sim-to-real. The code is fully open-source, accessible here: https://github.com/AntoineRichard/LunarSim, and comes with demonstrations.
+</details>
+<details>
+<summary>摘要</summary>
+开发外星 robotic 探索算法总是是一个挑战。随着这些环境的复杂性，一个主要的问题是评估这些算法。与月球探索的重新兴起相关，有一个需求是高质量的月球 simulator，可以帮助月球探索机器人的开发。在这篇论文中，我们介绍了我们如何基于 Isaac Sim 和 Nvidia 的机器人 simulator 建立了一个名为 Omniverse Lunar Robotic-Sim（OmniLRS）的月球 simulator。这个 simulate 提供了快速的过程生成环境、多机器人功能以及synthetic data pipeline  для机器学习应用。它还包括 ROS1 和 ROS2 绑定，可以控制不仅机器人，还可以控制环境。此外，我们还实现了 sim-to-real 的岩Instance segmentation，以示我们的 simulate 的实用性。我们在我们的synthetic数据上训练了一个 yolov8 模型，与实际数据训练的模型之间的性能差距只有5%。当 fins 化 With real data 时，模型的性能高于实际数据训练的模型， demonstrating 我们的 simulate 的 photorealism。我们的代码是完全开源的，可以在以下 GitHub 上获取：https://github.com/AntoineRichard/LunarSim，并包括示例。
+</details></li>
+</ul>
+<hr>
+<h2 id="RMP-A-Random-Mask-Pretrain-Framework-for-Motion-Prediction"><a href="#RMP-A-Random-Mask-Pretrain-Framework-for-Motion-Prediction" class="headerlink" title="RMP: A Random Mask Pretrain Framework for Motion Prediction"></a>RMP: A Random Mask Pretrain Framework for Motion Prediction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08989">http://arxiv.org/abs/2309.08989</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/kth-rpl/rmp">https://github.com/kth-rpl/rmp</a></li>
+<li>paper_authors: Yi Yang, Qingwen Zhang, Thomas Gilles, Nazre Batool, John Folkesson</li>
+<li>for: 这篇论文是针对自驾车中的路径预测问题提出了一个框架。</li>
+<li>methods: 本文使用了随机遮盾模型，将物体位置在随机时间步上遮盾，然后由学习的神经网络（NN）填充。可以根据遮盾profile的变化，轻松地切换到不同的动作相关任务。</li>
+<li>results: 本文透过评估Argoverse和NuScenes dataset，表明我们的提案的预训框架可以处理噪音输入，提高路径预测精度和缺失率，特别是在时间遮盾下的物体遮盾。<details>
+<summary>Abstract</summary>
+As the pretraining technique is growing in popularity, little work has been done on pretrained learning-based motion prediction methods in autonomous driving. In this paper, we propose a framework to formalize the pretraining task for trajectory prediction of traffic participants. Within our framework, inspired by the random masked model in natural language processing (NLP) and computer vision (CV), objects' positions at random timesteps are masked and then filled in by the learned neural network (NN). By changing the mask profile, our framework can easily switch among a range of motion-related tasks. We show that our proposed pretraining framework is able to deal with noisy inputs and improves the motion prediction accuracy and miss rate, especially for objects occluded over time by evaluating it on Argoverse and NuScenes datasets.
+</details>
+<details>
+<summary>摘要</summary>
+As the pretraining technique becomes more popular, there has been little research on using learning-based motion prediction methods in autonomous driving. In this paper, we propose a framework to formalize the pretraining task for trajectory prediction of traffic participants. Our framework is inspired by the random masked model in natural language processing (NLP) and computer vision (CV), where the positions of objects at random timesteps are masked and then filled in by a learned neural network (NN). By changing the mask profile, our framework can easily switch among a range of motion-related tasks. We show that our proposed pretraining framework can handle noisy inputs and improve motion prediction accuracy and miss rate, especially for objects that are occluded over time, as evaluated on the Argoverse and NuScenes datasets.
+</details></li>
+</ul>
+<hr>
+<h2 id="Comparative-study-of-Deep-Learning-Models-for-Binary-Classification-on-Combined-Pulmonary-Chest-X-ray-Dataset"><a href="#Comparative-study-of-Deep-Learning-Models-for-Binary-Classification-on-Combined-Pulmonary-Chest-X-ray-Dataset" class="headerlink" title="Comparative study of Deep Learning Models for Binary Classification on Combined Pulmonary Chest X-ray Dataset"></a>Comparative study of Deep Learning Models for Binary Classification on Combined Pulmonary Chest X-ray Dataset</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.10829">http://arxiv.org/abs/2309.10829</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Shabbir Ahmed Shuvo, Md Aminul Islam, Md. Mozammel Hoque, Rejwan Bin Sulaiman</li>
+<li>for: 这个研究的目的是比较八种深度学习模型在同一个肺病影像数据集上的二分类表现。</li>
+<li>methods: 这个研究使用了 eight 种深度学习模型，包括 DenseNet 121、DenseNet 169、DenseNet 201、EffecientNet b0、EffecientNet lite4、GoogleNet、MobileNet 和 ResNet18。</li>
+<li>results: 研究发现，当应用于肺病影像数据集时，DenseNet 169 表现最佳，准确率为 89.38%，MobileNet 表现次之，准确率为 92.2%。<details>
+<summary>Abstract</summary>
+CNN-based deep learning models for disease detection have become popular recently. We compared the binary classification performance of eight prominent deep learning models: DenseNet 121, DenseNet 169, DenseNet 201, EffecientNet b0, EffecientNet lite4, GoogleNet, MobileNet, and ResNet18 for their binary classification performance on combined Pulmonary Chest Xrays dataset. Despite the widespread application in different fields in medical images, there remains a knowledge gap in determining their relative performance when applied to the same dataset, a gap this study aimed to address. The dataset combined Shenzhen, China (CH) and Montgomery, USA (MC) data. We trained our model for binary classification, calculated different parameters of the mentioned models, and compared them. The models were trained to keep in mind all following the same training parameters to maintain a controlled comparison environment. End of the study, we found a distinct difference in performance among the other models when applied to the pulmonary chest Xray image dataset, where DenseNet169 performed with 89.38 percent and MobileNet with 92.2 percent precision.   Keywords: Pulmonary, Deep Learning, Tuberculosis, Disease detection, Xray
+</details>
+<details>
+<summary>摘要</summary>
+Recently, CNN基于深度学习模型在疾病检测中获得了广泛应用。我们对8种知名深度学习模型进行比较：DenseNet 121、DenseNet 169、DenseNet 201、EffecientNet b0、EffecientNet lite4、GoogleNet、MobileNet和ResNet18，以确定它们在同一个 dataset 上的二分类性表现。尽管这些模型在医疗图像领域的不同应用场景中广泛使用，但是在应用于同一个 dataset 上的表现却存在知识空白，这项研究意图填补这个空白。我们使用了combined Shenzhen、China（CH）和Montgomery、USA（MC）的数据集。我们将模型进行二分类训练，计算了不同模型的参数，并进行了比较。所有模型均遵循同样的训练参数，以保证比较环境的控制。研究结束后，我们发现在肺部X射影像数据集上，DenseNet169表现出了89.38%的准确率，而MobileNet表现出了92.2%的准确率。关键词：肺部、深度学习、肺病、疾病检测、X射影像
+</details></li>
+</ul>
+<hr>
+<h2 id="FF-LOGO-Cross-Modality-Point-Cloud-Registration-with-Feature-Filtering-and-Local-to-Global-Optimization"><a href="#FF-LOGO-Cross-Modality-Point-Cloud-Registration-with-Feature-Filtering-and-Local-to-Global-Optimization" class="headerlink" title="FF-LOGO: Cross-Modality Point Cloud Registration with Feature Filtering and Local to Global Optimization"></a>FF-LOGO: Cross-Modality Point Cloud Registration with Feature Filtering and Local to Global Optimization</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08966">http://arxiv.org/abs/2309.08966</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Nan Ma, Mohan Wang, Yiheng Han, Yong-Jin Liu</li>
+<li>for: 本文是一篇关于多modal点云注册的研究 paper, aiming to address the challenges of cross-modality point cloud registration.</li>
+<li>methods: 本文提出了一种名为 FF-LOGO 的多modal点云注册方法，包括Feature Filtering和本地 global optimization两个模块。Feature Filtering 模块可以抽象出不同感知器的点云特征，并通过特征匹配来进行点云选择。本地 Adaptive Key Region Aggregation 模块和全Modal Consistency Fusion Optimization 模块是为了优化点云注册精度。</li>
+<li>results: 实验结果表明，我们的两阶段优化可以显著提高点云注册精度，特征关联和选择模块的准确率从40.59%提高到75.74%。这表明我们的方法可以有效地解决跨模态点云注册中的挑战。<details>
+<summary>Abstract</summary>
+Cross-modality point cloud registration is confronted with significant challenges due to inherent differences in modalities between different sensors. We propose a cross-modality point cloud registration framework FF-LOGO: a cross-modality point cloud registration method with feature filtering and local-global optimization. The cross-modality feature correlation filtering module extracts geometric transformation-invariant features from cross-modality point clouds and achieves point selection by feature matching. We also introduce a cross-modality optimization process, including a local adaptive key region aggregation module and a global modality consistency fusion optimization module. Experimental results demonstrate that our two-stage optimization significantly improves the registration accuracy of the feature association and selection module. Our method achieves a substantial increase in recall rate compared to the current state-of-the-art methods on the 3DCSR dataset, improving from 40.59% to 75.74%. Our code will be available at https://github.com/wangmohan17/FFLOGO.
+</details>
+<details>
+<summary>摘要</summary>
+cross-modality point cloud registration 面临着不同感知器的内生差异问题，我们提出了一种 cross-modality point cloud registration 框架 FF-LOGO：一种通过特征筛选和本地adaptive key region aggregation模块、全Modal consistency fusion优化模块实现的 cross-modality point cloud registration 方法。在Feature correlation filtering模块中，我们提取了不同感知器的Point cloud中的几何变换不变的特征，并通过特征匹配来实现点选择。我们还引入了一种 across-modality optimization process，包括一个本地adaptive key region aggregation模块和一个全Modal consistency fusion优化模块。实验结果表明，我们的两stage优化significantly improves the registration accuracy of the feature association and selection module。我们的方法在3DCSR dataset上实现了75.74%的回卷率提升，比前一个state-of-the-art方法提高了40.59%。我们的代码将在https://github.com/wangmohan17/FFLOGO上公开。
+</details></li>
+</ul>
+<hr>
+<h2 id="Tightening-Classification-Boundaries-in-Open-Set-Domain-Adaptation-through-Unknown-Exploitation"><a href="#Tightening-Classification-Boundaries-in-Open-Set-Domain-Adaptation-through-Unknown-Exploitation" class="headerlink" title="Tightening Classification Boundaries in Open Set Domain Adaptation through Unknown Exploitation"></a>Tightening Classification Boundaries in Open Set Domain Adaptation through Unknown Exploitation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08964">http://arxiv.org/abs/2309.08964</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/LucasFernando-aes/UnkE-OVANet">https://github.com/LucasFernando-aes/UnkE-OVANet</a></li>
+<li>paper_authors: Lucas Fernando Alvarenga e Silva, Nicu Sebe, Jurandy Almeida</li>
+<li>for: 本研究旨在提高Open Set Domain Adaptation (OSDA)方法的性能，以应对具有不同类别和预设变数的非控制环境。</li>
+<li>methods: 本研究提出了一种基于高信度Unknown Instance的强制约束，以提高OSDA方法的分类精度。具体来说，我们采用了三种不同的损失函数来训练OSDA模型，包括直接使用静止负项目集，随机扭转负项目集使用数据增强技术，以及将Synthetically生成的负项目集中的反击特征加以训练。</li>
+<li>results: 我们在OVANet上进行了广泛的实验，发现在Office-31和Office-Home dataset上，这些方法可以实现绝对改进，获得最大改进为1.3%的精度和5.8%的H-Score在Office-31 dataset上，以及4.7%的精度和5.8%的H-Score在Office-Home dataset上。<details>
+<summary>Abstract</summary>
+Convolutional Neural Networks (CNNs) have brought revolutionary advances to many research areas due to their capacity of learning from raw data. However, when those methods are applied to non-controllable environments, many different factors can degrade the model's expected performance, such as unlabeled datasets with different levels of domain shift and category shift. Particularly, when both issues occur at the same time, we tackle this challenging setup as Open Set Domain Adaptation (OSDA) problem. In general, existing OSDA approaches focus their efforts only on aligning known classes or, if they already extract possible negative instances, use them as a new category learned with supervision during the course of training. We propose a novel way to improve OSDA approaches by extracting a high-confidence set of unknown instances and using it as a hard constraint to tighten the classification boundaries of OSDA methods. Especially, we adopt a new loss constraint evaluated in three different means, (1) directly with the pristine negative instances; (2) with randomly transformed negatives using data augmentation techniques; and (3) with synthetically generated negatives containing adversarial features. We assessed all approaches in an extensive set of experiments based on OVANet, where we could observe consistent improvements for two public benchmarks, the Office-31 and Office-Home datasets, yielding absolute gains of up to 1.3% for both Accuracy and H-Score on Office-31 and 5.8% for Accuracy and 4.7% for H-Score on Office-Home.
+</details>
+<details>
+<summary>摘要</summary>
+卷积神经网络（CNN）已经为许多研究领域带来了革命性的进步，因为它们可以从原始数据中学习。然而，当这些方法应用于不可控的环境时，许多不同的因素可以降低模型的预期性能，如不标注数据集中的不同水平域转移和类别转移。特别是当这两个问题同时出现时，我们称之为开放集领域适应（OSDA）问题。总的来说，现有的OSDA方法通常只关注知道的类别的Alignment，或者如果已经提取了可能的负样本，则在训练过程中使用它们作为新学习的类别。我们提出了一种新的方法来改进OSDA方法，通过提取高 confidence 的未知实例集并将其作为硬件约束使用，以紧张化OSDA方法的分类边界。特别是，我们采用了三种不同的损失约束，分别是：(1) 直接使用不损失的负样本；(2) 使用数据扩展技术生成的随机变换负样本；以及(3) 使用生成的负样本，含有抗击性特征。我们在一系列实验中评估了所有方法，基于 OVANet，可以看到在 Office-31 和 Office-Home 两个公共 benchmark 上，我们可以获得相对准确率和 H-Score 的绝对提升，最高达 1.3% 和 5.8%。
+</details></li>
+</ul>
+<hr>
+<h2 id="ExBluRF-Efficient-Radiance-Fields-for-Extreme-Motion-Blurred-Images"><a href="#ExBluRF-Efficient-Radiance-Fields-for-Extreme-Motion-Blurred-Images" class="headerlink" title="ExBluRF: Efficient Radiance Fields for Extreme Motion Blurred Images"></a>ExBluRF: Efficient Radiance Fields for Extreme Motion Blurred Images</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08957">http://arxiv.org/abs/2309.08957</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Dongwoo Lee, Jeongtaek Oh, Jaesung Lim, Sunghyun Cho, Kyoung Mu Lee</li>
+<li>for: 本研究旨在提出一种基于高效光场优化的新视觉合成方法，用于处理极大运动模糊图像。</li>
+<li>methods: 本方法包括两个主要组件：6DOF摄像机轨迹基于运动模糊形式和 voxel-based 光场。从极其模糊图像中，我们优化锐化的光场，并通过相互关联摄像机轨迹来生成极大运动模糊图像。在训练中，我们将多个射线与摄像机轨迹相集成，以重建单个模糊颜色图像，这与物理运动模糊操作相同。我们在模糊图像空间内减少照度一致损失，并通过摄像机轨迹来获得锐化的光场。</li>
+<li>results: 与现有方法相比，我们的方法可以很好地还原极大运动模糊视图中的3D场景，并且具有训练时间和GPU内存占用的减少。<details>
+<summary>Abstract</summary>
+We present ExBluRF, a novel view synthesis method for extreme motion blurred images based on efficient radiance fields optimization. Our approach consists of two main components: 6-DOF camera trajectory-based motion blur formulation and voxel-based radiance fields. From extremely blurred images, we optimize the sharp radiance fields by jointly estimating the camera trajectories that generate the blurry images. In training, multiple rays along the camera trajectory are accumulated to reconstruct single blurry color, which is equivalent to the physical motion blur operation. We minimize the photo-consistency loss on blurred image space and obtain the sharp radiance fields with camera trajectories that explain the blur of all images. The joint optimization on the blurred image space demands painfully increasing computation and resources proportional to the blur size. Our method solves this problem by replacing the MLP-based framework to low-dimensional 6-DOF camera poses and voxel-based radiance fields. Compared with the existing works, our approach restores much sharper 3D scenes from challenging motion blurred views with the order of 10 times less training time and GPU memory consumption.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出了ExBluRF，一种新的视图合成方法，用于处理极大运动模糊图像。我们的方法包括两个主要组成部分：基于6DOF相机轨迹的运动模糊形式和 voxel-based 辐射场。从极端模糊图像中，我们优化了锐利的辐射场，并同时估计相机轨迹，以生成模糊图像。在训练中，多个光束与相机轨迹相互垂直，以重建单个模糊颜色。我们在模糊图像空间中减少了照相一致损失，并从相机轨迹中获得了锐利的辐射场。我们的方法解决了训练时间和 GPU 内存占用的问题，相比之下，现有的方法可以在极大的运动模糊视图中还原许多更加锐利的3D场景，并且减少了训练时间和 GPU 内存占用的规模。
+</details></li>
+</ul>
+<hr>
+<h2 id="IntelliBeeHive-An-Automated-Honey-Bee-Pollen-and-Varroa-Destructor-Monitoring-System"><a href="#IntelliBeeHive-An-Automated-Honey-Bee-Pollen-and-Varroa-Destructor-Monitoring-System" class="headerlink" title="IntelliBeeHive: An Automated Honey Bee, Pollen, and Varroa Destructor Monitoring System"></a>IntelliBeeHive: An Automated Honey Bee, Pollen, and Varroa Destructor Monitoring System</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08955">http://arxiv.org/abs/2309.08955</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Christian I. Narcia-Macias, Joselito Guardado, Jocell Rodriguez, Joanne Rampersad-Ammons, Erik Enriquez, Dong-Chul Kim<br>for: 这个研究旨在提高我们对蜜蜂群体疾病、蜜蜂行为、人口减少和巢健康的理解，通过发展一个基于计算机视觉的蜜蜂监测系统。methods: 这个监测系统使用计算机视觉技术，包括机器学习算法，实时监测蜜蜂群体活动和健康状况，无需对蜜蜂进行干扰。results: 我们的监测系统可以准确地识别蜜蜂、识别蜜和检测 Varroa 螨，并且可以实时提供蜜蜂群体活动和健康状况的数据。系统的总性能达到 96.28%，蜜蜂模型的 F1 分数为 0.95，蜜模型的 F1 分数为 0.831。<details>
+<summary>Abstract</summary>
+Utilizing computer vision and the latest technological advancements, in this study, we developed a honey bee monitoring system that aims to enhance our understanding of Colony Collapse Disorder, honey bee behavior, population decline, and overall hive health. The system is positioned at the hive entrance providing real-time data, enabling beekeepers to closely monitor the hive's activity and health through an account-based website. Using machine learning, our monitoring system can accurately track honey bees, monitor pollen-gathering activity, and detect Varroa mites, all without causing any disruption to the honey bees. Moreover, we have ensured that the development of this monitoring system utilizes cost-effective technology, making it accessible to apiaries of various scales, including hobbyists, commercial beekeeping businesses, and researchers. The inference models used to detect honey bees, pollen, and mites are based on the YOLOv7-tiny architecture trained with our own data. The F1-score for honey bee model recognition is 0.95 and the precision and recall value is 0.981. For our pollen and mite object detection model F1-score is 0.95 and the precision and recall value is 0.821 for pollen and 0.996 for "mite". The overall performance of our IntelliBeeHive system demonstrates its effectiveness in monitoring the honey bee's activity, achieving an accuracy of 96.28 % in tracking and our pollen model achieved a F1-score of 0.831.
+</details>
+<details>
+<summary>摘要</summary>
+使用计算机视觉和最新的技术进步，在这项研究中，我们开发了一套蜜蜂监测系统，以提高我们对蜂巢病毒蜂巢病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒病毒��
+</details></li>
+</ul>
+<hr>
+<h2 id="Robust-Backdoor-Attacks-on-Object-Detection-in-Real-World"><a href="#Robust-Backdoor-Attacks-on-Object-Detection-in-Real-World" class="headerlink" title="Robust Backdoor Attacks on Object Detection in Real World"></a>Robust Backdoor Attacks on Object Detection in Real World</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08953">http://arxiv.org/abs/2309.08953</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yaguan Qian, Boyuan Ji, Shuke He, Shenhui Huang, Xiang Ling, Bin Wang, Wei Wang</li>
+<li>for: 这个论文的目的是提出一种适应不同大小攻击对象的变量大小触发器，以及一种基于恶意对抗训练的后门训练方法，以提高在实际世界中的攻击成功率。</li>
+<li>methods: 该论文使用的方法包括变量大小触发器和基于恶意对抗训练的后门训练方法，以适应不同大小攻击对象和物理干扰。</li>
+<li>results: 实验结果显示，这种 Robust Backdoor Attack (RBA) 可以在实际世界中提高攻击成功率。<details>
+<summary>Abstract</summary>
+Deep learning models are widely deployed in many applications, such as object detection in various security fields. However, these models are vulnerable to backdoor attacks. Most backdoor attacks were intensively studied on classified models, but little on object detection. Previous works mainly focused on the backdoor attack in the digital world, but neglect the real world. Especially, the backdoor attack's effect in the real world will be easily influenced by physical factors like distance and illumination. In this paper, we proposed a variable-size backdoor trigger to adapt to the different sizes of attacked objects, overcoming the disturbance caused by the distance between the viewing point and attacked object. In addition, we proposed a backdoor training named malicious adversarial training, enabling the backdoor object detector to learn the feature of the trigger with physical noise. The experiment results show this robust backdoor attack (RBA) could enhance the attack success rate in the real world.
+</details>
+<details>
+<summary>摘要</summary>
+深度学习模型在多个应用领域广泛应用，如物体检测等安全领域。然而，这些模型容易受到后门攻击。大多数后门攻击研究targeted于分类模型，而对物体检测模型的研究很少。先前的工作主要集中在数字世界中进行后门攻击研究，忽略了实际世界。特别是，实际世界中后门攻击的效果会受到物体距离观察点以及照明等物理因素的影响。在这篇论文中，我们提出了可变大小的后门触发器，以适应不同大小的攻击对象，并且在不同距离和照明条件下对后门触发器进行了适应。此外，我们还提出了一种名为“邪恶学习训练”的后门训练方法，使得后门检测器能够学习触发器的特征与物理噪声。实验结果显示，我们的robust后门攻击（RBA）可以在实际世界中提高攻击成功率。
+</details></li>
+</ul>
+<hr>
+<h2 id="Staged-Contact-Aware-Global-Human-Motion-Forecasting"><a href="#Staged-Contact-Aware-Global-Human-Motion-Forecasting" class="headerlink" title="Staged Contact-Aware Global Human Motion Forecasting"></a>Staged Contact-Aware Global Human Motion Forecasting</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08947">http://arxiv.org/abs/2309.08947</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/l-scofano/stag">https://github.com/l-scofano/stag</a></li>
+<li>paper_authors: Luca Scofano, Alessio Sampieri, Elisabeth Schiele, Edoardo De Matteis, Laura Leal-Taixé, Fabio Galasso<br>for:Scene-aware global human motion forecasting is critical for manifold applications, including virtual reality, robotics, and sports. The task combines human trajectory and pose forecasting within the provided scene context, which represents a significant challenge.methods:We propose a STAGed contact-aware global human motion forecasting STAG, a novel three-stage pipeline for predicting global human motion in a 3D environment. We first consider the scene and the respective human interaction as contact points. Secondly, we model the human trajectory forecasting within the scene, predicting the coarse motion of the human body as a whole. The third and last stage matches a plausible fine human joint motion to complement the trajectory considering the estimated contacts.results:Compared to the state-of-the-art (SoA), STAG achieves a 1.8% and 16.2% overall improvement in pose and trajectory prediction, respectively, on the scene-aware GTA-IM dataset. A comprehensive ablation study confirms the advantages of staged modeling over end-to-end approaches.<details>
+<summary>Abstract</summary>
+Scene-aware global human motion forecasting is critical for manifold applications, including virtual reality, robotics, and sports. The task combines human trajectory and pose forecasting within the provided scene context, which represents a significant challenge.   So far, only Mao et al. NeurIPS'22 have addressed scene-aware global motion, cascading the prediction of future scene contact points and the global motion estimation. They perform the latter as the end-to-end forecasting of future trajectories and poses. However, end-to-end contrasts with the coarse-to-fine nature of the task and it results in lower performance, as we demonstrate here empirically.   We propose a STAGed contact-aware global human motion forecasting STAG, a novel three-stage pipeline for predicting global human motion in a 3D environment. We first consider the scene and the respective human interaction as contact points. Secondly, we model the human trajectory forecasting within the scene, predicting the coarse motion of the human body as a whole. The third and last stage matches a plausible fine human joint motion to complement the trajectory considering the estimated contacts.   Compared to the state-of-the-art (SoA), STAG achieves a 1.8% and 16.2% overall improvement in pose and trajectory prediction, respectively, on the scene-aware GTA-IM dataset. A comprehensive ablation study confirms the advantages of staged modeling over end-to-end approaches. Furthermore, we establish the significance of a newly proposed temporal counter called the "time-to-go", which tells how long it is before reaching scene contact and endpoints. Notably, STAG showcases its ability to generalize to datasets lacking a scene and achieves a new state-of-the-art performance on CMU-Mocap, without leveraging any social cues. Our code is released at: https://github.com/L-Scofano/STAG
+</details>
+<details>
+<summary>摘要</summary>
+Scene-aware global human motion forecasting是应用广泛的领域之一，包括虚拟现实、 робо测控和体育等。这个任务需要在提供的场景上下文中预测人体轨迹和姿势，这是一项非常具有挑战性的任务。  到目前为止，只有Mao等人在NeuIPS'22中Addressed scene-aware global motion，通过综合预测未来场景接触点和全身运动的方式来完成。他们在预测未来轨迹和姿势方面进行了终端预测，但终端预测与场景中的运动预测不匹配，这会导致性能下降，我们在实验中证明了这一点。  我们提出了一种名为STAG的三个阶段管道，用于预测在3D环境中的全身人类运动。我们首先考虑场景和人类之间的接触点，然后预测场景内人体轨迹，并且预测全身人体的粗略运动。最后一个阶段是匹配合理的人体 JOINT 运动，以补做轨迹中的细微运动。  与现状的最佳实践（SoA）相比，STAG在Scene-aware GTA-IM dataset上表现出1.8%和16.2%的总体改进，分别是 pose 和轨迹预测。我们还进行了一项完整的减少研究，证明了分阶段模型的优势。此外，我们还证明了我们提出的一种新的时间对象“时间剩下”的重要性，该对象表示人体在场景接触点和终点之前剩下的时间。值得注意的是，STAG在缺少场景的 dataset 上表现出新的状态机制，并在CMU-Mocap dataset上 дости得了新的最佳实践，无需使用任何社会cue。我们的代码可以在https://github.com/L-Scofano/STAG 上获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="AffordPose-A-Large-scale-Dataset-of-Hand-Object-Interactions-with-Affordance-driven-Hand-Pose"><a href="#AffordPose-A-Large-scale-Dataset-of-Hand-Object-Interactions-with-Affordance-driven-Hand-Pose" class="headerlink" title="AffordPose: A Large-scale Dataset of Hand-Object Interactions with Affordance-driven Hand Pose"></a>AffordPose: A Large-scale Dataset of Hand-Object Interactions with Affordance-driven Hand Pose</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08942">http://arxiv.org/abs/2309.08942</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/gentlesjan/affordpose">https://github.com/gentlesjan/affordpose</a></li>
+<li>paper_authors: Juntao Jian, Xiuping Liu, Manyi Li, Ruizhen Hu, Jian Liu</li>
+<li>for: 这篇论文主要针对的是人机交互中对象的函数角色如何影响人的手势，以及如何通过大量人类示例来学习和理解合适的手势交互。</li>
+<li>methods: 该论文提出了AffordPose数据集，包括26.7K个手势交互示例，每个示例包括3D对象形状、部分可行性标签和手势位置。</li>
+<li>results: 数据分析表明，手势交互中的具体手势pose受到对象的可行性影响，同时也展现了一定的多样性。实验表明，AffordPose数据集可以有效地学习和理解细腻的手势交互。<details>
+<summary>Abstract</summary>
+How human interact with objects depends on the functional roles of the target objects, which introduces the problem of affordance-aware hand-object interaction. It requires a large number of human demonstrations for the learning and understanding of plausible and appropriate hand-object interactions. In this work, we present AffordPose, a large-scale dataset of hand-object interactions with affordance-driven hand pose. We first annotate the specific part-level affordance labels for each object, e.g. twist, pull, handle-grasp, etc, instead of the general intents such as use or handover, to indicate the purpose and guide the localization of the hand-object interactions. The fine-grained hand-object interactions reveal the influence of hand-centered affordances on the detailed arrangement of the hand poses, yet also exhibit a certain degree of diversity. We collect a total of 26.7K hand-object interactions, each including the 3D object shape, the part-level affordance label, and the manually adjusted hand poses. The comprehensive data analysis shows the common characteristics and diversity of hand-object interactions per affordance via the parameter statistics and contacting computation. We also conduct experiments on the tasks of hand-object affordance understanding and affordance-oriented hand-object interaction generation, to validate the effectiveness of our dataset in learning the fine-grained hand-object interactions. Project page: https://github.com/GentlesJan/AffordPose.
+</details>
+<details>
+<summary>摘要</summary>
+人类与物体之间的互动取决于目标物体的功能角色，这引入了有关手持物体互动的具体性和适应性的问题。为了解决这个问题，需要大量的人类示例来学习和理解合适的手持物体互动。在这个工作中，我们提出了AffordPose数据集，包括手持物体互动中的具体部分可行性标签，如拧、拧、握持等，而不是通用的用途或交给意图。这些细腻的手持物体互动显示了手中心可行性对手姿的细部安排产生了影响，同时也表现出一定的多样性。我们收集了26700个手持物体互动样本，每个样本包括3D物体形状、部分可行性标签和手姿调整。经过全面的数据分析，我们发现每种可行性下的手持物体互动具有共同特征和多样性，并通过参数统计和接触计算 validate our dataset的有效性。我们还进行了手持物体可行性理解和手持物体互动生成任务的实验，以验证我们的数据集在学习细腻手持物体互动方面的效果。项目页面：https://github.com/GentlesJan/AffordPose。
+</details></li>
+</ul>
+<hr>
+<h2 id="Semantics-aware-LiDAR-Only-Pseudo-Point-Cloud-Generation-for-3D-Object-Detection"><a href="#Semantics-aware-LiDAR-Only-Pseudo-Point-Cloud-Generation-for-3D-Object-Detection" class="headerlink" title="Semantics-aware LiDAR-Only Pseudo Point Cloud Generation for 3D Object Detection"></a>Semantics-aware LiDAR-Only Pseudo Point Cloud Generation for 3D Object Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08932">http://arxiv.org/abs/2309.08932</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Tiago Cortinhal, Idriss Gouigah, Eren Erdal Aksoy</li>
+<li>for: 提高自动驾驶系统中LiDAR感知器的精度和精细度，使其能够更好地检测远距离的细节物体。</li>
+<li>methods: 利用LiDAR感知器alone，通过提取场景 semantics并使用多Modal domain translator生成增强的Synthetic dense point clouds，提高3D对象检测性能。</li>
+<li>results: 在不同的高级3D对象检测方法上实现了最多2.9%的性能提升，并在KITTI 3D对象检测数据集上达到了与其他状态体LiDAR-only探测器相当的性能。<details>
+<summary>Abstract</summary>
+Although LiDAR sensors are crucial for autonomous systems due to providing precise depth information, they struggle with capturing fine object details, especially at a distance, due to sparse and non-uniform data. Recent advances introduced pseudo-LiDAR, i.e., synthetic dense point clouds, using additional modalities such as cameras to enhance 3D object detection. We present a novel LiDAR-only framework that augments raw scans with denser pseudo point clouds by solely relying on LiDAR sensors and scene semantics, omitting the need for cameras. Our framework first utilizes a segmentation model to extract scene semantics from raw point clouds, and then employs a multi-modal domain translator to generate synthetic image segments and depth cues without real cameras. This yields a dense pseudo point cloud enriched with semantic information. We also introduce a new semantically guided projection method, which enhances detection performance by retaining only relevant pseudo points. We applied our framework to different advanced 3D object detection methods and reported up to 2.9% performance upgrade. We also obtained comparable results on the KITTI 3D object detection dataset, in contrast to other state-of-the-art LiDAR-only detectors.
+</details>
+<details>
+<summary>摘要</summary>
+Translated into Simplified Chinese:尽管LiDAR传感器对自动驾驶系统非常重要，因为它们提供精确的深度信息，但它们在距离较远的场景中很难捕捉细节，主要是因为LiDAR数据 sparse和不均匀。最近，人们提出了 Pseudo-LiDAR，即使用其他感知模式，如摄像头，来增强3D物体检测。我们提出了一种完全依靠LiDAR感知器和场景 semantics的 LiDAR-only 框架，可以增强 raw 扫描数据的精度。我们的框架首先使用一种分割模型提取场景 semantics，然后使用一种多模态领域翻译器生成无需真正摄像头的Synthetic 图像段和深度cue。这将生成一个充满 semantic 信息的 dense pseudo point cloud。我们还引入了一种受 semantics 引导的投影方法，可以提高检测性能。我们将我们的框架应用到不同的高级3D物体检测方法上，并reported 提高性能达2.9%。我们还在 KITTI 3D 物体检测数据集上获得了与其他状态 искусternal LiDAR-only 检测器相比的相似结果。
+</details></li>
+</ul>
+<hr>
+<h2 id="In-Style-Bridging-Text-and-Uncurated-Videos-with-Style-Transfer-for-Text-Video-Retrieval"><a href="#In-Style-Bridging-Text-and-Uncurated-Videos-with-Style-Transfer-for-Text-Video-Retrieval" class="headerlink" title="In-Style: Bridging Text and Uncurated Videos with Style Transfer for Text-Video Retrieval"></a>In-Style: Bridging Text and Uncurated Videos with Style Transfer for Text-Video Retrieval</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08928">http://arxiv.org/abs/2309.08928</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ninatu/in_style">https://github.com/ninatu/in_style</a></li>
+<li>paper_authors: Nina Shvetsova, Anna Kukleva, Bernt Schiele, Hilde Kuehne</li>
+<li>for: 文章目的是提出一种新的文本视频检索任务 setting，即使没有手动标注的对应文本视频数据。</li>
+<li>methods: 提出了一种名为 In-Style 的方法，可以学习文本查询的风格并将其传递给网络视频。此外，我们还提出了一种多种风格冲突训练方法，以提高模型的通用性。</li>
+<li>results: 我们通过对多个数据集进行测试，证明了我们的风格传递框架可以在无需手动标注对应文本视频数据的情况下提高文本视频检索任务的性能，并超越了零shot文本视频检索任务的州OF-THE-ART表现。<details>
+<summary>Abstract</summary>
+Large-scale noisy web image-text datasets have been proven to be efficient for learning robust vision-language models. However, when transferring them to the task of video retrieval, models still need to be fine-tuned on hand-curated paired text-video data to adapt to the diverse styles of video descriptions. To address this problem without the need for hand-annotated pairs, we propose a new setting, text-video retrieval with uncurated & unpaired data, that during training utilizes only text queries together with uncurated web videos without any paired text-video data. To this end, we propose an approach, In-Style, that learns the style of the text queries and transfers it to uncurated web videos. Moreover, to improve generalization, we show that one model can be trained with multiple text styles. To this end, we introduce a multi-style contrastive training procedure that improves the generalizability over several datasets simultaneously. We evaluate our model on retrieval performance over multiple datasets to demonstrate the advantages of our style transfer framework on the new task of uncurated & unpaired text-video retrieval and improve state-of-the-art performance on zero-shot text-video retrieval.
+</details>
+<details>
+<summary>摘要</summary>
+大规模嘈吵网络图片文本数据集已经证明可以有效地学习Robust vision-language模型。然而，在将其转移到视频检索任务时，模型仍需要通过手动批注的文本视频数据进行微调以适应不同的视频描述风格。为解决这个问题而不需要手动批注对，我们提出了一个新的设定：文本视频检索无curated & unpaired数据。在训练时，我们只使用文本查询，并使用无curated的网络视频，没有任何文本视频批注数据。为此，我们提出了一种方法，In-Style，它可以学习文本查询的风格，并将其传递给无curated的网络视频。此外，为提高泛化性，我们表明一个模型可以通过多种文本风格进行训练。为此，我们引入了多种风格强制对照训练程序，以提高模型的泛化性。我们对多个数据集进行了检索性能评估，以证明我们的风格传递框架在新任务中的优势，并超越了零shot文本视频检索的州场性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="DynaMoN-Motion-Aware-Fast-And-Robust-Camera-Localization-for-Dynamic-NeRF"><a href="#DynaMoN-Motion-Aware-Fast-And-Robust-Camera-Localization-for-Dynamic-NeRF" class="headerlink" title="DynaMoN: Motion-Aware Fast And Robust Camera Localization for Dynamic NeRF"></a>DynaMoN: Motion-Aware Fast And Robust Camera Localization for Dynamic NeRF</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08927">http://arxiv.org/abs/2309.08927</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mert Asim Karaoglu, Hannah Schieber, Nicolas Schischka, Melih Görgülü, Florian Grötzner, Alexander Ladikos, Daniel Roth, Nassir Navab, Benjamin Busam</li>
+<li>for: 该论文旨在提出一种基于同时定位和地图建模（SLAM）的动态重建方法，以便更好地处理动态场景中的相机位置和场景内容的变化。</li>
+<li>methods: 该方法使用了同时定位和地图建模（SLAM）和动态掩码（motion masking）结合，以提高动态重建的精度和效率。</li>
+<li>results: 广泛的实验 validate了该方法在真实世界 dataset 上的优势，包括 TUM RGB-D、BONN RGB-D 动态和 DyCheck 的 iPhone 数据集。该方法不仅提高了相机pose估计的精度，还提高了动态重建的质量。<details>
+<summary>Abstract</summary>
+Dynamic reconstruction with neural radiance fields (NeRF) requires accurate camera poses. These are often hard to retrieve with existing structure-from-motion (SfM) pipelines as both camera and scene content can change. We propose DynaMoN that leverages simultaneous localization and mapping (SLAM) jointly with motion masking to handle dynamic scene content. Our robust SLAM-based tracking module significantly accelerates the training process of the dynamic NeRF while improving the quality of synthesized views at the same time. Extensive experimental validation on TUM RGB-D, BONN RGB-D Dynamic and the DyCheck's iPhone dataset, three real-world datasets, shows the advantages of DynaMoN both for camera pose estimation and novel view synthesis.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>使用神经辐射场 (NeRF) 进行动态重建需要准确的摄像头位置。现有的结构从动作 (SfM) 管道通常Difficult to retrieve this information, as both the camera and scene content can change. We propose DynaMoN, which leverages simultaneous localization and mapping (SLAM) and motion masking to handle dynamic scene content. Our robust SLAM-based tracking module significantly accelerates the training process of the dynamic NeRF while improving the quality of synthesized views at the same time. Experimental validation on TUM RGB-D, BONN RGB-D Dynamic, and the DyCheck's iPhone dataset, three real-world datasets, shows the advantages of DynaMoN for both camera pose estimation and novel view synthesis.</SYS>>Here's the text with some notes on the translation:* "动态重建" (dòngtài chóngběn) is used to refer to the process of reconstructing a 3D scene from a set of 2D images.* "神经辐射场" (jīngxīn chángshì chǎng) is a neural network-based method for reconstructing 3D scenes from 2D images.* "摄像头位置" (shèxiàngtou weiità) refers to the position of the camera that took the images.* "结构从动作" (jiégòng cóng dòngwù) is a computer vision technique used to reconstruct 3D scenes from 2D images.* "同时地图" (tóngshí dìmào) is a technique used to create a map of an environment while simultaneously localizing a device within that environment.* "动态Scene" (dòngtài scēn) refers to a scene that is changing or dynamic.* "视图合成" (wèi vision hébìng) is the process of generating new views of a scene from a set of existing views.I hope this helps! Let me know if you have any further questions.
+</details></li>
+</ul>
+<hr>
+<h2 id="Pixel-Adapter-A-Graph-Based-Post-Processing-Approach-for-Scene-Text-Image-Super-Resolution"><a href="#Pixel-Adapter-A-Graph-Based-Post-Processing-Approach-for-Scene-Text-Image-Super-Resolution" class="headerlink" title="Pixel Adapter: A Graph-Based Post-Processing Approach for Scene Text Image Super-Resolution"></a>Pixel Adapter: A Graph-Based Post-Processing Approach for Scene Text Image Super-Resolution</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08919">http://arxiv.org/abs/2309.08919</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/wenyu1009/rtsrn">https://github.com/wenyu1009/rtsrn</a></li>
+<li>paper_authors: Wenyu Zhang, Xin Deng, Baojun Jia, Xingtong Yu, Yifan Chen, jin Ma, Qing Ding, Xinming Zhang</li>
+<li>For: 提高文本图像超分辨率图像生成的精度和效率。* Methods: 提出Pixel Adapter Module (PAM)基于图注意力来解决升采样导致的像素扭曲问题，并引入MLP-based Sequential Residual Block (MSRB)来提取文本图像的稳定特征。* Results: 在TextZoom上进行了广泛的实验，并取得了高质量的超分辨率图像生成结果，比现有方法提高了认知率。对单stage和多stage策略进行了改进，分别提高了0.7%和2.6%，从52.6%和53.7%提高到53.3%和56.3%。<details>
+<summary>Abstract</summary>
+Current Scene text image super-resolution approaches primarily focus on extracting robust features, acquiring text information, and complex training strategies to generate super-resolution images. However, the upsampling module, which is crucial in the process of converting low-resolution images to high-resolution ones, has received little attention in existing works. To address this issue, we propose the Pixel Adapter Module (PAM) based on graph attention to address pixel distortion caused by upsampling. The PAM effectively captures local structural information by allowing each pixel to interact with its neighbors and update features. Unlike previous graph attention mechanisms, our approach achieves 2-3 orders of magnitude improvement in efficiency and memory utilization by eliminating the dependency on sparse adjacency matrices and introducing a sliding window approach for efficient parallel computation. Additionally, we introduce the MLP-based Sequential Residual Block (MSRB) for robust feature extraction from text images, and a Local Contour Awareness loss ($\mathcal{L}_{lca}$) to enhance the model's perception of details. Comprehensive experiments on TextZoom demonstrate that our proposed method generates high-quality super-resolution images, surpassing existing methods in recognition accuracy. For single-stage and multi-stage strategies, we achieved improvements of 0.7\% and 2.6\%, respectively, increasing the performance from 52.6\% and 53.7\% to 53.3\% and 56.3\%. The code is available at https://github.com/wenyu1009/RTSRN.
+</details>
+<details>
+<summary>摘要</summary>
+当前场景文本图像超解像方法主要集中于提取稳定特征、获取文本信息和复杂的训练策略，以生成超解像图像。然而，upsampling模块，该模块在将低分辨率图像转换为高分辨率图像的过程中扮演关键角色，在现有工作中受到了少量关注。为了解决这个问题，我们提议使用图像注意力机制（PAM）来处理像素扭曲。PAM可以有效地捕捉本地结构信息，让每个像素与邻居像素进行互动，更新特征。与过去的图像注意力机制不同，我们的方法可以在效率和内存利用上实现2-3个数量级的提升，而不需要针对稀疏相邻矩阵的依赖。此外，我们还引入了多层感知核（MLP）基于的Sequential Residual Block（MSRB），用于robust特征提取从文本图像中，以及Local Contour Awareness损失（$\mathcal{L}_{lca}$），以提高模型对细节的感知。在TextZoom上进行了广泛的实验，我们的提议方法可以生成高质量的超解像图像，超过现有方法的认知率。对单阶段和多阶段策略，我们实现了提升0.7%和2.6%，从52.6%和53.7%提升到53.3%和56.3%。代码可以在https://github.com/wenyu1009/RTSRN中获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="Delving-into-Multimodal-Prompting-for-Fine-grained-Visual-Classification"><a href="#Delving-into-Multimodal-Prompting-for-Fine-grained-Visual-Classification" class="headerlink" title="Delving into Multimodal Prompting for Fine-grained Visual Classification"></a>Delving into Multimodal Prompting for Fine-grained Visual Classification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08912">http://arxiv.org/abs/2309.08912</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Xin Jiang, Hao Tang, Junyao Gao, Xiaoyu Du, Shengfeng He, Zechao Li</li>
+<li>for: 这个研究旨在应用多modal描述来解决细分类的挑战，特别是在细分类中存在轻微的间隔和大量内分量的情况下。</li>
+<li>methods: 这个研究使用了对称语言图像模型（CLIP），并提出了一个新的多modal诱导解决方案（MP-FGVC），包括多modal诱导方案和多modal适应方案。多modal诱导方案包括特定分类的视觉推问（SsVP）和差异感知文本推问（DaTP），它们强调了特定分类的视觉和语言差异。多modal适应方案将视觉和文本推问元素调节到共同semantic空间，以便跨modal协力推理，并通过视觉语言融合模组（VLFM）进一步提高FGVC。</li>
+<li>results: 实验结果显示MP-FGVC在四个FGVC数据集上具有优秀的效果。<details>
+<summary>Abstract</summary>
+Fine-grained visual classification (FGVC) involves categorizing fine subdivisions within a broader category, which poses challenges due to subtle inter-class discrepancies and large intra-class variations. However, prevailing approaches primarily focus on uni-modal visual concepts. Recent advancements in pre-trained vision-language models have demonstrated remarkable performance in various high-level vision tasks, yet the applicability of such models to FGVC tasks remains uncertain. In this paper, we aim to fully exploit the capabilities of cross-modal description to tackle FGVC tasks and propose a novel multimodal prompting solution, denoted as MP-FGVC, based on the contrastive language-image pertaining (CLIP) model. Our MP-FGVC comprises a multimodal prompts scheme and a multimodal adaptation scheme. The former includes Subcategory-specific Vision Prompt (SsVP) and Discrepancy-aware Text Prompt (DaTP), which explicitly highlights the subcategory-specific discrepancies from the perspectives of both vision and language. The latter aligns the vision and text prompting elements in a common semantic space, facilitating cross-modal collaborative reasoning through a Vision-Language Fusion Module (VLFM) for further improvement on FGVC. Moreover, we tailor a two-stage optimization strategy for MP-FGVC to fully leverage the pre-trained CLIP model and expedite efficient adaptation for FGVC. Extensive experiments conducted on four FGVC datasets demonstrate the effectiveness of our MP-FGVC.
+</details>
+<details>
+<summary>摘要</summary>
+低级分类视觉（FGVC）涉及到细分类划分，这会带来细腻的间隔差异和大量内类变化。然而，现有的方法主要集中于单模visual概念。 recent advances in pre-trained vision-language models have shown remarkable performance in various high-level vision tasks, but the applicability of such models to FGVC tasks remains uncertain. In this paper, we aim to fully exploit the capabilities of cross-modal description to tackle FGVC tasks and propose a novel multimodal prompting solution, denoted as MP-FGVC, based on the contrastive language-image pertaining (CLIP) model. Our MP-FGVC consists of a multimodal prompts scheme and a multimodal adaptation scheme. The former includes Subcategory-specific Vision Prompt (SsVP) and Discrepancy-aware Text Prompt (DaTP), which explicitly highlights the subcategory-specific discrepancies from the perspectives of both vision and language. The latter aligns the vision and text prompting elements in a common semantic space, facilitating cross-modal collaborative reasoning through a Vision-Language Fusion Module (VLFM) for further improvement on FGVC. Moreover, we tailor a two-stage optimization strategy for MP-FGVC to fully leverage the pre-trained CLIP model and expedite efficient adaptation for FGVC. Extensive experiments conducted on four FGVC datasets demonstrate the effectiveness of our MP-FGVC.
+</details></li>
+</ul>
+<hr>
+<h2 id="Enhancing-Visual-Perception-in-Novel-Environments-via-Incremental-Data-Augmentation-Based-on-Style-Transfer"><a href="#Enhancing-Visual-Perception-in-Novel-Environments-via-Incremental-Data-Augmentation-Based-on-Style-Transfer" class="headerlink" title="Enhancing Visual Perception in Novel Environments via Incremental Data Augmentation Based on Style Transfer"></a>Enhancing Visual Perception in Novel Environments via Incremental Data Augmentation Based on Style Transfer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08851">http://arxiv.org/abs/2309.08851</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/abhibha1807/robustifying_visual_perception">https://github.com/abhibha1807/robustifying_visual_perception</a></li>
+<li>paper_authors: Abhibha Gupta, Rully Agus Hendrawan, Mansur Arief</li>
+<li>for: 强化自适应代理在真实世界场景中的部署，应对“未知未知”（ novell 和不期望的环境）。</li>
+<li>methods: 使用 Variational Prototyping Encoder (VPE) 实现可靠地识别和处理新Input，然后逐步增强数据使用神经抽象转移来增强受测数据。</li>
+<li>results: 比较仅从原始数据训练的模型和从原始和增强数据训练的模型，发现增强数据训练对模型性能有着明显的改善，这证明了数据增强的重要性。<details>
+<summary>Abstract</summary>
+The deployment of autonomous agents in real-world scenarios is challenged by "unknown unknowns", i.e. novel unexpected environments not encountered during training, such as degraded signs. While existing research focuses on anomaly detection and class imbalance, it often fails to address truly novel scenarios. Our approach enhances visual perception by leveraging the Variational Prototyping Encoder (VPE) to adeptly identify and handle novel inputs, then incrementally augmenting data using neural style transfer to enrich underrepresented data. By comparing models trained solely on original datasets with those trained on a combination of original and augmented datasets, we observed a notable improvement in the performance of the latter. This underscores the critical role of data augmentation in enhancing model robustness. Our findings suggest the potential benefits of incorporating generative models for domain-specific augmentation strategies.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>实际场景中自动化代理的部署受到“未知未知”的挑战，即在训练中没有遇到的新不期望环境，如受损标志。现有研究主要关注异常检测和类别偏度，但经常无法处理真正新的场景。我们的方法通过利用变量抽象编码器（VPE）来有效地识别和处理新输入，然后逐步增强数据使用神经风格传输来润色不足表示。我们比较了固定在原始数据集上训练的模型和将原始数据集和增强数据集组合训练的模型，发现后者表现更佳。这表明数据增强对模型Robustness具有重要作用。我们的发现表明可能将生成模型integrated into domain-specific augmentation strategies中。Note: The translation is in Simplified Chinese, which is the standard writing system used in mainland China. If you prefer Traditional Chinese, please let me know and I can provide the translation in that format as well.
+</details></li>
+</ul>
+<hr>
+<h2 id="MA-SAM-Modality-agnostic-SAM-Adaptation-for-3D-Medical-Image-Segmentation"><a href="#MA-SAM-Modality-agnostic-SAM-Adaptation-for-3D-Medical-Image-Segmentation" class="headerlink" title="MA-SAM: Modality-agnostic SAM Adaptation for 3D Medical Image Segmentation"></a>MA-SAM: Modality-agnostic SAM Adaptation for 3D Medical Image Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08842">http://arxiv.org/abs/2309.08842</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/cchen-cc/ma-sam">https://github.com/cchen-cc/ma-sam</a></li>
+<li>paper_authors: Cheng Chen, Juzheng Miao, Dufan Wu, Zhiling Yan, Sekeun Kim, Jiang Hu, Aoxiao Zhong, Zhengliang Liu, Lichao Sun, Xiang Li, Tianming Liu, Pheng-Ann Heng, Quanzheng Li<br>for:* 这个研究是为了提高基于自然图像的图像分类模型（Segment Anything Model，SAM）在医疗图像分类任务中的表现。methods:* 这个研究使用了SAM的预训 weights，并在 fine-tuning 过程中添加了3D adapter，将3D信息融入到SAM的图像Encoder中。results:* 这个研究在4个医疗图像分类任务上进行了广泛的评估，并证明了MA-SAM在这些任务中的表现比其他竞争方法更好，包括nnU-Net。<details>
+<summary>Abstract</summary>
+The Segment Anything Model (SAM), a foundation model for general image segmentation, has demonstrated impressive zero-shot performance across numerous natural image segmentation tasks. However, SAM's performance significantly declines when applied to medical images, primarily due to the substantial disparity between natural and medical image domains. To effectively adapt SAM to medical images, it is important to incorporate critical third-dimensional information, i.e., volumetric or temporal knowledge, during fine-tuning. Simultaneously, we aim to harness SAM's pre-trained weights within its original 2D backbone to the fullest extent. In this paper, we introduce a modality-agnostic SAM adaptation framework, named as MA-SAM, that is applicable to various volumetric and video medical data. Our method roots in the parameter-efficient fine-tuning strategy to update only a small portion of weight increments while preserving the majority of SAM's pre-trained weights. By injecting a series of 3D adapters into the transformer blocks of the image encoder, our method enables the pre-trained 2D backbone to extract third-dimensional information from input data. The effectiveness of our method has been comprehensively evaluated on four medical image segmentation tasks, by using 10 public datasets across CT, MRI, and surgical video data. Remarkably, without using any prompt, our method consistently outperforms various state-of-the-art 3D approaches, surpassing nnU-Net by 0.9%, 2.6%, and 9.9% in Dice for CT multi-organ segmentation, MRI prostate segmentation, and surgical scene segmentation respectively. Our model also demonstrates strong generalization, and excels in challenging tumor segmentation when prompts are used. Our code is available at: https://github.com/cchen-cc/MA-SAM.
+</details>
+<details>
+<summary>摘要</summary>
+segments Anything Model (SAM)，一种基础模型 для通用图像分割，在各种自然图像分割任务上表现出色，但是在医疗图像上表现较差，主要是因为医疗图像和自然图像领域之间存在巨大的差异。为了有效地适应医疗图像，需要在精度调整中包含关键的三维信息，即体积或时间信息。同时，我们希望能充分利用SAM已经预训练的参数。在这篇文章中，我们提出了一种不同类型的SAM适应框架，名为MA-SAM，可以应用于各种体积和视频医疗数据。我们的方法基于精度调整策略，只更新一小部分的参数增量，保留SAM预训练的大部分参数。通过在图像编码器中插入3D适应器，我们的方法使得预训练的2D背景能够从输入数据中提取三维信息。我们的方法在四种医疗图像分割任务上进行了广泛的评估，使用了10个公共数据集，包括CT、MRI和手术视频数据。可见地，无需使用提示，我们的方法在各种状态前的3D方法之上升级，nnU-Net的Dice值上升9.9%、2.6%和0.9%。我们的模型还表现出了强大的泛化能力，在提示使用时也能够出色地完成肿瘤分割任务。我们的代码可以在https://github.com/cchen-cc/MA-SAM上获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="AOSR-Net-All-in-One-Sandstorm-Removal-Network"><a href="#AOSR-Net-All-in-One-Sandstorm-Removal-Network" class="headerlink" title="AOSR-Net: All-in-One Sandstorm Removal Network"></a>AOSR-Net: All-in-One Sandstorm Removal Network</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08838">http://arxiv.org/abs/2309.08838</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yazhong Si, Xulong Zhang, Fan Yang, Jianzong Wang, Ning Cheng, Jing Xiao</li>
+<li>for: 本研究旨在解决现有的尘埃图像提高方法存在的应用限制和复杂算法结构问题。</li>
+<li>methods: 该研究提出了一种全新的图像恢复模型，名为“一体化尘埃除网络”（AOSR-Net），该模型基于重新定义的尘埃散射模型，直接建立了图像映射关系，并且将中间参数集成到模型中，从而有效地解决了过强增强和Week Generalization问题。</li>
+<li>results: 对于 synthetic 和实际尘埃图像进行了实验，结果显示，提出的 AOSR-Net 模型在对尘埃图像进行提高时表现出色，超过了当前最佳算法（SOTA）的性能。<details>
+<summary>Abstract</summary>
+Most existing sandstorm image enhancement methods are based on traditional theory and prior knowledge, which often restrict their applicability in real-world scenarios. In addition, these approaches often adopt a strategy of color correction followed by dust removal, which makes the algorithm structure too complex. To solve the issue, we introduce a novel image restoration model, named all-in-one sandstorm removal network (AOSR-Net). This model is developed based on a re-formulated sandstorm scattering model, which directly establishes the image mapping relationship by integrating intermediate parameters. Such integration scheme effectively addresses the problems of over-enhancement and weak generalization in the field of sand dust image enhancement. Experimental results on synthetic and real-world sandstorm images demonstrate the superiority of the proposed AOSR-Net over state-of-the-art (SOTA) algorithms.
+</details>
+<details>
+<summary>摘要</summary>
+现有的沙尘抑制方法多数基于传统理论和先知知识，这常限制其在实际场景中的应用。另外，这些方法通常采用色调修正后followed by dust removal的策略，使算法结构变得太复杂。为解决这问题，我们介绍了一种新的图像恢复模型，即全 inclusive sandstorm removal network (AOSR-Net)。该模型基于重新表述的沙尘散射模型，直接建立图像映射关系，并通过 интеGRATION scheme来有效地解决抑制过激和弱泛化问题。实验结果表明，提出的AOSR-Net在 synthetic和实际沙尘图像中的表现优于state-of-the-art（SOTA）算法。
+</details></li>
+</ul>
+<hr>
+<h2 id="Dual-Camera-Joint-Deblurring-Denoising"><a href="#Dual-Camera-Joint-Deblurring-Denoising" class="headerlink" title="Dual-Camera Joint Deblurring-Denoising"></a>Dual-Camera Joint Deblurring-Denoising</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2309.08826">http://arxiv.org/abs/2309.08826</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Shayan Shekarforoush, Amanpreet Walia, Marcus A. Brubaker, Konstantinos G. Derpanis, Alex Levinshtein</li>
+<li>for: 提高低光照照片质量</li>
+<li>methods: 使用同步短暂曝光图像和长暂曝光图像，并将其进行拼接和权重调整</li>
+<li>results: 实现了对同步双摄像头图像进行优化，并在实验中显示出比其他方法更高的质量和稳定性<details>
+<summary>Abstract</summary>
+Recent image enhancement methods have shown the advantages of using a pair of long and short-exposure images for low-light photography. These image modalities offer complementary strengths and weaknesses. The former yields an image that is clean but blurry due to camera or object motion, whereas the latter is sharp but noisy due to low photon count. Motivated by the fact that modern smartphones come equipped with multiple rear-facing camera sensors, we propose a novel dual-camera method for obtaining a high-quality image. Our method uses a synchronized burst of short exposure images captured by one camera and a long exposure image simultaneously captured by another. Having a synchronized short exposure burst alongside the long exposure image enables us to (i) obtain better denoising by using a burst instead of a single image, (ii) recover motion from the burst and use it for motion-aware deblurring of the long exposure image, and (iii) fuse the two results to further enhance quality. Our method is able to achieve state-of-the-art results on synthetic dual-camera images from the GoPro dataset with five times fewer training parameters compared to the next best method. We also show that our method qualitatively outperforms competing approaches on real synchronized dual-camera captures.
+</details>
+<details>
+<summary>摘要</summary>
+Translated into Simplified Chinese:现代低光照摄像头技术已经显示了使用两枚长和短曝光图像的优点。这两种图像模式具有补偿的优势和缺点。前者生成了清晰但涂抹的图像，由于摄像头或物体运动而导致涂抹；而后者具有高分辨率，但由于低光子数而导致噪声。我们受到现代智能手机搭载多个后置摄像头的启示，我们提出了一种新的双摄像头方法，以实现高质量图像。我们的方法使用同步短曝光快照集的一个摄像头，同时使用另一个摄像头拍摄长曝光图像。具有同步短曝光快照的存在，我们可以（i）通过快照集取得更好的噪声纠正，（ii）从快照集中回归运动，并用于运动感知滤除长曝光图像中的涂抹，以及（iii）将两个结果融合，进一步提高质量。我们的方法在GoPro数据集上实现了状态最佳的结果，与接下来最佳方法相比，训练参数只需五分之一。我们还显示了我们的方法在真实同步双摄像头捕捉中的质量超越竞争方法。
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/09/16/cs.CV_2023_09_16/" data-id="clmvt7t9q00d226rd8503c5zv" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/09/16/cs.SD_2023_09_16/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cs.SD - 2023-09-16
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/09/16/cs.AI_2023_09_16/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.AI - 2023-09-16</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">81</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">34</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">21</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">150</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
