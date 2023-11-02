@@ -1,0 +1,701 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CV - 2023-10-22 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Skipped Feature Pyramid Network with Grid Anchor for Object Detection paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2310.14453 repo_url: None paper_authors: Li Pengfei, Wei Wei, Yan Yu, Zhu Rong, Zhou Liguo for: 提高">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CV - 2023-10-22">
+<meta property="og:url" content="https://nullscc.github.io/2023/10/22/cs.CV_2023_10_22/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="Skipped Feature Pyramid Network with Grid Anchor for Object Detection paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2310.14453 repo_url: None paper_authors: Li Pengfei, Wei Wei, Yan Yu, Zhu Rong, Zhou Liguo for: 提高">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-10-22T13:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-02T08:29:00.501Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CV_2023_10_22" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/10/22/cs.CV_2023_10_22/" class="article-date">
+  <time datetime="2023-10-22T13:00:00.000Z" itemprop="datePublished">2023-10-22</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CV/">cs.CV</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CV - 2023-10-22
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Skipped-Feature-Pyramid-Network-with-Grid-Anchor-for-Object-Detection"><a href="#Skipped-Feature-Pyramid-Network-with-Grid-Anchor-for-Object-Detection" class="headerlink" title="Skipped Feature Pyramid Network with Grid Anchor for Object Detection"></a>Skipped Feature Pyramid Network with Grid Anchor for Object Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14453">http://arxiv.org/abs/2310.14453</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Li Pengfei, Wei Wei, Yan Yu, Zhu Rong, Zhou Liguo</li>
+<li>for: 提高 объек detection 精度</li>
+<li>methods: 使用 skip connection 和简化 anchor box 生成方法</li>
+<li>results: 在 MS COCO 和 Wider Face 测试集上达到了 state-of-the-art 性能Here’s the Chinese text in simplified format:</li>
+<li>for: 提高对象检测精度</li>
+<li>methods: 使用 skip connection 和简化 anchor box 生成方法</li>
+<li>results: 在 MS COCO 和 Wider Face 测试集上达到了 state-of-the-art 性能<details>
+<summary>Abstract</summary>
+CNN-based object detection methods have achieved significant progress in recent years. The classic structures of CNNs produce pyramid-like feature maps due to the pooling or other re-scale operations. The feature maps in different levels of the feature pyramid are used to detect objects with different scales. For more accurate object detection, the highest-level feature, which has the lowest resolution and contains the strongest semantics, is up-scaled and connected with the lower-level features to enhance the semantics in the lower-level features. However, the classic mode of feature connection combines the feature of lower-level with all the features above it, which may result in semantics degradation. In this paper, we propose a skipped connection to obtain stronger semantics at each level of the feature pyramid. In our method, the lower-level feature only connects with the feature at the highest level, making it more reasonable that each level is responsible for detecting objects with fixed scales. In addition, we simplify the generation of anchor for bounding box regression, which can further improve the accuracy of object detection. The experiments on the MS COCO and Wider Face demonstrate that our method outperforms the state-of-the-art methods.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Mobile-AR-Depth-Estimation-Challenges-Prospects-–-Extended-Version"><a href="#Mobile-AR-Depth-Estimation-Challenges-Prospects-–-Extended-Version" class="headerlink" title="Mobile AR Depth Estimation: Challenges &amp; Prospects – Extended Version"></a>Mobile AR Depth Estimation: Challenges &amp; Prospects – Extended Version</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14437">http://arxiv.org/abs/2310.14437</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ashkan Ganj, Yiqin Zhao, Hang Su, Tian Guo</li>
+<li>for: 这篇论文主要是研究移动增强现实（AR）中的精度深度估计问题，以实现更真实的用户互动，如物体放置和遮挡检测。</li>
+<li>methods: 该论文使用四种现状最佳的单目深度估计模型，测试在新引入的数据集（ARKitScenes）上，并发现了硬件、数据和模型相关的三种挑战。</li>
+<li>results: 该研究提供了促进硬件、数据和模型开发的未来方向，以解决这些挑战，包括使用更多移动设备摄像头和其他可用的感知器件信息，捕捉高质量的数据来反映现实 AR 场景，以及设计新的模型结构。<details>
+<summary>Abstract</summary>
+Metric depth estimation plays an important role in mobile augmented reality (AR). With accurate metric depth, we can achieve more realistic user interactions such as object placement and occlusion detection. While specialized hardware like LiDAR demonstrates its promise, its restricted availability, i.e., only on selected high-end mobile devices, and performance limitations such as range and sensitivity to the environment, make it less ideal. Monocular depth estimation, on the other hand, relies solely on mobile cameras, which are ubiquitous, making it a promising alternative for mobile AR.   In this paper, we investigate the challenges and opportunities of achieving accurate metric depth estimation in mobile AR. We tested four different state-of-the-art monocular depth estimation models on a newly introduced dataset (ARKitScenes) and identified three types of challenges: hard-ware, data, and model related challenges. Furthermore, our research provides promising future directions to explore and solve those challenges. These directions include (i) using more hardware-related information from the mobile device's camera and other available sensors, (ii) capturing high-quality data to reflect real-world AR scenarios, and (iii) designing a model architecture to utilize the new information.
+</details>
+<details>
+<summary>摘要</summary>
+metric深度估计在移动增强现实中发挥重要作用，可以实现更真实的用户互动，如对象放置和遮挡检测。尽管特殊硬件如LiDAR表现出了承诺，但它的可用性和环境影响限制了其使用。而单目深度估计则仅仅依靠移动摄像头，这种设备 ubique 存在，使其成为移动AR中的优选选择。在这篇论文中，我们探讨了移动AR中准确的 metric深度估计的挑战和机遇。我们测试了四种不同的单目深度估计模型，并分类了这些挑战为硬件、数据和模型相关的三类挑战。此外，我们的研究还提供了解决这些挑战的可能的未来方向，包括（i）使用更多的移动设备内部硬件信息，（ii）捕捉高质量的数据，以反映实际的AR场景，以及（iii）设计一种能够利用新信息的模型建构。
+</details></li>
+</ul>
+<hr>
+<h2 id="ConViViT-–-A-Deep-Neural-Network-Combining-Convolutions-and-Factorized-Self-Attention-for-Human-Activity-Recognition"><a href="#ConViViT-–-A-Deep-Neural-Network-Combining-Convolutions-and-Factorized-Self-Attention-for-Human-Activity-Recognition" class="headerlink" title="ConViViT – A Deep Neural Network Combining Convolutions and Factorized Self-Attention for Human Activity Recognition"></a>ConViViT – A Deep Neural Network Combining Convolutions and Factorized Self-Attention for Human Activity Recognition</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14416">http://arxiv.org/abs/2310.14416</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Rachid Reda Dokkar, Faten Chaieb, Hassen Drira, Arezki Aberkane</li>
+<li>for: 这个研究的目的是提出一个融合 CNN 和 Transformer 的混合架构，以便使用 RGB 影像进行动作识别。</li>
+<li>methods: 这个混合架构包括使用 CNN 网络增强影像表现，然后将其输入 Transformer 进行获取空间时间采样。</li>
+<li>results: 这个混合架构在 HMDB51、UCF101 和 ETRI-Activity3D 等三个资料集上获得了新的 SOTA 结果，具体成绩为 90.05%、99.6% 和 95.09%。<details>
+<summary>Abstract</summary>
+The Transformer architecture has gained significant popularity in computer vision tasks due to its capacity to generalize and capture long-range dependencies. This characteristic makes it well-suited for generating spatiotemporal tokens from videos. On the other hand, convolutions serve as the fundamental backbone for processing images and videos, as they efficiently aggregate information within small local neighborhoods to create spatial tokens that describe the spatial dimension of a video. While both CNN-based architectures and pure transformer architectures are extensively studied and utilized by researchers, the effective combination of these two backbones has not received comparable attention in the field of activity recognition. In this research, we propose a novel approach that leverages the strengths of both CNNs and Transformers in an hybrid architecture for performing activity recognition using RGB videos. Specifically, we suggest employing a CNN network to enhance the video representation by generating a 128-channel video that effectively separates the human performing the activity from the background. Subsequently, the output of the CNN module is fed into a transformer to extract spatiotemporal tokens, which are then used for classification purposes. Our architecture has achieved new SOTA results with 90.05 \%, 99.6\%, and 95.09\% on HMDB51, UCF101, and ETRI-Activity3D respectively.
+</details>
+<details>
+<summary>摘要</summary>
+《 transformer 架构》在计算机视觉任务中获得了广泛的应用，主要是因为它可以泛化和捕捉长距离依赖关系。这个特点使得它成为生成视频中的 spatiotemporal ekenzi的理想选择。然而，卷积是图像和视频处理的基本脊梁，它能够有效地在小地方团结信息，创造视频的空间 Token。而 CNN 和 transformer 两种架构都被广泛研究和应用，但两者的有效组合尚未在活动识别领域受到相应的关注。在这个研究中，我们提出了一种新的方法，利用 CNN 和 transformer 两种架构的优点，实现了活动识别using RGB 视频。具体来说，我们建议使用 CNN 网络来提高视频表示，生成一个 128 通道的视频，以有效地分离人在活动中的人和背景。然后，CNN 模块的输出被传递到 transformer 中，以提取 spatiotemporal ekenzi，并用于分类目的。我们的架构实现了新的 SOTA 结果，分别为 90.05%、99.6% 和 95.09% 在 HMDB51、UCF101 和 ETRI-Activity3D 等三个数据集上。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Pytorch-Reproduction-of-Masked-Generative-Image-Transformer"><a href="#A-Pytorch-Reproduction-of-Masked-Generative-Image-Transformer" class="headerlink" title="A Pytorch Reproduction of Masked Generative Image Transformer"></a>A Pytorch Reproduction of Masked Generative Image Transformer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14400">http://arxiv.org/abs/2310.14400</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/valeoai/maskgit-pytorch">https://github.com/valeoai/maskgit-pytorch</a></li>
+<li>paper_authors: Victor Besnier, Mickael Chen</li>
+<li>for: 该论文旨在实现基于masked bidirectional transformer架构的生成图像模型，以实现高效的图像生成。</li>
+<li>methods: 该论文使用PyTorch实现了MaskGIT模型，并通过优化和rigorous experimentation来提高模型的性能。</li>
+<li>results: 该论文通过对ImageNet dataset进行测试，并取得了与原论文相似的FID值（7.32），以及一些改进的FID值（7.26和6.80）。I hope this helps! Let me know if you have any further questions.<details>
+<summary>Abstract</summary>
+In this technical report, we present a reproduction of MaskGIT: Masked Generative Image Transformer, using PyTorch. The approach involves leveraging a masked bidirectional transformer architecture, enabling image generation with only few steps (8~16 steps) for 512 x 512 resolution images, i.e., ~64x faster than an auto-regressive approach. Through rigorous experimentation and optimization, we achieved results that closely align with the findings presented in the original paper. We match the reported FID of 7.32 with our replication and obtain 7.59 with similar hyperparameters on ImageNet at resolution 512 x 512. Moreover, we improve over the official implementation with some minor hyperparameter tweaking, achieving FID of 7.26. At the lower resolution of 256 x 256 pixels, our reimplementation scores 6.80, in comparison to the original paper's 6.18. To promote further research on Masked Generative Models and facilitate their reproducibility, we released our code and pre-trained weights openly at https://github.com/valeoai/MaskGIT-pytorch/
+</details>
+<details>
+<summary>摘要</summary>
+在这份技术报告中，我们 presente一个使用PyTorch实现的MaskGIT：Masked Generative Image Transformer的重现。该方法利用了一个带有掩码的双向转换器建筑，以便在8~16步之间生成512x512像素的图像，即比自适应循环方法快约64倍。通过严格的实验和优化，我们实现了与原论文中的结果相似的结果。我们与原论文中的FID（7.32）匹配的结果，并在相同的超参数下达到了512x512像素的FID为7.59。此外，我们通过一些小的超参数调整，超过了官方实现的FID（7.26）。在512x512像素的下采样比256x256像素，我们的重现得分6.80，与原论文中的6.18相比。为促进Masked生成模型的研究和可重现性，我们在https://github.com/valeoai/MaskGIT-pytorch/上公开发布了我们的代码和预训练 веса。
+</details></li>
+</ul>
+<hr>
+<h2 id="Cross-Domain-HAR-Few-Shot-Transfer-Learning-for-Human-Activity-Recognition"><a href="#Cross-Domain-HAR-Few-Shot-Transfer-Learning-for-Human-Activity-Recognition" class="headerlink" title="Cross-Domain HAR: Few Shot Transfer Learning for Human Activity Recognition"></a>Cross-Domain HAR: Few Shot Transfer Learning for Human Activity Recognition</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14390">http://arxiv.org/abs/2310.14390</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Megha Thukral, Harish Haresamudram, Thomas Ploetz</li>
+<li>for: 这篇论文是为了提出一种经济的公共可用预标注人动作识别数据集 Transfer Learning 方法。</li>
+<li>methods: 该方法基于教师学生自教学模式，通过 bridging 概念差异 между来源和目标领域，以更有效地识别活动。</li>
+<li>results: 经过广泛的实验评估，该方法在实际中的几个活动识别场景中表现出色，并进行了细致的分析以确定下游性能的影响因素。<details>
+<summary>Abstract</summary>
+The ubiquitous availability of smartphones and smartwatches with integrated inertial measurement units (IMUs) enables straightforward capturing of human activities. For specific applications of sensor based human activity recognition (HAR), however, logistical challenges and burgeoning costs render especially the ground truth annotation of such data a difficult endeavor, resulting in limited scale and diversity of datasets. Transfer learning, i.e., leveraging publicly available labeled datasets to first learn useful representations that can then be fine-tuned using limited amounts of labeled data from a target domain, can alleviate some of the performance issues of contemporary HAR systems. Yet they can fail when the differences between source and target conditions are too large and/ or only few samples from a target application domain are available, each of which are typical challenges in real-world human activity recognition scenarios. In this paper, we present an approach for economic use of publicly available labeled HAR datasets for effective transfer learning. We introduce a novel transfer learning framework, Cross-Domain HAR, which follows the teacher-student self-training paradigm to more effectively recognize activities with very limited label information. It bridges conceptual gaps between source and target domains, including sensor locations and type of activities. Through our extensive experimental evaluation on a range of benchmark datasets, we demonstrate the effectiveness of our approach for practically relevant few shot activity recognition scenarios. We also present a detailed analysis into how the individual components of our framework affect downstream performance.
+</details>
+<details>
+<summary>摘要</summary>
+现代人活动识别系统遇到的一个挑战是在有限的标注数据上进行高效的训练。为了解决这个问题，我们提出了一种经济使用公共可用的标注人活动识别数据集的方法。我们称之为跨领域人活动识别（Cross-Domain HAR）。这种方法采用教师生自教学模式，通过bridging概念差异 между来源领域和目标领域，包括仪器位置和活动类型。我们在一系列的benchmark数据集上进行了广泛的实验评估，并证明了我们的方法在实际中几个shot活动识别场景中的效果。此外，我们还提供了对下游性能的详细分析。
+</details></li>
+</ul>
+<hr>
+<h2 id="Learning-Generalizable-Manipulation-Policies-with-Object-Centric-3D-Representations"><a href="#Learning-Generalizable-Manipulation-Policies-with-Object-Centric-3D-Representations" class="headerlink" title="Learning Generalizable Manipulation Policies with Object-Centric 3D Representations"></a>Learning Generalizable Manipulation Policies with Object-Centric 3D Representations</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14386">http://arxiv.org/abs/2310.14386</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yifeng Zhu, Zhenyu Jiang, Peter Stone, Yuke Zhu</li>
+<li>for: 这个论文旨在学习Robust policies with object-centric and 3D priors，用于视觉 manipulate。</li>
+<li>methods: 论文提出了一种叫做GROOT的仿人学习方法，使得策略能够在视觉上执行 manipulate 动作，并且能够泛化到不同的背景和摄像头视角。GROOT 使用 transformer 基于策略来理解对象中心的 3D 表示，并且引入了一种 segmentation correspondence model 以便在测试时对新的对象进行泛化。</li>
+<li>results: 通过了 comprehensive experiments，证明 GROOT 策略在受到观察器变化、摄像头视角变化和新对象实例的情况下能够具有极高的泛化性。与之相比，当前的端到端学习方法和对象提案基于的方法都落后于 GROOT。此外，GROOT 策略在实际的 робоット上也得到了较好的表现，并在具有非常大的变化 setup 下进行了证明。更多的视频和模型细节可以在附录和项目网站：<a target="_blank" rel="noopener" href="https://ut-austin-rpl.github.io/GROOT">https://ut-austin-rpl.github.io/GROOT</a> 中找到。<details>
+<summary>Abstract</summary>
+We introduce GROOT, an imitation learning method for learning robust policies with object-centric and 3D priors. GROOT builds policies that generalize beyond their initial training conditions for vision-based manipulation. It constructs object-centric 3D representations that are robust toward background changes and camera views and reason over these representations using a transformer-based policy. Furthermore, we introduce a segmentation correspondence model that allows policies to generalize to new objects at test time. Through comprehensive experiments, we validate the robustness of GROOT policies against perceptual variations in simulated and real-world environments. GROOT's performance excels in generalization over background changes, camera viewpoint shifts, and the presence of new object instances, whereas both state-of-the-art end-to-end learning methods and object proposal-based approaches fall short. We also extensively evaluate GROOT policies on real robots, where we demonstrate the efficacy under very wild changes in setup. More videos and model details can be found in the appendix and the project website: https://ut-austin-rpl.github.io/GROOT .
+</details>
+<details>
+<summary>摘要</summary>
+我们介绍GROOT，一种模仿学习方法，用于学习具有对象中心和3D先天知识的稳定政策。GROOT建立的政策可以跨越初始训练条件，用于视觉控制。它使用转换器基于政策来构建对象中心的3D表示，这些表示具有背景变化和摄像头视角的Robustness。此外，我们还引入了一种分割匹配模型，使得政策可以在测试时generalize到新的物体实例。通过全面的实验，我们证明GROOT的策略在具有观察变化、摄像头视角变化和新物体实例的情况下具有优秀的Robustness。而比较之下，当前的端到端学习方法和物体提议基本方法都失去了优势。我们还在实际的机器人上进行了广泛的测试，并证明GROOT的策略在非常野化的设置下具有良好的可靠性。更多视频和模型细节可以在附录和项目网站：https://ut-austin-rpl.github.io/GROOT 中找到。
+</details></li>
+</ul>
+<hr>
+<h2 id="Data-Free-Distillation-Improves-Efficiency-and-Privacy-in-Federated-Thorax-Disease-Analysis"><a href="#Data-Free-Distillation-Improves-Efficiency-and-Privacy-in-Federated-Thorax-Disease-Analysis" class="headerlink" title="Data-Free Distillation Improves Efficiency and Privacy in Federated Thorax Disease Analysis"></a>Data-Free Distillation Improves Efficiency and Privacy in Federated Thorax Disease Analysis</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.18346">http://arxiv.org/abs/2310.18346</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ming Li, Guang Yang</li>
+<li>for: efficient, privacy-preserving federated thorax disease analysis</li>
+<li>methods: data-free distillation-based federated learning approach (FedKDF) with a lightweight generator to aggregate knowledge from different clients without requiring access to their private data or a proxy dataset</li>
+<li>results: robust solution for efficient, privacy-preserving federated thorax disease analysis, demonstrated through empirical experiments<details>
+<summary>Abstract</summary>
+Thorax disease analysis in large-scale, multi-centre, and multi-scanner settings is often limited by strict privacy policies. Federated learning (FL) offers a potential solution, while traditional parameter-based FL can be limited by issues such as high communication costs, data leakage, and heterogeneity. Distillation-based FL can improve efficiency, but it relies on a proxy dataset, which is often impractical in clinical practice. To address these challenges, we introduce a data-free distillation-based FL approach FedKDF. In FedKDF, the server employs a lightweight generator to aggregate knowledge from different clients without requiring access to their private data or a proxy dataset. FedKDF combines the predictors from clients into a single, unified predictor, which is further optimized using the learned knowledge in the lightweight generator. Our empirical experiments demonstrate that FedKDF offers a robust solution for efficient, privacy-preserving federated thorax disease analysis.
+</details>
+<details>
+<summary>摘要</summary>
+大规模、多中心和多扫描器设置下的胸部疾病分析frequentlyencounters limitations due to strict privacy policies. Federated learning (FL) offers a potential solution, but traditional parameter-based FL can be limited by issues such as high communication costs, data leakage, and heterogeneity. Distillation-based FL can improve efficiency, but it relies on a proxy dataset, which is often impractical in clinical practice. To address these challenges, we introduce a data-free distillation-based FL approach called FedKDF.在FedKDF中，服务器使用轻量级生成器将客户端的知识聚合到单一的预测器中，无需访问客户端的私人数据或代理集群。FedKDF将客户端的预测器组合成一个统一的预测器，并使用生成器学习的知识进行进一步优化。我们的实验表明，FedKDF可以提供一种robust的、隐私保护的联合胸部疾病分析方案。
+</details></li>
+</ul>
+<hr>
+<h2 id="OV-VG-A-Benchmark-for-Open-Vocabulary-Visual-Grounding"><a href="#OV-VG-A-Benchmark-for-Open-Vocabulary-Visual-Grounding" class="headerlink" title="OV-VG: A Benchmark for Open-Vocabulary Visual Grounding"></a>OV-VG: A Benchmark for Open-Vocabulary Visual Grounding</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14374">http://arxiv.org/abs/2310.14374</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/cv516buaa/ov-vg">https://github.com/cv516buaa/ov-vg</a></li>
+<li>paper_authors: Chunlei Wang, Wenquan Feng, Xiangtai Li, Guangliang Cheng, Shuchang Lyu, Binghao Liu, Lijiang Chen, Qi Zhao</li>
+<li>for: 本研究旨在解决开放词汇视觉定位问题，特别是在图像中找到基于语言描述的特定区域。</li>
+<li>methods: 本研究使用了现有的开放词汇对象检测、视觉定位和短语地图Localization的基础方法，并发展了一种新的语言引导特征注意力模型和文本图像查询选择模型。</li>
+<li>results: 研究表明，提出的方法可以在多种场景下准确地定位开放词汇中的新类别，并且在多个 benchmark 上达到了领先的性能。<details>
+<summary>Abstract</summary>
+Open-vocabulary learning has emerged as a cutting-edge research area, particularly in light of the widespread adoption of vision-based foundational models. Its primary objective is to comprehend novel concepts that are not encompassed within a predefined vocabulary. One key facet of this endeavor is Visual Grounding, which entails locating a specific region within an image based on a corresponding language description. While current foundational models excel at various visual language tasks, there's a noticeable absence of models specifically tailored for open-vocabulary visual grounding. This research endeavor introduces novel and challenging OV tasks, namely Open-Vocabulary Visual Grounding and Open-Vocabulary Phrase Localization. The overarching aim is to establish connections between language descriptions and the localization of novel objects. To facilitate this, we have curated a comprehensive annotated benchmark, encompassing 7,272 OV-VG images and 1,000 OV-PL images. In our pursuit of addressing these challenges, we delved into various baseline methodologies rooted in existing open-vocabulary object detection, VG, and phrase localization frameworks. Surprisingly, we discovered that state-of-the-art methods often falter in diverse scenarios. Consequently, we developed a novel framework that integrates two critical components: Text-Image Query Selection and Language-Guided Feature Attention. These modules are designed to bolster the recognition of novel categories and enhance the alignment between visual and linguistic information. Extensive experiments demonstrate the efficacy of our proposed framework, which consistently attains SOTA performance across the OV-VG task. Additionally, ablation studies provide further evidence of the effectiveness of our innovative models. Codes and datasets will be made publicly available at https://github.com/cv516Buaa/OV-VG.
+</details>
+<details>
+<summary>摘要</summary>
+开放词汇学习已经成为当前研究领域的热点，尤其是在视觉基础模型的广泛应用下。其主要目标是理解未定词汇中的新概念。一个关键的方面是视觉定位，即根据语言描述来定位图像中的特定区域。现有的基础模型在视觉语言任务中表现出色，但是没有专门为开放词汇视觉定位设计的模型。这个研究尝试 introduce 一些新的和挑战性的 OV 任务，即开放词汇视觉定位和开放词汇短语定位。总的来说，我们想要在语言描述和图像定位之间建立连接，以便更好地理解未定词汇中的新概念。为了实现这一目标，我们在存在7272个 OV-VG 图像和1000个 OV-PL 图像的完整 annotated benchmark 上进行了大量的基线方法研究。我们发现，现有的基础方法在多样化的场景下经常失败。因此，我们开发了一种新的框架，它包括文本-图像查询选择和语言引导特征注意模块。这两个模块的目的是增强未定词汇中的新类别识别和视觉语言信息的协调。我们的提议的框架在 OV-VG 任务上表现出了顶尖性能。此外，我们还进行了大量的ablation 研究，以证明我们的创新模型的有效性。codes 和数据将在 <https://github.com/cv516Buaa/OV-VG> 上公开。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Quantitative-Evaluation-of-Dense-3D-Reconstruction-of-Sinus-Anatomy-from-Monocular-Endoscopic-Video"><a href="#A-Quantitative-Evaluation-of-Dense-3D-Reconstruction-of-Sinus-Anatomy-from-Monocular-Endoscopic-Video" class="headerlink" title="A Quantitative Evaluation of Dense 3D Reconstruction of Sinus Anatomy from Monocular Endoscopic Video"></a>A Quantitative Evaluation of Dense 3D Reconstruction of Sinus Anatomy from Monocular Endoscopic Video</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14364">http://arxiv.org/abs/2310.14364</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jan Emily Mangulabnan, Roger D. Soberanis-Mukul, Timo Teufel, Isabela Hernández, Jonas Winter, Manish Sahu, Jose L. Porras, S. Swaroop Vedula, Masaru Ishii, Gregory Hager, Russell H. Taylor, Mathias Unberath</li>
+<li>for: 这篇论文旨在提出一种基于简单眼镜的3D重建方法，用于评估呼吸道镜头内的股骨形态和手术结果。</li>
+<li>methods: 这种方法使用结构从运动算法和简单眼镜深度估计来重建3D结构，并通过与高分辨率计算机 Tomography 图像进行对比来评估准确性。</li>
+<li>results: 研究结果表明，使用这种方法可以生成与骨相对吻合的3D重建结果，但在点对点匹配情况下， average target registration errors 为6.58 mm。研究还发现，pose和深度估计差异都对这个错误做出了贡献，并且使用更短的轨迹序列可以生成更为准确的重建结果。<details>
+<summary>Abstract</summary>
+Generating accurate 3D reconstructions from endoscopic video is a promising avenue for longitudinal radiation-free analysis of sinus anatomy and surgical outcomes. Several methods for monocular reconstruction have been proposed, yielding visually pleasant 3D anatomical structures by retrieving relative camera poses with structure-from-motion-type algorithms and fusion of monocular depth estimates. However, due to the complex properties of the underlying algorithms and endoscopic scenes, the reconstruction pipeline may perform poorly or fail unexpectedly. Further, acquiring medical data conveys additional challenges, presenting difficulties in quantitatively benchmarking these models, understanding failure cases, and identifying critical components that contribute to their precision. In this work, we perform a quantitative analysis of a self-supervised approach for sinus reconstruction using endoscopic sequences paired with optical tracking and high-resolution computed tomography acquired from nine ex-vivo specimens. Our results show that the generated reconstructions are in high agreement with the anatomy, yielding an average point-to-mesh error of 0.91 mm between reconstructions and CT segmentations. However, in a point-to-point matching scenario, relevant for endoscope tracking and navigation, we found average target registration errors of 6.58 mm. We identified that pose and depth estimation inaccuracies contribute equally to this error and that locally consistent sequences with shorter trajectories generate more accurate reconstructions. These results suggest that achieving global consistency between relative camera poses and estimated depths with the anatomy is essential. In doing so, we can ensure proper synergy between all components of the pipeline for improved reconstructions that will facilitate clinical application of this innovative technology.
+</details>
+<details>
+<summary>摘要</summary>
+通过endooscopic视频生成三维重建是一个有前途的方法，可以进行无线电辐射的长期分析，检测鼻腔 анатоMY的变化和手术结果。一些基于单目 reconstruction的方法已经被提出，通过结构从运动算法和单目深度估计的混合来生成视觉吸引人的三维 anatomical结构。然而，由于这些算法和endooscopic场景的复杂性，重建管道可能会表现出问题或失败。此外，收集医疗数据带来额外的挑战，包括对这些模型进行量化评估，理解失败情况，并确定critical components的影响。在这种情况下，我们通过对endooscopic序列与光学跟踪和高分辐 computed tomography的九个尸骨样本进行量化分析，以获得sinus重建的自我supervised方法的评估结果。我们的结果表明，生成的重建与 computed tomography分割的均匀性达到0.91 mm。然而，在点对点匹配方案中，我们发现了6.58 mm的target registration error。我们发现，pose和depth估计的不准确会导致这个错误，而且在短 trajectory sequence中，local consistent sequence可以生成更加准确的重建。这些结果表明，在重建管道中，保证相对camera pose和估计的准确性与 anatomy相一致是关键。在这种情况下，我们可以确保整个管道中的所有组件协同工作，以提高重建的准确性，并促进这种创新技术的临床应用。
+</details></li>
+</ul>
+<hr>
+<h2 id="Toward-Flare-Free-Images-A-Survey"><a href="#Toward-Flare-Free-Images-A-Survey" class="headerlink" title="Toward Flare-Free Images: A Survey"></a>Toward Flare-Free Images: A Survey</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14354">http://arxiv.org/abs/2310.14354</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yousef Kotp, Marwan Torki</li>
+<li>for: This paper provides a comprehensive overview of lens flare, including its underlying physics, types, and characteristics, as well as methods for removing it.</li>
+<li>methods: The paper covers a wide range of methods for flare removal, including hardware optimization strategies, classical image processing techniques, and learning-based methods using deep learning.</li>
+<li>results: The paper provides insights into best practices, limitations, and promising future directions for flare removal research, and reviews the state-of-the-art solutions for handling lens flare artifacts.Here’s the same information in Simplified Chinese text:</li>
+<li>for: 这篇论文提供了折射瑕疵的全面概述，包括它的基础物理、类型和特征，以及去除它的方法。</li>
+<li>methods: 论文涵盖了各种去除折射瑕疵的方法，包括硬件优化策略、经典图像处理技术和深度学习方法。</li>
+<li>results: 论文提供了最佳实践、限制和未来发展方向的概述，以及处理折射瑕疵 artifacts 的现有解决方案的综述。<details>
+<summary>Abstract</summary>
+Lens flare is a common image artifact that can significantly degrade image quality and affect the performance of computer vision systems due to a strong light source pointing at the camera. This survey provides a comprehensive overview of the multifaceted domain of lens flare, encompassing its underlying physics, influencing factors, types, and characteristics. It delves into the complex optics of flare formation, arising from factors like internal reflection, scattering, diffraction, and dispersion within the camera lens system. The diverse categories of flare are explored, including scattering, reflective, glare, orb, and starburst types. Key properties such as shape, color, and localization are analyzed. The numerous factors impacting flare appearance are discussed, spanning light source attributes, lens features, camera settings, and scene content. The survey extensively covers the wide range of methods proposed for flare removal, including hardware optimization strategies, classical image processing techniques, and learning-based methods using deep learning. It not only describes pioneering flare datasets created for training and evaluation purposes but also how they were created. Commonly employed performance metrics such as PSNR, SSIM, and LPIPS are explored. Challenges posed by flare's complex and data-dependent characteristics are highlighted. The survey provides insights into best practices, limitations, and promising future directions for flare removal research. Reviewing the state-of-the-art enables an in-depth understanding of the inherent complexities of the flare phenomenon and the capabilities of existing solutions. This can inform and inspire new innovations for handling lens flare artifacts and improving visual quality across various applications.
+</details>
+<details>
+<summary>摘要</summary>
+镜头闪光是一种常见的图像artifact，可能会严重降低图像质量，并对计算机视觉系统产生影响，因为摄像头前方的强光源。这份调查提供了关于镜头闪光多方面的报告，涵盖其下面的物理、影响因素、类型和特征。它探讨镜头闪光形成的复杂光学，由于内部反射、散射、折射和分散等因素。讨论了不同类型的镜头闪光，包括散射、反射、耀光、气球和星形类型。分析了这些类型的形状、颜色和位置。讨论了影响镜头闪光表现的多种因素，包括光源特性、镜头特性、相机设置和场景内容。报告广泛涵盖了除去镜头闪光的多种方法，包括硬件优化策略、传统图像处理技术和深度学习方法。不仅描述了创新的镜头闪光数据集的创建，还介绍了如何创建。探讨了常用的表现指标，如PSNR、SSIM和LPIPS。 highlighted了镜头闪光的复杂和数据依赖的特点。报告提供了关于除镜头闪光的最佳实践、限制和未来发展的指导。它不仅提供了镜头闪光现状的深入理解，还能够引导新的创新，以改善图像质量在不同应用中。
+</details></li>
+</ul>
+<hr>
+<h2 id="What’s-in-a-Prior-Learned-Proximal-Networks-for-Inverse-Problems"><a href="#What’s-in-a-Prior-Learned-Proximal-Networks-for-Inverse-Problems" class="headerlink" title="What’s in a Prior? Learned Proximal Networks for Inverse Problems"></a>What’s in a Prior? Learned Proximal Networks for Inverse Problems</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14344">http://arxiv.org/abs/2310.14344</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zhenghan Fang, Sam Buchanan, Jeremias Sulam</li>
+<li>for: 这篇论文的目的是提出一种学习 proximal 网络（LPN），以便在非对称正则化问题中提供可靠的迭代 garantess。</li>
+<li>methods: 该论文使用现代深度学习模型，如插入式扩展或深度拓展，来实现 proximal 操作符。然而，这些方法并没有保证某个总深度网络表示 proximal 操作符的某个函数，也没有对函数进行任何特征化。</li>
+<li>results: 该论文提出了一种名为 proximal matching 的新训练策略，可以确定地促进了 true 数据分布的 log-prior 的重建。此外，该论文还证明了 LPN 提供了一个通用、无监督、表达力强的 proximal 操作符，可以在一般的 inverse 问题中提供 garantess。在不同的应用中，该论文展示了这些模型可以达到状态平台的性能，并且提供了一种窥视到这些模型学习的积分。<details>
+<summary>Abstract</summary>
+Proximal operators are ubiquitous in inverse problems, commonly appearing as part of algorithmic strategies to regularize problems that are otherwise ill-posed. Modern deep learning models have been brought to bear for these tasks too, as in the framework of plug-and-play or deep unrolling, where they loosely resemble proximal operators. Yet, something essential is lost in employing these purely data-driven approaches: there is no guarantee that a general deep network represents the proximal operator of any function, nor is there any characterization of the function for which the network might provide some approximate proximal. This not only makes guaranteeing convergence of iterative schemes challenging but, more fundamentally, complicates the analysis of what has been learned by these networks about their training data. Herein we provide a framework to develop learned proximal networks (LPN), prove that they provide exact proximal operators for a data-driven nonconvex regularizer, and show how a new training strategy, dubbed proximal matching, provably promotes the recovery of the log-prior of the true data distribution. Such LPN provide general, unsupervised, expressive proximal operators that can be used for general inverse problems with convergence guarantees. We illustrate our results in a series of cases of increasing complexity, demonstrating that these models not only result in state-of-the-art performance, but provide a window into the resulting priors learned from data.
+</details>
+<details>
+<summary>摘要</summary>
+近似算子在反射问题中广泛存在，通常作为算法策略来规范不可定的问题。现代深度学习模型也已经应用于这些任务中，如插入式或深度拓展框架，它们只是近似算子的抽象。然而，使用这些完全数据驱动的方法有一个重要缺点：没有保证深度网络表示任何函数的质近算子，也没有函数的Characterization，这不仅让迭代方案的确定性困难，而且更重要的是，使得了学习这些网络对于训练数据的分析。在这里，我们提出了学习质近网络（LPN）框架，证明它们提供了数据驱动非 konvex 正则化的 exact 质近算子，并展示了一种新的训练策略，称为质近匹配，可以有效地促进真实数据分布的log-prior的恢复。这些 LPN 提供了通用、无监督、表达力强的质近算子，可以用于通用的反射问题，并且具有确定性保证。我们在一系列增加复杂度的案例中 Illustrate 我们的结果，示出这些模型不仅达到了状态的表现，还提供了数据中学习的窗口。
+</details></li>
+</ul>
+<hr>
+<h2 id="Research-on-Key-Technologies-of-Infrastructure-Digitalization-based-on-Multimodal-Spatial-Data"><a href="#Research-on-Key-Technologies-of-Infrastructure-Digitalization-based-on-Multimodal-Spatial-Data" class="headerlink" title="Research on Key Technologies of Infrastructure Digitalization based on Multimodal Spatial Data"></a>Research on Key Technologies of Infrastructure Digitalization based on Multimodal Spatial Data</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14296">http://arxiv.org/abs/2310.14296</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zhanyuan Tian, Tianrui Zhu, Zerui Tian, Zhen Dong</li>
+<li>for: 这篇论文主要研究了点云技术的应用于交通运输领域，尤其是点云网络建设和实时交通情况识别等问题。</li>
+<li>methods: 该论文使用了点云扫描仪收集数据，并提出了一种基于点云堆叠模型的方法来解决点云网络建设中的问题，包括建立点云堆叠模型、应用CSF技术进行地面点云提取、使用PTD算法建立道路网络模型等。</li>
+<li>results: 该论文通过对实验数据进行分析和实验研究，提出了一种基于点云技术的实时交通情况识别方法，并实现了实时交通情况识别的精度达到10°和15m。<details>
+<summary>Abstract</summary>
+Since NASA put forward the concept of the digital twin in 2010, many industries have put forward the dynamic goal of digital development, and the transportation industry is also among them. With more and more companies laying out on this virgin land, the digital twin transportation industry has grown rapidly and gradually formed a complete scientific research system. However, under the largely mature framework, there are still many loophole problems that need to be solved. In the process of constructing a road network with point cloud information, we summarize several major features of the point cloud collected by laser scanners and analyze the potential problems of constructing the network, such as misjudging the feature points as ground points and grid voids. On this basis, we reviewed relevant literature and proposed targeted solutions, such as building a point cloud pyramid modeled after the image pyramid, expanding the virtual grid, etc., applying CSF for ground-point cloud extraction, and constructing a road network model using the PTD (progressive density-based filter) algorithm. For the problem of road sign detection, we optimize the remote sensing data in the ground point cloud by enhancing the information density using edge detection, improving the data quality by removing the low intensity points, and achieving 90% accuracy of road text recognition using PaddleOCR and Densenet. As for the real-time digital twin traffic, we design the P2PRN network using the backbone of MPR-GAN for 2D feature generation and SuperGlue for 2D feature matching, rendering the viewpoints according to the matching optimization points, completing the multimodal matching task after several iterations, and successfully calculating the road camera position with 10{\deg} and 15m accuracy.
+</details>
+<details>
+<summary>摘要</summary>
+desde que NASA propuso la idea de la gemela digital en 2010, muchas industrias han puesto forward la meta dinámica de desarrollo digital, y la industria de transporte también está entre ellas. Con más y más compañías instalándose en este terreno virgen, la industria de transporte digital ha crecido rápidamente y se ha formado un sistema de investigación científica completo. Sin embargo, bajo el marco maduro, hay muchos problemas no resueltos que necesitan ser abordados. Durante la construcción de una red de carreteras con información de punto cloud, se resumen varias características principales del punto cloud recopilado por escáneres láser y se analizan los posibles problemas de la construcción de la red, como confundir los puntos de características con puntos de suelo y vacíos de grilla. Basándonos en la literatura relevante, propusimos soluciones dirigidas, como construir un modelo de pirámide de punto cloud inspirado en la imagen pyramid, expandir la malla virtual y aplicar CSF para la extracción de puntos de suelo. Para el problema de la detección de señales de tráfico, optimizamos los datos de sensoriamento en el punto de suelo mejorando la densidad de información utilizando el detección de bordes, mejorando la calidad de los datos eliminando los puntos de baja intensidad y logrando una precisión del 90% en la reconocimiento de texto en el camino utilizando PaddleOCR y Densenet. En cuanto a la inteligencia en tiempo real del gemelo digital de tráfico, diseñamos la red P2PRN utilizando la espalda de MPR-GAN para la generación de características 2D y SuperGlue para la match de características 2D, renderizando las vistas según los puntos de optimización de match, completando la tarea de match multimodal después de varias iteraciones y calculando con precisión de 10° y 15m la posición de la cámara de la carretera.
+</details></li>
+</ul>
+<hr>
+<h2 id="Deep-MDP-A-Modular-Framework-for-Multi-Object-Tracking"><a href="#Deep-MDP-A-Modular-Framework-for-Multi-Object-Tracking" class="headerlink" title="Deep MDP: A Modular Framework for Multi-Object Tracking"></a>Deep MDP: A Modular Framework for Multi-Object Tracking</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14294">http://arxiv.org/abs/2310.14294</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/abhineet123/deep_mdp">https://github.com/abhineet123/deep_mdp</a></li>
+<li>paper_authors: Abhineet Singh</li>
+<li>for: 这个论文是为了提供一个快速和可替换的多目标跟踪（MOT）框架，基于markov决策过程（MDP）的跟踪检测模式。</li>
+<li>methods: 这个框架使用了MDP tracking-by-detection模式，并提供了可替换的各种功能组件，以适应不同的应用场景。</li>
+<li>results: 虽然不是在性能方面创造出新的记录，但 Deep MDP 框架具有大量代码库，可以帮助社区实现新的想法或者在MOT应用场景中使用一个易于使用和易于自定义的系统。<details>
+<summary>Abstract</summary>
+This paper presents a fast and modular framework for Multi-Object Tracking (MOT) based on the Markov descision process (MDP) tracking-by-detection paradigm. It is designed to allow its various functional components to be replaced by custom-designed alternatives to suit a given application. An interactive GUI with integrated object detection, segmentation, MOT and semi-automated labeling is also provided to help make it easier to get started with this framework. Though not breaking new ground in terms of performance, Deep MDP has a large code-base that should be useful for the community to try out new ideas or simply to have an easy-to-use and easy-to-adapt system for any MOT application. Deep MDP is available at https://github.com/abhineet123/deep_mdp.
+</details>
+<details>
+<summary>摘要</summary>
+这篇论文介绍了一个快速和可模块化的多目标跟踪（MOT）框架，基于markov决策过程（MDP）的跟踪检测方式。这个框架设计了可以替换不同应用的功能组件，以便更好地适应具体情况。同时，它还提供了一个交互式GUI，带有对象探测、 segmentation、MOT和半自动标注功能，以便更容易地开始使用这个框架。虽然不是在性能方面创造出新的记录，但Deep MDP具有大量代码库，可以帮助社区尝试新的想法或者使用一个简单易用的系统来实现任何MOT应用。Deep MDP可以在https://github.com/abhineet123/deep_mdp上下载。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Survey-on-Continual-Semantic-Segmentation-Theory-Challenge-Method-and-Application"><a href="#A-Survey-on-Continual-Semantic-Segmentation-Theory-Challenge-Method-and-Application" class="headerlink" title="A Survey on Continual Semantic Segmentation: Theory, Challenge, Method and Application"></a>A Survey on Continual Semantic Segmentation: Theory, Challenge, Method and Application</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14277">http://arxiv.org/abs/2310.14277</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ybio/surveycss">https://github.com/ybio/surveycss</a></li>
+<li>paper_authors: Bo Yuan, Danpei Zhao</li>
+<li>for: 本文是一篇涵盖持续学习（Continual Learning）的评论，强调在计算机视觉领域的分类、检测和分割任务中应用持续学习。</li>
+<li>methods: 本文首先解释了持续学习的问题定义和主要挑战，然后对当前CSS模型进行了分类和分析，包括《数据重播》和《数据无法》两大树。</li>
+<li>results: 本文提出了四个CSS特点，它们在不同的应用场景和发展趋势中表现出色。此外，本文还提供了一个CSS benchmark，可以在 \url{<a target="_blank" rel="noopener" href="https://github.com/YBIO/SurveyCSS%7D">https://github.com/YBIO/SurveyCSS}</a> 上下载。<details>
+<summary>Abstract</summary>
+Continual learning, also known as incremental learning or life-long learning, stands at the forefront of deep learning and AI systems. It breaks through the obstacle of one-way training on close sets and enables continuous adaptive learning on open-set conditions. In the recent decade, continual learning has been explored and applied in multiple fields especially in computer vision covering classification, detection and segmentation tasks. Continual semantic segmentation (CSS), of which the dense prediction peculiarity makes it a challenging, intricate and burgeoning task. In this paper, we present a review of CSS, committing to building a comprehensive survey on problem formulations, primary challenges, universal datasets, neoteric theories and multifarious applications. Concretely, we begin by elucidating the problem definitions and primary challenges. Based on an in-depth investigation of relevant approaches, we sort out and categorize current CSS models into two main branches including \textit{data-replay} and \textit{data-free} sets. In each branch, the corresponding approaches are similarity-based clustered and thoroughly analyzed, following qualitative comparison and quantitative reproductions on relevant datasets. Besides, we also introduce four CSS specialities with diverse application scenarios and development tendencies. Furthermore, we develop a benchmark for CSS encompassing representative references, evaluation results and reproductions, which is available at~\url{https://github.com/YBIO/SurveyCSS}. We hope this survey can serve as a reference-worthy and stimulating contribution to the advancement of the life-long learning field, while also providing valuable perspectives for related fields.
+</details>
+<details>
+<summary>摘要</summary>
+Continual semantic segmentation (CSS) is a challenging and rapidly developing field, as it requires dense predictions and is therefore particularly complex. In this paper, we provide a comprehensive review of CSS, including problem formulations, primary challenges, universal datasets, and innovative theories. We also explore multiple applications of CSS.First, we explain the problem definitions and primary challenges of CSS. We then categorize current CSS models into two main branches: data-replay and data-free sets. In each branch, we analyze and compare the approaches using similarity-based clustering, and provide qualitative and quantitative evaluations on relevant datasets.Furthermore, we introduce four CSS specialties with diverse application scenarios and development tendencies. Finally, we establish a benchmark for CSS, which includes representative references, evaluation results, and reproductions, and is available at \url{https://github.com/YBIO/SurveyCSS}. We hope that this survey will serve as a valuable reference and inspiration for the advancement of life-long learning, and provide new perspectives for related fields.
+</details></li>
+</ul>
+<hr>
+<h2 id="Guidance-system-for-Visually-Impaired-Persons-using-Deep-Learning-and-Optical-flow"><a href="#Guidance-system-for-Visually-Impaired-Persons-using-Deep-Learning-and-Optical-flow" class="headerlink" title="Guidance system for Visually Impaired Persons using Deep Learning and Optical flow"></a>Guidance system for Visually Impaired Persons using Deep Learning and Optical flow</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14239">http://arxiv.org/abs/2310.14239</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Shwetang Dubey, Alok Ranjan Sahoo, Pavan Chakraborty</li>
+<li>for: 本研究旨在帮助视力受损人士在快速 paced 环境中了解周围环境。</li>
+<li>methods: 该方法使用 YOLOv3 对象检测、Lucas Kanade 光流估算和 Depth-net 深度估算来确定 approaching  объек的方向和距离。</li>
+<li>results: 该模型在实际场景中证明了其效果iveness，能够为视力受损人士提供有用信息&#x2F;警示。<details>
+<summary>Abstract</summary>
+Visually impaired persons find it difficult to know about their surroundings while walking on a road. Walking sticks used by them can only give them information about the obstacles in the stick's proximity. Moreover, it is mostly effective in static or very slow-paced environments. Hence, this paper introduces a method to guide them in a busy street. To create such a system it is very important to know about the approaching object and its direction of approach. To achieve this objective we created a method in which the image frame received from the video is divided into three parts i.e. center, left, and right to know the direction of approach of the approaching object. Object detection is done using YOLOv3. Lucas Kanade's optical flow estimation method is used for the optical flow estimation and Depth-net is used for depth estimation. Using the depth information, object motion trajectory, and object category information, the model provides necessary information/warning to the person. This model has been tested in the real world to show its effectiveness.
+</details>
+<details>
+<summary>摘要</summary>
+▼这个文章介绍了一种用于帮助视障人士在路上行走的方法。▼视障人士在路上行走时，可能很难了解周围环境。他们使用的杖子只能在杖子的附近提供信息。此外，这种系统主要适用于静止或非常缓态环境。因此，这篇文章提出了一种方法，用于帮助视障人士在 busy street 上行走。为了实现这个目标，我们创建了一种方法，将影像框架从影像中分成三部分，即中心、左侧和右侧。这样可以了解接近物体的方向。我们使用 YOLOv3 进行物体检测，并使用 Lucas Kanade 的光流推算方法进行光流推算。在 depth estimation 方面，我们使用 Depth-net。使用depth信息、物体运动轨迹和物体类别信息，模型为视障人士提供必要的信息/警告。这个模型在实际应用中证明了其有效性。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-comprehensive-survey-on-deep-active-learning-and-its-applications-in-medical-image-analysis"><a href="#A-comprehensive-survey-on-deep-active-learning-and-its-applications-in-medical-image-analysis" class="headerlink" title="A comprehensive survey on deep active learning and its applications in medical image analysis"></a>A comprehensive survey on deep active learning and its applications in medical image analysis</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14230">http://arxiv.org/abs/2310.14230</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/lighterswang/awesome-active-learning-for-medical-image-analysis">https://github.com/lighterswang/awesome-active-learning-for-medical-image-analysis</a></li>
+<li>paper_authors: Haoran Wang, Qiuye Jin, Shiman Li, Siyu Liu, Manning Wang, Zhijian Song<br>for: 降低医学图像分析中注解成本的问题，active learning 技术可以选择最有用的样本进行注解，并训练高性能的模型。methods: 评估信息性和采样策略是核心方法，此外还包括 semi-supervised、self-supervised 学习等标签有效策略的集成。results: 该综述文章提供了医学图像分析领域特有的活动学习工作，以及将来的趋势和挑战。<details>
+<summary>Abstract</summary>
+Deep learning has achieved widespread success in medical image analysis, leading to an increasing demand for large-scale expert-annotated medical image datasets. Yet, the high cost of annotating medical images severely hampers the development of deep learning in this field. To reduce annotation costs, active learning aims to select the most informative samples for annotation and train high-performance models with as few labeled samples as possible. In this survey, we review the core methods of active learning, including the evaluation of informativeness and sampling strategy. For the first time, we provide a detailed summary of the integration of active learning with other label-efficient techniques, such as semi-supervised, self-supervised learning, and so on. Additionally, we also highlight active learning works that are specifically tailored to medical image analysis. In the end, we offer our perspectives on the future trends and challenges of active learning and its applications in medical image analysis.
+</details>
+<details>
+<summary>摘要</summary>
+深度学习在医疗图像分析中取得了广泛的成功，导致医疗图像批量专家标注数据集的需求增加。然而，医疗图像标注成本高昂，妨碍了深度学习在这个领域的发展。为了降低标注成本，活动学习目的是选择最有用的样本进行标注，并训练高性能的模型使用最少的标注样本。在这篇评论中，我们评论核心的活动学习方法，包括评估有用性和采样策略。此外，我们还提供了医疗图像分析中特有的活动学习应用，以及与其他标签效率技术，如半监督学习和自监督学习等的整合。最后，我们还提出了未来活动学习在医疗图像分析中的趋势和挑战。
+</details></li>
+</ul>
+<hr>
+<h2 id="Hierarchical-Vector-Quantized-Transformer-for-Multi-class-Unsupervised-Anomaly-Detection"><a href="#Hierarchical-Vector-Quantized-Transformer-for-Multi-class-Unsupervised-Anomaly-Detection" class="headerlink" title="Hierarchical Vector Quantized Transformer for Multi-class Unsupervised Anomaly Detection"></a>Hierarchical Vector Quantized Transformer for Multi-class Unsupervised Anomaly Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14228">http://arxiv.org/abs/2310.14228</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ruiyinglu/hvq-trans">https://github.com/ruiyinglu/hvq-trans</a></li>
+<li>paper_authors: Ruiying Lu, YuJie Wu, Long Tian, Dongsheng Wang, Bo Chen, Xiyang Liu, Ruimin Hu</li>
+<li>for: 本研究旨在提出一种多类无监督图像异常检测（UAD）模型，以学习强健和特异的正常样本表示。而传统的解决方案各自针对不同的类型进行分离处理，会带来昂贵的计算成本和有限的普适性。本文集中强调建立一个统一框架，以便同时处理多个类型。</li>
+<li>methods: 本研究提出了一种基于Transformer的层次vector量化prototype-oriented模型（HVQ-Trans），以解决普适图像异常检测中的“同源 shortcut”问题。首先，我们不再学习连续表示，而是保留正常样本的典型模式为精炼的дискре特征图像，并证明Vector Quantization在避免“同源 shortcut”方面的重要性。其次，我们提出了一种层次框架，以解决codebook collapse问题并且填充贫备的正常模式。最后，我们提出了一种prototype-oriented最优运输方法，以更好地规则prototype和层次评估异常分数。</li>
+<li>results: 我们在MVTec-AD和VisA datasets上进行了实验，并证明了我们的模型可以超越当前的状态OF-the-art方法，并且具有良好的可读性。<details>
+<summary>Abstract</summary>
+Unsupervised image Anomaly Detection (UAD) aims to learn robust and discriminative representations of normal samples. While separate solutions per class endow expensive computation and limited generalizability, this paper focuses on building a unified framework for multiple classes. Under such a challenging setting, popular reconstruction-based networks with continuous latent representation assumption always suffer from the "identical shortcut" issue, where both normal and abnormal samples can be well recovered and difficult to distinguish. To address this pivotal issue, we propose a hierarchical vector quantized prototype-oriented Transformer under a probabilistic framework. First, instead of learning the continuous representations, we preserve the typical normal patterns as discrete iconic prototypes, and confirm the importance of Vector Quantization in preventing the model from falling into the shortcut. The vector quantized iconic prototype is integrated into the Transformer for reconstruction, such that the abnormal data point is flipped to a normal data point.Second, we investigate an exquisite hierarchical framework to relieve the codebook collapse issue and replenish frail normal patterns. Third, a prototype-oriented optimal transport method is proposed to better regulate the prototypes and hierarchically evaluate the abnormal score. By evaluating on MVTec-AD and VisA datasets, our model surpasses the state-of-the-art alternatives and possesses good interpretability. The code is available at https://github.com/RuiyingLu/HVQ-Trans.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>输入文本翻译成简化中文。<</SYS>>无监督图像异常检测（UAD）的目标是学习强健和特征化的正常样本表示。而单独解决每个类的问题会带来昂贵的计算成本和有限的普适性，这篇论文强调建立多个类的统一框架。在这样的复杂的设置下，流行的重建基于网络 sempre suffer from the "identical shortcut" issue，其中正常和异常样本都可以很好地重建，并且困难以 distinguishing。为解决这一关键问题，我们提议一种层次 vector quantization prototype-oriented Transformer  beneath a probabilistic framework。首先，而不是学习连续表示，我们保留正常样本的典型模式为精确的数字图标，并证明 vector quantization 可以防止模型陷入 shortcut。层次 vector quantization 图标是与 Transformer 重建结合的，以至于异常数据点被映射为正常数据点。第二，我们提出了一种细腻的层次结构，以解决 codebook collapse 问题并重塑贫弱的正常模式。第三，我们提出了一种 prototype-oriented optimal transport 方法，以更好地规则 prototype 和层次评估异常分数。通过对 MVTec-AD 和 VisA 数据集进行评估，我们的模型超越了状态的拟合方案，并具有良好的解释性。代码可以在 <https://github.com/RuiyingLu/HVQ-Trans> 上获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="Multi-stream-Cell-Segmentation-with-Low-level-Cues-for-Multi-modality-Images"><a href="#Multi-stream-Cell-Segmentation-with-Low-level-Cues-for-Multi-modality-Images" class="headerlink" title="Multi-stream Cell Segmentation with Low-level Cues for Multi-modality Images"></a>Multi-stream Cell Segmentation with Low-level Cues for Multi-modality Images</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14226">http://arxiv.org/abs/2310.14226</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/lhaof/cellseg">https://github.com/lhaof/cellseg</a></li>
+<li>paper_authors: Wei Lou, Xinyi Yu, Chenyu Liu, Xiang Wan, Guanbin Li, Siqi Liu, Haofeng Li</li>
+<li>for: 本研究旨在解决多模式微scopic影像中 cells 的分割问题，由于这些影像中 cells 的文化和形态复杂，困难了 cells 的分割。</li>
+<li>methods: 我们首先开发了一个自动化 cell 分类管道，以便根据低级图像特征来标注微scopic影像，然后我们基于类别标签来训练一个分类模型。接着，我们对每个类别使用相应的分割模型进行训练，同时还使用了两种不同的分割模型来分割圆形和不规则形 cells。</li>
+<li>results: 我们在 NeurIPS 2022 Cell Segmentation Challenge 的 Tuning Set 上进行了评估，我们的方法实现了 F1-score 0.8795，并且所有情况的运行时间都在时间容忍范围内。<details>
+<summary>Abstract</summary>
+Cell segmentation for multi-modal microscopy images remains a challenge due to the complex textures, patterns, and cell shapes in these images. To tackle the problem, we first develop an automatic cell classification pipeline to label the microscopy images based on their low-level image characteristics, and then train a classification model based on the category labels. Afterward, we train a separate segmentation model for each category using the images in the corresponding category. Besides, we further deploy two types of segmentation models to segment cells with roundish and irregular shapes respectively. Moreover, an efficient and powerful backbone model is utilized to enhance the efficiency of our segmentation model. Evaluated on the Tuning Set of NeurIPS 2022 Cell Segmentation Challenge, our method achieves an F1-score of 0.8795 and the running time for all cases is within the time tolerance.
+</details>
+<details>
+<summary>摘要</summary>
+cell 分割 для多modal 微scopic 图像仍然是一个挑战，主要因为这些图像中的复杂的文本、模式和细胞形状。为解决这个问题，我们首先开发了一个自动化细胞分类管道，以基于微scopic 图像的低级特征进行标签。然后，我们基于类别标签进行分类模型的训练。此外，我们还部署了两种类型的分割模型，一种用于分割圆形细胞，另一种用于分割不规则细胞。此外，我们还利用了一个高效的和强大的背景模型，以提高我们的分割模型的效率。在 NeurIPS 2022 细胞分 segmentation 挑战的 Tuning Set 上进行评估，我们的方法实现了 F1 分数为 0.8795，并且所有情况的运行时间在时间容差内。
+</details></li>
+</ul>
+<hr>
+<h2 id="One-for-All-Towards-Universal-Domain-Translation-with-a-Single-StyleGAN"><a href="#One-for-All-Towards-Universal-Domain-Translation-with-a-Single-StyleGAN" class="headerlink" title="One-for-All: Towards Universal Domain Translation with a Single StyleGAN"></a>One-for-All: Towards Universal Domain Translation with a Single StyleGAN</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14222">http://arxiv.org/abs/2310.14222</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yong Du, Jiahui Zhan, Shengfeng He, Xinzhe Li, Junyu Dong, Sheng Chen, Ming-Hsuan Yang</li>
+<li>For: The paper proposes a novel translation model called UniTranslator for transforming representations between visually distinct domains with limited training data and significant visual differences.* Methods: The UniTranslator model leverages the domain-neutral capabilities of CLIP as a bridging mechanism, and utilizes a separate module to extract abstract, domain-agnostic semantics from the embeddings of both the source and target realms. The CLIP2P mapper is introduced to bridge the gap between the CLIP and StyleGAN spaces.* Results: The proposed UniTranslator model is versatile and capable of performing various tasks, including style mixing, stylization, and translations, even in visually challenging scenarios across different visual domains. The model generates high-quality translations that showcase domain relevance, diversity, and improved image quality, and surpasses the performance of existing general-purpose models and specialized models in representative tasks.<details>
+<summary>Abstract</summary>
+In this paper, we propose a novel translation model, UniTranslator, for transforming representations between visually distinct domains under conditions of limited training data and significant visual differences. The main idea behind our approach is leveraging the domain-neutral capabilities of CLIP as a bridging mechanism, while utilizing a separate module to extract abstract, domain-agnostic semantics from the embeddings of both the source and target realms. Fusing these abstract semantics with target-specific semantics results in a transformed embedding within the CLIP space. To bridge the gap between the disparate worlds of CLIP and StyleGAN, we introduce a new non-linear mapper, the CLIP2P mapper. Utilizing CLIP embeddings, this module is tailored to approximate the latent distribution in the P space, effectively acting as a connector between these two spaces. The proposed UniTranslator is versatile and capable of performing various tasks, including style mixing, stylization, and translations, even in visually challenging scenarios across different visual domains. Notably, UniTranslator generates high-quality translations that showcase domain relevance, diversity, and improved image quality. UniTranslator surpasses the performance of existing general-purpose models and performs well against specialized models in representative tasks. The source code and trained models will be released to the public.
+</details>
+<details>
+<summary>摘要</summary>
+在这篇论文中，我们提出了一种新的翻译模型，UniTranslator，用于在有限的训练数据和显著的视觉差异下，将表示转换到不同的视觉领域。我们的方法的核心思想是利用CLIP作为桥接机制，同时使用一个分离的模块来提取源和目标领域的抽象、领域不依赖的 semantics。将这些抽象 semantics 与目标具体 semantics 进行混合，可以在CLIP空间中生成修改后的表示。为了将CLIP和StyleGAN两个不同的世界联系起来，我们引入了一个新的非线性映射器，CLIP2P映射器。通过使用CLIP表示，这个模块可以近似P空间中的偏振分布，从而成为CLIP和StyleGAN之间的连接。我们提出的UniTranslator非常灵活，可以执行多种任务，包括样式混合、风格化和翻译，即使在不同的视觉领域中。尤其是，UniTranslator可以生成高质量的翻译，展示域相关性、多样性和提高图像质量。UniTranslator的性能超过了现有的通用模型和专门模型在代表任务中的性能。我们将源代码和训练模型公开发布。
+</details></li>
+</ul>
+<hr>
+<h2 id="The-Importance-of-Anti-Aliasing-in-Tiny-Object-Detection"><a href="#The-Importance-of-Anti-Aliasing-in-Tiny-Object-Detection" class="headerlink" title="The Importance of Anti-Aliasing in Tiny Object Detection"></a>The Importance of Anti-Aliasing in Tiny Object Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14221">http://arxiv.org/abs/2310.14221</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/freshn/Anti-aliasing-Tiny-Object-Detection">https://github.com/freshn/Anti-aliasing-Tiny-Object-Detection</a></li>
+<li>paper_authors: Jinlai Ning, Michael Spratling<br>for:这篇论文主要关注在小物体检测领域，即使使用卷积神经网络（CNN）作为识别框架，但是这些网络往往忽略了尼古斯 sampling 定理，从而导致噪声和性能下降。methods:这篇论文提出了一种已有的方法 WaveCNet，用于对小物体检测进行抗噪声处理。WaveCNet 将标准的下降样本过程替换为波峰 pooling（WaveletPool）层，从而有效地降低噪声。此外，我们还提出了一种底部重量的背景，该背景可以进一步提高小物体检测的性能，同时也减少了参数的数量约半。results:实验结果表明，对小物体检测进行抗噪声处理是非常重要的，而我们提出的方法可以在 TinyPerson、WiderFace 和 DOTA 等三个数据集上达到新的状态态-of-the-art 结果。codes 和实验结果可以在 <a target="_blank" rel="noopener" href="https://github.com/freshn/Anti-aliasing-Tiny-Object-Detection.git">https://github.com/freshn/Anti-aliasing-Tiny-Object-Detection.git</a> 上获取。<details>
+<summary>Abstract</summary>
+Tiny object detection has gained considerable attention in the research community owing to the frequent occurrence of tiny objects in numerous critical real-world scenarios. However, convolutional neural networks (CNNs) used as the backbone for object detection architectures typically neglect Nyquist's sampling theorem during down-sampling operations, resulting in aliasing and degraded performance. This is likely to be a particular issue for tiny objects that occupy very few pixels and therefore have high spatial frequency features. This paper applied an existing approach WaveCNet for anti-aliasing to tiny object detection. WaveCNet addresses aliasing by replacing standard down-sampling processes in CNNs with Wavelet Pooling (WaveletPool) layers, effectively suppressing aliasing. We modify the original WaveCNet to apply WaveletPool in a consistent way in both pathways of the residual blocks in ResNets. Additionally, we also propose a bottom-heavy version of the backbone, which further improves the performance of tiny object detection while also reducing the required number of parameters by almost half. Experimental results on the TinyPerson, WiderFace, and DOTA datasets demonstrate the importance of anti-aliasing in tiny object detection and the effectiveness of the proposed method which achieves new state-of-the-art results on all three datasets. Codes and experiment results are released at https://github.com/freshn/Anti-aliasing-Tiny-Object-Detection.git.
+</details>
+<details>
+<summary>摘要</summary>
+小对象检测已经在研究中受到了广泛关注，因为小对象在各种重要的实际场景中出现频繁。然而，通用神经网络（CNN）用于对象检测架构通常会忽略尼古斯 sampling 定理，导致抖抖和对象检测性能下降。这特别是对小对象，它们占用很少像素，因此具有高频率特征。这篇文章应用了现有的方法 WaveCNet 来避免抖抖。WaveCNet 将标准的下采样过程替换为波лет泵（WaveletPool）层，以有效地避免抖抖。我们修改了原始 WaveCNet，使其在 ResNet 中应用 WaveletPool 层在两个路径上进行一致性的应用。此外，我们还提出了底部重量的后置架构，它可以在小对象检测中提高性能，同时减少参数的数量约为一半。实验结果表明，对小对象检测的抖抖避免是非常重要的，并且我们的方法可以在 TinyPerson、WiderFace 和 DOTA  datasets 上 achieve 新的国际最佳Result。代码和实验结果在 <https://github.com/freshn/Anti-aliasing-Tiny-Object-Detection.git> 上公开。
+</details></li>
+</ul>
+<hr>
+<h2 id="TransY-Net-Learning-Fully-Transformer-Networks-for-Change-Detection-of-Remote-Sensing-Images"><a href="#TransY-Net-Learning-Fully-Transformer-Networks-for-Change-Detection-of-Remote-Sensing-Images" class="headerlink" title="TransY-Net:Learning Fully Transformer Networks for Change Detection of Remote Sensing Images"></a>TransY-Net:Learning Fully Transformer Networks for Change Detection of Remote Sensing Images</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14214">http://arxiv.org/abs/2310.14214</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Tianyu Yan, Zifu Wan, Pingping Zhang, Gong Cheng, Huchuan Lu</li>
+<li>for: 本文旨在提高遥感图像变化检测（CD）的精度和效率，特别是采用Transformer模型进行长距离关系模型化，以提高特征提取和CD区域完整性。</li>
+<li>methods: 本文提出了一种基于Transformer的学习框架，名为TransY-Net，它首先利用Transformer模型的长距离关系模型化能力，以提高全局特征提取和CD区域完整性。然后，该框架引入了一种pyramid结构，用于归一化多级视觉特征，并通过Progressive Attention Module（PAM）实现更多的交互关系。</li>
+<li>results: 经过广泛的实验，本文的提出的TransY-Net方法在四个光学图像CD标准数据集和两个Synthetic Aperture Radar（SAR）图像CD标准数据集上达到了新的州OF-THE-ART性能。代码已经公开在<a target="_blank" rel="noopener" href="https://github.com/Drchip61/TransYNet%E3%80%82">https://github.com/Drchip61/TransYNet。</a><details>
+<summary>Abstract</summary>
+In the remote sensing field, Change Detection (CD) aims to identify and localize the changed regions from dual-phase images over the same places. Recently, it has achieved great progress with the advances of deep learning. However, current methods generally deliver incomplete CD regions and irregular CD boundaries due to the limited representation ability of the extracted visual features. To relieve these issues, in this work we propose a novel Transformer-based learning framework named TransY-Net for remote sensing image CD, which improves the feature extraction from a global view and combines multi-level visual features in a pyramid manner. More specifically, the proposed framework first utilizes the advantages of Transformers in long-range dependency modeling. It can help to learn more discriminative global-level features and obtain complete CD regions. Then, we introduce a novel pyramid structure to aggregate multi-level visual features from Transformers for feature enhancement. The pyramid structure grafted with a Progressive Attention Module (PAM) can improve the feature representation ability with additional inter-dependencies through spatial and channel attentions. Finally, to better train the whole framework, we utilize the deeply-supervised learning with multiple boundary-aware loss functions. Extensive experiments demonstrate that our proposed method achieves a new state-of-the-art performance on four optical and two SAR image CD benchmarks. The source code is released at https://github.com/Drchip61/TransYNet.
+</details>
+<details>
+<summary>摘要</summary>
+在遥感领域，变化检测（CD）目标是从同一个场景中的双相图像中标识和地址化变化区域。在最近，深度学习技术的进步使得CD技术取得了大进步。然而，现有方法通常会提供不完整的CD区域和不规则的CD边界，这是因为EXTRACTED的视觉特征具有限制的表达能力。为了解决这些问题，在本工作中，我们提出了一种基于Transformer的新型学习框架，名为TransY-Net，用于遥感图像CD。这种框架首先利用Transformer的长距离关系模型优势，可以学习更有特征的全局级别特征，并且可以获得完整的CD区域。然后，我们引入了一种新的pyramid结构，用于粗细层次特征的综合。这个pyramid结构和Progressive Attention Module（PAM）结合可以提高特征表示能力，通过空间和通道注意力。最后，为了更好地训练整个框架，我们利用深度监督学习，并使用多个边界意识损失函数。广泛的实验表明，我们的提议方法在四个光学图像CD标准 bencmarks和两个Synthetic Aperture Radar（SAR）图像CD标准 bencmarks上 achieved新的state-of-the-art性能。源代码可以在https://github.com/Drchip61/TransYNet中下载。
+</details></li>
+</ul>
+<hr>
+<h2 id="Diffusion-based-Data-Augmentation-for-Nuclei-Image-Segmentation"><a href="#Diffusion-based-Data-Augmentation-for-Nuclei-Image-Segmentation" class="headerlink" title="Diffusion-based Data Augmentation for Nuclei Image Segmentation"></a>Diffusion-based Data Augmentation for Nuclei Image Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14197">http://arxiv.org/abs/2310.14197</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/lhaof/nudiff">https://github.com/lhaof/nudiff</a></li>
+<li>paper_authors: Xinyi Yu, Guanbin Li, Wei Lou, Siqi Liu, Xiang Wan, Yan Chen, Haofeng Li</li>
+<li>for: 提高 histopathology 图像量化分析中 nuclei 段落的性能</li>
+<li>methods: 使用扩散模型进行数据增强，synthesize  histopathology 图像和实例地图</li>
+<li>results: 通过增加 10% 标注的实际数据集中的 sintetic 样本，可以实现与完全监督基线相同的 segmentation 性能<details>
+<summary>Abstract</summary>
+Nuclei segmentation is a fundamental but challenging task in the quantitative analysis of histopathology images. Although fully-supervised deep learning-based methods have made significant progress, a large number of labeled images are required to achieve great segmentation performance. Considering that manually labeling all nuclei instances for a dataset is inefficient, obtaining a large-scale human-annotated dataset is time-consuming and labor-intensive. Therefore, augmenting a dataset with only a few labeled images to improve the segmentation performance is of significant research and application value. In this paper, we introduce the first diffusion-based augmentation method for nuclei segmentation. The idea is to synthesize a large number of labeled images to facilitate training the segmentation model. To achieve this, we propose a two-step strategy. In the first step, we train an unconditional diffusion model to synthesize the Nuclei Structure that is defined as the representation of pixel-level semantic and distance transform. Each synthetic nuclei structure will serve as a constraint on histopathology image synthesis and is further post-processed to be an instance map. In the second step, we train a conditioned diffusion model to synthesize histopathology images based on nuclei structures. The synthetic histopathology images paired with synthetic instance maps will be added to the real dataset for training the segmentation model. The experimental results show that by augmenting 10% labeled real dataset with synthetic samples, one can achieve comparable segmentation results with the fully-supervised baseline.
+</details>
+<details>
+<summary>摘要</summary>
+基因段落分割是 Histopathology 图像量化分析中的基本 yet 挑战性任务。尽管完全supervised的深度学习基本方法已经取得了显著进步，但是需要大量标注图像来实现出色的分割性能。由于手动标注整个数据集的图像是不可能的，因此获得大规模的人工标注数据集是时间consuming 和劳动密集的。因此，对于一个只有少量标注图像的数据集，通过增加大量的 sintetic 图像来提高分割性能是研究和应用中的重要问题。在这篇论文中，我们介绍了第一个Diffusion-based增强方法，用于基因段落分割。我们的想法是通过Synthesize a large number of labeled images to facilitate the training of the segmentation model。为此，我们提出了两步策略。在第一步中，我们使用无条件Diffusion模型来Synthesize the Nuclei Structure，定义为像素级别的semantic和距离变换。每个Synthetic nuclei structure将作为历史病理图像Synthesis的约束，并进一步被后处理为实例地图。在第二步中，我们使用条件Diffusion模型来Synthesize histopathology images based on nuclei structures。Synthetic histopathology images paired with synthetic instance maps will be added to the real dataset for training the segmentation model。实验结果表明，通过增强10%标注的实际数据集with synthetic samples，可以实现与完全supervised基eline相同的分割性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="Distractor-aware-Event-based-Tracking"><a href="#Distractor-aware-Event-based-Tracking" class="headerlink" title="Distractor-aware Event-based Tracking"></a>Distractor-aware Event-based Tracking</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14194">http://arxiv.org/abs/2310.14194</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yingkai Fu, Meng Li, Wenxi Liu, Yuanchen Wang, Jiqing Zhang, Baocai Yin, Xiaopeng Wei, Xin Yang</li>
+<li>for: 本研究旨在提出一种能够在挑战性enario中更高效地跟踪视觉对象的事件相机视觉跟踪器。</li>
+<li>methods: 该模型采用了 transformer 模块，并结合了运动观察网络和目标观察网络，同时利用事件数据中的运动指示和目标极值来发现运动对象并识别目标对象。</li>
+<li>results: 对两个大规模的事件跟踪数据集进行了广泛的实验 validate 了我们提出的模型，并证明了它在比例于状态前的跟踪器中具有更高的准确率和效率。<details>
+<summary>Abstract</summary>
+Event cameras, or dynamic vision sensors, have recently achieved success from fundamental vision tasks to high-level vision researches. Due to its ability to asynchronously capture light intensity changes, event camera has an inherent advantage to capture moving objects in challenging scenarios including objects under low light, high dynamic range, or fast moving objects. Thus event camera are natural for visual object tracking. However, the current event-based trackers derived from RGB trackers simply modify the input images to event frames and still follow conventional tracking pipeline that mainly focus on object texture for target distinction. As a result, the trackers may not be robust dealing with challenging scenarios such as moving cameras and cluttered foreground. In this paper, we propose a distractor-aware event-based tracker that introduces transformer modules into Siamese network architecture (named DANet). Specifically, our model is mainly composed of a motion-aware network and a target-aware network, which simultaneously exploits both motion cues and object contours from event data, so as to discover motion objects and identify the target object by removing dynamic distractors. Our DANet can be trained in an end-to-end manner without any post-processing and can run at over 80 FPS on a single V100. We conduct comprehensive experiments on two large event tracking datasets to validate the proposed model. We demonstrate that our tracker has superior performance against the state-of-the-art trackers in terms of both accuracy and efficiency.
+</details>
+<details>
+<summary>摘要</summary>
+Event 摄像头或动力视觉传感器在最近已经取得了基本视觉任务到高级视觉研究的成功。由于它可以ynchronously capture light intensity changes，因此event摄像头有着自然地捕捉移动 объек的优势。因此，event摄像头是Visual object tracking的自然选择。然而，现有的event基于RGB摄像头的追踪器仅将输入图像转换为事件帧，然后仍然遵循传统的追踪管道，主要Focus on object texture for target distinction。这些追踪器可能不是在复杂的场景中Robust，如移动摄像头和干扰性较高的前景。在这篇论文中，我们提出了一种防护event追踪器，它通过将 transformer 模块 incorporated into Siamese network architecture (名为 DANet)来解决这些问题。具体来说，我们的模型由一个 Motion-aware network 和一个 Target-aware network 组成，这两个网络同时利用 event 数据中的运动迹和对象边缘，以便在找到运动 объек和标识目标对象的同时，从而消除动态干扰物。我们的 DANet 可以在端到端的方式进行训练，不需要任何后处理，并且可以在一个 V100 上运行 faster than 80 FPS。我们在两个大事件追踪数据集上进行了广泛的实验，以验证我们的模型。我们示示了我们的追踪器在对比于当前状态追踪器的情况下，在精度和效率两个方面具有superior performance。
+</details></li>
+</ul>
+<hr>
+<h2 id="Partition-Speeds-Up-Learning-Implicit-Neural-Representations-Based-on-Exponential-Increase-Hypothesis"><a href="#Partition-Speeds-Up-Learning-Implicit-Neural-Representations-Based-on-Exponential-Increase-Hypothesis" class="headerlink" title="Partition Speeds Up Learning Implicit Neural Representations Based on Exponential-Increase Hypothesis"></a>Partition Speeds Up Learning Implicit Neural Representations Based on Exponential-Increase Hypothesis</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14184">http://arxiv.org/abs/2310.14184</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ke Liu, Feng Liu, Haishuai Wang, Ning Ma, Jiajun Bu, Bo Han<br>for:* 学习一个灵活的图像表示函数，使得图像可以被视为一个连续函数。methods:* 使用一个卷积神经网络来学习图像表示函数。* 采用分割策略来分割图像，并在每个子区域中使用小型神经网络来学习图像表示函数。results:* 经验表明，如果图像包含多个对象，那么使用连续函数来学习图像表示函数会导致学习时间增长 exponentiallly。* 提出了一种分割策略，可以快速提高学习图像表示函数的速度。* 对于单个图像学习和学习-学习框架，提出了两种分割规则，分别基于 régulier 网格和semantic segmentation map。<details>
+<summary>Abstract</summary>
+$\textit{Implicit neural representations}$ (INRs) aim to learn a $\textit{continuous function}$ (i.e., a neural network) to represent an image, where the input and output of the function are pixel coordinates and RGB/Gray values, respectively. However, images tend to consist of many objects whose colors are not perfectly consistent, resulting in the challenge that image is actually a $\textit{discontinuous piecewise function}$ and cannot be well estimated by a continuous function. In this paper, we empirically investigate that if a neural network is enforced to fit a discontinuous piecewise function to reach a fixed small error, the time costs will increase exponentially with respect to the boundaries in the spatial domain of the target signal. We name this phenomenon the $\textit{exponential-increase}$ hypothesis. Under the $\textit{exponential-increase}$ hypothesis, learning INRs for images with many objects will converge very slowly. To address this issue, we first prove that partitioning a complex signal into several sub-regions and utilizing piecewise INRs to fit that signal can significantly speed up the convergence. Based on this fact, we introduce a simple partition mechanism to boost the performance of two INR methods for image reconstruction: one for learning INRs, and the other for learning-to-learn INRs. In both cases, we partition an image into different sub-regions and dedicate smaller networks for each part. In addition, we further propose two partition rules based on regular grids and semantic segmentation maps, respectively. Extensive experiments validate the effectiveness of the proposed partitioning methods in terms of learning INR for a single image (ordinary learning framework) and the learning-to-learn framework.
+</details>
+<details>
+<summary>摘要</summary>
+$\textit{含义神经表示}$（INR）目的是学习一个 $\textit{连续函数}$（即神经网络），用于表示一个图像，其输入和输出分别是像素坐标和RGB/灰度值。然而，图像通常由多个 объек  whose colors are not perfectly consistent, resulting in the challenge that the image is actually a $\textit{破碎不连续函数}$ and cannot be well estimated by a continuous function. In this paper, we empirically investigate that if a neural network is enforced to fit a discontinuous piecewise function to reach a fixed small error, the time costs will increase exponentially with respect to the boundaries in the spatial domain of the target signal. We name this phenomenon the $\textit{几何增长}$ hypothesis. Under the $\textit{几何增长}$ hypothesis, learning INRs for images with many objects will converge very slowly. To address this issue, we first prove that partitioning a complex signal into several sub-regions and utilizing piecewise INRs to fit that signal can significantly speed up the convergence. Based on this fact, we introduce a simple partition mechanism to boost the performance of two INR methods for image reconstruction: one for learning INRs, and the other for learning-to-learn INRs. In both cases, we partition an image into different sub-regions and dedicate smaller networks for each part. In addition, we further propose two partition rules based on regular grids and semantic segmentation maps, respectively. Extensive experiments validate the effectiveness of the proposed partitioning methods in terms of learning INR for a single image (ordinary learning framework) and the learning-to-learn framework.
+</details></li>
+</ul>
+<hr>
+<h2 id="Prompt-based-Grouping-Transformer-for-Nucleus-Detection-and-Classification"><a href="#Prompt-based-Grouping-Transformer-for-Nucleus-Detection-and-Classification" class="headerlink" title="Prompt-based Grouping Transformer for Nucleus Detection and Classification"></a>Prompt-based Grouping Transformer for Nucleus Detection and Classification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14176">http://arxiv.org/abs/2310.14176</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/lhaof/pgt">https://github.com/lhaof/pgt</a></li>
+<li>paper_authors: Junjia Huang, Haofeng Li, Weijun Sun, Xiang Wan, Guanbin Li</li>
+<li>for: 这篇论文旨在提出一个新的细胞检测和类别方法，以实现疾病诊断中的有效信息生成。</li>
+<li>methods: 该方法使用一种groupby transformer-based classifier，将核lei embedding hierarchically grouped，然后透过排序分类来预测细胞类型。</li>
+<li>results: 实验结果显示，提案的方法与现有模型比较，在三个数据集上表现出 significatively better 的成绩。<details>
+<summary>Abstract</summary>
+Automatic nuclei detection and classification can produce effective information for disease diagnosis. Most existing methods classify nuclei independently or do not make full use of the semantic similarity between nuclei and their grouping features. In this paper, we propose a novel end-to-end nuclei detection and classification framework based on a grouping transformer-based classifier. The nuclei classifier learns and updates the representations of nuclei groups and categories via hierarchically grouping the nucleus embeddings. Then the cell types are predicted with the pairwise correlations between categorical embeddings and nucleus features. For the efficiency of the fully transformer-based framework, we take the nucleus group embeddings as the input prompts of backbone, which helps harvest grouping guided features by tuning only the prompts instead of the whole backbone. Experimental results show that the proposed method significantly outperforms the existing models on three datasets.
+</details>
+<details>
+<summary>摘要</summary>
+自动检测和分类核心可以生成有效的疾病诊断信息。现有方法通常是独立地或不充分利用核心和分类特征之间的语义相似性进行分类。在本文中，我们提出了一种基于分组变换器的新的核心检测和分类框架。核心分类器会学习和更新核心组和类别的表示，通过层次地组织核心嵌入。然后，通过对分类嵌入和核心特征之间的对比，预测细胞类型。为了提高全transformer-based框架的效率，我们将核心组嵌入作为后置的输入提示，这样可以充分利用分组指导特征，只需要调整提示而不是整个后置。实验结果表明，我们的方法与现有模型在三个数据集上表现出了明显的优异。
+</details></li>
+</ul>
+<hr>
+<h2 id="ASC-Appearance-and-Structure-Consistency-for-Unsupervised-Domain-Adaptation-in-Fetal-Brain-MRI-Segmentation"><a href="#ASC-Appearance-and-Structure-Consistency-for-Unsupervised-Domain-Adaptation-in-Fetal-Brain-MRI-Segmentation" class="headerlink" title="ASC: Appearance and Structure Consistency for Unsupervised Domain Adaptation in Fetal Brain MRI Segmentation"></a>ASC: Appearance and Structure Consistency for Unsupervised Domain Adaptation in Fetal Brain MRI Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14172">http://arxiv.org/abs/2310.14172</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/lhaof/asc">https://github.com/lhaof/asc</a></li>
+<li>paper_authors: Zihang Xu, Haifan Gong, Xiang Wan, Haofeng Li</li>
+<li>for: 本研究旨在提高胎儿脑部影像自动分割的精度和效率，以便对胎儿脑部发育进行量化分析。</li>
+<li>methods: 本研究提出了一种实用无监督领域适应（UDA）设定，将高质量胎儿脑部图像 атла斯中的分割标签应用到没有标签的胎儿脑部MRI数据中。为解决任务，我们提出了一种基于外观和结构一致性的新UDA框架，名为ASC。我们在不同领域中适应分割模型的 appearances by 限制在不同频率基于图像变换之前和之后的一致性。此外，我们还鼓励模型在目标领域中适应结构变化，以便更好地适应不同的胎儿脑部结构。</li>
+<li>results: 对FeTA 2021数据集进行了广泛的实验，并证明了我们的ASC在比registratin-based、semi-supervised learning-based和现有UDA-based方法更有效。<details>
+<summary>Abstract</summary>
+Automatic tissue segmentation of fetal brain images is essential for the quantitative analysis of prenatal neurodevelopment. However, producing voxel-level annotations of fetal brain imaging is time-consuming and expensive. To reduce labeling costs, we propose a practical unsupervised domain adaptation (UDA) setting that adapts the segmentation labels of high-quality fetal brain atlases to unlabeled fetal brain MRI data from another domain. To address the task, we propose a new UDA framework based on Appearance and Structure Consistency, named ASC. We adapt the segmentation model to the appearances of different domains by constraining the consistency before and after a frequency-based image transformation, which is to swap the appearance between brain MRI data and atlases. Consider that even in the same domain, the fetal brain images of different gestational ages could have significant variations in the anatomical structures. To make the model adapt to the structural variations in the target domain, we further encourage prediction consistency under different structural perturbations. Extensive experiments on FeTA 2021 benchmark demonstrate the effectiveness of our ASC in comparison to registration-based, semi-supervised learning-based, and existing UDA-based methods.
+</details>
+<details>
+<summary>摘要</summary>
+自动化胎儿脑部影像分割是胎儿发育研究中必需的一种量化分析方法。然而，为了生成胎儿脑部影像的 voxel-level 标注，需要较多的时间和成本。为了降低标注成本，我们提出了一种实用的无监督领域适应（UDA）设定，该设定将高质量胎儿脑部 Atlases 的分割标注转换到另一个频谱频率频谱频率频谱频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频率频��
+</details></li>
+</ul>
+<hr>
+<h2 id="Visual-Attribute-Prompt-Learning-for-Progressive-Mild-Cognitive-Impairment-Prediction"><a href="#Visual-Attribute-Prompt-Learning-for-Progressive-Mild-Cognitive-Impairment-Prediction" class="headerlink" title="Visual-Attribute Prompt Learning for Progressive Mild Cognitive Impairment Prediction"></a>Visual-Attribute Prompt Learning for Progressive Mild Cognitive Impairment Prediction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14158">http://arxiv.org/abs/2310.14158</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/lhaof/vapl">https://github.com/lhaof/vapl</a></li>
+<li>paper_authors: Luoyao Kang, Haifan Gong, Xiang Wan, Haofeng Li</li>
+<li>for: 这个研究旨在使用深度学习技术自动诊断轻度智能障碍（MCI）和阿尔茨海默病（AD），并将扩展到进程性MCI（pMCI）诊断。</li>
+<li>methods: 该研究提出了一种基于转换器的网络，称为视觉特征引导学习 transformer（VAP-Former），它可以高效地提取并融合多modal特征。此外，提出了一种Prompt fine-Tuning（PT）方案，可以在AD诊断任务上传递知识到pMCI检测任务。</li>
+<li>results: 对比之前的方法，该研究的方法在pMCI预测任务中表现出色，并且 Interestingly, 提出的提示学习模型甚至超过了完全 Fine-tuning 基准在传递知识从AD到pMCI的任务中。<details>
+<summary>Abstract</summary>
+Deep learning (DL) has been used in the automatic diagnosis of Mild Cognitive Impairment (MCI) and Alzheimer's Disease (AD) with brain imaging data. However, previous methods have not fully exploited the relation between brain image and clinical information that is widely adopted by experts in practice. To exploit the heterogeneous features from imaging and tabular data simultaneously, we propose the Visual-Attribute Prompt Learning-based Transformer (VAP-Former), a transformer-based network that efficiently extracts and fuses the multi-modal features with prompt fine-tuning. Furthermore, we propose a Prompt fine-Tuning (PT) scheme to transfer the knowledge from AD prediction task for progressive MCI (pMCI) diagnosis. In details, we first pre-train the VAP-Former without prompts on the AD diagnosis task and then fine-tune the model on the pMCI detection task with PT, which only needs to optimize a small amount of parameters while keeping the backbone frozen. Next, we propose a novel global prompt token for the visual prompts to provide global guidance to the multi-modal representations. Extensive experiments not only show the superiority of our method compared with the state-of-the-art methods in pMCI prediction but also demonstrate that the global prompt can make the prompt learning process more effective and stable. Interestingly, the proposed prompt learning model even outperforms the fully fine-tuning baseline on transferring the knowledge from AD to pMCI.
+</details>
+<details>
+<summary>摘要</summary>
+深度学习（DL）已经在自动诊断淡衰性认知障碍（MCI）和阿尔茨海默病（AD）中使用了大脑成像数据。然而，之前的方法没有充分利用了大脑成像和临床信息之间的关系，这是专家在实践中广泛采用的。为了同时提取和融合多Modal特征，我们提议使用视觉特征提示学习基于转换器（VAP-Former），这是一种基于转换器的网络，可以高效地提取和融合多Modal特征。此外，我们还提议一种Prompt fine-Tuning（PT）方案，可以将AD预测任务中的知识传递到pMCI诊断任务中。在详细的实验中，我们首先在AD诊断任务上预训练VAP-Former无提示，然后在pMCI检测任务上使用PT方案进行微小的参数优化，保持背景固定。其次，我们提出了一个全局提示符用于视觉提示，以提供全局指导多Modal表示。广泛的实验结果不仅表明了我们的方法在pMCI预测任务中的优越性，还表明了全局提示符可以使得提示学习过程更加有效和稳定。更有趣的是，我们的提示学习模型甚至超过了完全微调基准点在传递知识从AD到pMCI的任务中表现。
+</details></li>
+</ul>
+<hr>
+<h2 id="Affine-Consistent-Transformer-for-Multi-Class-Cell-Nuclei-Detection"><a href="#Affine-Consistent-Transformer-for-Multi-Class-Cell-Nuclei-Detection" class="headerlink" title="Affine-Consistent Transformer for Multi-Class Cell Nuclei Detection"></a>Affine-Consistent Transformer for Multi-Class Cell Nuclei Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14154">http://arxiv.org/abs/2310.14154</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/lhaof/acformer">https://github.com/lhaof/acformer</a></li>
+<li>paper_authors: Junjia Huang, Haofeng Li, Xiang Wan, Guanbin Li</li>
+<li>for: 多类细胞核体检测是 Histopathology 诊断的基本前提，需要效率地查找和识别具有多样化形态和分布的细胞。</li>
+<li>methods: 我们提出了一种新的 Affine-Consistent Transformer（AC-Former）， directly 输出细胞位置序列，通过两个子网络：全球网络和地方网络。 地方网络学习扭曲输入图像的小规模版本，而全球网络输出大规模预测信号。我们还引入了一个 Adaptive Affine Transformer（AAT）模块，可以自动学习截取原始图像的关键空间变换，以便地方网络训练。</li>
+<li>results: 我们的方法与现有State-of-the-art算法进行比较，实验结果表明，我们的方法在多个标准底图上显著超过了现有方法。<details>
+<summary>Abstract</summary>
+Multi-class cell nuclei detection is a fundamental prerequisite in the diagnosis of histopathology. It is critical to efficiently locate and identify cells with diverse morphology and distributions in digital pathological images. Most existing methods take complex intermediate representations as learning targets and rely on inflexible post-refinements while paying less attention to various cell density and fields of view. In this paper, we propose a novel Affine-Consistent Transformer (AC-Former), which directly yields a sequence of nucleus positions and is trained collaboratively through two sub-networks, a global and a local network. The local branch learns to infer distorted input images of smaller scales while the global network outputs the large-scale predictions as extra supervision signals. We further introduce an Adaptive Affine Transformer (AAT) module, which can automatically learn the key spatial transformations to warp original images for local network training. The AAT module works by learning to capture the transformed image regions that are more valuable for training the model. Experimental results demonstrate that the proposed method significantly outperforms existing state-of-the-art algorithms on various benchmarks.
+</details>
+<details>
+<summary>摘要</summary>
+多类细胞核体检测是 histopathology 诊断中的基本前提。 efficiently 找到和识别在数字病理图像中的多种形态和分布的细胞是 kritical。 现有的方法通常使用复杂的中间表示，并且依赖于不灵活的后处理 while paying less attention to various cell density and fields of view. 在这篇论文中，我们提出了一种新的 Affine-Consistent Transformer (AC-Former)，它直接产生细胞位置序列，并通过两个子网络，一个全球网络和一个本地网络，进行协同培训。 本地分支学习扭曲输入图像的小规模版本，而全球网络输出大规模预测。 我们还引入了一个 Adaptive Affine Transformer (AAT) 模块，它可以自动学习捕捉原始图像中的关键空间变换，以便用于本地网络训练。 AAT 模块通过学习捕捉更有价值的扭曲图像区域来帮助模型训练。 实验结果表明，提出的方法在多个 benchmark 上显著超越了现有的状态泰科技。
+</details></li>
+</ul>
+<hr>
+<h2 id="MMTF-DES-A-Fusion-of-Multimodal-Transformer-Models-for-Desire-Emotion-and-Sentiment-Analysis-of-Social-Media-Data"><a href="#MMTF-DES-A-Fusion-of-Multimodal-Transformer-Models-for-Desire-Emotion-and-Sentiment-Analysis-of-Social-Media-Data" class="headerlink" title="MMTF-DES: A Fusion of Multimodal Transformer Models for Desire, Emotion, and Sentiment Analysis of Social Media Data"></a>MMTF-DES: A Fusion of Multimodal Transformer Models for Desire, Emotion, and Sentiment Analysis of Social Media Data</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.14143">http://arxiv.org/abs/2310.14143</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Abdul Aziz, Nihad Karim Chowdhury, Muhammad Ashad Kabir, Abu Nowshed Chy, Md. Jawad Siddique</li>
+<li>for: 本研究旨在理解人类愿望和感受，以便提高人机交互、识别人类情感智能、理解人际关系和做出决策。</li>
+<li>methods: 我们提出了一种基于多模态变换器模型的统一框架，包括图文对设定和图文对照对接。我们使用了两个state-of-the-art多模态变换器模型进行图文对照对接，以提取多样的特征。</li>
+<li>results: 我们通过对社交媒体图片和文本对照对接进行联合练习，使得我们可以强化图文对照对接，并使用早期融合策略将多种特征表示融合在一起，以获得更加强大的感知和理解。<details>
+<summary>Abstract</summary>
+Desire is a set of human aspirations and wishes that comprise verbal and cognitive aspects that drive human feelings and behaviors, distinguishing humans from other animals. Understanding human desire has the potential to be one of the most fascinating and challenging research domains. It is tightly coupled with sentiment analysis and emotion recognition tasks. It is beneficial for increasing human-computer interactions, recognizing human emotional intelligence, understanding interpersonal relationships, and making decisions. However, understanding human desire is challenging and under-explored because ways of eliciting desire might be different among humans. The task gets more difficult due to the diverse cultures, countries, and languages. Prior studies overlooked the use of image-text pairwise feature representation, which is crucial for the task of human desire understanding. In this research, we have proposed a unified multimodal transformer-based framework with image-text pair settings to identify human desire, sentiment, and emotion. The core of our proposed method lies in the encoder module, which is built using two state-of-the-art multimodal transformer models. These models allow us to extract diverse features. To effectively extract visual and contextualized embedding features from social media image and text pairs, we conducted joint fine-tuning of two pre-trained multimodal transformer models: Vision-and-Language Transformer (ViLT) and Vision-and-Augmented-Language Transformer (VAuLT). Subsequently, we use an early fusion strategy on these embedding features to obtain combined diverse feature representations of the image-text pair. This consolidation incorporates diverse information about this task, enabling us to robustly perceive the context and image pair from multiple perspectives.
+</details>
+<details>
+<summary>摘要</summary>
+人类欲望是一组人类aspirations和 wishes，包括语言和认知方面，它驱动人类情感和行为， distinguishing humans from other animals. 理解人类欲望有potential to be one of the most fascinating and challenging research domains. It is tightly coupled with sentiment analysis and emotion recognition tasks. It is beneficial for increasing human-computer interactions, recognizing human emotional intelligence, understanding interpersonal relationships, and making decisions. However, understanding human desire is challenging and under-explored because ways of eliciting desire may be different among humans. The task becomes more difficult due to diverse cultures, countries, and languages. Prior studies overlooked the use of image-text pairwise feature representation, which is crucial for the task of human desire understanding. In this research, we proposed a unified multimodal transformer-based framework with image-text pair settings to identify human desire, sentiment, and emotion. The core of our proposed method lies in the encoder module, which is built using two state-of-the-art multimodal transformer models. These models allow us to extract diverse features. To effectively extract visual and contextualized embedding features from social media image and text pairs, we conducted joint fine-tuning of two pre-trained multimodal transformer models: Vision-and-Language Transformer (ViLT) and Vision-and-Augmented-Language Transformer (VAuLT). Subsequently, we use an early fusion strategy on these embedding features to obtain combined diverse feature representations of the image-text pair. This consolidation incorporates diverse information about this task, enabling us to robustly perceive the context and image pair from multiple perspectives.
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/10/22/cs.CV_2023_10_22/" data-id="clogxf3nm00js5xraaynp3xlk" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/22/eess.AS_2023_10_22/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          eess.AS - 2023-10-22
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/22/cs.AI_2023_10_22/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.AI - 2023-10-22</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">115</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">55</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">111</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">61</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">231</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">212</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

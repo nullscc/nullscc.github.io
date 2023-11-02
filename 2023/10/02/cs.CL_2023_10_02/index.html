@@ -1,0 +1,632 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CL - 2023-10-02 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Closing the Curious Case of Neural Text Degeneration paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2310.01693 repo_url: https:&#x2F;&#x2F;github.com&#x2F;mattf1n&#x2F;basis-aware-threshold paper_authors: Matthew Finlayson, John Hewitt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CL - 2023-10-02">
+<meta property="og:url" content="https://nullscc.github.io/2023/10/02/cs.CL_2023_10_02/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="Closing the Curious Case of Neural Text Degeneration paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2310.01693 repo_url: https:&#x2F;&#x2F;github.com&#x2F;mattf1n&#x2F;basis-aware-threshold paper_authors: Matthew Finlayson, John Hewitt">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-10-02T11:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-02T08:28:24.683Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CL_2023_10_02" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/10/02/cs.CL_2023_10_02/" class="article-date">
+  <time datetime="2023-10-02T11:00:00.000Z" itemprop="datePublished">2023-10-02</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CL/">cs.CL</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CL - 2023-10-02
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Closing-the-Curious-Case-of-Neural-Text-Degeneration"><a href="#Closing-the-Curious-Case-of-Neural-Text-Degeneration" class="headerlink" title="Closing the Curious Case of Neural Text Degeneration"></a>Closing the Curious Case of Neural Text Degeneration</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01693">http://arxiv.org/abs/2310.01693</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/mattf1n/basis-aware-threshold">https://github.com/mattf1n/basis-aware-threshold</a></li>
+<li>paper_authors: Matthew Finlayson, John Hewitt, Alexander Koller, Swabha Swayamdipta, Ashish Sabharwal</li>
+<li>for: 这篇论文是为了解释 truncation sampling 规则的有效性而写的。</li>
+<li>methods: 该论文使用了 теоретиче分析和实验方法来解释 truncation sampling 的有效性。</li>
+<li>results: 研究发现， truncation sampling 可以保证所抽取的token都有非零真实概率，但是这种方法会丢弃一些有非零真实概率的token。此外，研究还开发了一种基于 softmax bottleneck 的 эксперименталь truncation strategy，并进行了一些 Pilot 研究，显示该方法可以在自动和人工评价指标下表现更好。<details>
+<summary>Abstract</summary>
+Despite their ubiquity in language generation, it remains unknown why truncation sampling heuristics like nucleus sampling are so effective. We provide a theoretical explanation for the effectiveness of the truncation sampling by proving that truncation methods that discard tokens below some probability threshold (the most common type of truncation) can guarantee that all sampled tokens have nonzero true probability. However, thresholds are a coarse heuristic, and necessarily discard some tokens with nonzero true probability as well. In pursuit of a more precise sampling strategy, we show that we can leverage a known source of model errors, the softmax bottleneck, to prove that certain tokens have nonzero true probability, without relying on a threshold. Based on our findings, we develop an experimental truncation strategy and the present pilot studies demonstrating the promise of this type of algorithm. Our evaluations show that our method outperforms its threshold-based counterparts under automatic and human evaluation metrics for low-entropy (i.e., close to greedy) open-ended text generation. Our theoretical findings and pilot experiments provide both insight into why truncation sampling works, and make progress toward more expressive sampling algorithms that better surface the generative capabilities of large language models.
+</details>
+<details>
+<summary>摘要</summary>
+尽管截断采样策略如核心采样在语言生成中如此普遍，但它们的效果还未得到解释。我们提供了 truncation 方法的理论解释，证明截断方法，即按一定概率阈值截断token，可以 garantía 所采样的token具有非零真实概率。然而，阈值是一种粗略的估计，一定会抛弃一些具有非零真实概率的token。为了实现更精细的采样策略，我们表明可以利用模型的软饱感瓶颈来证明某些token具有非零真实概率，不需要阈值。根据我们的发现，我们开发了一种实验性的截断策略，并进行了相关的试验。我们的评估结果表明，我们的方法在自动和人工评估指标下，对低熵（即近乎恒等）的开放式文本生成 Task 表现较好。我们的理论发现和试验结果为我们更好的理解截断采样的效果，以及开发更表达力强的采样算法，以便更好地激发大语言模型的生成能力。
+</details></li>
+</ul>
+<hr>
+<h2 id="One-model-to-rule-them-all-Towards-End-to-End-Joint-Speaker-Diarization-and-Speech-Recognition"><a href="#One-model-to-rule-them-all-Towards-End-to-End-Joint-Speaker-Diarization-and-Speech-Recognition" class="headerlink" title="One model to rule them all ? Towards End-to-End Joint Speaker Diarization and Speech Recognition"></a>One model to rule them all ? Towards End-to-End Joint Speaker Diarization and Speech Recognition</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01688">http://arxiv.org/abs/2310.01688</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Samuele Cornell, Jee-weon Jung, Shinji Watanabe, Stefano Squartini</li>
+<li>for: 这个论文提出了一种新的整合Speaker Diagnosis(SD)和自动语音识别(ASR)框架，名为SLIDAR（滑块窗口识别增强识别）。SLIDAR可以处理任意长度输入，并可以同时解决“谁说了什么，何时”问题。</li>
+<li>methods: 这个框架使用了滑块窗口方法，并基于一个端到端识别扩展（E2E DAST）模型，该模型在每个窗口中提供了讲话稿、识别和说话人嵌入。E2E DAST模型采用了最新的技术，如串联输出训练和“喊叫式”提示。</li>
+<li>results: 对于从AMI语音库中的单麦记录而言，实验证明SLIDAR在Close-talk和far-field语音场景中都有效。<details>
+<summary>Abstract</summary>
+This paper presents a novel framework for joint speaker diarization (SD) and automatic speech recognition (ASR), named SLIDAR (sliding-window diarization-augmented recognition). SLIDAR can process arbitrary length inputs and can handle any number of speakers, effectively solving ``who spoke what, when'' concurrently. SLIDAR leverages a sliding window approach and consists of an end-to-end diarization-augmented speech transcription (E2E DAST) model which provides, locally, for each window: transcripts, diarization and speaker embeddings. The E2E DAST model is based on an encoder-decoder architecture and leverages recent techniques such as serialized output training and ``Whisper-style" prompting. The local outputs are then combined to get the final SD+ASR result by clustering the speaker embeddings to get global speaker identities. Experiments performed on monaural recordings from the AMI corpus confirm the effectiveness of the method in both close-talk and far-field speech scenarios.
+</details>
+<details>
+<summary>摘要</summary>
+SLIDAR uses a sliding window approach and consists of an end-to-end diarization-augmented speech transcription (E2E DAST) model. The E2E DAST model is based on an encoder-decoder architecture and utilizes recent techniques such as serialized output training and "Whisper-style" prompting. The model provides locally, for each window, transcripts, diarization, and speaker embeddings.The local outputs are then combined to obtain the final SD+ASR result by clustering the speaker embeddings to obtain global speaker identities. Experiments conducted on monaural recordings from the AMI corpus demonstrate the effectiveness of the method in both close-talk and far-field speech scenarios.
+</details></li>
+</ul>
+<hr>
+<h2 id="Defending-Against-Authorship-Identification-Attacks"><a href="#Defending-Against-Authorship-Identification-Attacks" class="headerlink" title="Defending Against Authorship Identification Attacks"></a>Defending Against Authorship Identification Attacks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01568">http://arxiv.org/abs/2310.01568</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Haining Wang</li>
+<li>for:  This paper focuses on the issue of authorship identification and the threat it poses to individuals who wish to remain anonymous while communicating publicly.</li>
+<li>methods:  The paper reviews and analyzes various methods that have been proposed to defend against authorship identification attacks, including modification and generation-based strategies, with a focus on joint efforts from the differential privacy community.</li>
+<li>results:  The paper highlights the limitations of current research and identifies open challenges and potential research avenues in the field of authorship identification defense.<details>
+<summary>Abstract</summary>
+Authorship identification has proven unsettlingly effective in inferring the identity of the author of an unsigned document, even when sensitive personal information has been carefully omitted. In the digital era, individuals leave a lasting digital footprint through their written content, whether it is posted on social media, stored on their employer's computers, or located elsewhere. When individuals need to communicate publicly yet wish to remain anonymous, there is little available to protect them from unwanted authorship identification. This unprecedented threat to privacy is evident in scenarios such as whistle-blowing. Proposed defenses against authorship identification attacks primarily aim to obfuscate one's writing style, thereby making it unlinkable to their pre-existing writing, while concurrently preserving the original meaning and grammatical integrity. The presented work offers a comprehensive review of the advancements in this research area spanning over the past two decades and beyond. It emphasizes the methodological frameworks of modification and generation-based strategies devised to evade authorship identification attacks, highlighting joint efforts from the differential privacy community. Limitations of current research are discussed, with a spotlight on open challenges and potential research avenues.
+</details>
+<details>
+<summary>摘要</summary>
+作者标识可以很准确地推断未签名文档的作者身份，即使仔细避免敏感个人信息。在数字时代，人们会通过自己的写作内容留下数字印记，无论是在社交媒体上发布、工作计算机上存储或其他地方。当人们需要公开沟通却希望保持匿名性时，有限的保护机制可以帮助他们避免不必要的作者标识攻击。这种威胁到隐私的现象特别明显在披露行为中。提案的防御策略主要是使用修改和生成基于策略，以避免作者标识攻击，同时保持原始的意思和语法完整性。这篇文章对过去二十年以来在这个研究领域的进步做出了全面的审视，并高亮了差异隐私社区的合作。现有研究的局限性和未解决的挑战也得到了讨论。
+</details></li>
+</ul>
+<hr>
+<h2 id="It’s-MBR-All-the-Way-Down-Modern-Generation-Techniques-Through-the-Lens-of-Minimum-Bayes-Risk"><a href="#It’s-MBR-All-the-Way-Down-Modern-Generation-Techniques-Through-the-Lens-of-Minimum-Bayes-Risk" class="headerlink" title="It’s MBR All the Way Down: Modern Generation Techniques Through the Lens of Minimum Bayes Risk"></a>It’s MBR All the Way Down: Modern Generation Techniques Through the Lens of Minimum Bayes Risk</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01387">http://arxiv.org/abs/2310.01387</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Amanda Bertsch, Alex Xie, Graham Neubig, Matthew R. Gormley</li>
+<li>for: 这篇论文主要是为了介绍和推广最小极大风险（MBR）解码方法，以及对NLP领域中MBR的应用和发展。</li>
+<li>methods: 这篇论文使用了MBR解码方法，并对其的理论基础和最近的研究进行了介绍。同时， authors还提出了一些MBR的特例，并对这些特例的性能进行了 theoretically和实验性的研究。</li>
+<li>results: 研究结果显示，MBR解码方法可以在各种任务上提供可靠的多点改进，而无需额外的数据或训练。此外， authors还发现了一些相关的NLP任务，其性能可以通过MBR的特例来进一步提高。<details>
+<summary>Abstract</summary>
+Minimum Bayes Risk (MBR) decoding is a method for choosing the outputs of a machine learning system based not on the output with the highest probability, but the output with the lowest risk (expected error) among multiple candidates. It is a simple but powerful method: for an additional cost at inference time, MBR provides reliable several-point improvements across metrics for a wide variety of tasks without any additional data or training. Despite this, MBR is not frequently applied in NLP works, and knowledge of the method itself is limited. We first provide an introduction to the method and the recent literature. We show that several recent methods that do not reference MBR can be written as special cases of MBR; this reformulation provides additional theoretical justification for the performance of these methods, explaining some results that were previously only empirical. We provide theoretical and empirical results about the effectiveness of various MBR variants and make concrete recommendations for the application of MBR in NLP models, including future directions in this area.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>将文本翻译成简化中文。</SYS>> minimum bayes risk（MBR）解oding是一种基于机器学习系统的输出选择方法，而不是根据输出概率最高的输出，而是根据输出风险（预期错误）最低的输出。这是一种简单 yet powerful的方法：在推理时添加额外成本，MBR可以在各种任务上提供可靠的多点改进，无需任何额外数据或训练。尽管如此，MBR在NLP领域并不常用，人们对该方法的知识相对较少。我们首先介绍MBR方法和最近的文献，并证明了一些最近的方法可以写作MBR的特殊情况，这种重新表述提供了额外的理论支持，解释了一些先前只有实验性的结果。我们提供了理论和实验结果，证明了MBR变体的效果，并提出了在NLP模型中应用MBR的具体建议，以及未来在这个领域的发展方向。
+</details></li>
+</ul>
+<hr>
+<h2 id="Who-is-ChatGPT-Benchmarking-LLMs’-Psychological-Portrayal-Using-PsychoBench"><a href="#Who-is-ChatGPT-Benchmarking-LLMs’-Psychological-Portrayal-Using-PsychoBench" class="headerlink" title="Who is ChatGPT? Benchmarking LLMs’ Psychological Portrayal Using PsychoBench"></a>Who is ChatGPT? Benchmarking LLMs’ Psychological Portrayal Using PsychoBench</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01386">http://arxiv.org/abs/2310.01386</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/cuhk-arise/psychobench">https://github.com/cuhk-arise/psychobench</a></li>
+<li>paper_authors: Jen-tse Huang, Wenxuan Wang, Eric John Li, Man Ho Lam, Shujie Ren, Youliang Yuan, Wenxiang Jiao, Zhaopeng Tu, Michael R. Lyu</li>
+<li>for: This paper aims to evaluate the psychological aspects of large language models (LLMs), specifically their personalities, temperaments, and emotions.</li>
+<li>methods: The authors propose a framework called PsychoBench, which includes 13 scales commonly used in clinical psychology and classifies them into four categories: personality traits, interpersonal relationships, motivational tests, and emotional abilities. They also employ a jailbreak approach to bypass safety alignment protocols and test the intrinsic natures of LLMs.</li>
+<li>results: The study examines five popular LLM models, including \texttt{text-davinci-003}, ChatGPT, GPT-4, LLaMA-2-7b, and LLaMA-2-13b, and provides a comprehensive evaluation of their psychological aspects using the PsychoBench framework.<details>
+<summary>Abstract</summary>
+Large Language Models (LLMs) have recently showcased their remarkable capacities, not only in natural language processing tasks but also across diverse domains such as clinical medicine, legal consultation, and education. LLMs become more than mere applications, evolving into assistants capable of addressing diverse user requests. This narrows the distinction between human beings and artificial intelligence agents, raising intriguing questions regarding the potential manifestation of personalities, temperaments, and emotions within LLMs. In this paper, we propose a framework, PsychoBench, for evaluating diverse psychological aspects of LLMs. Comprising thirteen scales commonly used in clinical psychology, PsychoBench further classifies these scales into four distinct categories: personality traits, interpersonal relationships, motivational tests, and emotional abilities. Our study examines five popular models, namely \texttt{text-davinci-003}, ChatGPT, GPT-4, LLaMA-2-7b, and LLaMA-2-13b. Additionally, we employ a jailbreak approach to bypass the safety alignment protocols and test the intrinsic natures of LLMs. We have made PsychoBench openly accessible via \url{https://github.com/CUHK-ARISE/PsychoBench}.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Compressing-LLMs-The-Truth-is-Rarely-Pure-and-Never-Simple"><a href="#Compressing-LLMs-The-Truth-is-Rarely-Pure-and-Never-Simple" class="headerlink" title="Compressing LLMs: The Truth is Rarely Pure and Never Simple"></a>Compressing LLMs: The Truth is Rarely Pure and Never Simple</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01382">http://arxiv.org/abs/2310.01382</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ajay Jaiswal, Zhe Gan, Xianzhi Du, Bowen Zhang, Zhangyang Wang, Yinfei Yang</li>
+<li>for: 这个论文的目的是重新评估现有的最佳压缩方法（pruning和quantization）的效果，以及它们是否能够保留大语言模型（LLM）的语言理解和创作能力。</li>
+<li>methods: 这个论文使用了现有的最佳压缩方法（pruning和quantization），并通过设计了一个新的评估卷（LLM-KICK）来评估压缩后的LLM的性能。</li>
+<li>results: 研究发现，现有的压缩方法在一些任务上存在较大的性能下降，尤其是在知识密集的任务上；而压缩后的LLM仍然能够保持高效的语言理解和创作能力。<details>
+<summary>Abstract</summary>
+Despite their remarkable achievements, modern Large Language Models (LLMs) encounter exorbitant computational and memory footprints. Recently, several works have shown significant success in training-free and data-free compression (pruning and quantization) of LLMs achieving 50-60% sparsity and reducing the bit-width down to 3 or 4 bits per weight, with negligible perplexity degradation over the uncompressed baseline. As recent research efforts are focused on developing increasingly sophisticated compression methods, our work takes a step back, and re-evaluates the effectiveness of existing SoTA compression methods, which rely on a fairly simple and widely questioned metric, perplexity (even for dense LLMs). We introduce Knowledge-Intensive Compressed LLM BenchmarK (LLM-KICK), a collection of carefully-curated tasks to re-define the evaluation protocol for compressed LLMs, which have significant alignment with their dense counterparts, and perplexity fail to capture subtle change in their true capabilities. LLM-KICK unveils many favorable merits and unfortunate plights of current SoTA compression methods: all pruning methods suffer significant performance degradation, sometimes at trivial sparsity ratios (e.g., 25-30%), and fail for N:M sparsity on knowledge-intensive tasks; current quantization methods are more successful than pruning; yet, pruned LLMs even at $\geq 50$% sparsity are robust in-context retrieval and summarization systems; among others. LLM-KICK is designed to holistically access compressed LLMs' ability for language understanding, reasoning, generation, in-context retrieval, in-context summarization, etc. We hope our study can foster the development of better LLM compression methods. All our related codes are planed to be open-sourced.
+</details>
+<details>
+<summary>摘要</summary>
+尽管现代大型自然语言模型（LLM）具有很多出色的成就，但它们的计算和存储占用非常大。最近，一些研究表明可以通过无需训练和数据的压缩（杀掉和量化）来减少LLM的计算和存储占用，并达到50-60%的稀疏性和3-4位的位宽，而无意义影响基eline的误差。然而，当前的研究几乎所有的努力都在开发更加复杂和精准的压缩方法上，我们的工作则是回到了开发SoTA压缩方法的基础上，并重新评估现有的SoTA压缩方法。我们引入了知识强度压缩LLM benchmark（LLM-KICK），一个仿制了 dense LLM 的任务，以重新定义压缩LLM的评估协议。LLM-KICK 的任务与 dense LLM 的任务有很大的吻合度，但误差不能准确反映压缩LLM 的真实能力。LLM-KICK 揭示了现有 SoTA 压缩方法的多种优点和缺点：所有的杀掉方法在一定的稀疏率（例如25-30%）下会导致显著的性能下降，而且无法处理 N:M 稀疏率的知识型任务；当前的量化方法比杀掉更成功；然而，压缩 LLM even at >= 50% sparsity 可以在语言理解、逻辑、生成等方面保持Robust性，等等。LLM-KICK 是一个旨在全面评估压缩LLM 的语言理解、逻辑、生成、语言理解、概要、概要等能力的工具。我们希望通过这个研究，可以推动开发更好的 LLM 压缩方法。我们计划将相关代码开源。
+</details></li>
+</ul>
+<hr>
+<h2 id="DiffAR-Denoising-Diffusion-Autoregressive-Model-for-Raw-Speech-Waveform-Generation"><a href="#DiffAR-Denoising-Diffusion-Autoregressive-Model-for-Raw-Speech-Waveform-Generation" class="headerlink" title="DiffAR: Denoising Diffusion Autoregressive Model for Raw Speech Waveform Generation"></a>DiffAR: Denoising Diffusion Autoregressive Model for Raw Speech Waveform Generation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01381">http://arxiv.org/abs/2310.01381</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/rbenita/diffar">https://github.com/rbenita/diffar</a></li>
+<li>paper_authors: Roi Benita, Michael Elad, Joseph Keshet</li>
+<li>for: 高质量的语音生成</li>
+<li>methods: 泛化抽象模型</li>
+<li>results: 提高语音质量<details>
+<summary>Abstract</summary>
+Diffusion models have recently been shown to be relevant for high-quality speech generation. Most work has been focused on generating spectrograms, and as such, they further require a subsequent model to convert the spectrogram to a waveform (i.e., a vocoder). This work proposes a diffusion probabilistic end-to-end model for generating a raw speech waveform. The proposed model is autoregressive, generating overlapping frames sequentially, where each frame is conditioned on a portion of the previously generated one. Hence, our model can effectively synthesize an unlimited speech duration while preserving high-fidelity synthesis and temporal coherence. We implemented the proposed model for unconditional and conditional speech generation, where the latter can be driven by an input sequence of phonemes, amplitudes, and pitch values. Working on the waveform directly has some empirical advantages. Specifically, it allows the creation of local acoustic behaviors, like vocal fry, which makes the overall waveform sounds more natural. Furthermore, the proposed diffusion model is stochastic and not deterministic; therefore, each inference generates a slightly different waveform variation, enabling abundance of valid realizations. Experiments show that the proposed model generates speech with superior quality compared with other state-of-the-art neural speech generation systems.
+</details>
+<details>
+<summary>摘要</summary>
+Diffusion模型最近已经被证明对高质量语音生成具有重要意义。大多数工作都是将焦点放在生成spectrogram上，因此需要一个额外的模型来将spectrogram转换为波形（即vocoder）。这项工作提出了一种扩散概率结束点模型，用于直接生成Raw speech波形。该模型是自适应的，每个框都是基于前一个框的一部分进行生成，因此可以无限制长的语音生成而且保持高度准确的生成和时间准确性。我们实现了该模型的不保持和保持speech生成。前者可以驱动输入序列的phonemes、幅度和振荡值来生成语音。工作在波形直接上有一些优势。具体来说，它允许创造当地的声学行为，如喉筋振荡，使整个波形具有更自然的声音。此外，提出的扩散模型是随机的，因此每次推理都会生成一些不同的波形变化，使得有很多有效的实现。实验表明，该模型对其他现有的神经网络语音生成系统产生的语音质量都有所提高。
+</details></li>
+</ul>
+<hr>
+<h2 id="GenSim-Generating-Robotic-Simulation-Tasks-via-Large-Language-Models"><a href="#GenSim-Generating-Robotic-Simulation-Tasks-via-Large-Language-Models" class="headerlink" title="GenSim: Generating Robotic Simulation Tasks via Large Language Models"></a>GenSim: Generating Robotic Simulation Tasks via Large Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01361">http://arxiv.org/abs/2310.01361</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/liruiw/gensim">https://github.com/liruiw/gensim</a></li>
+<li>paper_authors: Lirui Wang, Yiyang Ling, Zhecheng Yuan, Mohit Shridhar, Chen Bao, Yuzhe Qin, Bailin Wang, Huazhe Xu, Xiaolong Wang<br>for:这篇论文是为了提出一种自动生成丰富的simulation环境和专家示范，以帮助培训通用 робо师策略。methods:该方法利用大型自然语言模型（LLM）的固定和编码能力，以生成许多不同任务的 simulation数据。results:研究发现，利用LLM生成的simulation程序可以显著提高任务水平的泛化性，并且在多任务策略训练中提高实际世界中的任务执行能力。<details>
+<summary>Abstract</summary>
+Collecting large amounts of real-world interaction data to train general robotic policies is often prohibitively expensive, thus motivating the use of simulation data. However, existing methods for data generation have generally focused on scene-level diversity (e.g., object instances and poses) rather than task-level diversity, due to the human effort required to come up with and verify novel tasks. This has made it challenging for policies trained on simulation data to demonstrate significant task-level generalization. In this paper, we propose to automatically generate rich simulation environments and expert demonstrations by exploiting a large language models' (LLM) grounding and coding ability. Our approach, dubbed GenSim, has two modes: goal-directed generation, wherein a target task is given to the LLM and the LLM proposes a task curriculum to solve the target task, and exploratory generation, wherein the LLM bootstraps from previous tasks and iteratively proposes novel tasks that would be helpful in solving more complex tasks. We use GPT4 to expand the existing benchmark by ten times to over 100 tasks, on which we conduct supervised finetuning and evaluate several LLMs including finetuned GPTs and Code Llama on code generation for robotic simulation tasks. Furthermore, we observe that LLMs-generated simulation programs can enhance task-level generalization significantly when used for multitask policy training. We further find that with minimal sim-to-real adaptation, the multitask policies pretrained on GPT4-generated simulation tasks exhibit stronger transfer to unseen long-horizon tasks in the real world and outperform baselines by 25%. See the project website (https://liruiw.github.io/gensim) for code, demos, and videos.
+</details>
+<details>
+<summary>摘要</summary>
+collecting large amounts of real-world interaction data to train general robotic policies is often too expensive, so people use simulation data instead. However, existing methods for making simulation data have focused on scene-level diversity (like object instances and poses) instead of task-level diversity, because it's hard to come up with and check new tasks. This has made it hard for policies trained on simulation data to do well on new tasks.In this paper, we propose a way to automatically make rich simulation environments and expert demonstrations by using a large language model's (LLM) ability to ground and code. Our approach, called GenSim, has two modes: goal-directed generation, where we give the LLM a target task and it proposes a task curriculum to solve the target task, and exploratory generation, where the LLM starts with previous tasks and comes up with new tasks that would be helpful for solving more complex tasks. We use GPT4 to add ten times more tasks to the existing benchmark, and we finetune and evaluate several LLMs, including finetuned GPTs and Code Llama, on code generation for robotic simulation tasks.We find that the LLM-generated simulation programs can improve task-level generalization a lot when used for multitask policy training. We also find that with just a little bit of sim-to-real adaptation, the multitask policies pretrained on GPT4-generated simulation tasks can do well on unseen long-horizon tasks in the real world and are 25% better than baselines. You can find more information, including code, demos, and videos, on the project website (https://liruiw.github.io/gensim).
+</details></li>
+</ul>
+<hr>
+<h2 id="LEEC-A-Legal-Element-Extraction-Dataset-with-an-Extensive-Domain-Specific-Label-System"><a href="#LEEC-A-Legal-Element-Extraction-Dataset-with-an-Extensive-Domain-Specific-Label-System" class="headerlink" title="LEEC: A Legal Element Extraction Dataset with an Extensive Domain-Specific Label System"></a>LEEC: A Legal Element Extraction Dataset with an Extensive Domain-Specific Label System</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01271">http://arxiv.org/abs/2310.01271</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/thulawtech/leec">https://github.com/thulawtech/leec</a></li>
+<li>paper_authors: Xue Zongyue, Liu Huanghai, Hu Yiran, Kong Kangle, Wang Chenlu, Liu Yun, Shen Weixing</li>
+<li>for: 这个论文的目的是为了提供更加全面和准确的法律知识，以便提高法律案例的解释和分析能力，并且可以推动各种法律领域的下游应用。</li>
+<li>methods: 这篇论文使用了legal experts的 Label system和annotation guideline来构建了15,831份司法文档和159个标签的 dataset，以及使用了多种State-of-the-art models来验证LEEC的可用性。</li>
+<li>results: 这篇论文通过验证LEEC dataset的可用性，提供了更加全面和准确的法律知识，并且可以推动各种法律领域的下游应用。<details>
+<summary>Abstract</summary>
+As a pivotal task in natural language processing, element extraction has gained significance in the legal domain. Extracting legal elements from judicial documents helps enhance interpretative and analytical capacities of legal cases, and thereby facilitating a wide array of downstream applications in various domains of law. Yet existing element extraction datasets are limited by their restricted access to legal knowledge and insufficient coverage of labels. To address this shortfall, we introduce a more comprehensive, large-scale criminal element extraction dataset, comprising 15,831 judicial documents and 159 labels. This dataset was constructed through two main steps: first, designing the label system by our team of legal experts based on prior legal research which identified critical factors driving and processes generating sentencing outcomes in criminal cases; second, employing the legal knowledge to annotate judicial documents according to the label system and annotation guideline. The Legal Element ExtraCtion dataset (LEEC) represents the most extensive and domain-specific legal element extraction dataset for the Chinese legal system. Leveraging the annotated data, we employed various SOTA models that validates the applicability of LEEC for Document Event Extraction (DEE) task. The LEEC dataset is available on https://github.com/THUlawtech/LEEC .
+</details>
+<details>
+<summary>摘要</summary>
+为了提高自然语言处理的能力，法律领域中的元素提取任务已经具有重要的意义。从法律文档中提取法律元素可以提高对法律案例的解释和分析能力，并且可以推动许多领域的法律应用。然而，现有的元素提取数据集受到了限制的法律知识和不够的标签覆盖的限制。为了解决这个问题，我们提出了一个更加全面、大规模的刑事元素提取数据集，包括15831份司法文档和159个标签。这个数据集通过以下两个步骤建立：first，我们的法律专家团队根据过去的法律研究设计了标签系统，该系统基于在刑事案例中驱动和生成刑事裁决结果的关键因素和过程; second，我们使用法律知识来对司法文档按照标签系统和注释指南进行标注。这个LEEC数据集（法律元素提取数据集）是中国法律系统中最广泛和域specific的法律元素提取数据集。利用注释数据，我们使用了多种当今最佳实践的模型，validate了LEEC数据集的可用性 для文档事件提取（DEE）任务。LEEC数据集可以在https://github.com/THUlawtech/LEEC上下载。
+</details></li>
+</ul>
+<hr>
+<h2 id="Improving-Emotional-Expression-and-Cohesion-in-Image-Based-Playlist-Description-and-Music-Topics-A-Continuous-Parameterization-Approach"><a href="#Improving-Emotional-Expression-and-Cohesion-in-Image-Based-Playlist-Description-and-Music-Topics-A-Continuous-Parameterization-Approach" class="headerlink" title="Improving Emotional Expression and Cohesion in Image-Based Playlist Description and Music Topics: A Continuous Parameterization Approach"></a>Improving Emotional Expression and Cohesion in Image-Based Playlist Description and Music Topics: A Continuous Parameterization Approach</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01248">http://arxiv.org/abs/2310.01248</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yuelyu Ji, Yuheng Song, Wei Wang, Ruoyi Xu, Zhongqian Xie, Huiyun Liu</li>
+<li>for: 这个研究是为了提高文本生成中的字体控制和情感表达。</li>
+<li>methods: 这个研究使用了Continuous Parameterization for Controlled Text Generation（CPCTG）方法，利用语言模型（LM）作为式掌握器，并考虑 semantic cohesion（SC）和情感表达比例（EEP）因素。</li>
+<li>results: 这个研究在playlist描述和音乐主题生成任务中表现出色，ROUGE scores提高了，显示了调控文本生成中的外部因素对生成文本的影响。<details>
+<summary>Abstract</summary>
+Text generation in image-based platforms, particularly for music-related content, requires precise control over text styles and the incorporation of emotional expression. However, existing approaches often need help to control the proportion of external factors in generated text and rely on discrete inputs, lacking continuous control conditions for desired text generation. This study proposes Continuous Parameterization for Controlled Text Generation (CPCTG) to overcome these limitations. Our approach leverages a Language Model (LM) as a style learner, integrating Semantic Cohesion (SC) and Emotional Expression Proportion (EEP) considerations. By enhancing the reward method and manipulating the CPCTG level, our experiments on playlist description and music topic generation tasks demonstrate significant improvements in ROUGE scores, indicating enhanced relevance and coherence in the generated text.
+</details>
+<details>
+<summary>摘要</summary>
+文本生成在图像基础的平台上，特别是音乐相关内容，需要精准控制文本风格和表达情感。然而，现有的方法 часто需要更多的外部因素控制生成的文本，而且依赖于精确的输入，缺乏连续的控制条件 для满意的文本生成。本研究提出了连续参数化控制文本生成（CPCTG）方法，以解决这些限制。我们的方法利用语言模型（LM）作为风格学习器，结合含义相关性（SC）和情感表达比例（EEP）考虑因素。通过改进奖励方法和CPCTG水平的调整，我们在歌单描述和音乐主题生成任务上进行了实验，并达到了ROUGE分数的显著提高， indicating that the generated text has enhanced relevance and coherence.
+</details></li>
+</ul>
+<hr>
+<h2 id="Label-Supervised-LLaMA-Finetuning"><a href="#Label-Supervised-LLaMA-Finetuning" class="headerlink" title="Label Supervised LLaMA Finetuning"></a>Label Supervised LLaMA Finetuning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01208">http://arxiv.org/abs/2310.01208</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/4ai/ls-llama">https://github.com/4ai/ls-llama</a></li>
+<li>paper_authors: Zongxi Li, Xianming Li, Yuzhang Liu, Haoran Xie, Jing Li, Fu-lee Wang, Qing Li, Xiaoqin Zhong</li>
+<li>for: 本研究旨在提高大型自然语言模型（LLM）的零、几少预备测试能力，通过调整LLM的 fins。</li>
+<li>methods: 本研究使用的方法包括对LLM进行标签预测，并使用低维适应（LoRA）来最小化混淆 Entropy损失。</li>
+<li>results: 本研究发现，在标签预测任务中，对LLM进行标签预测可以大幅提高其性能，并且可以与BERT和RoBERTa大小的模型相匹配。另外，通过移除解释器的潜在面积，LS-unLLaMA可以在命名实体识别（NER）任务中 achieve the state-of-the-art 性能。<details>
+<summary>Abstract</summary>
+The recent success of Large Language Models (LLMs) has gained significant attention in both academia and industry. Substantial efforts have been made to enhance the zero- and few-shot generalization capabilities of open-source LLMs through finetuning. Currently, the prevailing approach is instruction-tuning, which trains LLMs to complete real-world tasks by generating responses guided by natural language instructions. It is worth noticing that such an approach may underperform in sequence and token classification tasks. Unlike text generation tasks, classification tasks have a limited label space, where precise label prediction is more appreciated than generating diverse and human-like responses. Prior research has unveiled that instruction-tuned LLMs cannot outperform BERT, prompting us to explore the potential of leveraging latent representations from LLMs for supervised label prediction. In this paper, we introduce a label-supervised adaptation for LLMs, which aims to finetuning the model with discriminant labels. We evaluate this approach with Label Supervised LLaMA (LS-LLaMA), based on LLaMA-2-7B, a relatively small-scale LLM, and can be finetuned on a single GeForce RTX4090 GPU. We extract latent representations from the final LLaMA layer and project them into the label space to compute the cross-entropy loss. The model is finetuned by Low-Rank Adaptation (LoRA) to minimize this loss. Remarkably, without intricate prompt engineering or external knowledge, LS-LLaMA substantially outperforms LLMs ten times its size in scale and demonstrates consistent improvements compared to robust baselines like BERT-Large and RoBERTa-Large in text classification. Moreover, by removing the causal mask from decoders, LS-unLLaMA achieves the state-of-the-art performance in named entity recognition (NER). Our work will shed light on a novel approach to adapting LLMs for various downstream tasks.
+</details>
+<details>
+<summary>摘要</summary>
+最近，大型语言模型（LLMs）的成功吸引了学术和业界的重要注意。为了提高开源LLMs的零和几架演算数据的泛化能力，有很大的努力。现在的主流方法是指令调教，将LLMs训练为完成实际任务的回应，这可能会在序列和Token分类任务下表现不佳。不同于文本生成任务，分类任务有受限的标签空间，需要更加精确地预测标签，而不是生成多样化和人工化的回应。先前的研究发现，指令调教的LLMs无法超越BERT，这让我们探索可以从LLMs中提取的潜在表示，并调整这些表示以进行监督学习。在这篇文章中，我们将引入一种标签监督的LLMs修改方法，将模型调整为使用标签为条件的标签损失。我们使用Label Supervised LLaMA（LS-LLaMA），基于LLaMA-2-7B，一个较小规模的LLM，并可以在单个GeForce RTX4090 GPU上调整。我们从最终的LLaMA层提取潜在表示，并将其转换到标签空间中，以计算标签损失。模型运行LoRA来最小化这个损失。给了不需要复杂的提示工程或外部知识，LS-LLaMA在文本分类任务上取得了很好的表现，并与BERT-Large和RoBERTa-Large等稳定基准一样。此外，当我们从构成推断器中移除了导致推断器的隐藏掩蔽，LS-unLLaMA在命名实体识别（NER）任务上取得了顶尖的表现。我们的工作将照明一种新的LLMs的修改方法，以应对不同的下游任务。
+</details></li>
+</ul>
+<hr>
+<h2 id="Target-Aware-Contextual-Political-Bias-Detection-in-News"><a href="#Target-Aware-Contextual-Political-Bias-Detection-in-News" class="headerlink" title="Target-Aware Contextual Political Bias Detection in News"></a>Target-Aware Contextual Political Bias Detection in News</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01138">http://arxiv.org/abs/2310.01138</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Iffat Maab, Edison Marrese-Taylor, Yutaka Matsuo</li>
+<li>for: 这个论文的目的是提出一种基于文本偏见检测的媒体偏见检测方法，以提高媒体偏见检测的精度。</li>
+<li>methods: 这个论文使用了一种基于模型采用偏见检测的数据增强技术，通过模拟不同的写作风格和语言环境来增强数据的多样性和表达能力。</li>
+<li>results: 实验结果表明，当与预训练模型BERT相结合使用时，这种数据增强技术可以提高媒体偏见检测的性能，并达到了当前最佳的检测效果（F1分数58.15），与之前的方法相比有显著的提高。<details>
+<summary>Abstract</summary>
+Media bias detection requires comprehensive integration of information derived from multiple news sources. Sentence-level political bias detection in news is no exception, and has proven to be a challenging task that requires an understanding of bias in consideration of the context. Inspired by the fact that humans exhibit varying degrees of writing styles, resulting in a diverse range of statements with different local and global contexts, previous work in media bias detection has proposed augmentation techniques to exploit this fact. Despite their success, we observe that these techniques introduce noise by over-generalizing bias context boundaries, which hinders performance. To alleviate this issue, we propose techniques to more carefully search for context using a bias-sensitive, target-aware approach for data augmentation. Comprehensive experiments on the well-known BASIL dataset show that when combined with pre-trained models such as BERT, our augmentation techniques lead to state-of-the-art results. Our approach outperforms previous methods significantly, obtaining an F1-score of 58.15 over state-of-the-art bias detection task.
+</details>
+<details>
+<summary>摘要</summary>
+媒体偏见检测需要全面融合多个新闻源的信息。新闻层次的政治偏见检测是一项复杂的任务，需要理解偏见的上下文。人类在写作时会展现出不同的写作风格，导致各种不同的本地和全球上下文，previous work in media bias detection has proposed augmentation techniques to exploit this fact. Despite their success, we observe that these techniques introduce noise by over-generalizing bias context boundaries, which hinders performance. To alleviate this issue, we propose techniques to more carefully search for context using a bias-sensitive, target-aware approach for data augmentation. Comprehensive experiments on the well-known BASIL dataset show that when combined with pre-trained models such as BERT, our augmentation techniques lead to state-of-the-art results. Our approach outperforms previous methods significantly, obtaining an F1-score of 58.15 over state-of-the-art bias detection task.
+</details></li>
+</ul>
+<hr>
+<h2 id="Text-Data-Augmentation-in-Low-Resource-Settings-via-Fine-Tuning-of-Large-Language-Models"><a href="#Text-Data-Augmentation-in-Low-Resource-Settings-via-Fine-Tuning-of-Large-Language-Models" class="headerlink" title="Text Data Augmentation in Low-Resource Settings via Fine-Tuning of Large Language Models"></a>Text Data Augmentation in Low-Resource Settings via Fine-Tuning of Large Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01119">http://arxiv.org/abs/2310.01119</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jean Kaddour, Qi Liu</li>
+<li>for: 这个论文旨在提高小型语言模型的下游性能，通过使用精心调整的教师模型生成和标注训练数据。</li>
+<li>methods: 本文使用了精心调整的教师模型来生成和标注训练数据，以提高小型语言模型的下游性能。</li>
+<li>results: 研究发现，通过使用精心调整的教师模型生成和标注训练数据，可以大幅提高小型语言模型的下游性能，并且只需要一小部分原始训练数据。<details>
+<summary>Abstract</summary>
+The in-context learning ability of large language models (LLMs) enables them to generalize to novel downstream tasks with relatively few labeled examples. However, they require enormous computational resources to be deployed. Alternatively, smaller models can solve specific tasks if fine-tuned with enough labeled examples. These examples, however, are expensive to obtain. In pursuit of the best of both worlds, we study the annotation and generation of fine-tuning training data via fine-tuned teacher LLMs to improve the downstream performance of much smaller models. In four text classification and two text generation tasks, we find that both data generation and annotation dramatically improve the respective downstream model's performance, occasionally necessitating only a minor fraction of the original training dataset.
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型（LLMs）的内Context learning能力允许它们通过相对少量的标注例子进行泛化，但是它们需要巨大的计算资源进行部署。 Alternatively, 较小的模型可以通过精确地调整的例子来解决特定任务，但是这些例子可以是昂贵的获得。为了取得最佳的世界，我们研究了精度和生成 fine-tuning 训练数据的注释和生成，以提高下游模型的性能。在四个文本分类和两个文本生成任务中，我们发现了数据生成和注释都能够对相应的下游模型性能有很大的改善，occasionally只需要一小部分的原始训练数据。
+</details></li>
+</ul>
+<hr>
+<h2 id="GraphText-Graph-Reasoning-in-Text-Space"><a href="#GraphText-Graph-Reasoning-in-Text-Space" class="headerlink" title="GraphText: Graph Reasoning in Text Space"></a>GraphText: Graph Reasoning in Text Space</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01089">http://arxiv.org/abs/2310.01089</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jianan Zhao, Le Zhuo, Yikang Shen, Meng Qu, Kai Liu, Michael Bronstein, Zhaocheng Zhu, Jian Tang</li>
+<li>for: 本文旨在探讨大型自然语言模型（LLM）在图机器学习领域的应用前景，以及如何使用LLM来处理图数据。</li>
+<li>methods: 本文提出了一种名为GraphText的新框架，它可以将图转换成自然语言，从而让LLM能够更好地处理图数据。GraphText使用节点属性和节点间关系来生成图yntax树，并通过 traverse 该树来生成图文列表，这些列表可以被LLM处理为文本生成任务。</li>
+<li>results: 本文的实验结果表明，GraphText 可以帮助LLM在图机器学习任务中进行无需训练的图理解，并且可以在人工智能和LLM之间进行自然语言交互，从而实现图机器学习领域中的互动式图理解。此外，GraphText 还可以与已经训练的图神经网络相比，在一些任务上具有相当的性能。<details>
+<summary>Abstract</summary>
+Large Language Models (LLMs) have gained the ability to assimilate human knowledge and facilitate natural language interactions with both humans and other LLMs. However, despite their impressive achievements, LLMs have not made significant advancements in the realm of graph machine learning. This limitation arises because graphs encapsulate distinct relational data, making it challenging to transform them into natural language that LLMs understand. In this paper, we bridge this gap with a novel framework, GraphText, that translates graphs into natural language. GraphText derives a graph-syntax tree for each graph that encapsulates both the node attributes and inter-node relationships. Traversal of the tree yields a graph text sequence, which is then processed by an LLM to treat graph tasks as text generation tasks. Notably, GraphText offers multiple advantages. It introduces training-free graph reasoning: even without training on graph data, GraphText with ChatGPT can achieve on par with, or even surpassing, the performance of supervised-trained graph neural networks through in-context learning (ICL). Furthermore, GraphText paves the way for interactive graph reasoning, allowing both humans and LLMs to communicate with the model seamlessly using natural language. These capabilities underscore the vast, yet-to-be-explored potential of LLMs in the domain of graph machine learning.
+</details>
+<details>
+<summary>摘要</summary>
+GraphText 具有多个优点。它提供了无需训练的图理解：即使没有训练图数据，GraphText 与 ChatGPT 可以通过在场景学习（ICL）来达到与supervised 训练的图神经网络性能相同或者甚至超越性能。此外，GraphText 开创了互动式图理解的可能性，允许人类和 LLMs 通过自然语言与模型进行互动。这些能力表明 LLMs 在图机器学习领域的潜在潜力还尚未得到了充分的发掘。
+</details></li>
+</ul>
+<hr>
+<h2 id="Towards-human-like-spoken-dialogue-generation-between-AI-agents-from-written-dialogue"><a href="#Towards-human-like-spoken-dialogue-generation-between-AI-agents-from-written-dialogue" class="headerlink" title="Towards human-like spoken dialogue generation between AI agents from written dialogue"></a>Towards human-like spoken dialogue generation between AI agents from written dialogue</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01088">http://arxiv.org/abs/2310.01088</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Kentaro Mitsui, Yukiya Hono, Kei Sawada</li>
+<li>for: 本研究旨在生成基于写作对话的人工对话，以提高对话的自然性和流畅性。</li>
+<li>methods: 本研究提出了 CHATS 系统，即 CHatty Agents Text-to-Speech，这是一种基于 discrete token 的系统，可以根据写作对话生成 spoken dialogue。 CHATS 系统可以同时生成说话者和听众两个角度的语音，只需基于说话者的译文。此外，CHATS 系统还能够自然地实现对话的转接，根据每个话语的duration来决定对话的流畅性。</li>
+<li>results: 实验结果表明，CHATS 系统在对话的流畅性和自然性方面表现出色，而且保持了语音的清晰性和理解度。<details>
+<summary>Abstract</summary>
+The advent of large language models (LLMs) has made it possible to generate natural written dialogues between two agents. However, generating human-like spoken dialogues from these written dialogues remains challenging. Spoken dialogues have several unique characteristics: they frequently include backchannels and laughter, and the smoothness of turn-taking significantly influences the fluidity of conversation. This study proposes CHATS - CHatty Agents Text-to-Speech - a discrete token-based system designed to generate spoken dialogues based on written dialogues. Our system can generate speech for both the speaker side and the listener side simultaneously, using only the transcription from the speaker side, which eliminates the need for transcriptions of backchannels or laughter. Moreover, CHATS facilitates natural turn-taking; it determines the appropriate duration of silence after each utterance in the absence of overlap, and it initiates the generation of overlapping speech based on the phoneme sequence of the next utterance in case of overlap. Experimental evaluations indicate that CHATS outperforms the text-to-speech baseline, producing spoken dialogues that are more interactive and fluid while retaining clarity and intelligibility.
+</details>
+<details>
+<summary>摘要</summary>
+LLM的出现使得可以生成自然的书面对话。然而，将书面对话转化为人工语音对话仍然是一项挑战。口语对话具有许多特殊特征，包括后台喊叫和笑声，以及对话的流畅性具有重要影响。本研究提出了 CHATS（对话Agent Text-to-Speech），一种基于粒子token的分割系统，用于将书面对话转化为语音对话。我们的系统可以同时生成说话者和听者两个角色的语音，只使用说话者的讲稿，这就不需要后台喊叫或笑声的转录。此外，CHATS支持自然的转化，可以根据每个语音的持续时间来决定合适的沉默时间长度，并在语音重叠时生成相应的 overlap 语音。实验评估表明，CHATS在人工语音对话中表现出色，生成的对话更加交互、流畅，同时保持清晰和理解性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Tool-Augmented-Reward-Modeling"><a href="#Tool-Augmented-Reward-Modeling" class="headerlink" title="Tool-Augmented Reward Modeling"></a>Tool-Augmented Reward Modeling</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01045">http://arxiv.org/abs/2310.01045</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Lei Li, Yekun Chai, Shuohuan Wang, Yu Sun, Hao Tian, Ningyu Zhang, Hua Wu</li>
+<li>for: 这个论文主要目的是为了将人类偏好模型与人工智能语言模型相互调整，尤其是在人工智能反馈学习（RLHF）中。</li>
+<li>methods: 本论文提出了一个工具补充的偏好模型方法，名为Themis，可以让偏好模型有更多的功能和可靠性。这个方法通过让偏好模型与外部环境进行互动，包括计算机和搜索引擎，以提高偏好模型的解释能力和评分可靠性。</li>
+<li>results: 本论文的实验结果显示，使用Themis方法可以有效地提高偏好模型的性能，特别是在多个任务中的偏好排名中。另外，这个方法也可以与基于 truthfulQA 任务的 Gopher 280B 进行 zeroshot 评分，并且在人类评价中胜过基于 Gopher 280B 的模型。<details>
+<summary>Abstract</summary>
+Reward modeling (a.k.a., preference modeling) is instrumental for aligning large language models with human preferences, particularly within the context of reinforcement learning from human feedback (RLHF). While conventional reward models (RMs) have exhibited remarkable scalability, they oft struggle with fundamental functionality such as arithmetic computation, code execution, and factual lookup. In this paper, we propose a tool-augmented preference modeling approach, named \name, to address these limitations by empowering RMs with access to external environments, including calculators and search engines. This approach not only fosters synergy between tool utilization and reward grading but also enhances interpretive capacity and scoring reliability. Our study delves into the integration of external tools into RMs, enabling them to interact with diverse external sources and construct task-specific tool engagement and reasoning traces in an autoregressive manner. We validate our approach across a wide range of domains, incorporating seven distinct external tools. Our experimental results demonstrate a noteworthy overall improvement of 17.7% across eight tasks in preference ranking. Furthermore, our approach outperforms Gopher 280B by 7.3% on TruthfulQA task in zero-shot evaluation. In human evaluations, RLHF trained with Themis attains an average win rate of 32% when compared to baselines across four distinct tasks. Additionally, we provide a comprehensive collection of tool-related RM datasets, incorporating data from seven distinct tool APIs, totaling 15,000 instances. We anticipate that this publicly available dataset will facilitate and inspire further research advancements in the field.
+</details>
+<details>
+<summary>摘要</summary>
+大规模语言模型（ preference modeling）在人类偏好的满足方面发挥重要作用，特别是在人类反馈学习（RLHF）的情况下。传统的奖励模型（RM）具有惊人的扩展性，但它们经常在基本功能方面遇到困难，如数学计算、代码执行和事实查找。在本文中，我们提出了一种工具辅助 preference modeling 方法，名为 Themis，以解决这些限制。 Themis 方法不仅在工具使用和奖励评估之间建立了合作关系，还提高了解释能力和评价可靠性。我们的研究探讨了在 RM 中 инте incorporating 外部环境，包括计算器和搜索引擎，以便让 RM 可以与多种外部源交互。我们的实验表明，Themis 在多个领域的 eight 个任务中提高了总体性能的 17.7%，并在 TruthfulQA 任务上与 Gopher 280B 相比，在零化评估中提高了7.3%。在人类评估中，RLHF 在四个不同任务中的平均赢利率为 32%。此外，我们还提供了一个包含 seven 种工具 API 数据的全面的 RM 数据集，总计 15,000 个实例。我们期望这个公共可用的数据集将会促进和推动领域的研究进步。
+</details></li>
+</ul>
+<hr>
+<h2 id="Language-Model-Decoding-as-Direct-Metrics-Optimization"><a href="#Language-Model-Decoding-as-Direct-Metrics-Optimization" class="headerlink" title="Language Model Decoding as Direct Metrics Optimization"></a>Language Model Decoding as Direct Metrics Optimization</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.01041">http://arxiv.org/abs/2310.01041</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Haozhe Ji, Pei Ke, Hongning Wang, Minlie Huang</li>
+<li>for: 这篇论文的目的是提出一种新的语言模型解oding方法，以实现对多个方面的理想性能 strictly matching。</li>
+<li>methods: 该方法将解oding视为一个优化问题，并通过定义多个纬度的能量函数来解决。这些能量函数用于衡量不同方面的性能，并通过一种 analytical solution 来扩展输入语言模型分布。</li>
+<li>results: 实验结果表明，该方法可以在不同领域和模型缩放量下，跨度性能与人类文本更好，并且在人类评估中超过强基eline。<details>
+<summary>Abstract</summary>
+Despite the remarkable advances in language modeling, current mainstream decoding methods still struggle to generate texts that align with human texts across different aspects. In particular, sampling-based methods produce less-repetitive texts which are often disjunctive in discourse, while search-based methods maintain topic coherence at the cost of increased repetition. Overall, these methods fall short in achieving holistic alignment across a broad range of aspects. In this work, we frame decoding from a language model as an optimization problem with the goal of strictly matching the expected performance with human texts measured by multiple metrics of desired aspects simultaneously. The resulting decoding distribution enjoys an analytical solution that scales the input language model distribution via a sequence-level energy function defined by these metrics. And most importantly, we prove that this induced distribution is guaranteed to improve the perplexity on human texts, which suggests a better approximation to the underlying distribution of human texts. To facilitate tractable sampling from this globally normalized distribution, we adopt the Sampling-Importance-Resampling technique. Experiments on various domains and model scales demonstrate the superiority of our method in metrics alignment with human texts and human evaluation over strong baselines.
+</details>
+<details>
+<summary>摘要</summary>
+In this work, we approach decoding as an optimization problem, aiming to strictly match the expected performance with human texts as measured by multiple metrics of desired aspects simultaneously. The resulting decoding distribution has an analytical solution that scales the input language model distribution via a sequence-level energy function defined by these metrics. Moreover, we prove that this induced distribution is guaranteed to improve the perplexity on human texts, suggesting a better approximation to the underlying distribution of human texts.To facilitate tractable sampling from this globally normalized distribution, we adopt the Sampling-Importance-Resampling technique. Our experiments on various domains and model scales demonstrate the superiority of our method in aligning with human texts and outperforming strong baselines in human evaluation.
+</details></li>
+</ul>
+<hr>
+<h2 id="ARN-A-Comprehensive-Framework-and-Dataset-for-Analogical-Reasoning-on-Narratives"><a href="#ARN-A-Comprehensive-Framework-and-Dataset-for-Analogical-Reasoning-on-Narratives" class="headerlink" title="ARN: A Comprehensive Framework and Dataset for Analogical Reasoning on Narratives"></a>ARN: A Comprehensive Framework and Dataset for Analogical Reasoning on Narratives</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.00996">http://arxiv.org/abs/2310.00996</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zhivar Sourati, Filip Ilievski, Pia Sommerauer</li>
+<li>for: 本研究旨在 bridge 认知心理学中关于 analogical reasoning 的研究和自然语言处理（NLP）中的评估方法之间的差异。</li>
+<li>methods: 本研究使用了 cognitive psychology 中关于 analogical reasoning 的理论，在 narrative 上建立了一个 computationally 的评估框架，并释放了 Analogical Reasoning on Narratives（ARN）数据集。</li>
+<li>results: 研究发现，大语言模型（LLMs）在本任务中很难认出高阶Mapping，只有当所有Mapping都存在时（near analogies）时表现良好。此外，研究发现，near distractors 可以轻松地干扰 LLMs 的 analogical reasoning 能力。<details>
+<summary>Abstract</summary>
+Analogical reasoning is one of the prime abilities of humans and is linked to creativity and scientific discoveries. This ability has been studied extensively in natural language processing (NLP) as well as in cognitive psychology by proposing various benchmarks and evaluation setups. Yet, a substantial gap exists between evaluations of analogical reasoning in cognitive psychology and NLP. Our aim is to bridge this by computationally adapting theories related to analogical reasoning from cognitive psychology in the context of narratives and developing an evaluation framework large in scale. More concretely, we propose the task of matching narratives based on system mappings and release the Analogical Reasoning on Narratives (ARN) dataset. To create the dataset, we devise a framework inspired by cognitive psychology theories about analogical reasoning to utilize narratives and their components to form mappings of different abstractness levels. These mappings are then leveraged to create pairs of analogies and disanalogies/distractors with more than 1k triples of query narratives, analogies, and distractors. We cover four categories of far/near analogies and far/near distractors that allow us to study analogical reasoning in models from distinct perspectives. In this study, we evaluate different large language models (LLMs) on this task. Our results demonstrate that LLMs struggle to recognize higher-order mappings when they are not accompanied by lower-order mappings (far analogies) and show better performance when all mappings are present simultaneously (near analogies). We observe that in all the settings, the analogical reasoning abilities of LLMs can be easily impaired by near distractors that form lower-order mappings with the query narratives.
+</details>
+<details>
+<summary>摘要</summary>
+人类的分析逻辑能力是其创造力和科学发现的重要能力之一，这种能力已经在自然语言处理（NLP）和认知心理学中得到了广泛的研究。然而，存在评估分析逻辑能力在认知心理学和NLP之间的重大差距。我们的目标是通过计算方式把认知心理学中关于分析逻辑的理论应用到叙事中，并开发一个大规模的评估框架。更具体地，我们提出了匹配叙事基于系统映射的任务，并释放了分析逻辑在叙事中（ARN）数据集。为创建数据集，我们采用了基于认知心理学中关于分析逻辑的理论框架，使用叙事和其组成部分来形成不同抽象水平的映射。这些映射然后被利用来创建更多于1k对叙事、类比和干扰的对比。我们将其分为四类的远/近类比和远/近干扰，以便通过不同的角度研究分析逻辑能力。在这项研究中，我们评估了不同的大语言模型（LLMs）。我们的结果表明，当高级映射不同于下级映射时，LLMs很难认出更高级的映射，并且在所有设置下，LLMs的分析逻辑能力都受到近映射的干扰。
+</details></li>
+</ul>
+<hr>
+<h2 id="EALM-Introducing-Multidimensional-Ethical-Alignment-in-Conversational-Information-Retrieval"><a href="#EALM-Introducing-Multidimensional-Ethical-Alignment-in-Conversational-Information-Retrieval" class="headerlink" title="EALM: Introducing Multidimensional Ethical Alignment in Conversational Information Retrieval"></a>EALM: Introducing Multidimensional Ethical Alignment in Conversational Information Retrieval</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.00970">http://arxiv.org/abs/2310.00970</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/wanng-ide/ealm">https://github.com/wanng-ide/ealm</a></li>
+<li>paper_authors: Yiyao Yu, Junjie Wang, Yuxiang Zhang, Lin Zhang, Yujiu Yang, Tetsuya Sakai</li>
+<li>For: The paper aims to improve the ethical alignment of Conversational Information Retrieval (CIR) systems by incorporating human norms and ethical considerations into the system’s workflow.* Methods: The authors introduce a workflow that integrates ethical alignment into the CIR process, using an initial ethical judgment stage for efficient data screening. They also present two datasets, QA-ETHICS and MP-ETHICS, to evaluate the system’s performance in ethical judgment tasks.* Results: The authors achieve top performance in both binary and multi-label ethical judgment tasks using their proposed approach. Their research provides a practical method for introducing ethical alignment into the CIR workflow, and the datasets and code are available online for further research.<details>
+<summary>Abstract</summary>
+Artificial intelligence (AI) technologies should adhere to human norms to better serve our society and avoid disseminating harmful or misleading information, particularly in Conversational Information Retrieval (CIR). Previous work, including approaches and datasets, has not always been successful or sufficiently robust in taking human norms into consideration. To this end, we introduce a workflow that integrates ethical alignment, with an initial ethical judgment stage for efficient data screening. To address the need for ethical judgment in CIR, we present the QA-ETHICS dataset, adapted from the ETHICS benchmark, which serves as an evaluation tool by unifying scenarios and label meanings. However, each scenario only considers one ethical concept. Therefore, we introduce the MP-ETHICS dataset to evaluate a scenario under multiple ethical concepts, such as justice and Deontology. In addition, we suggest a new approach that achieves top performance in both binary and multi-label ethical judgment tasks. Our research provides a practical method for introducing ethical alignment into the CIR workflow. The data and code are available at https://github.com/wanng-ide/ealm .
+</details>
+<details>
+<summary>摘要</summary>
+人工智能（AI）技术应该遵循人类社会的norms，以更好地服务社会，避免传播有害或误导信息，尤其在对话信息检索（CIR）领域。前一些工作，包括方法和数据集，未必成功或充分考虑人类norms。为此，我们提出了一个具有优化人类准则的工作流程。为了解决CIR中的伦理判断问题，我们介绍了QA-ETHICS数据集，该数据集基于ETHICSbenchmark，用于评估工具的性能。每个enario只考虑一个伦理概念，因此我们引入了MP-ETHICS数据集，用于评估一个scenario下多个伦理概念，如正义和德 Ontology。此外，我们还提出了一种新的方法，可以在binary和多个标签伦理判断任务中达到最高性能。我们的研究提供了实用的方法，用于在CIR workflow中引入伦理对齐。数据和代码可以在https://github.com/wanng-ide/ealm上获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="Resolving-Knowledge-Conflicts-in-Large-Language-Models"><a href="#Resolving-Knowledge-Conflicts-in-Large-Language-Models" class="headerlink" title="Resolving Knowledge Conflicts in Large Language Models"></a>Resolving Knowledge Conflicts in Large Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.00935">http://arxiv.org/abs/2310.00935</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/yikee/knowledge_conflict">https://github.com/yikee/knowledge_conflict</a></li>
+<li>paper_authors: Yike Wang, Shangbin Feng, Heng Wang, Weijia Shi, Vidhisha Balachandran, Tianxing He, Yulia Tsvetkov</li>
+<li>for: 本研究旨在探讨语言模型在知识冲突场景下的表现，并提出了Language Model应该满足哪些需求以解决知识冲突。</li>
+<li>methods: 本研究使用了KNOWLEDGE CONFLICT评价框架，该框架包括多种和复杂的知识冲突场景、多个知识来源和领域、两种人工创造冲突方法以及难度逐渐增加的设置，以评估LLMs在知识冲突场景下是否满足了三个需求。</li>
+<li>results: 实验结果显示，LLMs在检测知识冲突方面表现良好，但在具体 pinpoint 冲突信息和生成不同看法时表现不佳。此外，研究还发现，LLMs在不同的知识领域和提示文本下表现有很大差异。<details>
+<summary>Abstract</summary>
+Large language models (LLMs) often encounter knowledge conflicts, scenarios where discrepancy arises between the internal parametric knowledge of LLMs and non-parametric information provided in the prompt context. In this work we ask what are the desiderata for LLMs when a knowledge conflict arises and whether existing LLMs fulfill them. We posit that LLMs should 1) identify knowledge conflicts, 2) pinpoint conflicting information segments, and 3) provide distinct answers or viewpoints in conflicting scenarios. To this end, we introduce KNOWLEDGE CONFLICT, an evaluation framework for simulating contextual knowledge conflicts and quantitatively evaluating to what extent LLMs achieve these goals. KNOWLEDGE CONFLICT includes diverse and complex situations of knowledge conflict, knowledge from diverse entities and domains, two synthetic conflict creation methods, and settings with progressively increasing difficulty to reflect realistic knowledge conflicts. Extensive experiments with the KNOWLEDGE CONFLICT framework reveal that while LLMs perform well in identifying the existence of knowledge conflicts, they struggle to determine the specific conflicting knowledge and produce a response with distinct answers amidst conflicting information. To address these challenges, we propose new instruction-based approaches that augment LLMs to better achieve the three goals. Further analysis shows that abilities to tackle knowledge conflicts are greatly impacted by factors such as knowledge domain and prompt text, while generating robust responses to knowledge conflict scenarios remains an open research question.
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型（LLM）经常遇到知识冲突，即在 parametric 知识和提问上下文中的不一致。在这项工作中，我们问到 LLM 在知识冲突 arise 时的需求是什么，以及现有 LLM 是否满足这些需求。我们认为 LLM 应该满足以下三个需求：1. 识别知识冲突2. 特定 conflicting 信息段3. 在冲突enario 中提供不同的答案或视点为此，我们提出了 KNOWLEDGE CONFLICT 评估框架，用于模拟上下文知识冲突和评估 LLM 是否满足以上三个需求。KNOWLEDGE CONFLICT 包括多样化和复杂的知识冲突 scenarios，知识来源于多个实体和领域，两种生成方法，以及逐渐增加的Difficulty 设置，以Reflect 现实知识冲突。我们进行了广泛的实验，发现 LLM 能够识别知识冲突的存在，但在确定特定 conflicting 知识和生成不同答案中困难。为此，我们提出了新的 instruction-based 方法，用于增强 LLM 的能力。进一步分析表明， LLM 在处理知识冲突时受到知识领域和提问文本的因素很大影响，而生成冲突场景中的稳定答案仍然是一个开放的研究问题。
+</details></li>
+</ul>
+<hr>
+<h2 id="TADIS-Steering-Models-for-Deep-Thinking-about-Demonstration-Examples"><a href="#TADIS-Steering-Models-for-Deep-Thinking-about-Demonstration-Examples" class="headerlink" title="TADIS: Steering Models for Deep-Thinking about Demonstration Examples"></a>TADIS: Steering Models for Deep-Thinking about Demonstration Examples</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.00901">http://arxiv.org/abs/2310.00901</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Tianci Xue, Ziqi Wang, Yixia Li, Yun Chen, Guanhua Chen</li>
+<li>for: 提高LLMs的零shot泛化能力，增强模型对 instrucion 的理解和执行能力。</li>
+<li>methods: 提出了一种新的方法 called TADIS，通过让模型”深思”对示例进行评估和检验，以减轻模型的偏见和假象能力。</li>
+<li>results: TADIS 在领域内和领域外任务上表现出色，可以增强模型在零shot和几shot设置下的性能，并且可以大规模应用于提高模型的 instrucion 遵循能力。<details>
+<summary>Abstract</summary>
+Instruction tuning has been demonstrated that could significantly improve the zero-shot generalization capability to unseen tasks by an apparent margin. By incorporating additional context (e.g., task definition, examples) during the fine-tuning process, Large Language Models (LLMs) achieved much higher performance than before. However, recent work reported that delusive task examples can achieve almost the same performance as correct task examples, indicating the input-label correspondence is less important than previously thought. Intrigued by this counter-intuitive observation, we suspect models have the same illusion of competence as humans. Therefore, we propose a novel method called TADIS that steers LLMs for "Deep-Thinking'' about demonstration examples instead of merely seeing. To alleviate the illusion of competence of models, we first ask the model to verify the correctness of shown examples. Then, using the verification results as conditions to elicit models for a better answer. Our experimental results show that TADIS consistently outperforms competitive baselines on in-domain and out-domain tasks (improving 2.79 and 4.03 average ROUGLE-L on out-domain and in-domain datasets, respectively). Despite the presence of generated examples (not all of the thinking labels are accurate), TADIS can notably enhance performance in zero-shot and few-shot settings. This also suggests that our approach can be adopted on a large scale to improve the instruction following capabilities of models without any manual labor. Moreover, we construct three types of thinking labels with different model sizes and find that small models learn from the format of TADIS but larger models can be steered for "Deep-Thinking''.
+</details>
+<details>
+<summary>摘要</summary>
+instruction 调教可以显著提高零shot泛化能力，使模型在未看过任务的情况下表现更高。通过在细化过程中添加更多上下文（例如任务定义、示例），大型自然语言模型（LLMs）达到了更高的性能。然而，最近的研究发现，欺骗性任务示例可以达到正确任务示例的同等性能，表明输入-标签对应不那么重要。我们受这一Counter-intuitive 观察的启发，因此我们提出了一种名为 TADIS 的新方法。TADIS 方法通过让模型对示例进行 "深思" 而不仅仅是看，来避免模型的假象能力。我们首先询问模型示例的正确性，然后使用验证结果作为条件，让模型更好地回答。我们的实验结果表明，TADIS 方法在领域内和领域外任务上（ROUGLE-L 平均提升2.79和4.03）表现出了显著的优势。尽管存在生成的示例（不 всех思考标签正确），TADIS 还是能够明显提高零shot和几shot设置中的性能。这也表明我们的方法可以在大规模上采用，无需手动劳动，以提高模型的 instrucion 遵循能力。此外，我们还构建了三种不同模型大小的思考标签，发现小型模型可以从 TADIS 的格式学习，而大型模型可以通过 "深思" 来更好地回答。
+</details></li>
+</ul>
+<hr>
+<h2 id="Enable-Language-Models-to-Implicitly-Learn-Self-Improvement-From-Data"><a href="#Enable-Language-Models-to-Implicitly-Learn-Self-Improvement-From-Data" class="headerlink" title="Enable Language Models to Implicitly Learn Self-Improvement From Data"></a>Enable Language Models to Implicitly Learn Self-Improvement From Data</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.00898">http://arxiv.org/abs/2310.00898</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ziqi Wang, Le Hou, Tianjian Lu, Yuexin Wu, Yunxuan Li, Hongkun Yu, Heng Ji<br>for:这篇论文的目的是提高大语言模型（LLMs）的自我改进能力，以提高它们在开放式文本生成任务中的表现质量。methods:这篇论文提出了一种名为ImPlicit Self-ImprovemenT（PIT）框架，该框架通过学习人类喜好数据来隐式地学习改进目标。PIT只需要人类喜好数据来训练奖励模型，不需要额外的人工努力。results:在两个实际数据集和一个Synthetic数据集上进行了实验，结果显示，我们的方法在比较之下明显地超过了提示基于方法。<details>
+<summary>Abstract</summary>
+Large Language Models (LLMs) have demonstrated remarkable capabilities in open-ended text generation tasks. However, the inherent open-ended nature of these tasks implies that there is always room for improvement in the quality of model responses. To address this challenge, various approaches have been proposed to enhance the performance of LLMs. There has been a growing focus on enabling LLMs to self-improve their response quality, thereby reducing the reliance on extensive human annotation efforts for collecting diverse and high-quality training data. Recently, prompting-based methods have been widely explored among self-improvement methods owing to their effectiveness, efficiency, and convenience. However, those methods usually require explicitly and thoroughly written rubrics as inputs to LLMs. It is expensive and challenging to manually derive and provide all necessary rubrics with a real-world complex goal for improvement (e.g., being more helpful and less harmful). To this end, we propose an ImPlicit Self-ImprovemenT (PIT) framework that implicitly learns the improvement goal from human preference data. PIT only requires preference data that are used to train reward models without extra human efforts. Specifically, we reformulate the training objective of reinforcement learning from human feedback (RLHF) -- instead of maximizing response quality for a given input, we maximize the quality gap of the response conditioned on a reference response. In this way, PIT is implicitly trained with the improvement goal of better aligning with human preferences. Experiments on two real-world datasets and one synthetic dataset show that our method significantly outperforms prompting-based methods.
+</details>
+<details>
+<summary>摘要</summary>
+大型语言模型（LLM）在开放式文本生成任务中表现出色，但是由于这类任务的自然开放性，模型的回答质量还有很大的提升空间。为解决这个挑战，各种方法被提出来提高 LLM 的表现。在这些方法中，许多研究者强调了让 LLM 自我改进回答质量，以降低人类注释数据的准备成本。在这些自我改进方法中，许多研究者利用了提示方法，因为它们的效果、效率和方便性。然而，这些方法通常需要 LLM 接受明确和准确的 rubric 作为输入。这是一个昂贵和困难的任务，特别是在实际世界中处理复杂的目标时。为解决这个问题，我们提出了一种名为 Implicit Self-Improvement 框架（PIT）的方法。PIT 使用人类偏好数据来隐式地学习改进目标。具体来说，我们将人类反馈学习（RLHF）的训练目标重新定义为：将响应质量与参考响应之间的质量差异最大化。这样，PIT 将被隐式地训练以更好地遵循人类偏好。我们在两个实际数据集和一个 sintetic 数据集上进行了实验，结果显示，我们的方法在许多情况下比提示方法表现更好。
+</details></li>
+</ul>
+<hr>
+<h2 id="Error-Norm-Truncation-Robust-Training-in-the-Presence-of-Data-Noise-for-Text-Generation-Models"><a href="#Error-Norm-Truncation-Robust-Training-in-the-Presence-of-Data-Noise-for-Text-Generation-Models" class="headerlink" title="Error Norm Truncation: Robust Training in the Presence of Data Noise for Text Generation Models"></a>Error Norm Truncation: Robust Training in the Presence of Data Noise for Text Generation Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.00840">http://arxiv.org/abs/2310.00840</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Tianjian Li, Haoran Xu, Philipp Koehn, Daniel Khashabi, Kenton Murray</li>
+<li>for: 提高文本生成模型的 Robustness，增强模型对噪声数据的耐受能力。</li>
+<li>methods: 提出 Error Norm Truncation（ENT）方法，利用非目标token的分布来更准确地估计数据质量，并与标准训练目标函数结合使用。</li>
+<li>results: 经过广泛的语言模型、机器翻译和文本概要等实验，显示了对标准训练和先前的软和硬截断方法的改进，并在机器翻译中对噪声添加50%时提高了 más de 2 BLEU 点。<details>
+<summary>Abstract</summary>
+Text generation models are notoriously vulnerable to errors in the training data. With the wide-spread availability of massive amounts of web-crawled data becoming more commonplace, how can we enhance the robustness of models trained on a massive amount of noisy web-crawled text? In our work, we propose Error Norm Truncation (ENT), a robust enhancement method to the standard training objective that truncates noisy data. Compared to methods that only uses the negative log-likelihood loss to estimate data quality, our method provides a more accurate estimation by considering the distribution of non-target tokens, which is often overlooked by previous work. Through comprehensive experiments across language modeling, machine translation, and text summarization, we show that equipping text generation models with ENT improves generation quality over standard training and previous soft and hard truncation methods. Furthermore, we show that our method improves the robustness of models against two of the most detrimental types of noise in machine translation, resulting in an increase of more than 2 BLEU points over the MLE baseline when up to 50% of noise is added to the data.
+</details>
+<details>
+<summary>摘要</summary>
+文本生成模型具有训练数据中错误的极高敏感性。随着庞大量的网络爬虫数据的普及，我们如何提高基于庞大量噪音网络爬虫文本的模型训练robustness?在我们的工作中，我们提出了错误norm truncation（ENT）方法，这是一种robust增强方法，可以减少噪音数据的影响。相比之下，先前的工作通常只使用负log-likelihood损失来估计数据质量，我们的方法可以更加准确地估计非目标字符的分布，这一点通常被前一些工作所忽略。通过语言模型、机器翻译和文本概要等多种实验，我们示出了在把ENT纳入文本生成模型中可以提高生成质量，并且超过了标准训练和先前的软和硬截断方法。此外，我们还证明了ENT可以提高机器翻译模型对噪音的抗性，即在添加50%噪音后，ENT可以提高more than 2 BLEU点的基eline值。
+</details></li>
+</ul>
+<hr>
+<h2 id="TRAM-Benchmarking-Temporal-Reasoning-for-Large-Language-Models"><a href="#TRAM-Benchmarking-Temporal-Reasoning-for-Large-Language-Models" class="headerlink" title="TRAM: Benchmarking Temporal Reasoning for Large Language Models"></a>TRAM: Benchmarking Temporal Reasoning for Large Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.00835">http://arxiv.org/abs/2310.00835</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/eternityyw/tram-benchmark">https://github.com/eternityyw/tram-benchmark</a></li>
+<li>paper_authors: Yuqing Wang, Yun Zhao</li>
+<li>For: This paper aims to provide a standardized benchmark for evaluating the temporal reasoning capabilities of large language models (LLMs).* Methods: The authors introduce a new benchmark called TRAM, which includes ten datasets that cover various temporal aspects of events, such as order, arithmetic, frequency, and duration. They evaluate the performance of popular LLMs, including GPT-4 and Llama2, in both zero-shot and few-shot learning scenarios, and use BERT-based models as the baseline.* Results: The authors find that current LLMs still trail human performance in temporal reasoning tasks, but hope that TRAM will spur further progress in enhancing the temporal reasoning abilities of LLMs.Here’s the summary in the format you requested:* For: 这个研究的目的是提供一个对大型自然语言处理模型（LLMs）的时间理解能力进行标准化评估的 bencmark。* Methods: 作者们引入了一个新的 bencmark called TRAM，该bencmark包括了十个数据集，涵盖了不同的时间方面的事件，如顺序、数学、频率和持续时间等。他们在零shot和少shot学习场景中评估了流行的 LLMs，如 GPT-4 和 Llama2，并使用 BERT-based 模型作为基准。* Results: 作者们发现现在的 LLMs 仍然落后于人类的时间理解能力，但希望 TRAM 能够逐渐提高 LLMS 的时间理解能力。<details>
+<summary>Abstract</summary>
+Reasoning about time is essential for understanding the nuances of events described in natural language. Previous research on this topic has been limited in scope, characterized by a lack of standardized benchmarks that would allow for consistent evaluations across different studies. In this paper, we introduce TRAM, a temporal reasoning benchmark composed of ten datasets, encompassing various temporal aspects of events such as order, arithmetic, frequency, and duration, designed to facilitate a comprehensive evaluation of the temporal reasoning capabilities of large language models (LLMs). We conduct an extensive evaluation using popular LLMs, such as GPT-4 and Llama2, in both zero-shot and few-shot learning scenarios. Additionally, we employ BERT-based models to establish the baseline evaluations. Our findings indicate that these models still trail human performance in temporal reasoning tasks. It is our aspiration that TRAM will spur further progress in enhancing the temporal reasoning abilities of LLMs.
+</details>
+<details>
+<summary>摘要</summary>
+理解时间的推理是理解自然语言描述事件的细节的关键。先前的研究在这一领域受限，因为缺乏一致的标准化测试准则，这使得不同研究之间的评估不可靠。在这篇论文中，我们提出了TRAM，它是一个包含多种时间方面的事件的测试集，包括顺序、数学、频率和持续时间等，以便对大语言模型（LLM）的时间推理能力进行全面的评估。我们进行了广泛的评估，使用流行的GPT-4和Llama2模型，以及基于BERT的模型，以确定这些模型在时间推理任务中的表现。我们的发现表明，这些模型仍然远远落后于人类在时间推理任务中的表现。我们希望TRAM能够推动大语言模型的时间推理能力的进步。
+</details></li>
+</ul>
+<hr>
+<h2 id="Necessary-and-Sufficient-Watermark-for-Large-Language-Models"><a href="#Necessary-and-Sufficient-Watermark-for-Large-Language-Models" class="headerlink" title="Necessary and Sufficient Watermark for Large Language Models"></a>Necessary and Sufficient Watermark for Large Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.00833">http://arxiv.org/abs/2310.00833</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yuki Takezawa, Ryoma Sato, Han Bao, Kenta Niwa, Makoto Yamada</li>
+<li>for: 本研究旨在提出一种能够不干扰生成文本质量的必需和充分水印（Necessary and Sufficient Watermark, NS-Watermark），以区分LLM生成的文本和人工生成的文本。</li>
+<li>methods: 本研究基于生成文本的必需和充分约束，通过定制的优化问题和效率高的算法，实现了NS-Watermark的执行。</li>
+<li>results: 经过实验表明，NS-Watermark可以生成更自然的文本，并且更准确地区分LLM和人工生成的文本。特别在机器翻译任务中，NS-Watermark可以超越现有的水印方法，提高机器翻译质量。<details>
+<summary>Abstract</summary>
+In recent years, large language models (LLMs) have achieved remarkable performances in various NLP tasks. They can generate texts that are indistinguishable from those written by humans. Such remarkable performance of LLMs increases their risk of being used for malicious purposes, such as generating fake news articles. Therefore, it is necessary to develop methods for distinguishing texts written by LLMs from those written by humans. Watermarking is one of the most powerful methods for achieving this. Although existing watermarking methods have successfully detected texts generated by LLMs, they significantly degrade the quality of the generated texts. In this study, we propose the Necessary and Sufficient Watermark (NS-Watermark) for inserting watermarks into generated texts without degrading the text quality. More specifically, we derive minimum constraints required to be imposed on the generated texts to distinguish whether LLMs or humans write the texts. Then, we formulate the NS-Watermark as a constrained optimization problem and propose an efficient algorithm to solve it. Through the experiments, we demonstrate that the NS-Watermark can generate more natural texts than existing watermarking methods and distinguish more accurately between texts written by LLMs and those written by humans. Especially in machine translation tasks, the NS-Watermark can outperform the existing watermarking method by up to 30 BLEU scores.
+</details>
+<details>
+<summary>摘要</summary>
+In this study, we propose the Necessary and Sufficient Watermark (NS-Watermark) for inserting watermarks into generated texts without degrading the text quality. Specifically, we derive the minimum constraints required to distinguish whether LLMs or humans write the texts. We formulate the NS-Watermark as a constrained optimization problem and propose an efficient algorithm to solve it.Through experiments, we demonstrate that the NS-Watermark can generate more natural texts than existing watermarking methods and distinguish more accurately between texts written by LLMs and those written by humans. In machine translation tasks, the NS-Watermark can outperform existing watermarking methods by up to 30 BLEU scores.
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/10/02/cs.CL_2023_10_02/" data-id="clogxf3m000bl5xra6z7zfcot" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/02/cs.AI_2023_10_02/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cs.AI - 2023-10-02
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/02/cs.LG_2023_10_02/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.LG - 2023-10-02</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">115</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">55</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">111</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">61</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">231</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">212</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

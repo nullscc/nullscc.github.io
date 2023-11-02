@@ -1,0 +1,927 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CV - 2023-10-18 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Improving Representation Learning for Histopathologic Images with Cluster Constraints paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2310.12334 repo_url: https:&#x2F;&#x2F;github.com&#x2F;wwyi1828&#x2F;clusiam paper_authors: Weiyi Wu,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CV - 2023-10-18">
+<meta property="og:url" content="https://nullscc.github.io/2023/10/18/cs.CV_2023_10_18/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="Improving Representation Learning for Histopathologic Images with Cluster Constraints paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2310.12334 repo_url: https:&#x2F;&#x2F;github.com&#x2F;wwyi1828&#x2F;clusiam paper_authors: Weiyi Wu,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-10-18T13:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-02T08:28:57.635Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CV_2023_10_18" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/10/18/cs.CV_2023_10_18/" class="article-date">
+  <time datetime="2023-10-18T13:00:00.000Z" itemprop="datePublished">2023-10-18</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CV/">cs.CV</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CV - 2023-10-18
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Improving-Representation-Learning-for-Histopathologic-Images-with-Cluster-Constraints"><a href="#Improving-Representation-Learning-for-Histopathologic-Images-with-Cluster-Constraints" class="headerlink" title="Improving Representation Learning for Histopathologic Images with Cluster Constraints"></a>Improving Representation Learning for Histopathologic Images with Cluster Constraints</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12334">http://arxiv.org/abs/2310.12334</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/wwyi1828/clusiam">https://github.com/wwyi1828/clusiam</a></li>
+<li>paper_authors: Weiyi Wu, Chongyang Gao, Joseph DiPalma, Soroush Vosoughi, Saeed Hassanpour</li>
+<li>for: 这个论文旨在提出一种自助学习框架，用于在整个报告图像（WSI）分析中学习表示转移和Semantic clustering。</li>
+<li>methods: 该框架结合了不变性损失和归类损失，以实现在WSI分析中的表示学习和归类。</li>
+<li>results: 对于Camelyon16和肝癌数据集的下游分类和归类任务，该方法表现出了较好的性能，比较常见的SSL方法更高。<details>
+<summary>Abstract</summary>
+Recent advances in whole-slide image (WSI) scanners and computational capabilities have significantly propelled the application of artificial intelligence in histopathology slide analysis. While these strides are promising, current supervised learning approaches for WSI analysis come with the challenge of exhaustively labeling high-resolution slides - a process that is both labor-intensive and time-consuming. In contrast, self-supervised learning (SSL) pretraining strategies are emerging as a viable alternative, given that they don't rely on explicit data annotations. These SSL strategies are quickly bridging the performance disparity with their supervised counterparts. In this context, we introduce an SSL framework. This framework aims for transferable representation learning and semantically meaningful clustering by synergizing invariance loss and clustering loss in WSI analysis. Notably, our approach outperforms common SSL methods in downstream classification and clustering tasks, as evidenced by tests on the Camelyon16 and a pancreatic cancer dataset. The code and additional details are accessible at: https://github.com/wwyi1828/CluSiam.
+</details>
+<details>
+<summary>摘要</summary>
+（简体中文）最近，整个扫描图像（WSI）扫描器和计算能力的进步有助于人工智能在医学报告板图分析中应用。虽然这些进步非常有前途，但现有的监督学习方法 для WSI 分析带来了大量高分辨率板图标注的劳动和时间的挑战。相比之下，自动学习（SSL）预训练策略是一个可行的选择，因为它们不需要显式数据注释。这些 SSL 策略快速bridging 监督学习方法的性能差距。在这个上下文中，我们介绍了一个 SSL 框架。这个框架的目标是在 WSI 分析中实现可重用的表示学习和具有意义的归一化。尤其是，我们的方法在下游分类和归一化任务中表现出色，如Camelyon16 和胰腺癌数据集的测试所示。代码和更多细节可以在：https://github.com/wwyi1828/CluSiam 上获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="Understanding-Video-Transformers-for-Segmentation-A-Survey-of-Application-and-Interpretability"><a href="#Understanding-Video-Transformers-for-Segmentation-A-Survey-of-Application-and-Interpretability" class="headerlink" title="Understanding Video Transformers for Segmentation: A Survey of Application and Interpretability"></a>Understanding Video Transformers for Segmentation: A Survey of Application and Interpretability</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12296">http://arxiv.org/abs/2310.12296</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Rezaul Karim, Richard P. Wildes</li>
+<li>for: 本研究围绕视频分割问题进行了全面的概述，包括对象、场景、演员行为和多modal视频分割等多种类型的问题，以获取任务特定的场景组成部分的像素级mask。</li>
+<li>methods: 本文主要介绍了在视频分割领域的转换器模型，以及各种可读性方法，包括后处和先处可读性方法，以及对视频时间准确性模型的分析。</li>
+<li>results: 本文提供了一个广泛的视频分割模型的回顾，包括转换器模型的state-of-the-art模型，以及对不同视频分割任务的性能分析。同时，本文还提供了对视频模型的可读性分析，以及对视频时间缓动模型的分析。<details>
+<summary>Abstract</summary>
+Video segmentation encompasses a wide range of categories of problem formulation, e.g., object, scene, actor-action and multimodal video segmentation, for delineating task-specific scene components with pixel-level masks. Recently, approaches in this research area shifted from concentrating on ConvNet-based to transformer-based models. In addition, various interpretability approaches have appeared for transformer models and video temporal dynamics, motivated by the growing interest in basic scientific understanding, model diagnostics and societal implications of real-world deployment. Previous surveys mainly focused on ConvNet models on a subset of video segmentation tasks or transformers for classification tasks. Moreover, component-wise discussion of transformer-based video segmentation models has not yet received due focus. In addition, previous reviews of interpretability methods focused on transformers for classification, while analysis of video temporal dynamics modelling capabilities of video models received less attention. In this survey, we address the above with a thorough discussion of various categories of video segmentation, a component-wise discussion of the state-of-the-art transformer-based models, and a review of related interpretability methods. We first present an introduction to the different video segmentation task categories, their objectives, specific challenges and benchmark datasets. Next, we provide a component-wise review of recent transformer-based models and document the state of the art on different video segmentation tasks. Subsequently, we discuss post-hoc and ante-hoc interpretability methods for transformer models and interpretability methods for understanding the role of the temporal dimension in video models. Finally, we conclude our discussion with future research directions.
+</details>
+<details>
+<summary>摘要</summary>
+视频分割涉及许多问题的类型化问题表示，如对象、场景、actor-action和多模态视频分割，用于在像素级划分场景组成部分。最近，这个研究领域的方法从 concentrate 在 ConvNet 基于的模型转移到 transformer 基于的模型。此外，对 transformer 模型的解释方法出现了多种， motivated 由实际应用中的基本科学理解、模型诊断和社会意义的增长。之前的survey 主要集中在 ConvNet 模型上一部分的视频分割任务或 transformer  для类型任务。此外，transformer 基于视频分割模型的组件化讨论未得到过due focus。此外，以前的解释方法集中在 transformer 模型的类型任务上，而视频时间 Dinamics 模型分析 capabilities 收到了更少的注意。在这种survey中，我们解决了以下问题：提供不同类型的视频分割任务、其目标、特定挑战和标准数据集的介绍；提供 recent transformer 基于模型的组件化评论，并记录不同视频分割任务的state of the art ; 讨论 post-hoc 和 ante-hoc 解释方法 для transformer 模型，以及对视频模型中的时间维度的解释方法。最后，我们 conclude 我们的讨论，并提出未来研究方向。
+</details></li>
+</ul>
+<hr>
+<h2 id="Improving-SCGAN’s-Similarity-Constraint-and-Learning-a-Better-Disentangled-Representation"><a href="#Improving-SCGAN’s-Similarity-Constraint-and-Learning-a-Better-Disentangled-Representation" class="headerlink" title="Improving SCGAN’s Similarity Constraint and Learning a Better Disentangled Representation"></a>Improving SCGAN’s Similarity Constraint and Learning a Better Disentangled Representation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12262">http://arxiv.org/abs/2310.12262</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/Iman-yazdanpanah/contrastive-SSIM-SCGAN">https://github.com/Iman-yazdanpanah/contrastive-SSIM-SCGAN</a></li>
+<li>paper_authors: Iman Yazdanpanah</li>
+<li>For: 本研究使用SCGAN模型，通过添加同condition之间的相似性约束，来提高生成器网络的可读性和智能度。* Methods: 本研究使用了SSIM指标来衡量生成图像之间的相似性，并应用了对相似性约束的对照损失原理。* Results: 对比FID和因子VAE指标，改进后的模型表现更佳，并且有较好的泛化性。Here’s a more detailed explanation of each point:* For: The paper uses SCGAN (Similarity-constrained GAN) model to improve the readability and intelligence of the generator network. SCGAN adds a similarity constraint between generated images and conditions, which works as a tutor to instruct the generator network to comprehend the difference of representations based on conditions.* Methods: The paper uses SSIM (Structural Similarity Index Measure) to measure the similarity between generated images and conditions. The authors also apply the contrastive loss principle to the similarity constraint.* Results: The modified model performs better using FID (Fréchet Inception Distance) and FactorVAE (Factorized Variational Autoencoder) metrics. The modified model also has better generalizability compared to other models.<details>
+<summary>Abstract</summary>
+SCGAN adds a similarity constraint between generated images and conditions as a regularization term on generative adversarial networks. Similarity constraint works as a tutor to instruct the generator network to comprehend the difference of representations based on conditions. We understand how SCGAN works on a deeper level. This understanding makes us realize that the similarity constraint functions like the contrastive loss function. We believe that a model with high understanding and intelligence measures the similarity between images based on their structure and high level features, just like humans do. Two major changes we applied to SCGAN in order to make a modified model are using SSIM to measure similarity between images and applying contrastive loss principles to the similarity constraint. The modified model performs better using FID and FactorVAE metrics. The modified model also has better generalisability compared to other models. Keywords Generative Adversarial Nets, Unsupervised Learning, Disentangled Representation Learning, Contrastive Disentanglement, SSIM
+</details>
+<details>
+<summary>摘要</summary>
+SCGAN 添加了生成图像和条件之间的相似性约束作为生成对抗网络的规范项。相似性约束工作如一位教师，让生成网络理解基于条件的表示之间的差异。我们更深入了解 SCGAN 的工作原理，并发现它与对照损失函数相似。我们认为一个高度理解和智能的模型会根据图像的结构和高级特征来衡量图像之间的相似性，就像人类一样。为了使得 modified SCGAN 表现更好，我们对其进行了两个主要变更。首先，我们使用 SSIM 来衡量图像之间的相似性。其次，我们将对照损失原理应用到相似性约束中。这个修改后的模型在 FID 和 FactorVAE  metric 上表现更好，并且有更高的泛化能力。关键词：生成对抗网络、无监督学习、分解表示学习、对照分解、SSIM
+</details></li>
+</ul>
+<hr>
+<h2 id="REVAMP-Automated-Simulations-of-Adversarial-Attacks-on-Arbitrary-Objects-in-Realistic-Scenes"><a href="#REVAMP-Automated-Simulations-of-Adversarial-Attacks-on-Arbitrary-Objects-in-Realistic-Scenes" class="headerlink" title="REVAMP: Automated Simulations of Adversarial Attacks on Arbitrary Objects in Realistic Scenes"></a>REVAMP: Automated Simulations of Adversarial Attacks on Arbitrary Objects in Realistic Scenes</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12243">http://arxiv.org/abs/2310.12243</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/poloclub/revamp">https://github.com/poloclub/revamp</a></li>
+<li>paper_authors: Matthew Hull, Zijie J. Wang, Duen Horng Chau</li>
+<li>for: This paper is written for researchers and practitioners who want to study and defend against adversarial attacks on deep learning models in computer vision, specifically in the context of autonomous vehicles.</li>
+<li>methods: The paper introduces REVAMP, an easy-to-use Python library that allows users to create attack scenarios with arbitrary objects and simulate realistic environmental factors, lighting, reflection, and refraction. REVAMP uses differentiable rendering to reproduce physically plausible adversarial objects.</li>
+<li>results: The paper demonstrates the effectiveness of REVAMP in producing adversarial textures that can cause misclassification of objects in real-world scenarios. The audience can choose a scene, object to attack, desired attack class, and number of camera positions to use, and REVAMP will show how the altered texture causes the chosen object to be misclassified in real time.<details>
+<summary>Abstract</summary>
+Deep Learning models, such as those used in an autonomous vehicle are vulnerable to adversarial attacks where an attacker could place an adversarial object in the environment, leading to mis-classification. Generating these adversarial objects in the digital space has been extensively studied, however successfully transferring these attacks from the digital realm to the physical realm has proven challenging when controlling for real-world environmental factors. In response to these limitations, we introduce REVAMP, an easy-to-use Python library that is the first-of-its-kind tool for creating attack scenarios with arbitrary objects and simulating realistic environmental factors, lighting, reflection, and refraction. REVAMP enables researchers and practitioners to swiftly explore various scenarios within the digital realm by offering a wide range of configurable options for designing experiments and using differentiable rendering to reproduce physically plausible adversarial objects. We will demonstrate and invite the audience to try REVAMP to produce an adversarial texture on a chosen object while having control over various scene parameters. The audience will choose a scene, an object to attack, the desired attack class, and the number of camera positions to use. Then, in real time, we show how this altered texture causes the chosen object to be mis-classified, showcasing the potential of REVAMP in real-world scenarios. REVAMP is open-source and available at https://github.com/poloclub/revamp.
+</details>
+<details>
+<summary>摘要</summary>
+深度学习模型，如自动驾驶车辆中使用的模型，容易受到敌意攻击，攻击者可能会放置一个恶意物体在环境中，导致误分类。在数字世界中生成这些攻击物体已经广泛研究，但在控制真实环境因素时将这些攻击 transferred to the physical realm 是一个挑战。为了解决这些限制，我们介绍了 REVAMP，一个简单易用的 Python 库，它是首个类似的工具，可以创建攻击场景，并模拟真实环境因素，光照、折射和折射。 REVAMP 允许研究人员和实践者快速探索不同的场景，通过配置多种实验设置和使用可微的渲染来生成真实物理上的攻击对象。我们将在演示中让观众选择场景、 Object 和攻击类别，然后在实时中生成攻击的 Texture，并在不同的摄像头位置下显示攻击对象的误分类效果，展示 REVAMP 在真实场景中的潜力。 REVAMP 是开源的，可以在 https://github.com/poloclub/revamp 上下载。
+</details></li>
+</ul>
+<hr>
+<h2 id="Learning-from-Rich-Semantics-and-Coarse-Locations-for-Long-tailed-Object-Detection"><a href="#Learning-from-Rich-Semantics-and-Coarse-Locations-for-Long-tailed-Object-Detection" class="headerlink" title="Learning from Rich Semantics and Coarse Locations for Long-tailed Object Detection"></a>Learning from Rich Semantics and Coarse Locations for Long-tailed Object Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12152">http://arxiv.org/abs/2310.12152</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Lingchen Meng, Xiyang Dai, Jianwei Yang, Dongdong Chen, Yinpeng Chen, Mengchen Liu, Yi-Ling Chen, Zuxuan Wu, Lu Yuan, Yu-Gang Jiang</li>
+<li>for:  handles extreme data imbalance in real-world datasets, specifically long-tailed object detection (LTOD)</li>
+<li>methods: 	+ explores extra data with image-level labels, but limited results due to semantic ambiguity and location sensitivity	+ proposes RichSem, a simple and effective method that leverages rich semantics from images as additional soft supervision for training detectors	+ adds a semantic branch to the detector to learn soft semantics and enhance feature representations for long-tailed object detection</li>
+<li>results: 	+ achieves consistent improvements on both overall and rare-category of LVIS under different backbones and detectors	+ achieves state-of-the-art performance without requiring complex training and testing procedures	+ demonstrates effectiveness on other long-tailed datasets with additional experiments.<details>
+<summary>Abstract</summary>
+Long-tailed object detection (LTOD) aims to handle the extreme data imbalance in real-world datasets, where many tail classes have scarce instances. One popular strategy is to explore extra data with image-level labels, yet it produces limited results due to (1) semantic ambiguity -- an image-level label only captures a salient part of the image, ignoring the remaining rich semantics within the image; and (2) location sensitivity -- the label highly depends on the locations and crops of the original image, which may change after data transformations like random cropping. To remedy this, we propose RichSem, a simple but effective method, which is robust to learn rich semantics from coarse locations without the need of accurate bounding boxes. RichSem leverages rich semantics from images, which are then served as additional soft supervision for training detectors. Specifically, we add a semantic branch to our detector to learn these soft semantics and enhance feature representations for long-tailed object detection. The semantic branch is only used for training and is removed during inference. RichSem achieves consistent improvements on both overall and rare-category of LVIS under different backbones and detectors. Our method achieves state-of-the-art performance without requiring complex training and testing procedures. Moreover, we show the effectiveness of our method on other long-tailed datasets with additional experiments. Code is available at \url{https://github.com/MengLcool/RichSem}.
+</details>
+<details>
+<summary>摘要</summary>
+长尾物体检测（LTOD）目标是处理实际数据中的极端数据不均衡，其中许多尾类具有稀缺的实例数。一种受欢迎的策略是探索带有图像级标签的额外数据，但这会产生有限的结果，因为（1）语义抽象---图像级标签只捕捉图像中的一个突出部分，忽略图像中的剩余 semantics;（2）位置敏感---标签强度取决于原始图像的位置和裁剪，这些位置和裁剪可能会在数据变换后发生变化。为了缓解这些问题，我们提议了RichSem，一种简单 yet有效的方法，可以在不具备精确 bounding box 的情况下，强制学习图像中的丰富 semantics。RichSem 利用图像中的丰富 semantics，并将其作为增强特征表示的额外超级vision。我们在检测器中添加了一个语义分支，以学习这些软 semantics，并增强特征表示以适应长尾物体检测。语义分支只用于训练，并在检测中被移除。RichSem 在不同的背景和检测器下实现了稳定的改进，并 achieved state-of-the-art 性能。此外，我们还在其他长尾数据集上进行了进一步的实验，以证明我们的方法的一致性。代码可以在 \url{https://github.com/MengLcool/RichSem} 中找到。
+</details></li>
+</ul>
+<hr>
+<h2 id="Object-aware-Inversion-and-Reassembly-for-Image-Editing"><a href="#Object-aware-Inversion-and-Reassembly-for-Image-Editing" class="headerlink" title="Object-aware Inversion and Reassembly for Image Editing"></a>Object-aware Inversion and Reassembly for Image Editing</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12149">http://arxiv.org/abs/2310.12149</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zhen Yang, Dinggang Gui, Wen Wang, Hao Chen, Bohan Zhuang, Chunhua Shen</li>
+<li>for: 这个论文的目的是提出一种新的图像编辑方法，以便实现对象级别的细化编辑。</li>
+<li>methods: 该方法使用一种新的搜索度量，jointly considering the editability of the target and the fidelity of the non-editing region，来确定最佳的反向步骤数量。然后，对每个编辑对 separately 进行编辑，以避免概念匹配错误。最后，提出一个重新组装步骤，以将各个编辑结果和非编辑区域一起 integrate 得到最终的编辑图像。</li>
+<li>results: 该方法在单个对象编辑和多个对象编辑场景中都有优秀的表现，特别是在多对象编辑场景中。<details>
+<summary>Abstract</summary>
+By comparing the original and target prompts in editing task, we can obtain numerous editing pairs, each comprising an object and its corresponding editing target. To allow editability while maintaining fidelity to the input image, existing editing methods typically involve a fixed number of inversion steps that project the whole input image to its noisier latent representation, followed by a denoising process guided by the target prompt. However, we find that the optimal number of inversion steps for achieving ideal editing results varies significantly among different editing pairs, owing to varying editing difficulties. Therefore, the current literature, which relies on a fixed number of inversion steps, produces sub-optimal generation quality, especially when handling multiple editing pairs in a natural image. To this end, we propose a new image editing paradigm, dubbed Object-aware Inversion and Reassembly (OIR), to enable object-level fine-grained editing. Specifically, we design a new search metric, which determines the optimal inversion steps for each editing pair, by jointly considering the editability of the target and the fidelity of the non-editing region. We use our search metric to find the optimal inversion step for each editing pair when editing an image. We then edit these editing pairs separately to avoid concept mismatch. Subsequently, we propose an additional reassembly step to seamlessly integrate the respective editing results and the non-editing region to obtain the final edited image. To systematically evaluate the effectiveness of our method, we collect two datasets for benchmarking single- and multi-object editing, respectively. Experiments demonstrate that our method achieves superior performance in editing object shapes, colors, materials, categories, etc., especially in multi-object editing scenarios.
+</details>
+<details>
+<summary>摘要</summary>
+通过比较原始和目标提示的编辑任务，我们可以获得大量的编辑对，每个编辑对包含一个对象和其对应的编辑目标。为了在保持原始图像的精度的情况下进行编辑，现有的编辑方法通常包括一定数量的反向步骤，这些步骤将原始图像投影到它的噪音卷积表示中，然后通过受引导的目标提示进行净化处理。然而，我们发现在不同的编辑对中，理想的反向步骤数量差异很大，这是因为不同的编辑对具有不同的编辑难度。因此，现有的文献，它依靠固定的反向步骤数量，生成质量不够优化，特别是在处理多个编辑对的自然图像时。为此，我们提出了一种新的图像编辑模式，称为对象感知反向拼接（OIR），以实现对象精细编辑。我们设计了一个新的搜索指标，该指标确定每个编辑对的优化反向步骤数量，同时考虑目标的编辑性和非编辑区域的精度。我们使用这个搜索指标来查找每个编辑对的优化反向步骤数量，然后分别编辑这些编辑对，以避免概念匹配错误。接着，我们提出了一个额外的重新拼接步骤，以精准地结合各个编辑结果和非编辑区域，从而获得最终的编辑图像。为了系统地评估我们的方法的效果，我们收集了两个数据集，用于单个对象编辑和多个对象编辑的benchmark。实验结果表明，我们的方法在对象形状、颜色、材质、类别等方面具有更高的编辑性，特别是在多个对象编辑场景下。
+</details></li>
+</ul>
+<hr>
+<h2 id="InViG-Benchmarking-Interactive-Visual-Grounding-with-500K-Human-Robot-Interactions"><a href="#InViG-Benchmarking-Interactive-Visual-Grounding-with-500K-Human-Robot-Interactions" class="headerlink" title="InViG: Benchmarking Interactive Visual Grounding with 500K Human-Robot Interactions"></a>InViG: Benchmarking Interactive Visual Grounding with 500K Human-Robot Interactions</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12147">http://arxiv.org/abs/2310.12147</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hanbo Zhang, Jie Xu, Yuchen Mo, Tao Kong</li>
+<li>for:  addresses the issues of reduced performance in realistic and open-ended scenarios in Human-Robot Interaction (HRI) by presenting a large-scale dataset, \invig, for interactive visual grounding under language ambiguity.</li>
+<li>methods:  leverages the \invig dataset and proposes a set of baseline solutions for end-to-end interactive visual disambiguation and grounding.</li>
+<li>results:  achieves a 45.6% success rate during validation, presenting a practical yet highly challenging benchmark for ambiguity-aware HRI.<details>
+<summary>Abstract</summary>
+Ambiguity is ubiquitous in human communication. Previous approaches in Human-Robot Interaction (HRI) have often relied on predefined interaction templates, leading to reduced performance in realistic and open-ended scenarios. To address these issues, we present a large-scale dataset, \invig, for interactive visual grounding under language ambiguity. Our dataset comprises over 520K images accompanied by open-ended goal-oriented disambiguation dialogues, encompassing millions of object instances and corresponding question-answer pairs. Leveraging the \invig dataset, we conduct extensive studies and propose a set of baseline solutions for end-to-end interactive visual disambiguation and grounding, achieving a 45.6\% success rate during validation. To the best of our knowledge, the \invig dataset is the first large-scale dataset for resolving open-ended interactive visual grounding, presenting a practical yet highly challenging benchmark for ambiguity-aware HRI. Codes and datasets are available at: \href{https://openivg.github.io}{https://openivg.github.io}.
+</details>
+<details>
+<summary>摘要</summary>
+人类交流中的不确定性是普遍存在的。过去的人机交互（HRI）方法经常采用预定的交互模板，导致在实际和开放式enario中表现不佳。为解决这些问题，我们提供了一个大规模的数据集，\invig，用于在语言不确定性下进行交互视觉固定。我们的数据集包括超过520万张图像和开放目标 oriented的不确定性对话，涵盖了数百万个物体实例和相应的问题答对。利用\invig数据集，我们进行了广泛的研究，并提出了一组基线解决方案，在验证中达到了45.6%的成功率。根据我们所知，\invig数据集是首个大规模的开放式交互视觉固定数据集，提供了实用又高度挑战的底层 benchmark для不确定性意识HRI。代码和数据集可以在：\href{https://openivg.github.io}{https://openivg.github.io}获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="HSTR-Net-Reference-Based-Video-Super-resolution-for-Aerial-Surveillance-with-Dual-Cameras"><a href="#HSTR-Net-Reference-Based-Video-Super-resolution-for-Aerial-Surveillance-with-Dual-Cameras" class="headerlink" title="HSTR-Net: Reference Based Video Super-resolution for Aerial Surveillance with Dual Cameras"></a>HSTR-Net: Reference Based Video Super-resolution for Aerial Surveillance with Dual Cameras</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12092">http://arxiv.org/abs/2310.12092</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: H. Umut Suluhan, Hasan F. Ates, Bahadir K. Gunturk</li>
+<li>for: 这篇论文旨在提高空中监测的高空间时间分辨率（HSTR）视频，以便更准确地探测和跟踪对象。特别是在广泛监测（WAS）中，需要高精度的视频捕捉，但对象通常很小。</li>
+<li>methods: 这篇论文提出了一种基于参考描述的超分辨率（RefSR）技术，使用两个摄像头同时拍摄不同的视频。一个摄像头拍摄高空间分辨率低帧率（HSLF）视频，另一个摄像头拍摄低空间分辨率高帧率（LSHF）视频。一种新的深度学习架构被提出，将HSLF和LSHF视频输入 fusion，并生成HSTR视频帧。该模型combines optical flow estimation和（通道和空间）注意机制，以捕捉视频帧之间的细微运动和细节关系。</li>
+<li>results:  simulations show that the proposed model provides significant improvement over existing reference-based SR techniques in terms of PSNR and SSIM metrics. The method also exhibits sufficient frames per second (FPS) for WAS when deployed on a power-constrained drone equipped with dual cameras.<details>
+<summary>Abstract</summary>
+Aerial surveillance requires high spatio-temporal resolution (HSTR) video for more accurate detection and tracking of objects. This is especially true for wide-area surveillance (WAS), where the surveyed region is large and the objects of interest are small. This paper proposes a dual camera system for the generation of HSTR video using reference-based super-resolution (RefSR). One camera captures high spatial resolution low frame rate (HSLF) video while the other captures low spatial resolution high frame rate (LSHF) video simultaneously for the same scene. A novel deep learning architecture is proposed to fuse HSLF and LSHF video feeds and synthesize HSTR video frames at the output. The proposed model combines optical flow estimation and (channel-wise and spatial) attention mechanisms to capture the fine motion and intricate dependencies between frames of the two video feeds. Simulations show that the proposed model provides significant improvement over existing reference-based SR techniques in terms of PSNR and SSIM metrics. The method also exhibits sufficient frames per second (FPS) for WAS when deployed on a power-constrained drone equipped with dual cameras.
+</details>
+<details>
+<summary>摘要</summary>
+Translated into Simplified Chinese:空中监测需要高空时分解能力（HSTR）视频，以更加准确地探测和跟踪目标对象。这特别是对于广泛监测（WAS）来说，surveyed 区域很大，目标对象很小。这篇论文提议一种双摄像头系统，用于生成HSTR视频使用参考基于超解像（RefSR）。一个摄像头拍摄高空间分辨率低帧率（HSLF）视频，另一个摄像头拍摄低空间分辨率高帧率（LSHF）视频，同时拍摄同一场景。一种新的深度学习架构被提议，用于将HSLF和LSHF视频流合并并生成HSTR视频帧。提议的模型 combining 光流估算和通道 wise 和空间的注意机制，以捕捉视频流中细微的运动和细节依赖关系。实验显示，提议的模型在PSNR和SSIM指标上具有显著改进，并且在功率限制的飞机上部署时，具有足够的帧率（FPS） для WAS。
+</details></li>
+</ul>
+<hr>
+<h2 id="One-Shot-Imitation-Learning-A-Pose-Estimation-Perspective"><a href="#One-Shot-Imitation-Learning-A-Pose-Estimation-Perspective" class="headerlink" title="One-Shot Imitation Learning: A Pose Estimation Perspective"></a>One-Shot Imitation Learning: A Pose Estimation Perspective</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12077">http://arxiv.org/abs/2310.12077</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Pietro Vitiello, Kamil Dreczkowski, Edward Johns</li>
+<li>for: 研究单个示例下的模仿学习，无需进一步的数据收集和任务或物体知识。</li>
+<li>methods: 结合弹性轨迹传输和未看过的物体姿态估计，实现单个示例下的模仿学习。</li>
+<li>results: 对十种真实世界任务进行深入研究，探讨摄像头准确性、姿态估计误差和空间总结对任务成功率的影响。Here’s the English version of the paper’s abstract for reference:”In this paper, we study imitation learning under the challenging setting of single demonstration, no further data collection, and no prior task or object knowledge. We show how imitation learning can be formulated as a combination of trajectory transfer and unseen object pose estimation. To explore this idea, we provide an in-depth study on how state-of-the-art unseen object pose estimators perform for one-shot imitation learning on ten real-world tasks, and we take a deep dive into the effects that camera calibration, pose estimation error, and spatial generalisation have on task success rates. For videos, please visit <a target="_blank" rel="noopener" href="https://www.robot-learning.uk/pose-estimation-perspective">https://www.robot-learning.uk/pose-estimation-perspective</a>.”<details>
+<summary>Abstract</summary>
+In this paper, we study imitation learning under the challenging setting of: (1) only a single demonstration, (2) no further data collection, and (3) no prior task or object knowledge. We show how, with these constraints, imitation learning can be formulated as a combination of trajectory transfer and unseen object pose estimation. To explore this idea, we provide an in-depth study on how state-of-the-art unseen object pose estimators perform for one-shot imitation learning on ten real-world tasks, and we take a deep dive into the effects that camera calibration, pose estimation error, and spatial generalisation have on task success rates. For videos, please visit https://www.robot-learning.uk/pose-estimation-perspective.
+</details>
+<details>
+<summary>摘要</summary>
+在这篇论文中，我们研究了一种具有以下三个挑战性 Setting：（1）只有单一示范，（2）没有进一步数据采集，（3）没有先前任务或物体知识。我们示出了如何，在这些限制下，使用imitating learning可以表述为路径传输和未经见过的物体姿态估计的组合。为了探讨这个想法，我们对state-of-the-art unseen object pose estimators进行了一项深入的研究，并对十种真实世界任务进行了一 shot imitation learning的研究。我们还对camera calibration、pose estimation error和空间泛化对任务成功率产生的影响进行了深入的分析。关于视频，请访问https://www.robot-learning.uk/pose-estimation-perspective。
+</details></li>
+</ul>
+<hr>
+<h2 id="Exploring-Fairness-in-Pre-trained-Visual-Transformer-based-Natural-and-GAN-Generated-Image-Detection-Systems-and-Understanding-the-Impact-of-Image-Compression-in-Fairness"><a href="#Exploring-Fairness-in-Pre-trained-Visual-Transformer-based-Natural-and-GAN-Generated-Image-Detection-Systems-and-Understanding-the-Impact-of-Image-Compression-in-Fairness" class="headerlink" title="Exploring Fairness in Pre-trained Visual Transformer based Natural and GAN Generated Image Detection Systems and Understanding the Impact of Image Compression in Fairness"></a>Exploring Fairness in Pre-trained Visual Transformer based Natural and GAN Generated Image Detection Systems and Understanding the Impact of Image Compression in Fairness</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12076">http://arxiv.org/abs/2310.12076</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Manjary P. Gangan, Anoop Kadan, Lajish V L</li>
+<li>For: This paper aims to explore fairness in transformer-based image forensic algorithms and evaluate their bias in various domains, including gender, racial, affective, and intersectional.* Methods: The study uses a bias evaluation corpora to analyze bias in the algorithms and employs a wide set of individual and pairwise bias evaluation measures. Additionally, the study examines the impact of image compression on model bias using a two-phase evaluation setting.* Results: The paper explores the bias in transformer-based image forensic algorithms and evaluates their fairness in different domains, providing insights into the potential biases in these algorithms and the impact of image compression on their fairness.<details>
+<summary>Abstract</summary>
+It is not only sufficient to construct computational models that can accurately classify or detect fake images from real images taken from a camera, but it is also important to ensure whether these computational models are fair enough or produce biased outcomes that can eventually harm certain social groups or cause serious security threats. Exploring fairness in forensic algorithms is an initial step towards correcting these biases. Since visual transformers are recently being widely used in most image classification based tasks due to their capability to produce high accuracies, this study tries to explore bias in the transformer based image forensic algorithms that classify natural and GAN generated images. By procuring a bias evaluation corpora, this study analyzes bias in gender, racial, affective, and intersectional domains using a wide set of individual and pairwise bias evaluation measures. As the generalizability of the algorithms against image compression is an important factor to be considered in forensic tasks, this study also analyzes the role of image compression on model bias. Hence to study the impact of image compression on model bias, a two phase evaluation setting is followed, where a set of experiments is carried out in the uncompressed evaluation setting and the other in the compressed evaluation setting.
+</details>
+<details>
+<summary>摘要</summary>
+不仅需要建立可准确地分类或检测假图像的计算模型，还需要确保这些计算模型是否具备公平性，以避免对某些社会群体造成伤害或导致严重的安全问题。探索律法算法的公平性是初步减轻这些偏见的初步步骤。由于视觉转换器在最新的图像分类任务中广泛使用，这种研究尝试探索基于转换器的图像律法算法中的偏见。通过建立偏见评估库，这种研究使用了一系列个体和对比偏见评估方法来分析偏见的gender、种族、情感和交叉领域。为了考虑图像压缩对模型偏见的影响，这种研究还分析了图像压缩对模型偏见的影响。因此，这种研究采用了两个阶段的评估设定，其中一个是未压缩评估设定，另一个是压缩评估设定。
+</details></li>
+</ul>
+<hr>
+<h2 id="On-the-use-of-Vision-Language-models-for-Visual-Sentiment-Analysis-a-study-on-CLIP"><a href="#On-the-use-of-Vision-Language-models-for-Visual-Sentiment-Analysis-a-study-on-CLIP" class="headerlink" title="On the use of Vision-Language models for Visual Sentiment Analysis: a study on CLIP"></a>On the use of Vision-Language models for Visual Sentiment Analysis: a study on CLIP</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12062">http://arxiv.org/abs/2310.12062</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/cristinabustos16/clip-e">https://github.com/cristinabustos16/clip-e</a></li>
+<li>paper_authors: Cristina Bustos, Carles Civit, Brian Du, Albert Sole-Ribalta, Agata Lapedriza</li>
+<li>for: 这个研究旨在利用 CLIP 嵌入空间进行视觉情感分析。</li>
+<li>methods: 作者使用了两种基于 CLIP 嵌入空间的建模方法，称为 CLIP-E，并在 WEBEmo 上进行了训练。</li>
+<li>results: 研究结果表明，CLIP-E 方法在 WEBEmo 上的细致分类 Task 上表现出色，并且在其他视觉情感分析 benchmark 上也进行了较好的泛化。<details>
+<summary>Abstract</summary>
+This work presents a study on how to exploit the CLIP embedding space to perform Visual Sentiment Analysis. We experiment with two architectures built on top of the CLIP embedding space, which we denote by CLIP-E. We train the CLIP-E models with WEBEmo, the largest publicly available and manually labeled benchmark for Visual Sentiment Analysis, and perform two sets of experiments. First, we test on WEBEmo and compare the CLIP-E architectures with state-of-the-art (SOTA) models and with CLIP Zero-Shot. Second, we perform cross dataset evaluation, and test the CLIP-E architectures trained with WEBEmo on other Visual Sentiment Analysis benchmarks. Our results show that the CLIP-E approaches outperform SOTA models in WEBEmo fine grained categorization, and they also generalize better when tested on datasets that have not been seen during training. Interestingly, we observed that for the FI dataset, CLIP Zero-Shot produces better accuracies than SOTA models and CLIP-E trained on WEBEmo. These results motivate several questions that we discuss in this paper, such as how we should design new benchmarks and evaluate Visual Sentiment Analysis, and whether we should keep designing tailored Deep Learning models for Visual Sentiment Analysis or focus our efforts on better using the knowledge encoded in large vision-language models such as CLIP for this task.
+</details>
+<details>
+<summary>摘要</summary>
+Here is the Simplified Chinese translation of the text:这个研究报告介绍了如何利用CLIP嵌入空间进行视觉情感分析。我们实验了两个基于CLIP嵌入空间的CLIP-E模型，并与状态对比模型和CLIP零shot模型进行比较。我们的结果显示，CLIP-E模型在WEBEmo上的细化分类 task 中表现出色，并且在其他视觉情感分析 benchmark 上进行交叉验证时也表现更好。另外，我们发现在FI dataset上，CLIP零shot模型的表现更好于状态对比模型和CLIP-E模型。这些结果提出了一些问题，例如如何设计 benchmark 和评估视觉情感分析，以及是否应该继续设计特定的深度学习模型 для视觉情感分析，还是更好地利用大视语模型如CLIP中的知识来进行这个任务。
+</details></li>
+</ul>
+<hr>
+<h2 id="Robust-Class-Conditional-Distribution-Alignment-for-Partial-Domain-Adaptation"><a href="#Robust-Class-Conditional-Distribution-Alignment-for-Partial-Domain-Adaptation" class="headerlink" title="Robust Class-Conditional Distribution Alignment for Partial Domain Adaptation"></a>Robust Class-Conditional Distribution Alignment for Partial Domain Adaptation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12060">http://arxiv.org/abs/2310.12060</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Sandipan Choudhuri, Arunabha Sen</li>
+<li>for: 这个研究目的是为了解决半领域适应设置中的私有来源类别样本的问题，这些类别样本可能会导致负转移和降低分类性能。</li>
+<li>methods: 我们的提案方法是通过进一步探索其他类别的高维度特征，以derive更加精确和单一的分类分布。我们使用域 invariantly 的目标函数来优化类别分布，并设计一个有效的伪标签生成方法来提供有效的目标反馈。</li>
+<li>results: 我们的实验结果和抽象分析显示，我们的提案模型在与 benchmark 相比之下，具有更高的表现。<details>
+<summary>Abstract</summary>
+Unwanted samples from private source categories in the learning objective of a partial domain adaptation setup can lead to negative transfer and reduce classification performance. Existing methods, such as re-weighting or aggregating target predictions, are vulnerable to this issue, especially during initial training stages, and do not adequately address class-level feature alignment. Our proposed approach seeks to overcome these limitations by delving deeper than just the first-order moments to derive distinct and compact categorical distributions. We employ objectives that optimize the intra and inter-class distributions in a domain-invariant fashion and design a robust pseudo-labeling for efficient target supervision. Our approach incorporates a complement entropy objective module to reduce classification uncertainty and flatten incorrect category predictions. The experimental findings and ablation analysis of the proposed modules demonstrate the superior performance of our proposed model compared to benchmarks.
+</details>
+<details>
+<summary>摘要</summary>
+不想要的样本从私有领域类别中的学习目标在半领域适应设置中可能导致负向传输和降低分类性能。现有方法，如重新权重或聚合目标预测，在初始训练阶段 especialmente vulnerable to this issue，并不能够有效地处理类别特征对齐。我们提议的方法旨在超越首频级别的一致性， derive distinct and compact categorical distributions。我们使用域无关的目标函数优化内类和间类分布，并设计了一种robust pseudo-labeling来提高目标监督效率。我们的方法还包括一个 complement entropy 目标模块，以减少分类uncertainty和平滑错误类别预测。实验结果和ablation分析表明我们的提议模型在比较中表现出色。
+</details></li>
+</ul>
+<hr>
+<h2 id="Exploring-Decision-based-Black-box-Attacks-on-Face-Forgery-Detection"><a href="#Exploring-Decision-based-Black-box-Attacks-on-Face-Forgery-Detection" class="headerlink" title="Exploring Decision-based Black-box Attacks on Face Forgery Detection"></a>Exploring Decision-based Black-box Attacks on Face Forgery Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12017">http://arxiv.org/abs/2310.12017</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zhaoyu Chen, Bo Li, Kaixun Jiang, Shuang Wu, Shouhong Ding, Wenqiang Zhang</li>
+<li>for: 防止face forgery detection的攻击，提高安全性和隐私性</li>
+<li>methods: 利用多任务权重矩阵、频谱决策法和空间域约束来实现高效且高质量的攻击</li>
+<li>results: 在FaceForensics++, CelebDF和工业API上实现了状态调用攻击性能，并且可以通过面Recognition进行攻击， exposed the security vulnerabilities of face forgery detectors.<details>
+<summary>Abstract</summary>
+Face forgery generation technologies generate vivid faces, which have raised public concerns about security and privacy. Many intelligent systems, such as electronic payment and identity verification, rely on face forgery detection. Although face forgery detection has successfully distinguished fake faces, recent studies have demonstrated that face forgery detectors are very vulnerable to adversarial examples. Meanwhile, existing attacks rely on network architectures or training datasets instead of the predicted labels, which leads to a gap in attacking deployed applications. To narrow this gap, we first explore the decision-based attacks on face forgery detection. However, applying existing decision-based attacks directly suffers from perturbation initialization failure and low image quality. First, we propose cross-task perturbation to handle initialization failures by utilizing the high correlation of face features on different tasks. Then, inspired by using frequency cues by face forgery detection, we propose the frequency decision-based attack. We add perturbations in the frequency domain and then constrain the visual quality in the spatial domain. Finally, extensive experiments demonstrate that our method achieves state-of-the-art attack performance on FaceForensics++, CelebDF, and industrial APIs, with high query efficiency and guaranteed image quality. Further, the fake faces by our method can pass face forgery detection and face recognition, which exposes the security problems of face forgery detectors.
+</details>
+<details>
+<summary>摘要</summary>
+“人脸伪造生成技术可以生成非常真实的人脸，但这也引起了公众对安全和隐私的担忧。许多智能系统，如电子支付和身份验证，均依赖于人脸伪造检测。虽然人脸伪造检测已经成功地分辨出假人脸，但最近的研究表明，人脸伪造检测器很容易受到敌意例采样的影响。此外，现有的攻击方法基于网络架构或训练数据集，而不是预测标签，导致攻击部署应用程序的差距。为了bridging这个差距，我们首先探索了人脸伪造检测的决策型攻击。然而，直接应用现有的决策型攻击方法会导致初始化失败和图像质量低下。为此，我们提出了跨任务杂化 perturbation，利用人脸特征之间的高相关性来处理初始化失败。然后，我们受到人脸伪造检测中使用频率规则的启发，我们提出了频率决策型攻击。我们在频率域添加杂化，然后在空间域强制实现视觉质量。最后，我们进行了广泛的实验，并证明我们的方法可以在FaceForensics++, CelebDF和工业API上 achieve state-of-the-art攻击性能，同时保证图像质量。此外，我们的假人脸可以通过人脸伪造检测和人脸识别，暴露了人脸伪造检测器的安全问题。”
+</details></li>
+</ul>
+<hr>
+<h2 id="DynamiCrafter-Animating-Open-domain-Images-with-Video-Diffusion-Priors"><a href="#DynamiCrafter-Animating-Open-domain-Images-with-Video-Diffusion-Priors" class="headerlink" title="DynamiCrafter: Animating Open-domain Images with Video Diffusion Priors"></a>DynamiCrafter: Animating Open-domain Images with Video Diffusion Priors</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12190">http://arxiv.org/abs/2310.12190</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ailab-cvc/videocrafter">https://github.com/ailab-cvc/videocrafter</a></li>
+<li>paper_authors: Jinbo Xing, Menghan Xia, Yong Zhang, Haoxin Chen, Xintao Wang, Tien-Tsin Wong, Ying Shan</li>
+<li>for: 将静止图像转换成动画视频，提供更加有趣的视觉体验。</li>
+<li>methods: 利用文本到视频扩散模型的动态PRIOR，将图像与生成过程相互协调，并通过将全图像传输给扩散模型来补充更精确的图像信息。</li>
+<li>results: 生成的动画视频具有自然的运动和高准确性，与输入图像之间存在很好的对应关系。与现有竞争者进行比较，该方法显示出了remarkable的优势。<details>
+<summary>Abstract</summary>
+Enhancing a still image with motion offers more engaged visual experience. Traditional image animation techniques mainly focus on animating natural scenes with random dynamics, such as clouds and fluid, and thus limits their applicability to generic visual contents. To overcome this limitation, we explore the synthesis of dynamic content for open-domain images, converting them into animated videos. The key idea is to utilize the motion prior of text-to-video diffusion models by incorporating the image into the generative process as guidance. Given an image, we first project it into a text-aligned rich image embedding space using a learnable image encoding network, which facilitates the video model to digest the image content compatibly. However, some visual details still struggle to be preserved in the resulting videos. To supplement more precise image information, we further feed the full image to the diffusion model by concatenating it with the initial noises. Experimental results reveal that our proposed method produces visually convincing animated videos, exhibiting both natural motions and high fidelity to the input image. Comparative evaluation demonstrates the notable superiority of our approach over existing competitors. The source code will be released upon publication.
+</details>
+<details>
+<summary>摘要</summary>
+加强静止图像可提供更加参与性的视觉体验。传统的图像动画技术主要集中于动感自然场景，如云彩和液体，因此限制其应用范围。为超越这些限制，我们探索将动态内容合成到开放频谱图像上，将图像转换成动画视频。关键思想是利用文本到视频扩散模型的运动优先，将图像 integrate 到生成过程中作为指导。给定一个图像，我们首先将其投影到文本相对丰富的图像嵌入空间中，使用学习图像编码网络，以便视频模型可以快速吸收图像内容。然而，一些视觉细节仍然困难保留在生成的视频中。为了补充更加精细的图像信息，我们进一步将全图像feed 到扩散模型中，将其与初始噪音 concatenate。实验结果表明，我们提出的方法可以生成视觉吸引人的动画视频，具有自然的运动和高准确性。比较评估表明，我们的方法在与现有竞争者进行比较时具有显著的优势。源代码将在出版时释出。
+</details></li>
+</ul>
+<hr>
+<h2 id="Image-Super-resolution-Via-Latent-Diffusion-A-Sampling-space-Mixture-Of-Experts-And-Frequency-augmented-Decoder-Approach"><a href="#Image-Super-resolution-Via-Latent-Diffusion-A-Sampling-space-Mixture-Of-Experts-And-Frequency-augmented-Decoder-Approach" class="headerlink" title="Image Super-resolution Via Latent Diffusion: A Sampling-space Mixture Of Experts And Frequency-augmented Decoder Approach"></a>Image Super-resolution Via Latent Diffusion: A Sampling-space Mixture Of Experts And Frequency-augmented Decoder Approach</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12004">http://arxiv.org/abs/2310.12004</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/tencent-ailab/frequency_aug_vae_moesr">https://github.com/tencent-ailab/frequency_aug_vae_moesr</a></li>
+<li>paper_authors: Feng Luo, Jinxi Xiang, Jun Zhang, Xiao Han, Wei Yang</li>
+<li>for: 高效的图像超分辨（SR）技术，尤其是在大量计算成本下。</li>
+<li>methods: 利用预训练的文本-图像模型增强扩散先前，并使用特征编码器将图像转换为减少空间的约束。</li>
+<li>results: 在 largely explored 4x blind super-resolution benchmarks 上提高性能，并在大放大因子（8x）图像SR benchmarks 上进行扩展。<details>
+<summary>Abstract</summary>
+The recent use of diffusion prior, enhanced by pre-trained text-image models, has markedly elevated the performance of image super-resolution (SR). To alleviate the huge computational cost required by pixel-based diffusion SR, latent-based methods utilize a feature encoder to transform the image and then implement the SR image generation in a compact latent space. Nevertheless, there are two major issues that limit the performance of latent-based diffusion. First, the compression of latent space usually causes reconstruction distortion. Second, huge computational cost constrains the parameter scale of the diffusion model. To counteract these issues, we first propose a frequency compensation module that enhances the frequency components from latent space to pixel space. The reconstruction distortion (especially for high-frequency information) can be significantly decreased. Then, we propose to use Sample-Space Mixture of Experts (SS-MoE) to achieve more powerful latent-based SR, which steadily improves the capacity of the model without a significant increase in inference costs. These carefully crafted designs contribute to performance improvements in largely explored 4x blind super-resolution benchmarks and extend to large magnification factors, i.e., 8x image SR benchmarks. The code is available at https://github.com/amandaluof/moe_sr.
+</details>
+<details>
+<summary>摘要</summary>
+近期使用扩散优先，增强了基于文本图像模型的图像超解析（SR）的性能。为了降低像素级扩散SR的巨大计算成本， latent-based 方法使用一个特征编码器将图像转换为一个紧凑的 latent space，然后实现SR图像生成。然而，latent-based diffusion 存在两个主要问题，首先，压缩 latent space 通常会导致重建误差。其次，巨大计算成本限制了扩散模型的参数缩放。为了解决这些问题，我们首先提出了频率补偿模块，它可以增强 latent space 中的频率成分到像素空间中。这可以减少重建误差，特别是高频信息。然后，我们提出使用 Sample-Space Mixture of Experts（SS-MoE）来实现更强大的 latent-based SR，它可以不断提高模型的容量，而无需显著增加推理成本。这些精心设计的改进措施在 largely explored 4x blind super-resolution benchmarks 中得到了性能提升，并可以扩展到大折射因子，例如 8x 图像 SR benchmarks。代码可以在 GitHub 上找到：https://github.com/amandaluof/moe_sr。
+</details></li>
+</ul>
+<hr>
+<h2 id="Bayesian-Flow-Networks-in-Continual-Learning"><a href="#Bayesian-Flow-Networks-in-Continual-Learning" class="headerlink" title="Bayesian Flow Networks in Continual Learning"></a>Bayesian Flow Networks in Continual Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12001">http://arxiv.org/abs/2310.12001</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mateusz Pyla, Kamil Deja, Bartłomiej Twardowski, Tomasz Trzciński</li>
+<li>for: 本研究旨在探讨 Bayesian Flow Networks (BFNs) 的潜在应用，以及其在非站ARY数据上的生成能力。</li>
+<li>methods: 本研究使用 BFNs 来学习非站ARY数据，并通过实验证明其生成能力。</li>
+<li>results: 实验结果表明，BFNs 可以成功地生成非站ARY数据，并且在不同的数据上保持高度的生成能力。<details>
+<summary>Abstract</summary>
+Bayesian Flow Networks (BFNs) has been recently proposed as one of the most promising direction to universal generative modelling, having ability to learn any of the data type. Their power comes from the expressiveness of neural networks and Bayesian inference which make them suitable in the context of continual learning. We delve into the mechanics behind BFNs and conduct the experiments to empirically verify the generative capabilities on non-stationary data.
+</details>
+<details>
+<summary>摘要</summary>
+bayesian flow networks (BFNs) 最近被提出为一种最有前途的通用生成模型，能够学习任何数据类型。它们的力量来自于神经网络的表达能力和权重推断，使其适用于连续学习场景。我们深入探究 BFNs 的机制，并通过实验验证它们在非站立数据上的生成能力。Note: Please note that the translation is in Simplified Chinese, which is the standard form of Chinese used in mainland China and Singapore. If you prefer Traditional Chinese, please let me know.
+</details></li>
+</ul>
+<hr>
+<h2 id="Multi-modal-Medical-Neurological-Image-Fusion-using-Wavelet-Pooled-Edge-Preserving-Autoencoder"><a href="#Multi-modal-Medical-Neurological-Image-Fusion-using-Wavelet-Pooled-Edge-Preserving-Autoencoder" class="headerlink" title="Multi-modal Medical Neurological Image Fusion using Wavelet Pooled Edge Preserving Autoencoder"></a>Multi-modal Medical Neurological Image Fusion using Wavelet Pooled Edge Preserving Autoencoder</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11910">http://arxiv.org/abs/2310.11910</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Manisha Das, Deep Gupta, Petia Radeva, Ashwini M Bakde</li>
+<li>for: 该论文旨在提高多模态医疗影像的融合，以提高诊断信息的可见化和分析。</li>
+<li>methods: 该论文提出了一种基于 dense autoencoder 网络的无监督融合模型，通过使用波峰分解来提高特征抽取，保留细节信息，并提高融合图像的视觉效果。</li>
+<li>results: 实验表明，提出的方法可以提供较好的视觉和量化结果，比其他现有的融合方法更好。<details>
+<summary>Abstract</summary>
+Medical image fusion integrates the complementary diagnostic information of the source image modalities for improved visualization and analysis of underlying anomalies. Recently, deep learning-based models have excelled the conventional fusion methods by executing feature extraction, feature selection, and feature fusion tasks, simultaneously. However, most of the existing convolutional neural network (CNN) architectures use conventional pooling or strided convolutional strategies to downsample the feature maps. It causes the blurring or loss of important diagnostic information and edge details available in the source images and dilutes the efficacy of the feature extraction process. Therefore, this paper presents an end-to-end unsupervised fusion model for multimodal medical images based on an edge-preserving dense autoencoder network. In the proposed model, feature extraction is improved by using wavelet decomposition-based attention pooling of feature maps. This helps in preserving the fine edge detail information present in both the source images and enhances the visual perception of fused images. Further, the proposed model is trained on a variety of medical image pairs which helps in capturing the intensity distributions of the source images and preserves the diagnostic information effectively. Substantial experiments are conducted which demonstrate that the proposed method provides improved visual and quantitative results as compared to the other state-of-the-art fusion methods.
+</details>
+<details>
+<summary>摘要</summary>
+医学图像融合将多种图像模式的诊断信息融合在一起，以提高图像的可视化和分析下面的缺陷。现在，深度学习基本模型已经超越了传统的融合方法，通过同时执行特征提取、特征选择和特征融合任务。然而，大多数现有的卷积神经网络架构使用传统的下采样或步长卷积策略来减少特征图。这会导致图像中的细节信息和Edge detail丢失，从而降低特征提取的效果。因此，本文提出了一种无监督的末端融合模型，基于密集自适应网络。在提议的模型中，特征提取得到了提高，通过使用波峰分解基于注意力卷积特征图。这有助于保留图像中细节信息和Edge detail，并提高融合图像的可见性。此外，提议的模型在多种医学图像对的训练下得到了良好的效果，从而有效地捕捉图像的Intensity分布和保留诊断信息。实验结果表明，提议的方法与其他状态最佳融合方法相比，提供了改进的可见和量化结果。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-New-Multimodal-Medical-Image-Fusion-based-on-Laplacian-Autoencoder-with-Channel-Attention"><a href="#A-New-Multimodal-Medical-Image-Fusion-based-on-Laplacian-Autoencoder-with-Channel-Attention" class="headerlink" title="A New Multimodal Medical Image Fusion based on Laplacian Autoencoder with Channel Attention"></a>A New Multimodal Medical Image Fusion based on Laplacian Autoencoder with Channel Attention</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11896">http://arxiv.org/abs/2310.11896</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Payal Wankhede, Manisha Das, Deep Gupta, Petia Radeva, Ashwini M Bakde</li>
+<li>for: 帮助医疗专业人员在诊断病人疾病的 клиниче阶段和运行期进行更加准确和有效的诊断和手术准备。</li>
+<li>methods: 基于深度学习（DL）模型，实现端到端的图像融合，以提高图像融合的稳定性和准确性。</li>
+<li>results: 我们提出了一种新的多模态医疗图像融合模型，基于 интеграble Laplacian-Gaussian concatenation with attention pooling（LGCA），能够有效保留多个图像的补充信息和重要的组织结构。<details>
+<summary>Abstract</summary>
+Medical image fusion combines the complementary information of multimodal medical images to assist medical professionals in the clinical diagnosis of patients' disorders and provide guidance during preoperative and intra-operative procedures. Deep learning (DL) models have achieved end-to-end image fusion with highly robust and accurate fusion performance. However, most DL-based fusion models perform down-sampling on the input images to minimize the number of learnable parameters and computations. During this process, salient features of the source images become irretrievable leading to the loss of crucial diagnostic edge details and contrast of various brain tissues. In this paper, we propose a new multimodal medical image fusion model is proposed that is based on integrated Laplacian-Gaussian concatenation with attention pooling (LGCA). We prove that our model preserves effectively complementary information and important tissue structures.
+</details>
+<details>
+<summary>摘要</summary>
+医疗影像融合技术将多模态医疗影像的补充信息融合到一起，以帮助医生更好地诊断病人的疾病和提供操作过程中的导航。深度学习（DL）模型已经实现了端到端的图像融合，并且具有高度的稳定性和准确性。然而，大多数DL模型在输入图像下采样时会产生重要的特征的损失，导致诊断边缘细节和不同脑组织的对比度的损失。在这篇论文中，我们提出了一种基于集成勺板-高斯拼接（LGCA）的新型多模态医疗影像融合模型。我们证明了我们的模型能够有效地保留补充信息和重要的组织结构。
+</details></li>
+</ul>
+<hr>
+<h2 id="IRAD-Implicit-Representation-driven-Image-Resampling-against-Adversarial-Attacks"><a href="#IRAD-Implicit-Representation-driven-Image-Resampling-against-Adversarial-Attacks" class="headerlink" title="IRAD: Implicit Representation-driven Image Resampling against Adversarial Attacks"></a>IRAD: Implicit Representation-driven Image Resampling against Adversarial Attacks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11890">http://arxiv.org/abs/2310.11890</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yue Cao, Tianlin Li, Xiaofeng Cao, Ivor Tsang, Yang Liu, Qing Guo</li>
+<li>For: This paper proposes a novel approach to defending against adversarial attacks, specifically image resampling, which transforms a discrete image into a new one to alleviate the influence of adversarial perturbations while preserving essential semantic information.* Methods: The paper presents basic resampling methods that employ interpolation strategies and coordinate shifting magnitudes, as well as an improved approach called implicit representation-driven image resampling (IRAD) that constructs an implicit continuous representation of input images and automatically generates pixel-wise shifts for resampling.* Results: The paper demonstrates that the proposed method significantly enhances the adversarial robustness of diverse deep models against various attacks while maintaining high accuracy on clean images, and outperforms existing defense methods in terms of accuracy and computational efficiency.<details>
+<summary>Abstract</summary>
+We introduce a novel approach to counter adversarial attacks, namely, image resampling. Image resampling transforms a discrete image into a new one, simulating the process of scene recapturing or rerendering as specified by a geometrical transformation. The underlying rationale behind our idea is that image resampling can alleviate the influence of adversarial perturbations while preserving essential semantic information, thereby conferring an inherent advantage in defending against adversarial attacks. To validate this concept, we present a comprehensive study on leveraging image resampling to defend against adversarial attacks. We have developed basic resampling methods that employ interpolation strategies and coordinate shifting magnitudes. Our analysis reveals that these basic methods can partially mitigate adversarial attacks. However, they come with apparent limitations: the accuracy of clean images noticeably decreases, while the improvement in accuracy on adversarial examples is not substantial. We propose implicit representation-driven image resampling (IRAD) to overcome these limitations. First, we construct an implicit continuous representation that enables us to represent any input image within a continuous coordinate space. Second, we introduce SampleNet, which automatically generates pixel-wise shifts for resampling in response to different inputs. Furthermore, we can extend our approach to the state-of-the-art diffusion-based method, accelerating it with fewer time steps while preserving its defense capability. Extensive experiments demonstrate that our method significantly enhances the adversarial robustness of diverse deep models against various attacks while maintaining high accuracy on clean images.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出了一种新的对抗针对攻击方法，即图像重采样。图像重采样将离散图像转换成一个新的图像，模拟了场景重新捕捉或重新渲染的过程，根据几何变换。我们的理念是，通过图像重采样，可以减轻针对攻击的影响，保留基本的semantic信息，从而提供防御针对攻击的自然优势。为验证这个概念，我们进行了对图像重采样 defend against adversarial attacks的全面研究。我们开发了基本的重采样方法，使用 interpolating strategies和坐标Shift的大小。我们的分析表明，这些基本方法可以部分减轻针对攻击，但是它们有显著的限制：clean图像的准确率明显下降，而针对攻击的改进率不substantial。我们提出了基于implicit continuous representation的图像重采样方法（IRAD），以超越这些限制。首先，我们构建了一个implicit continuous representation，允许我们将任何输入图像转换为一个连续坐标空间中的表示。其次，我们引入SampleNet，它自动生成了不同输入的像素偏移，以便重采样。此外，我们可以将我们的方法扩展到当前领域的先进液态方法，通过减少时间步骤而保持防御能力。广泛的实验表明，我们的方法可以对多种攻击进行针对攻击，保持高精度clean images。
+</details></li>
+</ul>
+<hr>
+<h2 id="A-Comparative-Study-of-Image-Restoration-Networks-for-General-Backbone-Network-Design"><a href="#A-Comparative-Study-of-Image-Restoration-Networks-for-General-Backbone-Network-Design" class="headerlink" title="A Comparative Study of Image Restoration Networks for General Backbone Network Design"></a>A Comparative Study of Image Restoration Networks for General Backbone Network Design</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11881">http://arxiv.org/abs/2310.11881</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/Andrew0613/X-Restormer">https://github.com/Andrew0613/X-Restormer</a></li>
+<li>paper_authors: Xiangyu Chen, Zheyuan Li, Yuandong Pu, Yihao Liu, Jiantao Zhou, Yu Qiao, Chao Dong</li>
+<li>for: 这个论文的目的是提出一种通用的图像修复网络，可以在多种图像修复任务中达到优秀的性能。</li>
+<li>methods: 这个论文使用了五种代表性的图像修复网络，对五种经典的图像修复任务进行了比较研究。然后，提出了一种基于多任务函数需求的通用图像修复网络设计方法，并进行了广泛的实验验证。</li>
+<li>results: 实验结果表明，新提出的通用图像修复网络X-Restormer在多种图像修复任务中具有优秀的任务通用性和高性能。<details>
+<summary>Abstract</summary>
+Despite the significant progress made by deep models in various image restoration tasks, existing image restoration networks still face challenges in terms of task generality. An intuitive manifestation is that networks which excel in certain tasks often fail to deliver satisfactory results in others. To illustrate this point, we select five representative image restoration networks and conduct a comparative study on five classic image restoration tasks. First, we provide a detailed explanation of the characteristics of different image restoration tasks and backbone networks. Following this, we present the benchmark results and analyze the reasons behind the performance disparity of different models across various tasks. Drawing from this comparative study, we propose that a general image restoration backbone network needs to meet the functional requirements of diverse tasks. Based on this principle, we design a new general image restoration backbone network, X-Restormer. Extensive experiments demonstrate that X-Restormer possesses good task generality and achieves state-of-the-art performance across a variety of tasks.
+</details>
+<details>
+<summary>摘要</summary>
+尽管深度模型在不同的图像恢复任务中做出了显著的进步，现有的图像恢复网络仍然面临任务总体性的挑战。我们选择了五种代表性的图像恢复网络，对五个经典的图像恢复任务进行比较研究。首先，我们介绍了不同图像恢复任务和后ION网络的特点。接着，我们公布了标准测试结果，并分析了不同模型在不同任务中的性能差异的原因。基于这次比较研究，我们提出了一个通用的图像恢复后ION网络需要满足多种任务的功能要求。根据这个原则，我们设计了一个新的通用图像恢复后ION网络——X-Restormer。广泛的实验表明，X-Restormer具有优秀的任务总体性和在多种任务中达到了 estado del arte 性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="Fractional-Concepts-in-Neural-Networks-Enhancing-Activation-and-Loss-Functions"><a href="#Fractional-Concepts-in-Neural-Networks-Enhancing-Activation-and-Loss-Functions" class="headerlink" title="Fractional Concepts in Neural Networks: Enhancing Activation and Loss Functions"></a>Fractional Concepts in Neural Networks: Enhancing Activation and Loss Functions</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11875">http://arxiv.org/abs/2310.11875</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://gitlab.com/irafm-ai/frac_calculus_01">https://gitlab.com/irafm-ai/frac_calculus_01</a></li>
+<li>paper_authors: Zahra Alijani, Vojtech Molek</li>
+<li>for: 本研究旨在使用分数概念在神经网络中修改活动函数和损失函数，以提高神经网络的性能。</li>
+<li>methods: 本研究使用了分数导数顺序作为额外参数，让神经网络中的neurons可以根据输入数据调整其活动函数，以更好地匹配输入数据并降低输出错误。</li>
+<li>results: 研究表明，通过使用分数导数顺序，神经网络可以更好地适应输入数据，并减少输出错误。这可能可以提高神经网络的总性能。<details>
+<summary>Abstract</summary>
+The paper presents a method for using fractional concepts in a neural network to modify the activation and loss functions. The methodology allows the neural network to define and optimize its activation functions by determining the fractional derivative order of the training process as an additional hyperparameter. This will enable neurons in the network to adjust their activation functions to match input data better and reduce output errors, potentially improving the network's overall performance.
+</details>
+<details>
+<summary>摘要</summary>
+文章提出了一种使用分数概念在神经网络中修改活动函数和损失函数的方法。该方法ология让神经网络可以通过确定训练过程中分数导数顺序作为额外参数来定义和优化其活动函数。这将允许神经元在网络中调整其活动函数以更好地匹配输入数据，降低输出错误，并可能提高网络的总性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="To-Generate-or-Not-Safety-Driven-Unlearned-Diffusion-Models-Are-Still-Easy-To-Generate-Unsafe-Images-…-For-Now"><a href="#To-Generate-or-Not-Safety-Driven-Unlearned-Diffusion-Models-Are-Still-Easy-To-Generate-Unsafe-Images-…-For-Now" class="headerlink" title="To Generate or Not? Safety-Driven Unlearned Diffusion Models Are Still Easy To Generate Unsafe Images … For Now"></a>To Generate or Not? Safety-Driven Unlearned Diffusion Models Are Still Easy To Generate Unsafe Images … For Now</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11868">http://arxiv.org/abs/2310.11868</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/optml-group/diffusion-mu-attack">https://github.com/optml-group/diffusion-mu-attack</a></li>
+<li>paper_authors: Yimeng Zhang, Jinghan Jia, Xin Chen, Aochuan Chen, Yihua Zhang, Jiancheng Liu, Ke Ding, Sijia Liu<br>for:这篇论文主要关注于如何评估安全驱动的扩散模型（DMs）是否能够删除不想要的概念、风格和物品。methods:本研究使用了反击攻击（也称为反击提示）来评估不知道的安全驱动扩散模型（DMs）是否能够删除不想要的概念、风格和物品。我们开发了一个名为UnlearnDiff的新型反击学习方法，利用扩散模型的自然分类能力来快速生成反击提示，使其成为对于生成模型的攻击如同于对于图像分类攻击的程度。results:我们通过对五种常见的安全驱动扩散模型（DMs）进行了多项测试，以评估它们在删除不想要的概念、风格和物品方面的不知道性和效率。结果显示，UnlearnDiff 比预设的反击提示方法更有效率和高效。代码可以在 <a target="_blank" rel="noopener" href="https://github.com/OPTML-Group/Diffusion-MU-Attack">https://github.com/OPTML-Group/Diffusion-MU-Attack</a> 获取。请注意，这篇论文可能会包含一些可能会导致不良影响的模型输出。<details>
+<summary>Abstract</summary>
+The recent advances in diffusion models (DMs) have revolutionized the generation of complex and diverse images. However, these models also introduce potential safety hazards, such as the production of harmful content and infringement of data copyrights. Although there have been efforts to create safety-driven unlearning methods to counteract these challenges, doubts remain about their capabilities. To bridge this uncertainty, we propose an evaluation framework built upon adversarial attacks (also referred to as adversarial prompts), in order to discern the trustworthiness of these safety-driven unlearned DMs. Specifically, our research explores the (worst-case) robustness of unlearned DMs in eradicating unwanted concepts, styles, and objects, assessed by the generation of adversarial prompts. We develop a novel adversarial learning approach called UnlearnDiff that leverages the inherent classification capabilities of DMs to streamline the generation of adversarial prompts, making it as simple for DMs as it is for image classification attacks. This technique streamlines the creation of adversarial prompts, making the process as intuitive for generative modeling as it is for image classification assaults. Through comprehensive benchmarking, we assess the unlearning robustness of five prevalent unlearned DMs across multiple tasks. Our results underscore the effectiveness and efficiency of UnlearnDiff when compared to state-of-the-art adversarial prompting methods. Codes are available at https://github.com/OPTML-Group/Diffusion-MU-Attack. WARNING: This paper contains model outputs that may be offensive in nature.
+</details>
+<details>
+<summary>摘要</summary>
+近期的扩散模型（DM）的进步已经革命化了复杂和多样的图像生成。然而，这些模型也可能导致安全隐患，如生成危险内容和数据权利侵犯。虽然有努力创建安全驱动的卸载方法来解决这些挑战，但是存在uncertainty。为了bridging这个uncertainty，我们提出了基于对抗攻击的评估框架，以评估安全驱动的卸载DM的可靠性。 Specifically, our research explores the（worst-case）Robustness of unlearned DMs in eliminating unwanted concepts, styles, and objects, assessed by the generation of adversarial prompts. We develop a novel adversarial learning approach called UnlearnDiff that leverages the inherent classification capabilities of DMs to streamline the generation of adversarial prompts, making it as simple for DMs as it is for image classification attacks. This technique streamlines the creation of adversarial prompts, making the process as intuitive for generative modeling as it is for image classification assaults. Through comprehensive benchmarking, we assess the unlearning robustness of five prevalent unlearned DMs across multiple tasks. Our results underscore the effectiveness and efficiency of UnlearnDiff when compared to state-of-the-art adversarial prompting methods. 代码可以在https://github.com/OPTML-Group/Diffusion-MU-Attack中找到。注意：本文可能包含有害内容的模型输出。
+</details></li>
+</ul>
+<hr>
+<h2 id="Evaluating-the-Fairness-of-Discriminative-Foundation-Models-in-Computer-Vision"><a href="#Evaluating-the-Fairness-of-Discriminative-Foundation-Models-in-Computer-Vision" class="headerlink" title="Evaluating the Fairness of Discriminative Foundation Models in Computer Vision"></a>Evaluating the Fairness of Discriminative Foundation Models in Computer Vision</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11867">http://arxiv.org/abs/2310.11867</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Junaid Ali, Matthaeus Kleindessner, Florian Wenzel, Kailash Budhathoki, Volkan Cevher, Chris Russell</li>
+<li>for: 本研究旨在提出一种新的偏见评估体系，用于评估用于标注任务的推理基础模型，如对比语言预训练（CLIP）模型。</li>
+<li>methods: 本研究使用了一系列的方法来mitigate偏见，包括OpenAI的CLIP和OpenCLIP模型，以及fair PCA等post-processing方法。</li>
+<li>results: 研究发现，fair PCA方法在大多数任务中能够很好地减轻偏见，但不同的减轻方法在不同任务中的效果不同。因此，选择合适的减轻方法取决于具体的用 caso。<details>
+<summary>Abstract</summary>
+We propose a novel taxonomy for bias evaluation of discriminative foundation models, such as Contrastive Language-Pretraining (CLIP), that are used for labeling tasks. We then systematically evaluate existing methods for mitigating bias in these models with respect to our taxonomy. Specifically, we evaluate OpenAI's CLIP and OpenCLIP models for key applications, such as zero-shot classification, image retrieval and image captioning. We categorize desired behaviors based around three axes: (i) if the task concerns humans; (ii) how subjective the task is (i.e., how likely it is that people from a diverse range of backgrounds would agree on a labeling); and (iii) the intended purpose of the task and if fairness is better served by impartiality (i.e., making decisions independent of the protected attributes) or representation (i.e., making decisions to maximize diversity). Finally, we provide quantitative fairness evaluations for both binary-valued and multi-valued protected attributes over ten diverse datasets. We find that fair PCA, a post-processing method for fair representations, works very well for debiasing in most of the aforementioned tasks while incurring only minor loss of performance. However, different debiasing approaches vary in their effectiveness depending on the task. Hence, one should choose the debiasing approach depending on the specific use case.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出一种新的分类法用于评估推理基模型（如语言对比预训练CLIP）的偏见。然后，我们系统地评估了现有的偏见缓解方法，以我们的分类法为基础。具体来说，我们评估了OpenAI的CLIP和OpenCLIP模型，用于关键应用程序，如零shot分类、图像检索和图像描述。我们根据三个轴分类愿望行为：（i）如果任务关注人类；（ii）任务是主观的（即人们来自多样化背景的人们是否能够达成一致的标签）；以及（iii）任务的目的是否更好地服务于公平（即通过免除保护属性来做出决策，或者通过提高多样性来做出决策）。最后，我们为十个多样的数据集提供了量化的公平评估，发现了 fair PCA  POST 处理方法可以很好地减少偏见，但不同的减少方法在不同任务中的效果不同。因此，选择减少方法应该根据具体的用例。
+</details></li>
+</ul>
+<hr>
+<h2 id="VQ-NeRF-Neural-Reflectance-Decomposition-and-Editing-with-Vector-Quantization"><a href="#VQ-NeRF-Neural-Reflectance-Decomposition-and-Editing-with-Vector-Quantization" class="headerlink" title="VQ-NeRF: Neural Reflectance Decomposition and Editing with Vector Quantization"></a>VQ-NeRF: Neural Reflectance Decomposition and Editing with Vector Quantization</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11864">http://arxiv.org/abs/2310.11864</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hongliang Zhong, Jingbo Zhang, Jing Liao</li>
+<li>For: The paper proposes a novel neural network model called VQ-NeRF that enables discrete material editing in 3D scenes.* Methods: The model consists of two branches: a continuous branch that predicts decomposed materials, and a discrete branch that uses vector quantization to quantize continuous materials into individual ones. The model also employs a dropout-based VQ codeword ranking strategy to predict the number of materials in a scene.* Results: The proposed model demonstrates superior performance in material segmentation and editing, and is evaluated on both computer-generated and real-world scenes. Additionally, the model provides an interactive interface for material editing, making it more user-friendly.<details>
+<summary>Abstract</summary>
+We propose VQ-NeRF, a two-branch neural network model that incorporates Vector Quantization (VQ) to decompose and edit reflectance fields in 3D scenes. Conventional neural reflectance fields use only continuous representations to model 3D scenes, despite the fact that objects are typically composed of discrete materials in reality. This lack of discretization can result in noisy material decomposition and complicated material editing. To address these limitations, our model consists of a continuous branch and a discrete branch. The continuous branch follows the conventional pipeline to predict decomposed materials, while the discrete branch uses the VQ mechanism to quantize continuous materials into individual ones. By discretizing the materials, our model can reduce noise in the decomposition process and generate a segmentation map of discrete materials. Specific materials can be easily selected for further editing by clicking on the corresponding area of the segmentation outcomes. Additionally, we propose a dropout-based VQ codeword ranking strategy to predict the number of materials in a scene, which reduces redundancy in the material segmentation process. To improve usability, we also develop an interactive interface to further assist material editing. We evaluate our model on both computer-generated and real-world scenes, demonstrating its superior performance. To the best of our knowledge, our model is the first to enable discrete material editing in 3D scenes.
+</details>
+<details>
+<summary>摘要</summary>
+(Simplified Chinese translation)我们提出VQ-NeRF模型，一个两个分支神经网络模型，它 integrate了Vector Quantization（VQ）来分解和编辑3D场景中的反射场景。传统的神经反射场景只使用连续表示来模型3D场景，尽管实际上物体通常由不同的材料组成。这种缺失可能导致材料分解过程中的噪声和复杂的材料编辑。为解决这些限制，我们的模型包括一个连续分支和一个精度分支。连续分支遵循传统的管道来预测分解的材料，而精度分支使用VQ机制来量化连续的材料为个体材料。通过归一化材料，我们的模型可以减少分解过程中的噪声并生成分解后的材料分 segmentation 图像。用户可以通过点击相应的分 segmentation 结果中的区域来选择特定的材料进行进一步的编辑。此外，我们还提出了基于Dropout的VQ代码字rankStrategy来预测场景中的材料数量，从而减少材料分 segmentation 过程中的重复性。为了提高可用性，我们还开发了一个交互式界面，以助于物料编辑。我们在计算机生成和实际场景中评估了我们的模型，并证明其在场景中的superior performance。到目前为止，我们的模型是第一个在3D场景中启用精度编辑的模型。
+</details></li>
+</ul>
+<hr>
+<h2 id="Learning-to-Generate-Parameters-of-ConvNets-for-Unseen-Image-Data"><a href="#Learning-to-Generate-Parameters-of-ConvNets-for-Unseen-Image-Data" class="headerlink" title="Learning to Generate Parameters of ConvNets for Unseen Image Data"></a>Learning to Generate Parameters of ConvNets for Unseen Image Data</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11862">http://arxiv.org/abs/2310.11862</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Shiye Wang, Kaituo Feng, Changsheng Li, Ye Yuan, Guoren Wang</li>
+<li>for: 提高 ConvNet 的训练效率和可扩展性。</li>
+<li>methods: 提出了一种新的训练方法，将 ConvNet 的参数学习转化为预测任务，通过学习一个映射函数来直接预测网络参数。</li>
+<li>results: 经过广泛的实验证明，提出的 PudNet 模型可以快速预测 ConvNet 的参数，并且可以在不同的数据集上保持比较高的性能。<details>
+<summary>Abstract</summary>
+Typical Convolutional Neural Networks (ConvNets) depend heavily on large amounts of image data and resort to an iterative optimization algorithm (e.g., SGD or Adam) to learn network parameters, which makes training very time- and resource-intensive. In this paper, we propose a new training paradigm and formulate the parameter learning of ConvNets into a prediction task: given a ConvNet architecture, we observe there exists correlations between image datasets and their corresponding optimal network parameters, and explore if we can learn a hyper-mapping between them to capture the relations, such that we can directly predict the parameters of the network for an image dataset never seen during the training phase. To do this, we put forward a new hypernetwork based model, called PudNet, which intends to learn a mapping between datasets and their corresponding network parameters, and then predicts parameters for unseen data with only a single forward propagation. Moreover, our model benefits from a series of adaptive hyper recurrent units sharing weights to capture the dependencies of parameters among different network layers. Extensive experiments demonstrate that our proposed method achieves good efficacy for unseen image datasets on two kinds of settings: Intra-dataset prediction and Inter-dataset prediction. Our PudNet can also well scale up to large-scale datasets, e.g., ImageNet-1K. It takes 8967 GPU seconds to train ResNet-18 on the ImageNet-1K using GC from scratch and obtain a top-5 accuracy of 44.65 %. However, our PudNet costs only 3.89 GPU seconds to predict the network parameters of ResNet-18 achieving comparable performance (44.92 %), more than 2,300 times faster than the traditional training paradigm.
+</details>
+<details>
+<summary>摘要</summary>
+传统的卷积神经网络（ConvNet）需要大量的图像数据和迭代优化算法（如SGD或Adam）来学习网络参数，这使得训练非常时间和资源浪费。在这篇论文中，我们提出了一种新的训练方法，将参数学习转换成预测任务：给定一个ConvNet架构，我们观察到图像集和其对应的优化网络参数之间存在相关性，并explore我们可以学习一个映射来捕捉这些关系，以便直接预测未经训练的数据集中的参数。为此，我们提出了一种新的权重共享循环神经网络模型，称为PudNet，它的目标是学习图像集和其对应的网络参数之间的映射，并在只需要一次前向传播的情况下预测参数。此外，我们的模型还具有一系列适应性的循环单元，这些单元共享权重来捕捉不同层的参数之间的依赖关系。我们的实验表明，我们的提出的方法可以在两种不同的设置下达到好的效果：内部预测和间部预测。此外，我们的PudNet还可以适应大规模数据集，例如ImageNet-1K。使用GC从零开始训练ResNet-18，需要8967个GPU秒，而我们的PudNet只需要3.89个GPU秒来预测ResNet-18的参数，并达到相同的性能（44.92%），比传统训练方法超过2,300倍快。
+</details></li>
+</ul>
+<hr>
+<h2 id="Revisiting-Transferable-Adversarial-Image-Examples-Attack-Categorization-Evaluation-Guidelines-and-New-Insights"><a href="#Revisiting-Transferable-Adversarial-Image-Examples-Attack-Categorization-Evaluation-Guidelines-and-New-Insights" class="headerlink" title="Revisiting Transferable Adversarial Image Examples: Attack Categorization, Evaluation Guidelines, and New Insights"></a>Revisiting Transferable Adversarial Image Examples: Attack Categorization, Evaluation Guidelines, and New Insights</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11850">http://arxiv.org/abs/2310.11850</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/zhengyuzhao/transferattackeval">https://github.com/zhengyuzhao/transferattackeval</a></li>
+<li>paper_authors: Zhengyu Zhao, Hanwei Zhang, Renjue Li, Ronan Sicre, Laurent Amsaleg, Michael Backes, Qi Li, Chao Shen</li>
+<li>For: This paper aims to address the critical security concerns of transferable adversarial examples in real-world black-box attack scenarios by identifying two main problems in common evaluation practices and proposing new evaluation guidelines.* Methods: The paper proposes a novel attack categorization strategy and conducts systematic and fair intra-category analyses on transferability, as well as considering diverse imperceptibility metrics and finer-grained stealthiness characteristics from the perspective of attack traceback.* Results: The paper provides the first large-scale evaluation of transferable adversarial examples on ImageNet, involving 23 representative attacks against 9 representative defenses, and leads to new insights such as the superiority of an early attack method, the vulnerability of a state-of-the-art defense, and the negative correlation between stealthiness and transferability.<details>
+<summary>Abstract</summary>
+Transferable adversarial examples raise critical security concerns in real-world, black-box attack scenarios. However, in this work, we identify two main problems in common evaluation practices: (1) For attack transferability, lack of systematic, one-to-one attack comparison and fair hyperparameter settings. (2) For attack stealthiness, simply no comparisons. To address these problems, we establish new evaluation guidelines by (1) proposing a novel attack categorization strategy and conducting systematic and fair intra-category analyses on transferability, and (2) considering diverse imperceptibility metrics and finer-grained stealthiness characteristics from the perspective of attack traceback. To this end, we provide the first large-scale evaluation of transferable adversarial examples on ImageNet, involving 23 representative attacks against 9 representative defenses. Our evaluation leads to a number of new insights, including consensus-challenging ones: (1) Under a fair attack hyperparameter setting, one early attack method, DI, actually outperforms all the follow-up methods. (2) A state-of-the-art defense, DiffPure, actually gives a false sense of (white-box) security since it is indeed largely bypassed by our (black-box) transferable attacks. (3) Even when all attacks are bounded by the same $L_p$ norm, they lead to dramatically different stealthiness performance, which negatively correlates with their transferability performance. Overall, our work demonstrates that existing problematic evaluations have indeed caused misleading conclusions and missing points, and as a result, hindered the assessment of the actual progress in this field.
+</details>
+<details>
+<summary>摘要</summary>
+通过我们的研究，我们发现了两个主要问题在常见评估方法中：（1）在攻击传输性能方面缺乏系统性、一对一的攻击比较和公平的超参数设置。（2）在攻击隐蔽性方面缺乏对比。为了解决这些问题，我们建立了新的评估指南，包括提出了一种新的攻击分类策略和对 transferability 进行系统性和公平的内部分析。此外，我们还考虑了多种隐蔽性指标和更细化的攻击特征，从攻击跟踪的角度来评估隐蔽性。为了实现这一目标，我们对 ImageNet 进行了大规模的攻击传输性评估，包括 23 种代表性攻击和 9 种代表性防御。我们的评估导致了一些新的发现，包括：（1）在公平攻击超参数设置下，早期的攻击方法 DI 实际上超越了所有后续方法。（2）一种现状顶尖的防御 DiffPure 实际上给了一种 FALSE 的安全感，因为它实际上被我们的黑盒传输攻击大量绕过。（3）即使所有攻击都受限于同一个 $L_p$  нор，它们在隐蔽性方面表现出了截然不同的表现，这与传输性性能呈负相关。总之，我们的研究表明，现有的问题atic 评估已经导致了误导性的结论和缺失点，因此阻碍了这一领域的实际进步的评估。
+</details></li>
+</ul>
+<hr>
+<h2 id="Mesh-Represented-Recycle-Learning-for-3D-Hand-Pose-and-Mesh-Estimation"><a href="#Mesh-Represented-Recycle-Learning-for-3D-Hand-Pose-and-Mesh-Estimation" class="headerlink" title="Mesh Represented Recycle Learning for 3D Hand Pose and Mesh Estimation"></a>Mesh Represented Recycle Learning for 3D Hand Pose and Mesh Estimation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.12189">http://arxiv.org/abs/2310.12189</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Bosang Kim, Jonghyun Kim, Hyotae Lee, Lanying Jin, Jeongwon Ha, Dowoo Kwon, Jungpyo Kim, Wonhyeok Im, KyungMin Jin, Jungho Lee</li>
+<li>for: 提高手势估计模型在真实世界场景中的Robustness。</li>
+<li>methods: 提议一种mesh表示重复学习策略，通过在训练阶段使用自动生成的Synthetic手图来强化手势表示。</li>
+<li>results: 提高手势估计和手图估计的性能，不需要在推理阶段添加计算负担。<details>
+<summary>Abstract</summary>
+In general, hand pose estimation aims to improve the robustness of model performance in the real-world scenes. However, it is difficult to enhance the robustness since existing datasets are obtained in restricted environments to annotate 3D information. Although neural networks quantitatively achieve a high estimation accuracy, unsatisfied results can be observed in visual quality. This discrepancy between quantitative results and their visual qualities remains an open issue in the hand pose representation. To this end, we propose a mesh represented recycle learning strategy for 3D hand pose and mesh estimation which reinforces synthesized hand mesh representation in a training phase. To be specific, a hand pose and mesh estimation model first predicts parametric 3D hand annotations (i.e., 3D keypoint positions and vertices for hand mesh) with real-world hand images in the training phase. Second, synthetic hand images are generated with self-estimated hand mesh representations. After that, the synthetic hand images are fed into the same model again. Thus, the proposed learning strategy simultaneously improves quantitative results and visual qualities by reinforcing synthetic mesh representation. To encourage consistency between original model output and its recycled one, we propose self-correlation loss which maximizes the accuracy and reliability of our learning strategy. Consequently, the model effectively conducts self-refinement on hand pose estimation by learning mesh representation from its own output. To demonstrate the effectiveness of our learning strategy, we provide extensive experiments on FreiHAND dataset. Notably, our learning strategy improves the performance on hand pose and mesh estimation without any extra computational burden during the inference.
+</details>
+<details>
+<summary>摘要</summary>
+通常，手姿估计的目的是提高模型在实际场景中的可靠性。然而，因为现有的数据集是在限制的环境中标注3D信息，因此增强可靠性是困难的。虽然神经网络在量化结果方面取得了高精度，但视觉质量不满足。这种在量化结果和视觉质量之间的差异是手姿表示的开放问题。为解决这个问题，我们提议一种基于循环学习的手姿和三角形估计策略，即在训练阶段使用自动生成的手姿三角形表示来强化模型的输出。具体来说，一个手姿和三角形估计模型首先预测实际世界中手图像的3D键点位置和三角形Vertex，然后使用自动生成的手姿三角形来生成 sintetic手图像。最后，这些 sintetic手图像被 feed 到同一个模型中，以便模型可以进行自我反复学习。因此，我们的学习策略同时提高了量化结果和视觉质量，通过强化自动生成的手姿三角形表示。为保证模型的输出与重新输入的一致性，我们提议一种自相关损失函数，该函数最大化了模型的准确性和可靠性。因此，模型可以通过自己的输出来进行自我反复学习，从而提高手姿估计的性能。为证明我们的学习策略的有效性，我们提供了大量的实验结果，并证明了我们的策略不会在推理阶段增加计算负担。
+</details></li>
+</ul>
+<hr>
+<h2 id="HB-net-Holistic-bursting-cell-cluster-integrated-network-for-occluded-multi-objects-recognition"><a href="#HB-net-Holistic-bursting-cell-cluster-integrated-network-for-occluded-multi-objects-recognition" class="headerlink" title="HB-net: Holistic bursting cell cluster integrated network for occluded multi-objects recognition"></a>HB-net: Holistic bursting cell cluster integrated network for occluded multi-objects recognition</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11834">http://arxiv.org/abs/2310.11834</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/d-lab438/hb-net">https://github.com/d-lab438/hb-net</a></li>
+<li>paper_authors: Xudong Gao, Xiao Guang Gao, Jia Rong, Xiaowei Chen, Xiang Liao, Jun Chen<br>for:  This paper aims to address the challenges of multi-label classification (MLC) in image recognition, specifically when objects within the visual field occlude one another.methods:  The paper introduces a pioneering integrated network framework called HB-net, built upon the foundation of Holistic Bursting (HB) cell clusters, to recognize multiple occluded objects within images. The framework incorporates various Bursting cell cluster structures and an evidence accumulation mechanism.results:  The models incorporating the HB framework exhibit a significant $2.98%$ enhancement in recognition accuracy compared to models without the HB framework ($1.0298$ times, $p&#x3D;0.0499$). Despite having only three convolutional layers and approximately $1&#x2F;30$ of the parameters, the models that combine the HB framework and EA mechanism achieve a comparable level of accuracy and resilience to ResNet50.Here’s the Chinese version:for: 这篇论文目标是解决图像认知中的多标签分类（MLC）挑战，特别是在视场中物体相互 occlude 时，同时识别 occluded 和 occluding 物体。methods: 这篇论文提出了一种先锋的集成网络框架，名为 HB-net，基于启发式强迫细胞（HB）群集，用于同时识别图像中的多个 occluded 对象。框架包括多种 Bursting 细胞群集结构和证据积累机制。results: 包含 HB 框架的模型比无 HB 框架的模型显著提高 $2.98%$ 的识别精度 ($1.0298$ 倍， $p&#x3D;0.0499$）。尽管 HB-net 模型只有三层 convolutional 层和大约 $1&#x2F;30$ 的参数，但是与 ResNet50 具有相同的精度和鲁棒性。<details>
+<summary>Abstract</summary>
+Within the realm of image recognition, a specific category of multi-label classification (MLC) challenges arises when objects within the visual field may occlude one another, demanding simultaneous identification of both occluded and occluding objects. Traditional convolutional neural networks (CNNs) can tackle these challenges; however, those models tend to be bulky and can only attain modest levels of accuracy. Leveraging insights from cutting-edge neural science research, specifically the Holistic Bursting (HB) cell, this paper introduces a pioneering integrated network framework named HB-net. Built upon the foundation of HB cell clusters, HB-net is designed to address the intricate task of simultaneously recognizing multiple occluded objects within images. Various Bursting cell cluster structures are introduced, complemented by an evidence accumulation mechanism. Testing is conducted on multiple datasets comprising digits and letters. The results demonstrate that models incorporating the HB framework exhibit a significant $2.98\%$ enhancement in recognition accuracy compared to models without the HB framework ($1.0298$ times, $p=0.0499$). Although in high-noise settings, standard CNNs exhibit slightly greater robustness when compared to HB-net models, the models that combine the HB framework and EA mechanism achieve a comparable level of accuracy and resilience to ResNet50, despite having only three convolutional layers and approximately $1/30$ of the parameters. The findings of this study offer valuable insights for improving computer vision algorithms. The essential code is provided at https://github.com/d-lab438/hb-net.git.
+</details>
+<details>
+<summary>摘要</summary>
+在图像识别领域中，特定类型的多标签分类（MLC）挑战在图像中可能存在对象干扰 Each other，需要同时识别干扰和干扰物体。传统的卷积神经网络（CNN）可以解决这些挑战，但这些模型往往很大，只能达到 moderate 级别的准确率。基于最新的神经科学研究，尤其是全局爆发（HB）细胞，这篇论文介绍了一种先进的集成网络框架，名为HB-网。HB-网基于HB细胞群集的基础上设计，用于同时识别图像中多个干扰物体。文中还提出了多种爆发细胞群结构，以及证据积累机制。测试结果表明，包含HB框架的模型与无HB框架模型相比，显著提高了识别精度($2.98\%$，$p=0.0499$）。虽然在高噪设置下，标准CNN模型在鲁棒性方面轻微优于HB-网模型，但HB-网模型与EA机制结合的模型可以与ResNet50模型具有相同的准确率和鲁棒性，即使只有三个卷积层和约$1/30$的参数。本研究发现的结论对计算机视觉算法提供了有价值的指导。代码可以在https://github.com/d-lab438/hb-net.git中找到。
+</details></li>
+</ul>
+<hr>
+<h2 id="ShapeGraFormer-GraFormer-Based-Network-for-Hand-Object-Reconstruction-from-a-Single-Depth-Map"><a href="#ShapeGraFormer-GraFormer-Based-Network-for-Hand-Object-Reconstruction-from-a-Single-Depth-Map" class="headerlink" title="ShapeGraFormer: GraFormer-Based Network for Hand-Object Reconstruction from a Single Depth Map"></a>ShapeGraFormer: GraFormer-Based Network for Hand-Object Reconstruction from a Single Depth Map</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11811">http://arxiv.org/abs/2310.11811</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ahmed Tawfik Aboukhadra, Jameel Malik, Nadia Robertini, Ahmed Elhayek, Didier Stricker</li>
+<li>for: 三维重建手征和物体交互是人工智能模拟人类行为的关键。大多数方法只重点处理孤立的手重建，忽略物体接触的物理和运动约束。一些方法可以生成更真实的结果，但它们偏好粗略的姿势估计或假设已知手和物体的形状。</li>
+<li>methods: 我们提出的方法可以从单个深度图重构真实的3D手征和物体形状。与之前的方法不同，我们的体量基于的重构网络可以重构手征和物体的Vertex坐标。我们的管道还预测了手征和物体的VOXEL化形状，这与输入VOXEL化深度之间存在一对一的映射。此外，我们利用Recent GraFormer网络和位置嵌入来重构模板几何体。</li>
+<li>results: 我们在HO-3D和DexYCB数据集上进行了广泛的评估，并证明了我们的方法在手重建方面的表现更高，并且能够生成更真实的物体形状。<details>
+<summary>Abstract</summary>
+3D reconstruction of hand-object manipulations is important for emulating human actions. Most methods dealing with challenging object manipulation scenarios, focus on hands reconstruction in isolation, ignoring physical and kinematic constraints due to object contact. Some approaches produce more realistic results by jointly reconstructing 3D hand-object interactions. However, they focus on coarse pose estimation or rely upon known hand and object shapes. We propose the first approach for realistic 3D hand-object shape and pose reconstruction from a single depth map. Unlike previous work, our voxel-based reconstruction network regresses the vertex coordinates of a hand and an object and reconstructs more realistic interaction. Our pipeline additionally predicts voxelized hand-object shapes, having a one-to-one mapping to the input voxelized depth. Thereafter, we exploit the graph nature of the hand and object shapes, by utilizing the recent GraFormer network with positional embedding to reconstruct shapes from template meshes. In addition, we show the impact of adding another GraFormer component that refines the reconstructed shapes based on the hand-object interactions and its ability to reconstruct more accurate object shapes. We perform an extensive evaluation on the HO-3D and DexYCB datasets and show that our method outperforms existing approaches in hand reconstruction and produces plausible reconstructions for the objects
+</details>
+<details>
+<summary>摘要</summary>
+三维重建手Object操作是重要的人工动作模拟领域。大多数方法在困难的物体操作场景中，都会忽略物体与手的物理和遥感约束。一些方法可以生成更加真实的结果，但是它们都是通过粗略的手形估计或者假设已知手形和物体形状来实现。我们提出了首个从单个深度图中真实重建3D手Object形状和姿势的方法。与前一些方法不同的是，我们的小节基于重建网络将手Object的Vertex坐标重建为手Object的3D形状。我们的管道还预测了手Object的小节形状，它们与输入深度图的小节形状一一对应。之后，我们利用手Object形状的图形结构，通过最近的GraFormer网络和位置嵌入来重建模板几何体。此外，我们还展示了在添加另一个GraFormer组件后，可以基于手Object交互来更加精准地重建物体形状，并且可以更加准确地重建物体。我们对HO-3D和DexYCB数据集进行了广泛的评估，并证明了我们的方法在手 reconstruction和物体重建方面的表现比现有方法更好。
+</details></li>
+</ul>
+<hr>
+<h2 id="Panoptic-Out-of-Distribution-Segmentation"><a href="#Panoptic-Out-of-Distribution-Segmentation" class="headerlink" title="Panoptic Out-of-Distribution Segmentation"></a>Panoptic Out-of-Distribution Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11797">http://arxiv.org/abs/2310.11797</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/BastianSchnitzer/OODPanoptVidSeg">https://github.com/BastianSchnitzer/OODPanoptVidSeg</a></li>
+<li>paper_authors: Rohit Mohan, Kiran Kumaraswamy, Juana Valeria Hurtado, Kürsat Petek, Abhinav Valada</li>
+<li>For: 本研究旨在解决Scene Understanding中的Out-of-Distribution(OOD)对象问题，提高Scene Understanding的性能。* Methods: 本文提出了Panoptic Out-of Distribution Segmentation（PoDS）网络，包括一个共享背景、OODContextualModule、双对称解码器和任务特定头部。PoDS网络通过我们的准确性不符分配策略和数据增强策略来逐渐学习OOD对象，保持IN-distribution表现。* Results: 我们在Cityscapes和BDD100K两个benchmark上进行了广泛的评估，并证明了PoDS网络能够有效地解决OOD对象问题，并且大幅超越了基eline。我们还提供了数据集、代码和训练模型，并在<a target="_blank" rel="noopener" href="http://pods.cs.uni-freiburg.de上公开发布./">http://pods.cs.uni-freiburg.de上公开发布。</a><details>
+<summary>Abstract</summary>
+Deep learning has led to remarkable strides in scene understanding with panoptic segmentation emerging as a key holistic scene interpretation task. However, the performance of panoptic segmentation is severely impacted in the presence of out-of-distribution (OOD) objects i.e. categories of objects that deviate from the training distribution. To overcome this limitation, we propose Panoptic Out-of Distribution Segmentation for joint pixel-level semantic in-distribution and out-of-distribution classification with instance prediction. We extend two established panoptic segmentation benchmarks, Cityscapes and BDD100K, with out-of-distribution instance segmentation annotations, propose suitable evaluation metrics, and present multiple strong baselines. Importantly, we propose the novel PoDS architecture with a shared backbone, an OOD contextual module for learning global and local OOD object cues, and dual symmetrical decoders with task-specific heads that employ our alignment-mismatch strategy for better OOD generalization. Combined with our data augmentation strategy, this approach facilitates progressive learning of out-of-distribution objects while maintaining in-distribution performance. We perform extensive evaluations that demonstrate that our proposed PoDS network effectively addresses the main challenges and substantially outperforms the baselines. We make the dataset, code, and trained models publicly available at http://pods.cs.uni-freiburg.de.
+</details>
+<details>
+<summary>摘要</summary>
+深度学习已经导致场景理解方面做出了非常出色的进步，而涵盖全场景的场景解释任务——权重分割——也在不断提高。然而，权重分割性能在不同于训练数据分布的对象（Out-of-Distribution，OOD）上受到严重的限制。为了解决这个问题，我们提出了权重分割Out-of-Distribution Segmentation（PoDS），它可以同时进行 pixel-levelsemantic 内存分类和 OOD 分类，并且可以预测实例。我们在Cityscapes和BDD100K两个已有的权重分割 benchmark上添加了 OOD 实例分类注释，并提出了适当的评价指标。我们还提出了一种新的 PoDS 架构，它包括共享背景、OOD 上下文模块和两个对称的解码器，其中每个解码器都有任务特定的头，使用我们的偏移缺失策略来提高 OOD 通用性。通过我们的数据增强策略，这种方法可以逐步学习 OOD 对象，同时保持内存分类性能。我们进行了广泛的评估，结果表明，我们的提出的 PoDS 网络可以有效地解决主要挑战，并且明显超过基线。我们将数据集、代码和训练模型公开发布在http://pods.cs.uni-freiburg.de。
+</details></li>
+</ul>
+<hr>
+<h2 id="Progressive3D-Progressively-Local-Editing-for-Text-to-3D-Content-Creation-with-Complex-Semantic-Prompts"><a href="#Progressive3D-Progressively-Local-Editing-for-Text-to-3D-Content-Creation-with-Complex-Semantic-Prompts" class="headerlink" title="Progressive3D: Progressively Local Editing for Text-to-3D Content Creation with Complex Semantic Prompts"></a>Progressive3D: Progressively Local Editing for Text-to-3D Content Creation with Complex Semantic Prompts</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11784">http://arxiv.org/abs/2310.11784</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Xinhua Cheng, Tianyu Yang, Jianan Wang, Yu Li, Lei Zhang, Jian Zhang, Li Yuan</li>
+<li>for: 这个研究旨在创建复杂提示中的正确3D内容，例如多个互动物品与不同属性绑定在一起。</li>
+<li>methods: 我们提出了一个通用框架名为Progressive3D，它将生成过程分成多个本地进行进步的编辑步骤，以实现精确的3D内容生成。在每个编辑步骤中，我们使用用户定义的区域提示来限定内容变化的区域。</li>
+<li>results: 我们的Progressive3D框架可以实现高精度的3D内容生成，并且可以应对不同的文本至3D方法驱动不同的3D表现。实验结果表明，我们的方法可以实现精确的3D内容生成，并且可以应对复杂的提示。<details>
+<summary>Abstract</summary>
+Recent text-to-3D generation methods achieve impressive 3D content creation capacity thanks to the advances in image diffusion models and optimizing strategies. However, current methods struggle to generate correct 3D content for a complex prompt in semantics, i.e., a prompt describing multiple interacted objects binding with different attributes. In this work, we propose a general framework named Progressive3D, which decomposes the entire generation into a series of locally progressive editing steps to create precise 3D content for complex prompts, and we constrain the content change to only occur in regions determined by user-defined region prompts in each editing step. Furthermore, we propose an overlapped semantic component suppression technique to encourage the optimization process to focus more on the semantic differences between prompts. Extensive experiments demonstrate that the proposed Progressive3D framework generates precise 3D content for prompts with complex semantics and is general for various text-to-3D methods driven by different 3D representations.
+</details>
+<details>
+<summary>摘要</summary>
+现代文本到3D生成方法已经实现了印象深刻的3D内容创造能力，归功于图像扩散模型和优化策略的进步。然而，当前方法在复杂的semantics prompt上难以生成正确的3D内容，即多个交互对象与不同属性绑定的提示。在这项工作中，我们提出了一个通用框架名为Progressive3D，它将整个生成分解为一系列的本地进度编辑步骤，以创造复杂提示的精确3D内容。此外，我们还提出了重叠 semantic component suppression技术，以便促进优化过程更加注重semantic differences between prompts。广泛的实验表明，我们提出的Progressive3D框架可以为复杂semantics prompt生成精确3D内容，并且可以适用于不同的文本到3D方法驱动的不同3D表示。
+</details></li>
+</ul>
+<hr>
+<h2 id="Multi-Task-Consistency-Guided-Source-Free-Test-Time-Domain-Adaptation-Medical-Image-Segmentation"><a href="#Multi-Task-Consistency-Guided-Source-Free-Test-Time-Domain-Adaptation-Medical-Image-Segmentation" class="headerlink" title="Multi Task Consistency Guided Source-Free Test-Time Domain Adaptation Medical Image Segmentation"></a>Multi Task Consistency Guided Source-Free Test-Time Domain Adaptation Medical Image Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11766">http://arxiv.org/abs/2310.11766</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yanyu Ye, Zhenxi Zhang, Wei Wei, Chunna Tian</li>
+<li>for: 提高医疗图像分割模型对不同和未经见测试集的适应性，提高分割模型的普适性和稳定性。</li>
+<li>methods: 利用多任务一致性引导的源自由测试时领域适应医疗图像分割方法，保证测试集边缘预测和对应输入的一致性。具体来说，我们引入了地方边缘一致性约束方法，探讨了组织区域分割和组织边缘Localization任务之间的关系。此外，我们提出了全局特征一致性约束，以增强同类特征的紧凑性。</li>
+<li>results: 在 benchmark 肠图像分割任务上进行了广泛的实验，与源Domain模型直接预测相比，分割 dice 得分提高了6.27%和0.96%在RIM-ONE-r3和Drishti GS数据集上。此外，实验结果表明，我们提出的方法在与现有竞争性领域适应分割算法相比，表现出了良好的性能。<details>
+<summary>Abstract</summary>
+Source-free test-time adaptation for medical image segmentation aims to enhance the adaptability of segmentation models to diverse and previously unseen test sets of the target domain, which contributes to the generalizability and robustness of medical image segmentation models without access to the source domain. Ensuring consistency between target edges and paired inputs is crucial for test-time adaptation. To improve the performance of test-time domain adaptation, we propose a multi task consistency guided source-free test-time domain adaptation medical image segmentation method which ensures the consistency of the local boundary predictions and the global prototype representation. Specifically, we introduce a local boundary consistency constraint method that explores the relationship between tissue region segmentation and tissue boundary localization tasks. Additionally, we propose a global feature consistency constraint toto enhance the intra-class compactness. We conduct extensive experiments on the segmentation of benchmark fundus images. Compared to prediction directly by the source domain model, the segmentation Dice score is improved by 6.27\% and 0.96\% in RIM-ONE-r3 and Drishti GS datasets, respectively. Additionally, the results of experiments demonstrate that our proposed method outperforms existing competitive domain adaptation segmentation algorithms.
+</details>
+<details>
+<summary>摘要</summary>
+源无法测试适应技术是为医学影像分割模型提高适应性，使其在不同和未经见过的测试集上具有更高的普适性和可靠性，而无需访问源领域。保证测试领域边缘与对应的输入保持一致性是适时适应技术的关键。为了提高测试适应性的表现，我们提出了基于多任务一致性指导的源无法测试适应医学影像分割方法。这种方法通过 explore 肿瘤区域分割和肿瘤边缘定位任务之间的关系来保证本地边缘预测的一致性。此外，我们还提出了全局特征一致性约束，以提高内类紧凑度。我们对医学影像分割benchmark数据集进行了广泛的实验。与直接使用源领域模型预测相比，我们的提出方法可以提高分割 dice 分数6.27%和0.96%在RIM-ONE-r3和Drishti GS数据集中，分别。此外，实验结果还表明，我们的提出方法可以超越现有的竞争性领域适应分割算法。
+</details></li>
+</ul>
+<hr>
+<h2 id="Perceptual-Measurements-Distances-and-Metrics"><a href="#Perceptual-Measurements-Distances-and-Metrics" class="headerlink" title="Perceptual Measurements, Distances and Metrics"></a>Perceptual Measurements, Distances and Metrics</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11759">http://arxiv.org/abs/2310.11759</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/jonathanvacher/perceptual_metric">https://github.com/jonathanvacher/perceptual_metric</a></li>
+<li>paper_authors: Jonathan Vacher, Pascal Mamassian</li>
+<li>for: 本研究旨在探讨人类视觉中的感知过程，以及这种过程如何将外部物理变量转化成内部心理变量。</li>
+<li>methods: 本研究使用了对比测试方法（difference scaling experiments）来探讨感知积分的准确性。</li>
+<li>results: 研究发现，感知积分主要受到刺激力谱的影响，而不是其他Physical variables。此外，研究还发现了感知积分与生成模型下的感知准确性之间的关系。<details>
+<summary>Abstract</summary>
+Perception is often viewed as a process that transforms physical variables, external to an observer, into internal psychological variables. Such a process can be modeled by a function coined perceptual scale. The perceptual scale can be deduced from psychophysical measurements that consist in comparing the relative differences between stimuli (i.e. difference scaling experiments). However, this approach is often overlooked by the modeling and experimentation communities. Here, we demonstrate the value of measuring the perceptual scale of classical (spatial frequency, orientation) and less classical physical variables (interpolation between textures) by embedding it in recent probabilistic modeling of perception. First, we show that the assumption that an observer has an internal representation of univariate parameters such as spatial frequency or orientation while stimuli are high-dimensional does not lead to contradictory predictions when following the theoretical framework. Second, we show that the measured perceptual scale corresponds to the transduction function hypothesized in this framework. In particular, we demonstrate that it is related to the Fisher information of the generative model that underlies perception and we test the predictions given by the generative model of different stimuli in a set a of difference scaling experiments. Our main conclusion is that the perceptual scale is mostly driven by the stimulus power spectrum. Finally, we propose that this measure of perceptual scale is a way to push further the notion of perceptual distances by estimating the perceptual geometry of images i.e. the path between images instead of simply the distance between those.
+</details>
+<details>
+<summary>摘要</summary>
+感知通常被看作将外部物理变量转换成内部心理变量的过程。这种过程可以通过一个名为感知尺度的函数来模型。感知尺度可以通过心理物理测量（比如差异检测实验）来推算。然而，这一方法经常被模型和实验社区忽视。我们在这里示出了测量感知尺度的价值，并将其嵌入到了现代感知probabilistic模型中。首先，我们表明了假设观察者有内部表征一个参数，如空间频率或方向，而 stimulus 是高维的时，不会导致矛盾的预测。其次，我们示出了测量的感知尺度与假设的转化函数相关。具体来说，我们表明了它与生成模型下的感知中的 Fisher信息相关，并在一系列差异检测实验中测试了这些预测。我们的主要结论是，感知尺度主要受 stimulus 的能量спектrum影响。最后，我们提议这种感知尺度的测量是一种可以推进感知距离的方式，而不仅仅是简单地测量图像之间的距离。
+</details></li>
+</ul>
+<hr>
+<h2 id="Domain-Generalized-Face-Anti-Spoofing-with-Unknown-Attacks"><a href="#Domain-Generalized-Face-Anti-Spoofing-with-Unknown-Attacks" class="headerlink" title="Domain-Generalized Face Anti-Spoofing with Unknown Attacks"></a>Domain-Generalized Face Anti-Spoofing with Unknown Attacks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11758">http://arxiv.org/abs/2310.11758</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ai-application-and-integration-lab/dgua_fas">https://github.com/ai-application-and-integration-lab/dgua_fas</a></li>
+<li>paper_authors: Zong-Wei Hong, Yu-Chen Lin, Hsuan-Tung Liu, Yi-Ren Yeh, Chu-Song Chen</li>
+<li>for: 面对骗降风险，提高防骗检测精度。</li>
+<li>methods: 提出了一种基于Transformer的特征提取器和SyntheticUnknownAttackSampleGenerator（SUASG）网络，以便在不同频谱下进行防骗检测。</li>
+<li>results: 实验结果表明，我们的方法在防骗检测领域中具有优秀的性能，可以同时处理知道和未知攻击。<details>
+<summary>Abstract</summary>
+Although face anti-spoofing (FAS) methods have achieved remarkable performance on specific domains or attack types, few studies have focused on the simultaneous presence of domain changes and unknown attacks, which is closer to real application scenarios. To handle domain-generalized unknown attacks, we introduce a new method, DGUA-FAS, which consists of a Transformer-based feature extractor and a synthetic unknown attack sample generator (SUASG). The SUASG network simulates unknown attack samples to assist the training of the feature extractor. Experimental results show that our method achieves superior performance on domain generalization FAS with known or unknown attacks.
+</details>
+<details>
+<summary>摘要</summary>
+translate into Simplified Chinese:尽管面部防伪（FAS）方法在特定领域或攻击类型上达到了很高的表现，但很少的研究集中着重于同时面临域名变化和未知攻击，这更接近实际应用场景。为了处理域名总则未知攻击，我们介绍了一种新的方法，DGUA-FAS，它包括一个基于Transformer的特征提取器和一个生成synthetic未知攻击样本网络（SUASG）。SUASG网络模拟未知攻击样本，以帮助特征提取器的训练。实验结果表明，我们的方法在域名总则FAS中具有优秀的表现，包括知道或未知攻击。
+</details></li>
+</ul>
+<hr>
+<h2 id="RGM-A-Robust-Generalist-Matching-Model"><a href="#RGM-A-Robust-Generalist-Matching-Model" class="headerlink" title="RGM: A Robust Generalist Matching Model"></a>RGM: A Robust Generalist Matching Model</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11755">http://arxiv.org/abs/2310.11755</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/aim-uofa/rgm">https://github.com/aim-uofa/rgm</a></li>
+<li>paper_authors: Songyan Zhang, Xinyu Sun, Hao Chen, Bo Li, Chunhua Shen</li>
+<li>for: 这个论文的目的是提出一种深度学习模型，用于 sparse 和 dense 匹配。</li>
+<li>methods: 该模型使用了一种卷积 GRU 模块进行匹配精度的提高，以及一种额外的不确定性估计模块进行减少。</li>
+<li>results: 该模型在零shot匹配和下游几何估计方面实现了Superior性能，与之前的方法相比具有大幅提升。<details>
+<summary>Abstract</summary>
+Finding corresponding pixels within a pair of images is a fundamental computer vision task with various applications. Due to the specific requirements of different tasks like optical flow estimation and local feature matching, previous works are primarily categorized into dense matching and sparse feature matching focusing on specialized architectures along with task-specific datasets, which may somewhat hinder the generalization performance of specialized models. In this paper, we propose a deep model for sparse and dense matching, termed RGM (Robust Generalist Matching). In particular, we elaborately design a cascaded GRU module for refinement by exploring the geometric similarity iteratively at multiple scales following an additional uncertainty estimation module for sparsification. To narrow the gap between synthetic training samples and real-world scenarios, we build a new, large-scale dataset with sparse correspondence ground truth by generating optical flow supervision with greater intervals. As such, we are able to mix up various dense and sparse matching datasets, significantly improving the training diversity. The generalization capacity of our proposed RGM is greatly improved by learning the matching and uncertainty estimation in a two-stage manner on the large, mixed data. Superior performance is achieved for zero-shot matching and downstream geometry estimation across multiple datasets, outperforming the previous methods by a large margin.
+</details>
+<details>
+<summary>摘要</summary>
+寻找图像对应像素是计算机视觉的基本任务，具有各种应用。由于不同任务的特殊需求，以前的工作主要分为紧密匹配和稀疏特征匹配，专注于特有的建筑和任务特定的数据集，这可能会有所限制特殊模型的总体性能。在这篇论文中，我们提出了一种深度模型，称为Robust Generalist Matching（稳健通用匹配），用于紧密和稀疏匹配。特别是，我们精心设计了一个嵌入式GRU模块，通过多个缩放级别的几何相似性进行迭代修养，并附加了一个额外的不确定估计模块以实现稀疏化。为了减少人工训练样本和实际场景之间的差距，我们构建了一个新的大规模数据集，该数据集包含稀疏匹配的真实参照数据，并通过生成更大的间隔来提供更多的流动推导。因此，我们能够将不同的紧密和稀疏匹配数据集混合在一起，大幅提高训练多样性。我们的提出的RGM模型在适应零次匹配和下游几何估计方面表现出色，与之前的方法相比，具有很大的提升。
+</details></li>
+</ul>
+<hr>
+<h2 id="BanglaAbuseMeme-A-Dataset-for-Bengali-Abusive-Meme-Classification"><a href="#BanglaAbuseMeme-A-Dataset-for-Bengali-Abusive-Meme-Classification" class="headerlink" title="BanglaAbuseMeme: A Dataset for Bengali Abusive Meme Classification"></a>BanglaAbuseMeme: A Dataset for Bengali Abusive Meme Classification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11748">http://arxiv.org/abs/2310.11748</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mithun Das, Animesh Mukherjee</li>
+<li>for: 本研究旨在提供一个 Bengali 攻击图文的基本 dataset，并透过该 dataset 进行 benchmarking，以建立一个有效的攻击图文识别模型。</li>
+<li>methods: 本研究使用了多种基线模型来类别攻击图文，包括文本基线模型、图像基线模型和多Modal 基线模型。</li>
+<li>results: 研究发现，使用多modal 信息（文本和图像）的模型可以超过单modal 模型的性能，并取得了70.51的macro F1 分数。 In addition, the study performed a qualitative error analysis of the misclassified memes for each of the best-performing models.<details>
+<summary>Abstract</summary>
+The dramatic increase in the use of social media platforms for information sharing has also fueled a steep growth in online abuse. A simple yet effective way of abusing individuals or communities is by creating memes, which often integrate an image with a short piece of text layered on top of it. Such harmful elements are in rampant use and are a threat to online safety. Hence it is necessary to develop efficient models to detect and flag abusive memes. The problem becomes more challenging in a low-resource setting (e.g., Bengali memes, i.e., images with Bengali text embedded on it) because of the absence of benchmark datasets on which AI models could be trained. In this paper we bridge this gap by building a Bengali meme dataset. To setup an effective benchmark we implement several baseline models for classifying abusive memes using this dataset. We observe that multimodal models that use both textual and visual information outperform unimodal models. Our best-performing model achieves a macro F1 score of 70.51. Finally, we perform a qualitative error analysis of the misclassified memes of the best-performing text-based, image-based and multimodal models.
+</details>
+<details>
+<summary>摘要</summary>
+“社交媒体平台上的信息共享量呈现出剧烈增长趋势，同时也导致了在线骚扰的减震。创建 memes 是一种简单 yet 高效的骚扰方式，通常将图片与短文字层次在上面。这些危险元素在普遍存在， threatening 在线安全。因此，需要开发高效的模型来检测和标识骚扰 memes。在低资源环境（如 Bengali memes，即图片上嵌入 Bengali 文本）下，问题更加挑战性，因为缺乏可用的标准 datasets 用于训练 AI 模型。本文填补这个空白，建立了 Bengali meme 数据集。我们实现了一些基线模型，用于使用这些数据集进行骚扰 memes 的分类。我们发现，使用文本和视觉信息的多模式模型，比单模式模型更高效。我们最佳表现的模型在 macro F1 分数上达到 70.51。最后，我们对最佳文本基于、图像基于和多模式模型的误分类照片进行质量错误分析。”
+</details></li>
+</ul>
+<hr>
+<h2 id="DBDNet-Partial-to-Partial-Point-Cloud-Registration-with-Dual-Branches-Decoupling"><a href="#DBDNet-Partial-to-Partial-Point-Cloud-Registration-with-Dual-Branches-Decoupling" class="headerlink" title="DBDNet:Partial-to-Partial Point Cloud Registration with Dual Branches Decoupling"></a>DBDNet:Partial-to-Partial Point Cloud Registration with Dual Branches Decoupling</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11733">http://arxiv.org/abs/2310.11733</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Shiqi Li, Jihua Zhu, Yifan Xie</li>
+<li>for: 本研究的目的是提出一种高效的点云注册方法，用于解决实际中的半 overlap 注册问题。</li>
+<li>methods: 我们提出了一种基于 dual branches 结构的注册方法，其中分别创建了两个个别的匹配矩阵，以消除对翻译和平移的相互干扰。在注册过程中，我们将 overlap 预测作为前置任务，并使用强大的注意力机制来准确预测点 wise 面积。此外，我们设计了一种多resolution 特征提取网络，以捕捉both local和global patters，从而提高 overlap 预测和注册模块的性能。</li>
+<li>results: 我们在 both synthetic 和实际数据集上进行了实验，并证明了我们提出的方法的效果。<details>
+<summary>Abstract</summary>
+Point cloud registration plays a crucial role in various computer vision tasks, and usually demands the resolution of partial overlap registration in practice. Most existing methods perform a serial calculation of rotation and translation, while jointly predicting overlap during registration, this coupling tends to degenerate the registration performance. In this paper, we propose an effective registration method with dual branches decoupling for partial-to-partial registration, dubbed as DBDNet. Specifically, we introduce a dual branches structure to eliminate mutual interference error between rotation and translation by separately creating two individual correspondence matrices. For partial-to-partial registration, we consider overlap prediction as a preordering task before the registration procedure. Accordingly, we present an overlap predictor that benefits from explicit feature interaction, which is achieved by the powerful attention mechanism to accurately predict pointwise masks. Furthermore, we design a multi-resolution feature extraction network to capture both local and global patterns thus enhancing both overlap prediction and registration module. Experimental results on both synthetic and real datasets validate the effectiveness of our proposed method.
+</details>
+<details>
+<summary>摘要</summary>
+Point cloud registration 在多种计算机视觉任务中扮演着关键角色，通常需要解决部分重叠注册问题。现有大多数方法采用串行计算旋转和平移，同时预测重叠，这种对接往往导致注册性能下降。在本文中，我们提出了一种高效的注册方法，即DBDNet，用于解决部分到部分注册问题。具体来说，我们引入了双支结构，以消除旋转和平移之间的相互干扰错误。为部分到部分注册，我们认为重叠预测是注册前置任务，因此我们提出了一种具有显著注意力机制的重叠预测器，以准确预测点 wise 面积。此外，我们设计了一种多resolution 特征提取网络，以捕捉局部和全局特征，从而提高重叠预测和注册模块的性能。实验结果表明，我们提出的方法在真实数据上得到了较好的效果。
+</details></li>
+</ul>
+<hr>
+<h2 id="VST-Efficient-and-Stronger-Visual-Saliency-Transformer"><a href="#VST-Efficient-and-Stronger-Visual-Saliency-Transformer" class="headerlink" title="VST++: Efficient and Stronger Visual Saliency Transformer"></a>VST++: Efficient and Stronger Visual Saliency Transformer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11725">http://arxiv.org/abs/2310.11725</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Nian Liu, Ziyang Luo, Ni Zhang, Junwei Han</li>
+<li>for: 这篇论文是为了提高抽象对象检测（SOD）的能力而写的。</li>
+<li>methods: 该论文使用了一种基于 transformer 的 sequence-to-sequence 方法，并尝试了一种新的 token 扩展方法来逐渐提高高精度的抽象图像。</li>
+<li>results: 实验结果表明，该模型在RGB、RGB-D 和 RGB-T SOD 数据集上的表现比现有方法更好，同时减少了25%的计算成本。<details>
+<summary>Abstract</summary>
+While previous CNN-based models have exhibited promising results for salient object detection (SOD), their ability to explore global long-range dependencies is restricted. Our previous work, the Visual Saliency Transformer (VST), addressed this constraint from a transformer-based sequence-to-sequence perspective, to unify RGB and RGB-D SOD. In VST, we developed a multi-task transformer decoder that concurrently predicts saliency and boundary outcomes in a pure transformer architecture. Moreover, we introduced a novel token upsampling method called reverse T2T for predicting a high-resolution saliency map effortlessly within transformer-based structures. Building upon the VST model, we further propose an efficient and stronger VST version in this work, i.e. VST++. To mitigate the computational costs of the VST model, we propose a Select-Integrate Attention (SIA) module, partitioning foreground into fine-grained segments and aggregating background information into a single coarse-grained token. To incorporate 3D depth information with low cost, we design a novel depth position encoding method tailored for depth maps. Furthermore, we introduce a token-supervised prediction loss to provide straightforward guidance for the task-related tokens. We evaluate our VST++ model across various transformer-based backbones on RGB, RGB-D, and RGB-T SOD benchmark datasets. Experimental results show that our model outperforms existing methods while achieving a 25% reduction in computational costs without significant performance compromise. The demonstrated strong ability for generalization, enhanced performance, and heightened efficiency of our VST++ model highlight its potential.
+</details>
+<details>
+<summary>摘要</summary>
+前些 CNN 基本模型在焦点对象检测（SOD）方面已经展示了漫天的成果，但它们在探索全球长距离相互关联的能力受限。我们之前的工作，Visual Saliency Transformer（VST），在基于 transformer 序列到序列的视角下，解决了这一约束，并同时涵盖了 RGB 和 RGB-D SOD。在 VST 模型中，我们开发了一个多任务 transformer 解码器，同时预测焦点和边框结果。此外，我们还提出了一种新的 токенupsampling 方法，称为反向 T2T，可以在 transformer 结构中简单地预测高分辨率焦点地图。基于 VST 模型，我们在这个工作中进一步提出了更加高效和强大的 VST++ 模型。为了减少 VST 模型的计算成本，我们提出了一种 Select-Integrate Attention（SIA）模块，将前景分成细化的小区域，并将背景信息集中到一个高级别的 токен中。此外，我们还设计了一种适合 depth 图的深度位编码方法，以便在低成本下使用 depth 信息。此外，我们还引入了一种带有指导性的 токен预测损失，以便为任务相关的 токен提供直接的指导。我们在不同的 transformer 基础体系上测试了我们的 VST++ 模型，并对 RGB、RGB-D 和 RGB-T SOD 测试集进行了评估。实验结果表明，我们的模型在性能和效率两个方面都有所提高，而且可以在不同的任务上进行普适的应用。
+</details></li>
+</ul>
+<hr>
+<h2 id="Separating-Invisible-Sounds-Toward-Universal-Audiovisual-Scene-Aware-Sound-Separation"><a href="#Separating-Invisible-Sounds-Toward-Universal-Audiovisual-Scene-Aware-Sound-Separation" class="headerlink" title="Separating Invisible Sounds Toward Universal Audiovisual Scene-Aware Sound Separation"></a>Separating Invisible Sounds Toward Universal Audiovisual Scene-Aware Sound Separation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11713">http://arxiv.org/abs/2310.11713</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yiyang Su, Ali Vosoughi, Shijian Deng, Yapeng Tian, Chenliang Xu</li>
+<li>for: 这篇论文是为了解决音频视频场景中不可见的声音问题，现有方法困难处理这类声音。</li>
+<li>methods: 该论文提出了一种新的”音频视频场景意识分离”（AVSA-Sep）框架，包括可见和无法见声音的semantic parser和场景 Informed分离器。</li>
+<li>results: AVSA-Sep可以成功分离两类声音，并且通过共同训练和相互对齐提高效果。<details>
+<summary>Abstract</summary>
+The audio-visual sound separation field assumes visible sources in videos, but this excludes invisible sounds beyond the camera's view. Current methods struggle with such sounds lacking visible cues. This paper introduces a novel "Audio-Visual Scene-Aware Separation" (AVSA-Sep) framework. It includes a semantic parser for visible and invisible sounds and a separator for scene-informed separation. AVSA-Sep successfully separates both sound types, with joint training and cross-modal alignment enhancing effectiveness.
+</details>
+<details>
+<summary>摘要</summary>
+《听视频音频分离场景》假设视频中的音频来源可见，但这会排除无法被摄像头捕捉的声音。现有方法在处理这类声音时遇到困难。本文介绍一种新的“听视频场景化分离”（AVSA-Sep）框架。它包括可见和无法被见的声音 semantic parser 和场景 Informed 分离器。AVSA-Sep 成功地分离了这两类声音，并且在共同训练和跨Modal 对齐下提高了效果。
+</details></li>
+</ul>
+<hr>
+<h2 id="DPF-Nutrition-Food-Nutrition-Estimation-via-Depth-Prediction-and-Fusion"><a href="#DPF-Nutrition-Food-Nutrition-Estimation-via-Depth-Prediction-and-Fusion" class="headerlink" title="DPF-Nutrition: Food Nutrition Estimation via Depth Prediction and Fusion"></a>DPF-Nutrition: Food Nutrition Estimation via Depth Prediction and Fusion</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11702">http://arxiv.org/abs/2310.11702</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yuzhe Han, Qimin Cheng, Wenjin Wu, Ziyang Huang</li>
+<li>for: 这个研究旨在提供一个基于深度学习的自动膳食估算方法，以便日常监控膳食摄取和促进饮食健康。</li>
+<li>methods: 这个方法使用单目像估算，并引入深度预测模组以改善食物量估算的精度。此外，我们还设计了RGB-D融合模组，将单目像融合到预测的深度信息上，以提高膳食估算的表现。</li>
+<li>results: 我们在Nutrition5k上进行了充分的实验，并证明了DPF-Nutrition的有效性和效率。<details>
+<summary>Abstract</summary>
+A reasonable and balanced diet is essential for maintaining good health. With the advancements in deep learning, automated nutrition estimation method based on food images offers a promising solution for monitoring daily nutritional intake and promoting dietary health. While monocular image-based nutrition estimation is convenient, efficient, and economical, the challenge of limited accuracy remains a significant concern. To tackle this issue, we proposed DPF-Nutrition, an end-to-end nutrition estimation method using monocular images. In DPF-Nutrition, we introduced a depth prediction module to generate depth maps, thereby improving the accuracy of food portion estimation. Additionally, we designed an RGB-D fusion module that combined monocular images with the predicted depth information, resulting in better performance for nutrition estimation. To the best of our knowledge, this was the pioneering effort that integrated depth prediction and RGB-D fusion techniques in food nutrition estimation. Comprehensive experiments performed on Nutrition5k evaluated the effectiveness and efficiency of DPF-Nutrition.
+</details>
+<details>
+<summary>摘要</summary>
+一个合理和均衡的饮食是保持良好健康的必需。随着深度学习技术的发展，基于食物图像自动评估nutrition的方法提供了一个有前途的解决方案，帮助监测每日营养摄入和促进饮食健康。虽然单目图像基于nutrition评估方法方便、高效、经济，但是准确性问题仍然是一个主要挑战。为解决这个问题，我们提出了DPF-Nutrition，一种基于单目图像的综合nutrition评估方法。在DPF-Nutrition中，我们引入了深度预测模块，以生成深度地图，从而提高食物分量估算的准确性。此外，我们设计了RGB-D融合模块，将单目图像与预测的深度信息结合在一起，使nutrition评估表现更佳。据我们所知，这是食物nutrition评估中首次将深度预测和RGB-D融合技术相结合的尝试。我们在Nutrition5k上进行了广泛的实验，证明DPF-Nutrition的效果和效率。
+</details></li>
+</ul>
+<hr>
+<h2 id="MOHO-Learning-Single-view-Hand-held-Object-Reconstruction-with-Multi-view-Occlusion-Aware-Supervision"><a href="#MOHO-Learning-Single-view-Hand-held-Object-Reconstruction-with-Multi-view-Occlusion-Aware-Supervision" class="headerlink" title="MOHO: Learning Single-view Hand-held Object Reconstruction with Multi-view Occlusion-Aware Supervision"></a>MOHO: Learning Single-view Hand-held Object Reconstruction with Multi-view Occlusion-Aware Supervision</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11696">http://arxiv.org/abs/2310.11696</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Chenyangguang Zhang, Guanlong Jiao, Yan Di, Ziqin Huang, Gu Wang, Ruida Zhang, Bowen Fu, Federico Tombari, Xiangyang Ji</li>
+<li>for: 实现单一影像中的手持物体重建，不需要3D真实模型的监控。</li>
+<li>methods: 使用多视角导入的semantic特征和几何导入，以及一新的2D-3D手 occlusion 意识训练方案，解决手持物体自我遮蔽和手导入遮蔽问题。</li>
+<li>results: 在HO3D和DexYCB dataset上进行了广泛的实验，证明了2D监控的MOHO在比较3D监控方法的情况下，获得了更高的成绩。<details>
+<summary>Abstract</summary>
+Previous works concerning single-view hand-held object reconstruction typically utilize supervision from 3D ground truth models, which are hard to collect in real world. In contrast, abundant videos depicting hand-object interactions can be accessed easily with low cost, although they only give partial object observations with complex occlusion. In this paper, we present MOHO to reconstruct hand-held object from a single image with multi-view supervision from hand-object videos, tackling two predominant challenges including object's self-occlusion and hand-induced occlusion. MOHO inputs semantic features indicating visible object parts and geometric embeddings provided by hand articulations as partial-to-full cues to resist object's self-occlusion, so as to recover full shape of the object. Meanwhile, a novel 2D-3D hand-occlusion-aware training scheme following the synthetic-to-real paradigm is proposed to release hand-induced occlusion. In the synthetic pre-training stage, 2D-3D hand-object correlations are constructed by supervising MOHO with rendered images to complete the hand-concealed regions of the object in both 2D and 3D space. Subsequently, MOHO is finetuned in real world by the mask-weighted volume rendering supervision adopting hand-object correlations obtained during pre-training. Extensive experiments on HO3D and DexYCB datasets demonstrate that 2D-supervised MOHO gains superior results against 3D-supervised methods by a large margin. Codes and key assets will be released soon.
+</details>
+<details>
+<summary>摘要</summary>
+previous works concerning single-view hand-held object reconstruction typically utilize supervision from 3D ground truth models, which are hard to collect in real world. In contrast, abundant videos depicting hand-object interactions can be accessed easily with low cost, although they only give partial object observations with complex occlusion. In this paper, we present MOHO to reconstruct hand-held object from a single image with multi-view supervision from hand-object videos, tackling two predominant challenges including object's self-occlusion and hand-induced occlusion. MOHO inputs semantic features indicating visible object parts and geometric embeddings provided by hand articulations as partial-to-full cues to resist object's self-occlusion, so as to recover full shape of the object. Meanwhile, a novel 2D-3D hand-occlusion-aware training scheme following the synthetic-to-real paradigm is proposed to release hand-induced occlusion. In the synthetic pre-training stage, 2D-3D hand-object correlations are constructed by supervising MOHO with rendered images to complete the hand-concealed regions of the object in both 2D and 3D space. Subsequently, MOHO is finetuned in real world by the mask-weighted volume rendering supervision adopting hand-object correlations obtained during pre-training. Extensive experiments on HO3D and DexYCB datasets demonstrate that 2D-supervised MOHO gains superior results against 3D-supervised methods by a large margin. Codes and key assets will be released soon.Here's the translation in Traditional Chinese:previous works concerning single-view hand-held object reconstruction typically utilize supervision from 3D ground truth models, which are hard to collect in real world. In contrast, abundant videos depicting hand-object interactions can be accessed easily with low cost, although they only give partial object observations with complex occlusion. In this paper, we present MOHO to reconstruct hand-held object from a single image with multi-view supervision from hand-object videos, tackling two predominant challenges including object's self-occlusion and hand-induced occlusion. MOHO inputs semantic features indicating visible object parts and geometric embeddings provided by hand articulations as partial-to-full cues to resist object's self-occlusion, so as to recover full shape of the object. Meanwhile, a novel 2D-3D hand-occlusion-aware training scheme following the synthetic-to-real paradigm is proposed to release hand-induced occlusion. In the synthetic pre-training stage, 2D-3D hand-object correlations are constructed by supervising MOHO with rendered images to complete the hand-concealed regions of the object in both 2D and 3D space. Subsequently, MOHO is finetuned in real world by the mask-weighted volume rendering supervision adopting hand-object correlations obtained during pre-training. Extensive experiments on HO3D and DexYCB datasets demonstrate that 2D-supervised MOHO gains superior results against 3D-supervised methods by a large margin. Codes and key assets will be released soon.
+</details></li>
+</ul>
+<hr>
+<h2 id="ChatGPT-guided-Semantics-for-Zero-shot-Learning"><a href="#ChatGPT-guided-Semantics-for-Zero-shot-Learning" class="headerlink" title="ChatGPT-guided Semantics for Zero-shot Learning"></a>ChatGPT-guided Semantics for Zero-shot Learning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11657">http://arxiv.org/abs/2310.11657</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/fhshubho/cgs-zsl">https://github.com/fhshubho/cgs-zsl</a></li>
+<li>paper_authors: Fahimul Hoque Shubho, Townim Faisal Chowdhury, Ali Cheraghian, Morteza Saberi, Nabeel Mohammed, Shafin Rahman</li>
+<li>for: 提高零shot学习（ZSL）任务中类别semantic的质量，以便将知识从训练时seen类传递到未经训练的类。</li>
+<li>methods: 使用ChatGPT大语言模型提供类名和描述，并使用word2vec模型将文本生成的word vector与类名 embeddings fusion。</li>
+<li>results: 在多个2D图像（CUB和AwA）和3D点云（ModelNet10、ModelNet40和ScanObjectNN） dataset上证明了提高ZSL性能。<details>
+<summary>Abstract</summary>
+Zero-shot learning (ZSL) aims to classify objects that are not observed or seen during training. It relies on class semantic description to transfer knowledge from the seen classes to the unseen classes. Existing methods of obtaining class semantics include manual attributes or automatic word vectors from language models (like word2vec). We know attribute annotation is costly, whereas automatic word-vectors are relatively noisy. To address this problem, we explore how ChatGPT, a large language model, can enhance class semantics for ZSL tasks. ChatGPT can be a helpful source to obtain text descriptions for each class containing related attributes and semantics. We use the word2vec model to get a word vector using the texts from ChatGPT. Then, we enrich word vectors by combining the word embeddings from class names and descriptions generated by ChatGPT. More specifically, we leverage ChatGPT to provide extra supervision for the class description, eventually benefiting ZSL models. We evaluate our approach on various 2D image (CUB and AwA) and 3D point cloud (ModelNet10, ModelNet40, and ScanObjectNN) datasets and show that it improves ZSL performance. Our work contributes to the ZSL literature by applying ChatGPT for class semantics enhancement and proposing a novel word vector fusion method.
+</details>
+<details>
+<summary>摘要</summary>
+zero-shot learning (ZSL) targets classifying objects that are not observed or seen during training. It relies on class semantic descriptions to transfer knowledge from seen classes to unseen classes. Existing methods of obtaining class semantics include manual attributes or automatic word vectors from language models (like word2vec). We know attribute annotation is costly, whereas automatic word-vectors are relatively noisy. To address this problem, we explore how ChatGPT, a large language model, can enhance class semantics for ZSL tasks. ChatGPT can be a helpful source to obtain text descriptions for each class containing related attributes and semantics. We use the word2vec model to get a word vector using the texts from ChatGPT. Then, we enrich word vectors by combining the word embeddings from class names and descriptions generated by ChatGPT. More specifically, we leverage ChatGPT to provide extra supervision for the class description, eventually benefiting ZSL models. We evaluate our approach on various 2D image (CUB and AwA) and 3D point cloud (ModelNet10, ModelNet40, and ScanObjectNN) datasets and show that it improves ZSL performance. Our work contributes to the ZSL literature by applying ChatGPT for class semantics enhancement and proposing a novel word vector fusion method.Here's the text with Traditional Chinese characters:zero-shot learning (ZSL) 目标是类别未在训练过的物件。它依赖类别Semantic descriptions 来传递见到类别的知识到未见到的类别。现有的类别Semantic descriptions 取得方法包括手动字段或自动的字幕Vector  FROM language models (like word2vec)。我们知道字段标签是贵重的，而自动的字幕Vector 则相对较杂。为了解决这个问题，我们探索了 ChatGPT，一个大型语言模型，可以帮助提高 ZSL 模型的性能。ChatGPT 可以提供类别描述文本，每个类别都包含相关的属性和 semantics。我们使用 word2vec 模型从 ChatGPT 的文本中得到字幕Vector。然后，我们将字幕Vector 丰富化，通过结合类别名称和由 ChatGPT 生成的描述文本中的字幕。更 specifically，我们利用 ChatGPT 提供类别描述的额外监督，最终帮助 ZSL 模型提高性能。我们将我们的方法应用到多个 2D 图像 (CUB 和 AwA) 和 3D 点 cloud (ModelNet10, ModelNet40, 和 ScanObjectNN)  datasets 上，并证明它可以提高 ZSL 性能。我们的工作对 ZSL 文献中的应用 ChatGPT 进行类别增强和提出了一个新的字幕融合方法，对 ZSL 领域的发展具有重要意义。
+</details></li>
+</ul>
+<hr>
+<h2 id="VKIE-The-Application-of-Key-Information-Extraction-on-Video-Text"><a href="#VKIE-The-Application-of-Key-Information-Extraction-on-Video-Text" class="headerlink" title="VKIE: The Application of Key Information Extraction on Video Text"></a>VKIE: The Application of Key Information Extraction on Video Text</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11650">http://arxiv.org/abs/2310.11650</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Siyu An, Ye Liu, Haoyuan Peng, Di Yin</li>
+<li>for: EXTRACTING HIERARCHICAL KEY INFORMATION FROM VISUAL TEXTS ON VIDEOS</li>
+<li>methods: 使用 PipVKIE 和 UniVKIE 两种解决方案，其中 PipVKIE 采用连续阶段完成四个子任务，而 UniVKIE 则将所有子任务统一到一个 backingbone 上。两种方法均利用视觉、文本和坐标信息进行特征表示。</li>
+<li>results: 在一个具体定义的数据集上进行了广泛的实验，结果表明我们的解决方案可以实现很高的性能和高效的推理速度。<details>
+<summary>Abstract</summary>
+Extracting structured information from videos is critical for numerous downstream applications in the industry. In this paper, we define a significant task of extracting hierarchical key information from visual texts on videos. To fulfill this task, we decouples it into four subtasks and introduce two implementation solutions called PipVKIE and UniVKIE. PipVKIE sequentially completes the four subtasks in continuous stages, while UniVKIE is improved by unifying all the subtasks into one backbone. Both PipVKIE and UniVKIE leverage multimodal information from vision, text, and coordinates for feature representation. Extensive experiments on one well-defined dataset demonstrate that our solutions can achieve remarkable performance and efficient inference speed. The code and dataset will be publicly available.
+</details>
+<details>
+<summary>摘要</summary>
+视频中EXTRACTING结构化信息是产业中的关键应用之一。本文定义了EXTRACTING视频上的层次关键信息这一重要任务。为了完成这个任务，我们将其分解成四个子任务，并提出了两种实现方案：PipVKIE和UniVKIE。PipVKIESequentially完成这四个子任务，而UniVKIE则是通过将所有子任务 integrate into one backbone来进行改进。两种方案均利用视觉、文本和坐标信息来 Representation的特征。我们在一个固定的数据集上进行了广泛的实验，结果表明我们的解决方案可以达到出色的性能和高效的推理速度。代码和数据集将公开。Note: Please note that the translation is in Simplified Chinese, which is the standard writing system used in mainland China. If you prefer Traditional Chinese, please let me know and I can provide the translation in that format as well.
+</details></li>
+</ul>
+<hr>
+<h2 id="Towards-Abdominal-3-D-Scene-Rendering-from-Laparoscopy-Surgical-Videos-using-NeRFs"><a href="#Towards-Abdominal-3-D-Scene-Rendering-from-Laparoscopy-Surgical-Videos-using-NeRFs" class="headerlink" title="Towards Abdominal 3-D Scene Rendering from Laparoscopy Surgical Videos using NeRFs"></a>Towards Abdominal 3-D Scene Rendering from Laparoscopy Surgical Videos using NeRFs</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.11645">http://arxiv.org/abs/2310.11645</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Khoa Tuan Nguyen, Francesca Tozzi, Nikdokht Rashidian, Wouter Willaert, Joris Vankerschaver, Wesley De Neve</li>
+<li>for: 本研究旨在使用NeRF技术将 Laparoscopy 视频转化为三维场景，以便更好地探索腹部结构。</li>
+<li>methods: 本研究使用NeRF技术对 Laparoscopy 视频进行处理，并通过Synthesize新视图来探索腹部结构。</li>
+<li>results: 实验结果表明，NeRF技术可以有效地将 Laparoscopy 视频转化为三维场景，但是该方法还需要进一步的研究以解决一些挑战。<details>
+<summary>Abstract</summary>
+Given that a conventional laparoscope only provides a two-dimensional (2-D) view, the detection and diagnosis of medical ailments can be challenging. To overcome the visual constraints associated with laparoscopy, the use of laparoscopic images and videos to reconstruct the three-dimensional (3-D) anatomical structure of the abdomen has proven to be a promising approach. Neural Radiance Fields (NeRFs) have recently gained attention thanks to their ability to generate photorealistic images from a 3-D static scene, thus facilitating a more comprehensive exploration of the abdomen through the synthesis of new views. This distinguishes NeRFs from alternative methods such as Simultaneous Localization and Mapping (SLAM) and depth estimation. In this paper, we present a comprehensive examination of NeRFs in the context of laparoscopy surgical videos, with the goal of rendering abdominal scenes in 3-D. Although our experimental results are promising, the proposed approach encounters substantial challenges, which require further exploration in future research.
+</details>
+<details>
+<summary>摘要</summary>
+Translated into Simplified Chinese: conventinal laparoscope 只提供二维ensional (2-D) 视图， Medical 疾病检测和诊断可以很困难。为了突破 Laparoscopy 的视觉限制，使用 Laparoscopic 图像和视频来重建 Abdomen 的三维ensional (3-D) 解剖结构已经证明是一种有前途的方法。Neural Radiance Fields (NeRFs) 最近受到了关注，因为它们可以从三维ensional (3-D) 静止场景中生成高品质图像，从而为 Abdomen 的探索提供更多的可能性。这与 Simultaneous Localization and Mapping (SLAM) 和深度估计方法不同。在这篇论文中，我们对 NeRFs 在 Laparoscopic 手术视频中的应用进行了全面的检视，目标是将 Abdomen 场景rendered 为三维ensional (3-D)。虽然我们的实验结果很有前途，但提出的方法遇到了一些挑战，需要未来的研究来解决。
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/10/18/cs.CV_2023_10_18/" data-id="clogxf3ni00ja5xra0ilvft1s" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/18/eess.AS_2023_10_18/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          eess.AS - 2023-10-18
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/18/cs.AI_2023_10_18/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.AI - 2023-10-18</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">115</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">55</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">111</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">61</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">231</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">212</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

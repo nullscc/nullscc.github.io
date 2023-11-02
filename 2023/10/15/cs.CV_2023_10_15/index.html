@@ -1,0 +1,660 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CV - 2023-10-15 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="AP$n$P: A Less-constrained P$n$P Solver for Pose Estimation with Unknown Anisotropic Scaling or Focal Lengths paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2310.09982 repo_url: https:&#x2F;&#x2F;github.com&#x2F;goldoak&#x2F;APnP paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CV - 2023-10-15">
+<meta property="og:url" content="https://nullscc.github.io/2023/10/15/cs.CV_2023_10_15/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="AP$n$P: A Less-constrained P$n$P Solver for Pose Estimation with Unknown Anisotropic Scaling or Focal Lengths paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2310.09982 repo_url: https:&#x2F;&#x2F;github.com&#x2F;goldoak&#x2F;APnP paper">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-10-15T13:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-02T08:28:55.501Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CV_2023_10_15" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/10/15/cs.CV_2023_10_15/" class="article-date">
+  <time datetime="2023-10-15T13:00:00.000Z" itemprop="datePublished">2023-10-15</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CV/">cs.CV</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CV - 2023-10-15
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="AP-n-P-A-Less-constrained-P-n-P-Solver-for-Pose-Estimation-with-Unknown-Anisotropic-Scaling-or-Focal-Lengths"><a href="#AP-n-P-A-Less-constrained-P-n-P-Solver-for-Pose-Estimation-with-Unknown-Anisotropic-Scaling-or-Focal-Lengths" class="headerlink" title="AP$n$P: A Less-constrained P$n$P Solver for Pose Estimation with Unknown Anisotropic Scaling or Focal Lengths"></a>AP$n$P: A Less-constrained P$n$P Solver for Pose Estimation with Unknown Anisotropic Scaling or Focal Lengths</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09982">http://arxiv.org/abs/2310.09982</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/goldoak/APnP">https://github.com/goldoak/APnP</a></li>
+<li>paper_authors: Jiaxin Wei, Stefan Leutenegger, Laurent Kneip</li>
+<li>for: 提出了一种新的 pose estimation 算法，可以处理不准确的 3D 坐标和完全加工数据。</li>
+<li>methods: 使用了代数处理和新的 Parametrization，将两种情况都转化为同样的多项式问题，并使用 Gr&quot;obner basis 方法解决。</li>
+<li>results: 实验结果表明，AP$n$P 算法可以提供更 flexible 和实用的 pose estimation 解决方案，并且在 simulate 和实际数据上达到了良好的效果。<details>
+<summary>Abstract</summary>
+Perspective-$n$-Point (P$n$P) stands as a fundamental algorithm for pose estimation in various applications. In this paper, we present a new approach to the P$n$P problem with relaxed constraints, eliminating the need for precise 3D coordinates or complete calibration data. We refer to it as AP$n$P due to its ability to handle unknown anisotropic scaling factors of 3D coordinates or alternatively two distinct focal lengths in addition to the conventional rigid pose. Through algebraic manipulations and a novel parametrization, both cases are brought into similar forms that distinguish themselves primarily by the order of a rotation and an anisotropic scaling operation. AP$n$P furthermore brings down both cases to an identical polynomial problem, which is solved using the Gr\"obner basis approach. Experimental results on both simulated and real datasets demonstrate the effectiveness of AP$n$P, providing a more flexible and practical solution to several pose estimation tasks. Code: https://github.com/goldoak/APnP.
+</details>
+<details>
+<summary>摘要</summary>
+投影-$n$-点（P$n$P）算法是各种应用中pose estimation的基本算法之一。在这篇论文中，我们提出了一种新的P$n$P问题的解决方案， eliminates the need for precise 3D坐标或完整的准备数据。我们称之为AP$n$P，因为它可以处理未知的三维坐标的 aniotropic scaling factor或两个不同的焦点距离。通过代数操作和一种新的参数化，两种情况都被带入了相似的形式，主要在某种顺序下进行旋转和 aniotropic scaling 操作。此外，AP$n$P还将两种情况下降到了同样的多项式问题，使用Groebner基式方法解决。实验结果表明，AP$n$P是一种更 flexible和实用的pose estimation方法，在 simulate 和实际数据上均有效。代码：https://github.com/goldoak/APnP。
+</details></li>
+</ul>
+<hr>
+<h2 id="Class-Specific-Data-Augmentation-Bridging-the-Imbalance-in-Multiclass-Breast-Cancer-Classification"><a href="#Class-Specific-Data-Augmentation-Bridging-the-Imbalance-in-Multiclass-Breast-Cancer-Classification" class="headerlink" title="Class-Specific Data Augmentation: Bridging the Imbalance in Multiclass Breast Cancer Classification"></a>Class-Specific Data Augmentation: Bridging the Imbalance in Multiclass Breast Cancer Classification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09981">http://arxiv.org/abs/2310.09981</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Kanan Mahammadli, Abdullah Burkan Bereketoglu, Ayse Gul Kabakci</li>
+<li>For: This paper aims to improve the accuracy of breast cancer image classification, specifically for the undersampled classes, by employing class-level data augmentation and a transformer-based ViTNet architecture.* Methods: The paper uses class-level data augmentation on structure-preserving stain normalization techniques to hematoxylin and eosin-stained images, as well as a transformer-based ViTNet architecture via transfer learning for multiclass classification of breast cancer images.* Results: The approach proposed in the paper leads to lower mortality rates associated with breast cancer by increasing the precision of classification on undersampled classes. The paper is able to categorize breast cancer images with advanced image processing and deep learning into either benign or one of four distinct malignant subtypes with high accuracy.<details>
+<summary>Abstract</summary>
+Breast Cancer is the most common cancer among women, which is also visible in men, and accounts for more than 1 in 10 new cancer diagnoses each year. It is also the second most common cause of women who die from cancer. Hence, it necessitates early detection and tailored treatment. Early detection can provide appropriate and patient-based therapeutic schedules. Moreover, early detection can also provide the type of cyst. This paper employs class-level data augmentation, addressing the undersampled classes and raising their detection rate. This approach suggests two key components: class-level data augmentation on structure-preserving stain normalization techniques to hematoxylin and eosin-stained images and transformer-based ViTNet architecture via transfer learning for multiclass classification of breast cancer images. This merger enables categorizing breast cancer images with advanced image processing and deep learning as either benign or as one of four distinct malignant subtypes by focusing on class-level augmentation and catering to unique characteristics of each class with increasing precision of classification on undersampled classes, which leads to lower mortality rates associated with breast cancer. The paper aims to ease the duties of the medical specialist by operating multiclass classification and categorizing the image into benign or one of four different malignant types of breast cancers.
+</details>
+<details>
+<summary>摘要</summary>
+乳癌是女性最常见的癌症，也可以出现在男性身上，每年负担着超过1/10新诊断癌症的责任。它同时也是女性死于癌症的第二大原因。因此，早期发现和定制治疗是非常重要的。早期发现可以提供适当的治疗时间表，同时也可以确定肿瘤的类型。本文提出了一种方法，通过结合分类数据增强和结构保持的染色Normalization技术，以及基于Transformer的ViTNet架构，进行多类分类分析乳癌图像。这种方法可以将乳癌图像分为benign或四种不同的恶性Subtype中的一种，并且可以根据不同的分类类别，提高对受抽样分布的类别的准确性。这种方法可以减轻医生的工作负担，并且可以帮助鉴定乳癌图像的分类结果。
+</details></li>
+</ul>
+<hr>
+<h2 id="ProteusNeRF-Fast-Lightweight-NeRF-Editing-using-3D-Aware-Image-Context"><a href="#ProteusNeRF-Fast-Lightweight-NeRF-Editing-using-3D-Aware-Image-Context" class="headerlink" title="ProteusNeRF: Fast Lightweight NeRF Editing using 3D-Aware Image Context"></a>ProteusNeRF: Fast Lightweight NeRF Editing using 3D-Aware Image Context</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09965">http://arxiv.org/abs/2310.09965</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Binglun Wang, Niladri Shekhar Dutt, Niloy J. Mitra</li>
+<li>for: 这个论文旨在提出一种用于互动编辑NeRFs的简单 yet effective的神经网络架构，以实现高效、低占用内存的图像改编。</li>
+<li>methods: 该架构通过图像特征缩掌和视觉上下文来实现视觉一致的图像编辑，并可以通过对神经网络进行增量导引来实现图像改编。</li>
+<li>results: 作者在多个示例中证明了该方法可以带来 appearances 和 geometric 的编辑，并与同期工作相比，提供了10-30倍的速度提升。视频结果可以在<a target="_blank" rel="noopener" href="https://proteusnerf.github.io上查看./">https://proteusnerf.github.io上查看。</a><details>
+<summary>Abstract</summary>
+Neural Radiance Fields (NeRFs) have recently emerged as a popular option for photo-realistic object capture due to their ability to faithfully capture high-fidelity volumetric content even from handheld video input. Although much research has been devoted to efficient optimization leading to real-time training and rendering, options for interactive editing NeRFs remain limited. We present a very simple but effective neural network architecture that is fast and efficient while maintaining a low memory footprint. This architecture can be incrementally guided through user-friendly image-based edits. Our representation allows straightforward object selection via semantic feature distillation at the training stage. More importantly, we propose a local 3D-aware image context to facilitate view-consistent image editing that can then be distilled into fine-tuned NeRFs, via geometric and appearance adjustments. We evaluate our setup on a variety of examples to demonstrate appearance and geometric edits and report 10-30x speedup over concurrent work focusing on text-guided NeRF editing. Video results can be seen on our project webpage at https://proteusnerf.github.io.
+</details>
+<details>
+<summary>摘要</summary>
+neural Radiance Fields (NeRFs) 最近受到了大量研究，因为它们可以准确地捕捉高精度三维内容，即使从手持式视频输入中。虽然许多研究投入到了高效优化，以达到实时训练和渲染，但对Interactive编辑NeRFs的选择仍然有限。我们提出了一种简单 yet effective的神经网络架构，它具有快速和高效的特点，同时具有较低的内存占用率。这种架构可以通过用户友好的图像基于的编辑来进行慢慢导航。我们的表示方式允许直接通过 semantic feature distillation 在训练阶段进行对象选择。更重要的是，我们提议一种基于图像上的 мест化三维意识的图像上下文，以便实现视角一致的图像编辑，然后通过 geometric 和 appearance 调整来蒸馏 fine-tuned NeRFs。我们在多个例子中评估了我们的设置，并发现了10-30倍的速度提升， compared to 同时期关注 text-guided NeRF 编辑的工作。视频结果可以在我们项目网站（https://proteusnerf.github.io）上查看。
+</details></li>
+</ul>
+<hr>
+<h2 id="Tabletop-Transparent-Scene-Reconstruction-via-Epipolar-Guided-Optical-Flow-with-Monocular-Depth-Completion-Prior"><a href="#Tabletop-Transparent-Scene-Reconstruction-via-Epipolar-Guided-Optical-Flow-with-Monocular-Depth-Completion-Prior" class="headerlink" title="Tabletop Transparent Scene Reconstruction via Epipolar-Guided Optical Flow with Monocular Depth Completion Prior"></a>Tabletop Transparent Scene Reconstruction via Epipolar-Guided Optical Flow with Monocular Depth Completion Prior</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09956">http://arxiv.org/abs/2310.09956</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Xiaotong Chen, Zheming Zhou, Zhuo Deng, Omid Ghasemalizadeh, Min Sun, Cheng-Hao Kuo, Arnie Sen</li>
+<li>for:  reconstruction of transparent objects using affordable RGB-D cameras</li>
+<li>methods:  leveraging monocular object segmentation and depth completion networks, Epipolar-guided Optical Flow (EOF)</li>
+<li>results:  significantly improved 3D reconstruction quality compared to baseline methods, paving the way for more adept robotic perception and interaction with transparent objects.Here’s the full text in Simplified Chinese:</li>
+<li>for: 本研究旨在使用便宜的RGB-D摄像机重建透明物体，解决了RGB频谱中的不一致和单视深度测量不准确问题。</li>
+<li>methods: 我们提出了一个两个阶段的架构，首先使用商业可用的单目object segmentation和深度完成网络预测透明物体的深度，提供单视形状优先。然后，我们提出了Epipolar-guided Optical Flow（EOF），将多个单视形状优先融合成cross-view一致的3D重建，基于摄像机pose估计。EOF使用边界敏感抽样和epipolar-line约束加入光流计算，准确建立透明物体的2D匹配。</li>
+<li>results: 我们的架构与基eline方法进行比较，显示我们的3D重建质量得到了显著改善，为Robotic perception和透明物体交互带来了新的可能性。<details>
+<summary>Abstract</summary>
+Reconstructing transparent objects using affordable RGB-D cameras is a persistent challenge in robotic perception due to inconsistent appearances across views in the RGB domain and inaccurate depth readings in each single-view. We introduce a two-stage pipeline for reconstructing transparent objects tailored for mobile platforms. In the first stage, off-the-shelf monocular object segmentation and depth completion networks are leveraged to predict the depth of transparent objects, furnishing single-view shape prior. Subsequently, we propose Epipolar-guided Optical Flow (EOF) to fuse several single-view shape priors from the first stage to a cross-view consistent 3D reconstruction given camera poses estimated from opaque part of the scene. Our key innovation lies in EOF which employs boundary-sensitive sampling and epipolar-line constraints into optical flow to accurately establish 2D correspondences across multiple views on transparent objects. Quantitative evaluations demonstrate that our pipeline significantly outperforms baseline methods in 3D reconstruction quality, paving the way for more adept robotic perception and interaction with transparent objects.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>translate text into Simplified Chinese文本：重建透明 объек所用的便宜RGB-D相机是机器人感知中的一个持续挑战，因为颜色域中的 appearances 是不一致的，以及每个单视图中的深度测量不准确。我们提出了一个两stage管道，用于重建透明 объек。在第一个阶段，我们使用 commercially 可用的单目物体分割和深度完成网络来预测透明 объек的深度，从而提供单视图形状优先。然后，我们提出了基于epipolar线的Optical Flow（EOF）来融合多个单视图形状优先，以实现相机pose estimate的cross-view一致性。我们的关键创新在于EOF，它使用边界敏感的采样和epipolar线约束来准确地在多个视图中建立透明对象的2D匹配。量化评估表明，我们的管道在3D重建质量方面与基eline方法进行了显著比较，为更加善的机器人感知和透明对象交互开创了道路。Translation:重建透明对象使用便宜RGB-D相机是机器人感知中的一个持续挑战，因为颜色域中的 appearances 是不一致的，以及每个单视图中的深度测量不准确。我们提出了一个两stage管道，用于重建透明对象。在第一个阶段，我们使用 commercially 可用的单目物体分割和深度完成网络来预测透明对象的深度，从而提供单视图形状优先。然后，我们提出了基于epipolar线的Optical Flow（EOF）来融合多个单视图形状优先，以实现相机pose estimate的cross-view一致性。我们的关键创新在于EOF，它使用边界敏感的采样和epipolar线约束来准确地在多个视图中建立透明对象的2D匹配。量化评估表明，我们的管道在3D重建质量方面与基eline方法进行了显著比较，为更加善的机器人感知和透明对象交互开创了道路。
+</details></li>
+</ul>
+<hr>
+<h2 id="Evaluating-Robustness-of-Visual-Representations-for-Object-Assembly-Task-Requiring-Spatio-Geometrical-Reasoning"><a href="#Evaluating-Robustness-of-Visual-Representations-for-Object-Assembly-Task-Requiring-Spatio-Geometrical-Reasoning" class="headerlink" title="Evaluating Robustness of Visual Representations for Object Assembly Task Requiring Spatio-Geometrical Reasoning"></a>Evaluating Robustness of Visual Representations for Object Assembly Task Requiring Spatio-Geometrical Reasoning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09943">http://arxiv.org/abs/2310.09943</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Chahyon Ku, Carl Winge, Ryan Diaz, Wentao Yuan, Karthik Desingh</li>
+<li>for: 这个论文主要关注评估和比较视觉表示的Robustness在物体组装任务中。</li>
+<li>methods: 我们采用一种通用框架，利用视觉预训模型作为视觉编码器来进行视 Motor 政策学习。</li>
+<li>results: 我们的量化分析表明现有预训模型无法捕捉这个任务所需的关键视觉特征，但一个从scratch预训的视觉编码器一直表现出色，并且我们提出了旋转表示和相关的损失函数，可以显著提高政策学习。<details>
+<summary>Abstract</summary>
+This paper primarily focuses on evaluating and benchmarking the robustness of visual representations in the context of object assembly tasks. Specifically, it investigates the alignment and insertion of objects with geometrical extrusions and intrusions, commonly referred to as a peg-in-hole task. The accuracy required to detect and orient the peg and the hole geometry in SE(3) space for successful assembly poses significant challenges. Addressing this, we employ a general framework in visuomotor policy learning that utilizes visual pretraining models as vision encoders. Our study investigates the robustness of this framework when applied to a dual-arm manipulation setup, specifically to the grasp variations. Our quantitative analysis shows that existing pretrained models fail to capture the essential visual features necessary for this task. However, a visual encoder trained from scratch consistently outperforms the frozen pretrained models. Moreover, we discuss rotation representations and associated loss functions that substantially improve policy learning. We present a novel task scenario designed to evaluate the progress in visuomotor policy learning, with a specific focus on improving the robustness of intricate assembly tasks that require both geometrical and spatial reasoning. Videos, additional experiments, dataset, and code are available at https://bit.ly/geometric-peg-in-hole .
+</details>
+<details>
+<summary>摘要</summary>
+（本文主要关注评估和比较视觉表示的稳定性在物体组装任务中。具体来说，它研究了具有几何嵌入和嵌入的物体的对齐和插入，通常被称为圆锥盘嵌入任务。成功的组装需要在 SE(3) 空间检测和 orient 圆锥和孔径的精度 pose significant challenges。为此，我们采用一种通用的 Framework in visuomotor policy learning，使用视觉预训模型作为视觉编码器。我们的研究检验了这种 Framework 在双臂 manipulate 设置中的稳定性，特别是在抓取变化中。我们的量化分析表明，现有的预训模型无法捕捉到这种任务所需的关键视觉特征。然而，一个从scratch 训练的视觉编码器在常规模型中具有显著的优势。此外，我们讨论了旋转表示和相关的损失函数，可以在策略学习中提高稳定性。我们还介绍了一种新的任务场景，用于评估visuomotor策略学习的进步，特别是在改进精度的几何和空间逻辑任务中。视频、附加实验、数据集和代码可以在 https://bit.ly/geometric-peg-in-hole 上获得。）
+</details></li>
+</ul>
+<hr>
+<h2 id="Unsupervised-Discovery-of-Interpretable-Directions-in-h-space-of-Pre-trained-Diffusion-Models"><a href="#Unsupervised-Discovery-of-Interpretable-Directions-in-h-space-of-Pre-trained-Diffusion-Models" class="headerlink" title="Unsupervised Discovery of Interpretable Directions in h-space of Pre-trained Diffusion Models"></a>Unsupervised Discovery of Interpretable Directions in h-space of Pre-trained Diffusion Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09912">http://arxiv.org/abs/2310.09912</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zijian Zhang, Luping Liu. Zhijie Lin, Yichen Zhu, Zhou Zhao</li>
+<li>for: 这个研究旨在开发一个无监督性的学习基础的方法，用于找到对称易于理解的方向在预训 diffusion 模型的 h-space 中。</li>
+<li>methods: 我们的方法基于现有的 GAN 内部空间技术，包括一个 shift control 模组和一个重建器。这两个模组共同实现对于预训 diffusion 模型的易于理解方向的发现。为了避免发现无意义和破坏性的方向，我们还使用了一个检测器来维持Shifted sample的实际性。</li>
+<li>results: 我们的方法可以实现透过 iterative 生成过程来快速发现对称易于理解的方向，并且比较不需要其他复杂的程序。实验结果显示了我们的方法的有效性。<details>
+<summary>Abstract</summary>
+We propose the first unsupervised and learning-based method to identify interpretable directions in the h-space of pre-trained diffusion models. Our method is derived from an existing technique that operates on the GAN latent space. In a nutshell, we employ a shift control module for pre-trained diffusion models to manipulate a sample into a shifted version of itself, followed by a reconstructor to reproduce both the type and the strength of the manipulation. By jointly optimizing them, the model will spontaneously discover disentangled and interpretable directions. To prevent the discovery of meaningless and destructive directions, we employ a discriminator to maintain the fidelity of shifted sample. Due to the iterative generative process of diffusion models, our training requires a substantial amount of GPU VRAM to store numerous intermediate tensors for back-propagating gradient. To address this issue, we first propose a general VRAM-efficient training algorithm based on gradient checkpointing technique to back-propagate any gradient through the whole generative process, with acceptable occupancy of VRAM and sacrifice of training efficiency. Compared with existing related works on diffusion models, our method inherently identifies global and scalable directions, without necessitating any other complicated procedures. Extensive experiments on various datasets demonstrate the effectiveness of our method.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出了首个无监督、学习基于的方法，用于在预训练的扩散模型中标识可解释的方向。我们的方法基于现有的GAN特征空间技术。总之，我们使用一个shift控制模块来控制预训练扩散模型中的一个样本，然后使用一个重构器来重建样本的类型和强度。通过同时优化它们，模型会自动发现分解和可解释的方向。为了避免发现无意义和破坏性的方向，我们使用一个探测器来保持扭曲样本的真实性。由于扩散模型的迭代生成过程，我们的训练需要大量的GPU VRAM来存储多个间接张量以供反向传播梯度。为解决这问题，我们首先提出了一种通用VRAM有效的训练算法，基于梯度检查点技术，可以在接受ABLE的VRAM占用和训练效率的情况下，反向传播任何梯度。与现有相关作品相比，我们的方法自然地标识全局和可扩展的方向，无需其他复杂的过程。广泛的实验表明了我们的方法的有效性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Zero-Shot-Object-Goal-Visual-Navigation-With-Class-Independent-Relationship-Network"><a href="#Zero-Shot-Object-Goal-Visual-Navigation-With-Class-Independent-Relationship-Network" class="headerlink" title="Zero-Shot Object Goal Visual Navigation With Class-Independent Relationship Network"></a>Zero-Shot Object Goal Visual Navigation With Class-Independent Relationship Network</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09883">http://arxiv.org/abs/2310.09883</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Xinting Li, Shizhou Zhang, Yue LU, Kerry Dan, Lingyan Ran, Peng Wang, Yanning Zhang</li>
+<li>for: 这个论文研究了零shot对象目标视觉导航问题。</li>
+<li>methods: 我们提出了一种名为Class-Independent Relationship Network（CIRN）的方法，它结合目标检测信息和目标和导航目标之间的相似性，构建了一个新的状态表示，不包含目标特征或环境特征，从而有效地解couple了机器人的导航能力与目标特征。</li>
+<li>results: 在AI2-THOR虚拟环境中进行了广泛的实验，我们的方法在零shot导航任务中表现出了强大的泛化能力，包括不同目标和环境下的导航任务。进一步的跨目标和跨场景设置中的实验也进一步验证了我们的方法的稳定性和泛化能力。<details>
+<summary>Abstract</summary>
+This paper investigates the zero-shot object goal visual navigation problem. In the object goal visual navigation task, the agent needs to locate navigation targets from its egocentric visual input. "Zero-shot" means that the target the agent needs to find is not trained during the training phase. To address the issue of coupling navigation ability with target features during training, we propose the Class-Independent Relationship Network (CIRN). This method combines target detection information with the relative semantic similarity between the target and the navigation target, and constructs a brand new state representation based on similarity ranking, this state representation does not include target feature or environment feature, effectively decoupling the agent's navigation ability from target features. And a Graph Convolutional Network (GCN) is employed to learn the relationships between different objects based on their similarities. During testing, our approach demonstrates strong generalization capabilities, including zero-shot navigation tasks with different targets and environments. Through extensive experiments in the AI2-THOR virtual environment, our method outperforms the current state-of-the-art approaches in the zero-shot object goal visual navigation task. Furthermore, we conducted experiments in more challenging cross-target and cross-scene settings, which further validate the robustness and generalization ability of our method. Our code is available at: https://github.com/SmartAndCleverRobot/ICRA-CIRN.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="Top-K-Pooling-with-Patch-Contrastive-Learning-for-Weakly-Supervised-Semantic-Segmentation"><a href="#Top-K-Pooling-with-Patch-Contrastive-Learning-for-Weakly-Supervised-Semantic-Segmentation" class="headerlink" title="Top-K Pooling with Patch Contrastive Learning for Weakly-Supervised Semantic Segmentation"></a>Top-K Pooling with Patch Contrastive Learning for Weakly-Supervised Semantic Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09828">http://arxiv.org/abs/2310.09828</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Wangyu Wu, Tianhong Dai, Xiaowei Huang, Fei Ma, Jimin Xiao</li>
+<li>for: 实现cost-effectiveweakly supervised semantic segmentation (WSSS)</li>
+<li>methods: 使用Vision Transformer (ViT)方法，不使用class activation map (CAM)，并 introduces top-K pooling layer和patch contrastive error (PCE)</li>
+<li>results: 实验结果显示，我们的方法效果很高，在PASCAL VOC 2012 dataset上比其他state-of-the-art WSSS方法更高效。<details>
+<summary>Abstract</summary>
+Weakly Supervised Semantic Segmentation (WSSS) using only image-level labels has gained significant attention due to cost-effectiveness. Recently, Vision Transformer (ViT) based methods without class activation map (CAM) have shown greater capability in generating reliable pseudo labels than previous methods using CAM. However, the current ViT-based methods utilize max pooling to select the patch with the highest prediction score to map the patch-level classification to the image-level one, which may affect the quality of pseudo labels due to the inaccurate classification of the patches. In this paper, we introduce a novel ViT-based WSSS method named top-K pooling with patch contrastive learning (TKP-PCL), which employs a top-K pooling layer to alleviate the limitations of previous max pooling selection. A patch contrastive error (PCE) is also proposed to enhance the patch embeddings to further improve the final results. The experimental results show that our approach is very efficient and outperforms other state-of-the-art WSSS methods on the PASCAL VOC 2012 dataset.
+</details>
+<details>
+<summary>摘要</summary>
+强度不高的 semantic segmentation (WSSS) 使用图像级别标签已经吸引了广泛关注，主要是因为它的成本低廉。最近，基于 Vision Transformer (ViT) 的方法无需分类映射 (CAM) 已经显示出更高的可靠 Pseudo Label 生成能力。然而，现有的 ViT 基本方法使用最大池化来选择最高分预测值来映射patch级别分类到图像级别的，这可能会影响 pseudo labels 的质量由于不准确的patch分类。在本文中，我们介绍了一种新的 ViT 基本 WSSS 方法，名为 top-K pooling with patch contrastive learning (TKP-PCL)，该方法使用 top-K pooling 层来缓解上述最大池化的局限性。此外，我们还提出了一种 patch contrastive error (PCE) 来进一步改进 patch 的嵌入，从而提高最终结果。实验结果表明，我们的方法非常高效，并在 PASCAL VOC 2012 数据集上超越了其他当前最佳 WSSS 方法。
+</details></li>
+</ul>
+<hr>
+<h2 id="Turn-Passive-to-Active-A-Survey-on-Active-Intellectual-Property-Protection-of-Deep-Learning-Models"><a href="#Turn-Passive-to-Active-A-Survey-on-Active-Intellectual-Property-Protection-of-Deep-Learning-Models" class="headerlink" title="Turn Passive to Active: A Survey on Active Intellectual Property Protection of Deep Learning Models"></a>Turn Passive to Active: A Survey on Active Intellectual Property Protection of Deep Learning Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09822">http://arxiv.org/abs/2310.09822</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mingfu Xue, Leo Yu Zhang, Yushu Zhang, Weiqiang Liu</li>
+<li>for: 这篇论文主要是为了介绍和探讨深度学习（DL）模型的知识产权保护方法，具体来说是关于活动权利保护（active copyright protection）技术。</li>
+<li>methods: 本论文主要采用了文献综述的方法，审查了现有的知识产权保护方法，并提出了新的活动权利保护方法的需求和挑战。</li>
+<li>results: 本论文通过系统地介绍了活动权利保护的概念、特点和要求，提供了评价方法和指标，审查了现有的知识产权保护方法，探讨了可能面临的攻击和未来发展的挑战。<details>
+<summary>Abstract</summary>
+The intellectual property protection of deep learning (DL) models has attracted increasing serious concerns. Many works on intellectual property protection for Deep Neural Networks (DNN) models have been proposed. The vast majority of existing work uses DNN watermarking to verify the ownership of the model after piracy occurs, which is referred to as passive verification. On the contrary, we focus on a new type of intellectual property protection method named active copyright protection, which refers to active authorization control and user identity management of the DNN model. As of now, there is relatively limited research in the field of active DNN copyright protection. In this review, we attempt to clearly elaborate on the connotation, attributes, and requirements of active DNN copyright protection, provide evaluation methods and metrics for active copyright protection, review and analyze existing work on active DL model intellectual property protection, discuss potential attacks that active DL model copyright protection techniques may face, and provide challenges and future directions for active DL model intellectual property protection. This review is helpful to systematically introduce the new field of active DNN copyright protection and provide reference and foundation for subsequent work.
+</details>
+<details>
+<summary>摘要</summary>
+深度学习（DL）模型知识产权保护已经引起了越来越多的关注。许多关于深度神经网络（DNN）模型知识产权保护的工作已经被提出。大多数现有的工作使用深度神经网络水印来验证模型的所有权 после盗版，这被称为被动验证。相比之下，我们关注了一种新的知识产权保护方法，即活动版权保护，即活动授权控制和用户身份管理。到目前为止，对活动DL模型知识产权保护的研究相对较少。在这篇文章中，我们尝试了明确地解释活动DL模型知识产权保护的含义、特点和要求，提供评估方法和指标 для活动版权保护，回顾和分析现有的活动DL模型知识产权保护工作，讨论可能面临的攻击和未来方向。这篇文章有助于系统地介绍新的活动DNN模型知识产权保护领域，并提供参考和基础 для后续的工作。
+</details></li>
+</ul>
+<hr>
+<h2 id="LICO-Explainable-Models-with-Language-Image-Consistency"><a href="#LICO-Explainable-Models-with-Language-Image-Consistency" class="headerlink" title="LICO: Explainable Models with Language-Image Consistency"></a>LICO: Explainable Models with Language-Image Consistency</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09821">http://arxiv.org/abs/2310.09821</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ymleifdu/lico">https://github.com/ymleifdu/lico</a></li>
+<li>paper_authors: Yiming Lei, Zilong Li, Yangyang Li, Junping Zhang, Hongming Shan</li>
+<li>for: 这篇论文的目的是解释深度学习模型的决策过程。</li>
+<li>methods: 该论文提出了一种基于语言图像一致性的图像分类解释方法，称为LICO，它通过将学习的语言提示与对应的视觉特征进行对应关系的建立，从而生成更加解释的注意力地图。</li>
+<li>results: 实验结果表明，LICO可以与现有的解释方法结合使用，并且可以提高图像分类模型的解释能力，而无需在推理过程中增加计算开销。<details>
+<summary>Abstract</summary>
+Interpreting the decisions of deep learning models has been actively studied since the explosion of deep neural networks. One of the most convincing interpretation approaches is salience-based visual interpretation, such as Grad-CAM, where the generation of attention maps depends merely on categorical labels. Although existing interpretation methods can provide explainable decision clues, they often yield partial correspondence between image and saliency maps due to the limited discriminative information from one-hot labels. This paper develops a Language-Image COnsistency model for explainable image classification, termed LICO, by correlating learnable linguistic prompts with corresponding visual features in a coarse-to-fine manner. Specifically, we first establish a coarse global manifold structure alignment by minimizing the distance between the distributions of image and language features. We then achieve fine-grained saliency maps by applying optimal transport (OT) theory to assign local feature maps with class-specific prompts. Extensive experimental results on eight benchmark datasets demonstrate that the proposed LICO achieves a significant improvement in generating more explainable attention maps in conjunction with existing interpretation methods such as Grad-CAM. Remarkably, LICO improves the classification performance of existing models without introducing any computational overhead during inference. Source code is made available at https://github.com/ymLeiFDU/LICO.
+</details>
+<details>
+<summary>摘要</summary>
+深度学习模型的解释方法在深度神经网络爆发后活跃研究。一种最有力的解释方法是基于分类标签的特征焦点映射，如Grad-CAM，其中生成特征焦点映射的依赖于分类标签。 although existing interpretation methods can provide explainable decision clues, they often yield partial correspondence between image and saliency maps due to the limited discriminative information from one-hot labels. This paper proposes a Language-Image COnsistency model for explainable image classification, termed LICO, by correlating learnable linguistic prompts with corresponding visual features in a coarse-to-fine manner. Specifically, we first establish a coarse global manifold structure alignment by minimizing the distance between the distributions of image and language features. We then achieve fine-grained saliency maps by applying optimal transport (OT) theory to assign local feature maps with class-specific prompts. Extensive experimental results on eight benchmark datasets demonstrate that the proposed LICO achieves a significant improvement in generating more explainable attention maps in conjunction with existing interpretation methods such as Grad-CAM. Remarkably, LICO improves the classification performance of existing models without introducing any computational overhead during inference. 源代码可以在https://github.com/ymLeiFDU/LICO 中下载。
+</details></li>
+</ul>
+<hr>
+<h2 id="OAAFormer-Robust-and-Efficient-Point-Cloud-Registration-Through-Overlapping-Aware-Attention-in-Transformer"><a href="#OAAFormer-Robust-and-Efficient-Point-Cloud-Registration-Through-Overlapping-Aware-Attention-in-Transformer" class="headerlink" title="OAAFormer: Robust and Efficient Point Cloud Registration Through Overlapping-Aware Attention in Transformer"></a>OAAFormer: Robust and Efficient Point Cloud Registration Through Overlapping-Aware Attention in Transformer</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09817">http://arxiv.org/abs/2310.09817</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Junjie Gao, Qiujie Dong, Ruian Wang, Shuangmin Chen, Shiqing Xin, Changhe Tu, Wenping Wang</li>
+<li>For: The paper focuses on improving the correspondence quality in point cloud registration using a coarse-to-fine feature matching paradigm.* Methods: The proposed method, called OAAFormer, introduces a soft matching mechanism, overlapping region detection module, and region-wise attention module to enhance correspondence quality.* Results: The proposed method achieves a substantial increase of about 7% in the inlier ratio and an enhancement of 2-4% in registration recall on the challenging 3DLoMatch benchmark.Here is the same information in Simplified Chinese:* For: 本文关注在点云注册中提高匹配质量，使用粗细匹配模式。* Methods: 提议的方法是OAAFormer，它引入软匹配机制、重叠区检测模块和区域精度注意力模块来提高匹配质量。* Results: 测试结果表明，提议的方法在3DLoMatch benchmark上增加了约7%的匹配率和2-4%的注册再现率。<details>
+<summary>Abstract</summary>
+In the domain of point cloud registration, the coarse-to-fine feature matching paradigm has received substantial attention owing to its impressive performance. This paradigm involves a two-step process: first, the extraction of multi-level features, and subsequently, the propagation of correspondences from coarse to fine levels. Nonetheless, this paradigm exhibits two notable limitations.Firstly, the utilization of the Dual Softmax operation has the potential to promote one-to-one correspondences between superpoints, inadvertently excluding valuable correspondences. This propensity arises from the fact that a source superpoint typically maintains associations with multiple target superpoints. Secondly, it is imperative to closely examine the overlapping areas between point clouds, as only correspondences within these regions decisively determine the actual transformation. Based on these considerations, we propose {\em OAAFormer} to enhance correspondence quality. On one hand, we introduce a soft matching mechanism, facilitating the propagation of potentially valuable correspondences from coarse to fine levels. Additionally, we integrate an overlapping region detection module to minimize mismatches to the greatest extent possible. Furthermore, we introduce a region-wise attention module with linear complexity during the fine-level matching phase, designed to enhance the discriminative capabilities of the extracted features. Tests on the challenging 3DLoMatch benchmark demonstrate that our approach leads to a substantial increase of about 7\% in the inlier ratio, as well as an enhancement of 2-4\% in registration recall. =
+</details>
+<details>
+<summary>摘要</summary>
+在点云注册领域，粗细到细粒度匹配方法受到了广泛关注，这种方法包括两个步骤：首先提取多级特征，然后在粗细层次上传递匹配。然而，这种方法存在两个显著的限制。首先，使用双层软MAX操作可能会促进一对一的匹配 между超点，不经意增加有价值的匹配。这种倾向来自于源超点通常与多个目标超点保持关联。其次，需要仔细检查点云之间的重叠区域，只有这些区域中的匹配才能决定实际变换。基于这些考虑，我们提出了{\em OAAFormer}来提高匹配质量。一方面，我们引入了软匹配机制，以便在粗细层次上传递有可能的有价值匹配。另一方面，我们集成了重叠区域检测模块，以最大限度避免匹配错误。此外，我们引入了区域wise注意力模块，用于在细粒度匹配阶段提高提取特征的推理能力。3DLoMatch benchmark上的测试表明，我们的方法可以提高约7%的匹配率，同时提高注册回归率约2-4%。
+</details></li>
+</ul>
+<hr>
+<h2 id="Can-LSH-Locality-Sensitive-Hashing-Be-Replaced-by-Neural-Network"><a href="#Can-LSH-Locality-Sensitive-Hashing-Be-Replaced-by-Neural-Network" class="headerlink" title="Can LSH (Locality-Sensitive Hashing) Be Replaced by Neural Network?"></a>Can LSH (Locality-Sensitive Hashing) Be Replaced by Neural Network?</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09806">http://arxiv.org/abs/2310.09806</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Renyang Liu, Jun Zhao, Xing Chu, Yu Liang, Wei Zhou, Jing He</li>
+<li>for: 提高信息搜索性能</li>
+<li>methods: 使用深度神经网络学习locality-sensitive hashing</li>
+<li>results: 提高查询精度、减少时间和内存消耗<details>
+<summary>Abstract</summary>
+With the rapid development of GPU (Graphics Processing Unit) technologies and neural networks, we can explore more appropriate data structures and algorithms. Recent progress shows that neural networks can partly replace traditional data structures. In this paper, we proposed a novel DNN (Deep Neural Network)-based learned locality-sensitive hashing, called LLSH, to efficiently and flexibly map high-dimensional data to low-dimensional space. LLSH replaces the traditional LSH (Locality-sensitive Hashing) function families with parallel multi-layer neural networks, which reduces the time and memory consumption and guarantees query accuracy simultaneously. The proposed LLSH demonstrate the feasibility of replacing the hash index with learning-based neural networks and open a new door for developers to design and configure data organization more accurately to improve information-searching performance. Extensive experiments on different types of datasets show the superiority of the proposed method in query accuracy, time consumption, and memory usage.
+</details>
+<details>
+<summary>摘要</summary>
+With the rapid development of GPU (图形处理器) technologies and neural networks, we can explore more appropriate data structures and algorithms. Recent progress shows that neural networks can partly replace traditional data structures. In this paper, we proposed a novel DNN (深度神经网络)-based learned locality-sensitive hashing, called LLSH, to efficiently and flexibly map high-dimensional data to low-dimensional space. LLSH replaces the traditional LSH (本地相似哈希) function families with parallel multi-layer neural networks, which reduces the time and memory consumption and guarantees query accuracy simultaneously. The proposed LLSH demonstrate the feasibility of replacing the hash index with learning-based neural networks and open a new door for developers to design and configure data organization more accurately to improve information-searching performance. Extensive experiments on different types of datasets show the superiority of the proposed method in query accuracy, time consumption, and memory usage.
+</details></li>
+</ul>
+<hr>
+<h2 id="Model-Inversion-Attacks-on-Homogeneous-and-Heterogeneous-Graph-Neural-Networks"><a href="#Model-Inversion-Attacks-on-Homogeneous-and-Heterogeneous-Graph-Neural-Networks" class="headerlink" title="Model Inversion Attacks on Homogeneous and Heterogeneous Graph Neural Networks"></a>Model Inversion Attacks on Homogeneous and Heterogeneous Graph Neural Networks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09800">http://arxiv.org/abs/2310.09800</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Renyang Liu, Wei Zhou, Jinhong Zhang, Xiaoyuan Liu, Peiyuan Si, Haoran Li<br>for:这个研究旨在提出一种新的模型反向攻击方法，以对Homogeneous Graph Neural Networks (HomoGNNs)和Heterogeneous Graph Neural Networks (HeteGNNs)进行模型反向攻击。methods:这个方法基于Gradient Descent的优化方法，目的是将目标GNN的模型内部结构重建出来，以便进行模型反向攻击。results:实验结果显示，提案的方法可以在多个 benchmark 上实现更好的性能，并且在HeteGNNs上进行模型反向攻击是第一次尝试。<details>
+<summary>Abstract</summary>
+Recently, Graph Neural Networks (GNNs), including Homogeneous Graph Neural Networks (HomoGNNs) and Heterogeneous Graph Neural Networks (HeteGNNs), have made remarkable progress in many physical scenarios, especially in communication applications. Despite achieving great success, the privacy issue of such models has also received considerable attention. Previous studies have shown that given a well-fitted target GNN, the attacker can reconstruct the sensitive training graph of this model via model inversion attacks, leading to significant privacy worries for the AI service provider. We advocate that the vulnerability comes from the target GNN itself and the prior knowledge about the shared properties in real-world graphs. Inspired by this, we propose a novel model inversion attack method on HomoGNNs and HeteGNNs, namely HomoGMI and HeteGMI. Specifically, HomoGMI and HeteGMI are gradient-descent-based optimization methods that aim to maximize the cross-entropy loss on the target GNN and the $1^{st}$ and $2^{nd}$-order proximities on the reconstructed graph. Notably, to the best of our knowledge, HeteGMI is the first attempt to perform model inversion attacks on HeteGNNs. Extensive experiments on multiple benchmarks demonstrate that the proposed method can achieve better performance than the competitors.
+</details>
+<details>
+<summary>摘要</summary>
+最近，图 necklace Neural Networks（GNNs），包括同种图 necklace Neural Networks（HomoGNNs）和不同种图 necklace Neural Networks（HeteGNNs），在许多物理场景中取得了很大的进步，特别是在通信应用场景中。尽管取得了很大的成功，但是隐私问题也得到了广泛的关注。先前的研究表明，给出了一个良好适应的目标GNN，攻击者可以通过模型反向攻击来重建敏感的训练图，从而导致AI服务提供商的隐私问题。我们认为，抵触点来自于目标GNN自身和在实际图中共享的特性知识。 inspirited by this，我们提出了一种基于梯度下降优化的模型反向攻击方法，称为HomoGMI和HeteGMI。具体来说，HomoGMI和HeteGMI都是使用梯度下降方法来最大化目标GNN上的权重损失和$1^{st}$和$2^{nd}$邻域的距离损失。需要注意的是，到目前为止，HeteGMI是首次对HeteGNN进行模型反向攻击。我们在多个标准 benchmark上进行了广泛的实验，结果表明，我们的方法可以在与竞争者相比取得更好的性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="AFLOW-Developing-Adversarial-Examples-under-Extremely-Noise-limited-Settings"><a href="#AFLOW-Developing-Adversarial-Examples-under-Extremely-Noise-limited-Settings" class="headerlink" title="AFLOW: Developing Adversarial Examples under Extremely Noise-limited Settings"></a>AFLOW: Developing Adversarial Examples under Extremely Noise-limited Settings</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09795">http://arxiv.org/abs/2310.09795</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Renyang Liu, Jinhong Zhang, Haoran Li, Jin Zhang, Yuanyu Wang, Wei Zhou</li>
+<li>for: 本研究旨在提出一种隐蔽的对抗例生成方法，以揭示深度神经网络（DNNs）的漏洞，并帮助提高对抗例的耐久性。</li>
+<li>methods: 本研究提出了一种基于Normalize Flow的端到端攻击框架，称为AFLOW，以直接干扰隐藏表示的图像来生成恶意对抗例。与先前的方法不同，AFLOW不添加噪音，而是直接对图像的隐藏表示进行修改。</li>
+<li>results: 对三个标准数据集进行了广泛的实验，结果表明，AFLOW可以生成更隐蔽、更高质量的对抗例，并在一些耐久性较高的模型上仍然达到更高的攻击成功率。<details>
+<summary>Abstract</summary>
+Extensive studies have demonstrated that deep neural networks (DNNs) are vulnerable to adversarial attacks. Despite the significant progress in the attack success rate that has been made recently, the adversarial noise generated by most of the existing attack methods is still too conspicuous to the human eyes and proved to be easily detected by defense mechanisms. Resulting that these malicious examples cannot contribute to exploring the vulnerabilities of existing DNNs sufficiently. Thus, to better reveal the defects of DNNs and further help enhance their robustness under noise-limited situations, a new inconspicuous adversarial examples generation method is exactly needed to be proposed. To bridge this gap, we propose a novel Normalize Flow-based end-to-end attack framework, called AFLOW, to synthesize imperceptible adversarial examples under strict constraints. Specifically, rather than the noise-adding manner, AFLOW directly perturbs the hidden representation of the corresponding image to craft the desired adversarial examples. Compared with existing methods, extensive experiments on three benchmark datasets show that the adversarial examples built by AFLOW exhibit superiority in imperceptibility, image quality and attack capability. Even on robust models, AFLOW can still achieve higher attack results than previous methods.
+</details>
+<details>
+<summary>摘要</summary>
+广泛的研究表明，深度神经网络（DNNs）容易受到敌意攻击。尽管最近有很大的进步在攻击成功率方面，但现有的攻击方法仍然生成的恶意示例过于醒目，容易被防御机制检测。这意味着这些恶意示例无法充分探索现有DNNs的漏洞，增强其 robustness 下限 Situation。因此，为了更好地揭示 DNNs 的缺陷并帮助提高其Robustness，我们需要提出一种透明度低的攻击方法。为了填补这个空白，我们提出了一种基于 Normalize Flow 的终端攻击框架，称为 AFLOW，可以在严格的约束下生成透明度低的恶意示例。与现有方法相比，我们进行了三个 benchmark 数据集的广泛实验，结果表明，由 AFLOW 生成的恶意示例具有较高的透明度、图像质量和攻击能力。即使面对Robust 模型，AFLOW 仍然可以达到更高的攻击成功率。>>>
+</details></li>
+</ul>
+<hr>
+<h2 id="Automated-Detection-of-Cat-Facial-Landmarks"><a href="#Automated-Detection-of-Cat-Facial-Landmarks" class="headerlink" title="Automated Detection of Cat Facial Landmarks"></a>Automated Detection of Cat Facial Landmarks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09793">http://arxiv.org/abs/2310.09793</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: George Martvel, Ilan Shimshoni, Anna Zamansky</li>
+<li>for: 该论文主要用于提供一个高质量、全面的猫脸表情数据集，以及一种基于猫脸部分描述的面部坐标检测模型。</li>
+<li>methods: 该论文使用了一种基于 convolutional neural network 的面部坐标检测模型，其中包括一种使用缩放ensemble方法的面部坐标检测模型，可以在猫脸上显示出极高的性能。</li>
+<li>results: 该论文通过使用猫脸数据集和面部坐标检测模型，实现了人类和猫脸的面部坐标检测 task 的混合性能，并且可以在猫脸上显示出极高的准确率。<details>
+<summary>Abstract</summary>
+The field of animal affective computing is rapidly emerging, and analysis of facial expressions is a crucial aspect. One of the most significant challenges that researchers in the field currently face is the scarcity of high-quality, comprehensive datasets that allow the development of models for facial expressions analysis. One of the possible approaches is the utilisation of facial landmarks, which has been shown for humans and animals. In this paper we present a novel dataset of cat facial images annotated with bounding boxes and 48 facial landmarks grounded in cat facial anatomy. We also introduce a landmark detection convolution neural network-based model which uses a magnifying ensembe method. Our model shows excellent performance on cat faces and is generalizable to human facial landmark detection.
+</details>
+<details>
+<summary>摘要</summary>
+“动物情感计算领域在快速发展，面部表达分析是一项重要的挑战。研究人员目前面临的一个主要挑战是获得高质量、全面的面部表达数据集，以便发展面部表达分析模型。我们在这篇论文中提出了一种使用面部特征点的方法，并提供了一个基于 convolutional neural network 的面部特征点检测模型。我们的模型在猫脸上表现出色，并且可以普适应用于人类面部特征点检测。”Here's the breakdown of the translation:* 动物情感计算领域 (dòngwù qíngshěn jìsuàn) - "animal affective computing field"*  rapidly emerging (shìyù xiǎngchuāng) - "rapidly emerging"*  analysis of facial expressions (miàn zhèng xiàngxìng) - "analysis of facial expressions"* One of the most significant challenges (yī zhèng zhìshì) - "one of the most significant challenges"* that researchers in the field currently face (zhèng zhìshì) - "that researchers in the field currently face"* is the scarcity of high-quality, comprehensive datasets (shūshì, zhìshì de yīxiàng) - "is the scarcity of high-quality, comprehensive datasets"* that allow the development of models for facial expressions analysis (miàn zhèng xiàngxìng yìjīng) - "that allow the development of models for facial expressions analysis"* One of the possible approaches (yī zhèng zhìshì) - "one of the possible approaches"* is the utilization of facial landmarks (miàn zhèng zhìshì) - "is the utilization of facial landmarks"* which has been shown for humans and animals (yīnwàng zhèndào) - "which has been shown for humans and animals"* We present a novel dataset of cat facial images (wǒmen xiǎngchuāng zhèng zhìshì) - "we present a novel dataset of cat facial images"* annotated with bounding boxes and 48 facial landmarks grounded in cat facial anatomy (jìchuāng yīnwàng zhèndào) - "annotated with bounding boxes and 48 facial landmarks grounded in cat facial anatomy"* We also introduce a landmark detection convolution neural network-based model (wǒmen xiǎngchuāng zhìshì yìjīng) - "we also introduce a landmark detection convolution neural network-based model"* which uses a magnifying ensemble method (jìchuāng yìjīng) - "which uses a magnifying ensemble method"* Our model shows excellent performance on cat faces (wǒmen xiǎngchuāng zhèng zhìshì) - "our model shows excellent performance on cat faces"* and is generalizable to human facial landmark detection (rénshēng zhìshì) - "and is generalizable to human facial landmark detection"
+</details></li>
+</ul>
+<hr>
+<h2 id="SCME-A-Self-Contrastive-Method-for-Data-free-and-Query-Limited-Model-Extraction-Attack"><a href="#SCME-A-Self-Contrastive-Method-for-Data-free-and-Query-Limited-Model-Extraction-Attack" class="headerlink" title="SCME: A Self-Contrastive Method for Data-free and Query-Limited Model Extraction Attack"></a>SCME: A Self-Contrastive Method for Data-free and Query-Limited Model Extraction Attack</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09792">http://arxiv.org/abs/2310.09792</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Renyang Liu, Jinhong Zhang, Kwok-Yan Lam, Jun Zhao, Wei Zhou<br>for:本研究旨在提高模型EXTRACTION攻击的效果，尤其是在有限Query情况下。methods:提出了一种新的数据自由的模型EXTRACTION方法（SCME），通过考虑内类多样性和间类多样性，生成多样化的假数据，并通过Mixup操作进一步增强模型的探索能力。results:在多种攻击场景下，SCME方法在有限Query情况下显示出了11.43%的平均提升，特别是对于未targeted攻击，SCME方法超过了当前最佳方法。<details>
+<summary>Abstract</summary>
+Previous studies have revealed that artificial intelligence (AI) systems are vulnerable to adversarial attacks. Among them, model extraction attacks fool the target model by generating adversarial examples on a substitute model. The core of such an attack is training a substitute model as similar to the target model as possible, where the simulation process can be categorized in a data-dependent and data-free manner. Compared with the data-dependent method, the data-free one has been proven to be more practical in the real world since it trains the substitute model with synthesized data. However, the distribution of these fake data lacks diversity and cannot detect the decision boundary of the target model well, resulting in the dissatisfactory simulation effect. Besides, these data-free techniques need a vast number of queries to train the substitute model, increasing the time and computing consumption and the risk of exposure. To solve the aforementioned problems, in this paper, we propose a novel data-free model extraction method named SCME (Self-Contrastive Model Extraction), which considers both the inter- and intra-class diversity in synthesizing fake data. In addition, SCME introduces the Mixup operation to augment the fake data, which can explore the target model's decision boundary effectively and improve the simulating capacity. Extensive experiments show that the proposed method can yield diversified fake data. Moreover, our method has shown superiority in many different attack settings under the query-limited scenario, especially for untargeted attacks, the SCME outperforms SOTA methods by 11.43\% on average for five baseline datasets.
+</details>
+<details>
+<summary>摘要</summary>
+To address these issues, we propose a novel data-free model extraction method called SCME (Self-Contrastive Model Extraction). Our method considers both inter- and intra-class diversity when synthesizing fake data, and introduces the Mixup operation to augment the fake data, allowing us to effectively explore the target model's decision boundary and improve the simulating capacity. Extensive experiments show that the proposed method can generate diversified fake data, and our method has shown superiority in many different attack settings under the query-limited scenario, especially for untargeted attacks. On average, our method outperforms state-of-the-art methods by 11.43% for five baseline datasets.
+</details></li>
+</ul>
+<hr>
+<h2 id="CBARF-Cascaded-Bundle-Adjusting-Neural-Radiance-Fields-from-Imperfect-Camera-Poses"><a href="#CBARF-Cascaded-Bundle-Adjusting-Neural-Radiance-Fields-from-Imperfect-Camera-Poses" class="headerlink" title="CBARF: Cascaded Bundle-Adjusting Neural Radiance Fields from Imperfect Camera Poses"></a>CBARF: Cascaded Bundle-Adjusting Neural Radiance Fields from Imperfect Camera Poses</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09776">http://arxiv.org/abs/2310.09776</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hongyu Fu, Xin Yu, Lincheng Li, Li Zhang</li>
+<li>for: 本文提出了一种新的3D重建框架，用于同时优化摄像头姿势，以提高novel view的synthesizing质量。</li>
+<li>methods: 该框架采用了分层bundle-adjustment（BA）模块，通过粗化-细化的方式进行摄像头姿势的优化，并采用了一种邻居替换策略来进一步优化BA的结果。</li>
+<li>results: 实验结果表明，CBARF模型在摄像头姿势优化和novel view synthesis中表现出了state-of-the-art的性能，特别是在大量摄像头姿势噪声的情况下。<details>
+<summary>Abstract</summary>
+Existing volumetric neural rendering techniques, such as Neural Radiance Fields (NeRF), face limitations in synthesizing high-quality novel views when the camera poses of input images are imperfect. To address this issue, we propose a novel 3D reconstruction framework that enables simultaneous optimization of camera poses, dubbed CBARF (Cascaded Bundle-Adjusting NeRF).In a nutshell, our framework optimizes camera poses in a coarse-to-fine manner and then reconstructs scenes based on the rectified poses. It is observed that the initialization of camera poses has a significant impact on the performance of bundle-adjustment (BA). Therefore, we cascade multiple BA modules at different scales to progressively improve the camera poses. Meanwhile, we develop a neighbor-replacement strategy to further optimize the results of BA in each stage. In this step, we introduce a novel criterion to effectively identify poorly estimated camera poses. Then we replace them with the poses of neighboring cameras, thus further eliminating the impact of inaccurate camera poses. Once camera poses have been optimized, we employ a density voxel grid to generate high-quality 3D reconstructed scenes and images in novel views. Experimental results demonstrate that our CBARF model achieves state-of-the-art performance in both pose optimization and novel view synthesis, especially in the existence of large camera pose noise.
+</details>
+<details>
+<summary>摘要</summary>
+现有的量化神经渲染技术，如神经辐射场（NeRF），在输入图像的相机pose不 precisions时面临限制。为解决这个问题，我们提出了一种新的三维重建框架，称为CBARF（层次拟合束适应NeRF）。总之，我们的框架在层次进行相机pose的优化，然后基于修正后的相机pose来重建场景。我们发现初始相机pose的初始化对bundle-adjustment（BA）的性能有很大的影响。因此，我们在不同的级别上cascade多个BA模块，以逐步改进相机pose。同时，我们开发了一种邻居替换策略，以进一步优化BA模块在每个阶段的结果。在这个步骤中，我们引入了一种新的 criterion，以有效地识别估计不准确的相机pose。然后，我们将其替换为邻居相机的pose，从而进一步消除不准确的相机pose的影响。一旦相机pose被优化，我们就可以使用密度体积格来生成高质量的3D重建场景和图像。实验结果表明，我们的CBARF模型在相机pose的优化和新视图合成方面达到了状态级表现，特别是在相机pose噪声较大的情况下。
+</details></li>
+</ul>
+<hr>
+<h2 id="Image-Augmentation-with-Controlled-Diffusion-for-Weakly-Supervised-Semantic-Segmentation"><a href="#Image-Augmentation-with-Controlled-Diffusion-for-Weakly-Supervised-Semantic-Segmentation" class="headerlink" title="Image Augmentation with Controlled Diffusion for Weakly-Supervised Semantic Segmentation"></a>Image Augmentation with Controlled Diffusion for Weakly-Supervised Semantic Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09760">http://arxiv.org/abs/2310.09760</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Wangyu Wu, Tianhong Dai, Xiaowei Huang, Fei Ma, Jimin Xiao</li>
+<li>for:  trains semantic segmentation models solely using image-level labels, and aims to improve the quality of pseudo labels when the size of available dataset is limited.</li>
+<li>methods:  introduces a novel approach called Image Augmentation with Controlled Diffusion (IACD), which effectively augments existing labeled datasets by generating diverse images through controlled diffusion, and proposes a high-quality image selection strategy to mitigate the potential noise introduced by the randomness of diffusion models.</li>
+<li>results:  clearly surpasses existing state-of-the-art methods, and the effect is more obvious when the amount of available data is small, demonstrating the effectiveness of the proposed IACD approach.<details>
+<summary>Abstract</summary>
+Weakly-supervised semantic segmentation (WSSS), which aims to train segmentation models solely using image-level labels, has achieved significant attention. Existing methods primarily focus on generating high-quality pseudo labels using available images and their image-level labels. However, the quality of pseudo labels degrades significantly when the size of available dataset is limited. Thus, in this paper, we tackle this problem from a different view by introducing a novel approach called Image Augmentation with Controlled Diffusion (IACD). This framework effectively augments existing labeled datasets by generating diverse images through controlled diffusion, where the available images and image-level labels are served as the controlling information. Moreover, we also propose a high-quality image selection strategy to mitigate the potential noise introduced by the randomness of diffusion models. In the experiments, our proposed IACD approach clearly surpasses existing state-of-the-art methods. This effect is more obvious when the amount of available data is small, demonstrating the effectiveness of our method.
+</details>
+<details>
+<summary>摘要</summary>
+弱级Semantic segmentation（WSSS），它目标是通过图像级别标签来训练 segmentation 模型，已经吸引了广泛的关注。现有方法主要集中在生成高质量 Pseudo label 上，使用可用的图像和图像级别标签。然而，当数据集的大小受限时， pseudo label 的质量会下降 significatively。因此，在这篇论文中，我们从不同的角度解决这个问题，我们提出了一种新的方法，即 Image Augmentation with Controlled Diffusion（IACD）。这个框架可以有效地增强现有的标注数据集，通过控制的扩散来生成多样化的图像。此外，我们还提出了一种高质量图像选择策略，以避免扩散模型中的随机性引入的噪音。在实验中，我们的提议的 IACD 方法明显超越了现有的状态对照方法。这个效果更加明显，当数据集的量受限时，这表明了我们的方法的有效性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Prototype-oriented-Unsupervised-Change-Detection-for-Disaster-Management"><a href="#Prototype-oriented-Unsupervised-Change-Detection-for-Disaster-Management" class="headerlink" title="Prototype-oriented Unsupervised Change Detection for Disaster Management"></a>Prototype-oriented Unsupervised Change Detection for Disaster Management</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09759">http://arxiv.org/abs/2310.09759</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Youngtack Oh, Minseok Seo, Doyi Kim, Junghoon Seo</li>
+<li>For: 本研究旨在提出一种不需要标注的自然灾害监测方法，以应对气候变化导致的自然灾害的频发。* Methods: 本研究提出了一种名为prototype-orientedUnsupervised Change Detection for Disaster Management（PUCD）的方法，该方法通过比较预事件、后事件和基础模型生成的变化合成图像的特征来检测变化，并使用Segment Anything Model（SAM）进行精细化。* Results: 本研究在LEVIR-Extension数据集上评估了PUCD方法，并与其他方法进行比较，结果显示PUCD方法在LEVIR-Extension数据集上达到了现有方法的最优性。<details>
+<summary>Abstract</summary>
+Climate change has led to an increased frequency of natural disasters such as floods and cyclones. This emphasizes the importance of effective disaster monitoring. In response, the remote sensing community has explored change detection methods. These methods are primarily categorized into supervised techniques, which yield precise results but come with high labeling costs, and unsupervised techniques, which eliminate the need for labeling but involve intricate hyperparameter tuning. To address these challenges, we propose a novel unsupervised change detection method named Prototype-oriented Unsupervised Change Detection for Disaster Management (PUCD). PUCD captures changes by comparing features from pre-event, post-event, and prototype-oriented change synthesis images via a foundational model, and refines results using the Segment Anything Model (SAM). Although PUCD is an unsupervised change detection, it does not require complex hyperparameter tuning. We evaluate PUCD framework on the LEVIR-Extension dataset and the disaster dataset and it achieves state-of-the-art performance compared to other methods on the LEVIR-Extension dataset.
+</details>
+<details>
+<summary>摘要</summary>
+климат变化导致自然灾害的频率增加，这重要性化效果监测。因此，远程感知社区已经探索了变化检测方法。这些方法主要分为监督式技术，它们可以提供精确的结果，但是需要高的标注成本，以及无监督技术，它们可以消除标注需求，但是需要复杂的 гиперпараметров调整。为解决这些挑战，我们提出了一种基于原型的无监督变化检测方法，名为“原型 ориентирован无监督变化检测 для灾害管理”（PUCD）。PUCD通过比较预事件、后事件和基于原型的变化合成图像的特征来捕捉变化，并使用基本模型（SAM）进行细化。尽管PUCD是无监督的变化检测方法，但它不需要复杂的 гиперпараметров调整。我们对PUCD框架在LEVIR-Extension数据集和灾害数据集进行评估，并达到了与其他方法相比的状态前方性表现。
+</details></li>
+</ul>
+<hr>
+<h2 id="MoEmo-Vision-Transformer-Integrating-Cross-Attention-and-Movement-Vectors-in-3D-Pose-Estimation-for-HRI-Emotion-Detection"><a href="#MoEmo-Vision-Transformer-Integrating-Cross-Attention-and-Movement-Vectors-in-3D-Pose-Estimation-for-HRI-Emotion-Detection" class="headerlink" title="MoEmo Vision Transformer: Integrating Cross-Attention and Movement Vectors in 3D Pose Estimation for HRI Emotion Detection"></a>MoEmo Vision Transformer: Integrating Cross-Attention and Movement Vectors in 3D Pose Estimation for HRI Emotion Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09757">http://arxiv.org/abs/2310.09757</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: David C. Jeong, Tianma Shen, Hongji Liu, Raghav Kapoor, Casey Nguyen, Song Liu, Christopher A. Kitts</li>
+<li>for: 这 paper 的目的是提出一种基于人体姿势估计的人工智能人机交互（HRI）中的情绪检测方法。</li>
+<li>methods: 这 paper 使用了cross-attention视觉变换器（ViT）和自然语言处理技术，将人体姿势估计与环境上下文进行交互，以实现更高精度的情绪检测。</li>
+<li>results: 对比现有方法，这 paper 的方法可以更好地利用人体姿势和环境上下文之间的微妙关系，从而提高情绪检测的准确率。<details>
+<summary>Abstract</summary>
+Emotion detection presents challenges to intelligent human-robot interaction (HRI). Foundational deep learning techniques used in emotion detection are limited by information-constrained datasets or models that lack the necessary complexity to learn interactions between input data elements, such as the the variance of human emotions across different contexts. In the current effort, we introduce 1) MoEmo (Motion to Emotion), a cross-attention vision transformer (ViT) for human emotion detection within robotics systems based on 3D human pose estimations across various contexts, and 2) a data set that offers full-body videos of human movement and corresponding emotion labels based on human gestures and environmental contexts. Compared to existing approaches, our method effectively leverages the subtle connections between movement vectors of gestures and environmental contexts through the use of cross-attention on the extracted movement vectors of full-body human gestures/poses and feature maps of environmental contexts. We implement a cross-attention fusion model to combine movement vectors and environment contexts into a joint representation to derive emotion estimation. Leveraging our Naturalistic Motion Database, we train the MoEmo system to jointly analyze motion and context, yielding emotion detection that outperforms the current state-of-the-art.
+</details>
+<details>
+<summary>摘要</summary>
+人工智能human-robot交互（HRI）中的情绪检测受到挑战。基础的深度学习技术在情绪检测方面受到数据约束或模型缺乏足够复杂性来学习输入数据元素之间的交互，如人类情绪在不同情境下的变化。在当前努力中，我们介绍了以下两个方法：1. MoEmo（动作到情绪）：基于机器人系统的人体pose估计中的3D人体动作，采用视Transformer（ViT）来检测人类情绪。2. 一个包含全身动作和对应情绪标签的完整数据集。与现有方法相比，我们的方法可以充分利用人体动作vector和环境上下文的关系，通过跨注意力 fusion模型将动作vector和环境上下文融合为共同表示，从而实现情绪估计。我们使用自然主义人体动作数据库来训练MoEmo系统，以同时分析动作和环境，实现情绪检测的改进。
+</details></li>
+</ul>
+<hr>
+<h2 id="New-Benchmarks-for-Asian-Facial-Recognition-Tasks-Face-Classification-with-Large-Foundation-Models"><a href="#New-Benchmarks-for-Asian-Facial-Recognition-Tasks-Face-Classification-with-Large-Foundation-Models" class="headerlink" title="New Benchmarks for Asian Facial Recognition Tasks: Face Classification with Large Foundation Models"></a>New Benchmarks for Asian Facial Recognition Tasks: Face Classification with Large Foundation Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09756">http://arxiv.org/abs/2310.09756</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/dukong1/koin_benchmark_dataset">https://github.com/dukong1/koin_benchmark_dataset</a></li>
+<li>paper_authors: Jinwoo Seo, Soora Choi, Eungyeom Ha, Beomjune Kim, Dongbin Na</li>
+<li>for: 这个论文是为了开发一个大规模的韩国Influencer分类系统而写的。</li>
+<li>methods: 这篇论文使用了大量的韩国明星照片，并在这些照片中添加了各种环境，如舞台照明、后台舞者和背景物体。这些照片可以用于训练分类模型，以便正确地识别韩国Influencer。</li>
+<li>results: 论文提出了一个名为KoIn的大规模韩国Influencer数据集，包含100,000多张韩国明星照片，并提供了一些困难的样例图像，如人脸图像包含面具和帽子。论文还进行了多种实验，包括使用现有的基础模型来证明KoIn数据集的有效性。<details>
+<summary>Abstract</summary>
+The face classification system is an important tool for recognizing personal identity properly. This paper introduces a new Large-Scale Korean Influencer Dataset named KoIn. Our presented dataset contains many real-world photos of Korean celebrities in various environments that might contain stage lighting, backup dancers, and background objects. These various images can be useful for training classification models classifying K-influencers. Most of the images in our proposed dataset have been collected from social network services (SNS) such as Instagram. Our dataset, KoIn, contains over 100,000 K-influencer photos from over 100 Korean celebrity classes. Moreover, our dataset provides additional hard case samples such as images including human faces with masks and hats. We note that the hard case samples are greatly useful in evaluating the robustness of the classification systems. We have extensively conducted several experiments utilizing various classification models to validate the effectiveness of our proposed dataset. Specifically, we demonstrate that recent state-of-the-art (SOTA) foundation architectures show decent classification performance when trained on our proposed dataset. In this paper, we also analyze the robustness performance against hard case samples of large-scale foundation models when we fine-tune the foundation models on the normal cases of the proposed dataset, KoIn. Our presented dataset and codes will be publicly available at https://github.com/dukong1/KoIn_Benchmark_Dataset.
+</details>
+<details>
+<summary>摘要</summary>
+“人脸分类系统是识别个人身份的重要工具。本文介绍了一个新的大规模韩国 influencer 数据集名为 KoIn。我们提供的数据集包含了许多真实的韩国明星照片，其中包括舞台照明、后台舞者和背景物品等不同环境。这些图像可以用于训练分类模型，以便将 K-influencer 分类 correctly。大多数图像在我们提出的数据集中来自社交媒体服务（SNS）such as Instagram。我们的数据集 KoIn 包含了超过 100,000 韩国明星照片，来自于超过 100 个韩国明星类别。此外，我们的数据集还提供了一些难易 случа例样本，包括人脸图像中的面具和帽子等。我们注意到这些难易 случа例样本在评估分类系统的Robustness 性能时非常有用。我们在这篇文章中进行了多种实验，以验证我们提出的数据集的有效性。具体来说，我们表明了最新的基础建筑（SOTA）的基础模型在我们提出的数据集上进行训练后的分类性能不错。在这篇文章中，我们还分析了大规模基础模型在 KoIn 数据集中的 robustness 性能，当我们在 normal cases 上进行 fine-tune 时。我们将提供的数据集和代码将在 https://github.com/dukong1/KoIn_Benchmark_Dataset 上公开。”
+</details></li>
+</ul>
+<hr>
+<h2 id="Staged-Depthwise-Correlation-and-Feature-Fusion-for-Siamese-Object-Tracking"><a href="#Staged-Depthwise-Correlation-and-Feature-Fusion-for-Siamese-Object-Tracking" class="headerlink" title="Staged Depthwise Correlation and Feature Fusion for Siamese Object Tracking"></a>Staged Depthwise Correlation and Feature Fusion for Siamese Object Tracking</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09747">http://arxiv.org/abs/2310.09747</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Dianbo Ma, Jianqiang Xiao, Ziyan Gao, Satoshi Yamane</li>
+<li>for: 提高视觉跟踪的特征提取效果</li>
+<li>methods: 提出了一种新的多Stage深度相关和特征融合网络（DCFFNet），利用多级层次特征和多通道semantics来学习对象特征的优化权重</li>
+<li>results: 对多个大规模数据集进行了端到端协调训练，实现了模型的稳定训练和高性能，并在多个标准测试集上达到了多种跟踪器的竞争性表现<details>
+<summary>Abstract</summary>
+In this work, we propose a novel staged depthwise correlation and feature fusion network, named DCFFNet, to further optimize the feature extraction for visual tracking. We build our deep tracker upon a siamese network architecture, which is offline trained from scratch on multiple large-scale datasets in an end-to-end manner. The model contains a core component, that is, depthwise correlation and feature fusion module (correlation-fusion module), which facilitates model to learn a set of optimal weights for a specific object by utilizing ensembles of multi-level features from lower and higher layers and multi-channel semantics on the same layer. We combine the modified ResNet-50 with the proposed correlation-fusion layer to constitute the feature extractor of our model. In training process, we find the training of model become more stable, that benifits from the correlation-fusion module. For comprehensive evaluations of performance, we implement our tracker on the popular benchmarks, including OTB100, VOT2018 and LaSOT. Extensive experiment results demonstrate that our proposed method achieves favorably competitive performance against many leading trackers in terms of accuracy and precision, while satisfying the real-time requirements of applications.
+</details>
+<details>
+<summary>摘要</summary>
+在这个工作中，我们提出了一种新的阶段化深度相关和特征融合网络（DCFFNet），用于进一步优化视觉跟踪的特征提取。我们基于siames network架构，将模型在多个大规模数据集上进行了线性训练，并在整个过程中从头到尾地训练。模型的核心组件是深度相关和特征融合模块（相关融合模块），它使得模型可以通过不同层次的特征和多个渠道semantic来学习一个特定对象的最佳权重。我们将修改后的ResNet-50和提议的相关融合层组合成我们的特征提取器。在训练过程中，我们发现模型的训练变得更加稳定，这是由相关融合模块带来的。为了进行全面的性能评估，我们在知名的benchmark上实现了我们的跟踪器，包括OTB100、VOT2018和LaSOT。广泛的实验结果表明，我们的提议方法在精度和稳定性两个方面与许多领先的跟踪器相比，表现出非常竞争力，同时满足应用中的实时需求。
+</details></li>
+</ul>
+<hr>
+<h2 id="Explore-the-Effect-of-Data-Selection-on-Poison-Efficiency-in-Backdoor-Attacks"><a href="#Explore-the-Effect-of-Data-Selection-on-Poison-Efficiency-in-Backdoor-Attacks" class="headerlink" title="Explore the Effect of Data Selection on Poison Efficiency in Backdoor Attacks"></a>Explore the Effect of Data Selection on Poison Efficiency in Backdoor Attacks</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09744">http://arxiv.org/abs/2310.09744</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ziqiang Li, Pengfei Xia, Hong Sun, Yueqi Zeng, Wei Zhang, Bin Li<br>for: 降低培训数据 Collection 成本，提高深度神经网络 (DNNs) 的攻击性能。methods: 提出了一种基于 Forgetting 和 curvature 的 Sample Selection Strategy，可以提高攻击效率。results: 在多个领域 (CIFAR-10、CIFAR-100、ImageNet-10、AG News、ESC-50、Facial Age) 的实验结果表明，提案的方法可以在相同的恶意比例下提高攻击性能。<details>
+<summary>Abstract</summary>
+As the number of parameters in Deep Neural Networks (DNNs) scales, the thirst for training data also increases. To save costs, it has become common for users and enterprises to delegate time-consuming data collection to third parties. Unfortunately, recent research has shown that this practice raises the risk of DNNs being exposed to backdoor attacks. Specifically, an attacker can maliciously control the behavior of a trained model by poisoning a small portion of the training data. In this study, we focus on improving the poisoning efficiency of backdoor attacks from the sample selection perspective. The existing attack methods construct such poisoned samples by randomly selecting some clean data from the benign set and then embedding a trigger into them. However, this random selection strategy ignores that each sample may contribute differently to the backdoor injection, thereby reducing the poisoning efficiency. To address the above problem, a new selection strategy named Improved Filtering and Updating Strategy (FUS++) is proposed. Specifically, we adopt the forgetting events of the samples to indicate the contribution of different poisoned samples and use the curvature of the loss surface to analyses the effectiveness of this phenomenon. Accordingly, we combine forgetting events and curvature of different samples to conduct a simple yet efficient sample selection strategy. The experimental results on image classification (CIFAR-10, CIFAR-100, ImageNet-10), text classification (AG News), audio classification (ESC-50), and age regression (Facial Age) consistently demonstrate the effectiveness of the proposed strategy: the attack performance using FUS++ is significantly higher than that using random selection for the same poisoning ratio.
+</details>
+<details>
+<summary>摘要</summary>
+Existing attack methods create poisoned samples by randomly selecting some clean data from the benign set and embedding a trigger into them. However, this random selection strategy overlooks the fact that each sample may contribute differently to the backdoor injection, thereby reducing the poisoning efficiency.To address this issue, we propose a new sample selection strategy called Improved Filtering and Updating Strategy (FUS++). We utilize the forgetting events of the samples to indicate their contribution to the backdoor injection and analyze the effectiveness of this phenomenon using the curvature of the loss surface. By combining forgetting events and curvature of different samples, we develop a simple yet efficient sample selection strategy.Our experimental results on image classification (CIFAR-10, CIFAR-100, ImageNet-10), text classification (AG News), audio classification (ESC-50), and age regression (Facial Age) consistently show that the proposed strategy outperforms random selection for the same poisoning ratio. The attack performance using FUS++ is significantly higher, indicating the effectiveness of our proposed strategy in enhancing the poisoning efficiency of backdoor attacks.
+</details></li>
+</ul>
+<hr>
+<h2 id="AugUndo-Scaling-Up-Augmentations-for-Unsupervised-Depth-Completion"><a href="#AugUndo-Scaling-Up-Augmentations-for-Unsupervised-Depth-Completion" class="headerlink" title="AugUndo: Scaling Up Augmentations for Unsupervised Depth Completion"></a>AugUndo: Scaling Up Augmentations for Unsupervised Depth Completion</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09739">http://arxiv.org/abs/2310.09739</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yangchao Wu, Tian Yu Liu, Hyoungseob Park, Stefano Soatto, Dong Lao, Alex Wong</li>
+<li>for: 提高无监督深度完成任务的性能（improve the performance of unsupervised depth completion tasks）</li>
+<li>methods: 使用“undo”操作来解除各种几何变换对深度图的影响，从而计算恢复损失使用原始图像和稀疏深度图，从而缩大数据增强的可能性（use “undo” operation to eliminate the impact of various geometric transformations on the depth map, and compute the reconstruction loss using the original images and sparse depth maps, thus expanding the possibility of data augmentation）</li>
+<li>results: 在indoor（VOID）和outdoor（KITTI）数据集上，与三种现有方法进行比较，平均提高了10.4%（compared to three existing methods on the indoor (VOID) and outdoor (KITTI) datasets, with an average improvement of 10.4%）<details>
+<summary>Abstract</summary>
+Unsupervised depth completion methods are trained by minimizing sparse depth and image reconstruction error. Block artifacts from resampling, intensity saturation, and occlusions are amongst the many undesirable by-products of common data augmentation schemes that affect image reconstruction quality, and thus the training signal. Hence, typical augmentations on images that are viewed as essential to training pipelines in other vision tasks have seen limited use beyond small image intensity changes and flipping. The sparse depth modality have seen even less as intensity transformations alter the scale of the 3D scene, and geometric transformations may decimate the sparse points during resampling. We propose a method that unlocks a wide range of previously-infeasible geometric augmentations for unsupervised depth completion. This is achieved by reversing, or "undo"-ing, geometric transformations to the coordinates of the output depth, warping the depth map back to the original reference frame. This enables computing the reconstruction losses using the original images and sparse depth maps, eliminating the pitfalls of naive loss computation on the augmented inputs. This simple yet effective strategy allows us to scale up augmentations to boost performance. We demonstrate our method on indoor (VOID) and outdoor (KITTI) datasets where we improve upon three existing methods by an average of 10.4\% across both datasets.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>> translate("Unsupervised depth completion methods are trained by minimizing sparse depth and image reconstruction error. Block artifacts from resampling, intensity saturation, and occlusions are amongst the many undesirable by-products of common data augmentation schemes that affect image reconstruction quality, and thus the training signal. Hence, typical augmentations on images that are viewed as essential to training pipelines in other vision tasks have seen limited use beyond small image intensity changes and flipping. The sparse depth modality have seen even less as intensity transformations alter the scale of the 3D scene, and geometric transformations may decimate the sparse points during resampling. We propose a method that unlocks a wide range of previously-infeasible geometric augmentations for unsupervised depth completion. This is achieved by reversing, or "undo"-ing, geometric transformations to the coordinates of the output depth, warping the depth map back to the original reference frame. This enables computing the reconstruction losses using the original images and sparse depth maps, eliminating the pitfalls of naive loss computation on the augmented inputs. This simple yet effective strategy allows us to scale up augmentations to boost performance. We demonstrate our method on indoor (VOID) and outdoor (KITTI) datasets where we improve upon three existing methods by an average of 10.4\% across both datasets.")</SYS>>Here's the translation in Simplified Chinese:Unsupervised深度完成方法通常通过最小化稀疏深度和图像重建错误来训练。采样、强化、 occlusion 等常见数据增强方法的副作用会影响图像重建质量，从而影响训练信号。因此，通常会限制图像增强方法的应用，只有小型图像Intensity 变化和翻转。 sparse depth 模式更加受到INTENSITY 变化的影响，Geometric 变换可能会在抽样时消耗稀疏点。我们提出了一种方法，可以解锁许多前置不可能的几何增强。这是通过将几何变换转换为输出深度坐标的反向操作，使深度地图返回原始参照帧。这使得可以使用原始图像和稀疏深度图来计算重建损失，消除了使用增强输入的恶性问题。这种简单 yet 有效的策略允许我们扩大增强，提高性能。我们在indoor (VOID) 和 outdoor (KITTI) 数据集上示出了我们的方法，与三种现有方法的平均提升率为10.4%。
+</details></li>
+</ul>
+<hr>
+<h2 id="FuseSR-Super-Resolution-for-Real-time-Rendering-through-Efficient-Multi-resolution-Fusion"><a href="#FuseSR-Super-Resolution-for-Real-time-Rendering-through-Efficient-Multi-resolution-Fusion" class="headerlink" title="FuseSR: Super Resolution for Real-time Rendering through Efficient Multi-resolution Fusion"></a>FuseSR: Super Resolution for Real-time Rendering through Efficient Multi-resolution Fusion</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09726">http://arxiv.org/abs/2310.09726</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/Isaac-Paradox/FuseSR">https://github.com/Isaac-Paradox/FuseSR</a></li>
+<li>paper_authors: Zhihua Zhong, Jingsen Zhu, Yuxin Dai, Chuankun Zheng, Yuchi Huo, Guanlin Chen, Hujun Bao, Rui Wang</li>
+<li>for: 提高实时渲染的效率和质量，满足高分辨率、高刷新率和高实зм的需求。</li>
+<li>methods: 利用低分辨率输入图像，通过高价值高分辨率auxiliary G-Buffer来提高渲染的精度和效率。introduce an efficient and effective H-Net architecture to solve the problem of aligning and fusing features at multi-resolution levels.</li>
+<li>results: 实现4K分辨率的实时渲染，并在$4 \times 4$和$8 \times 8$� upsampling cases中提供高质量和高性能的渲染结果，与现有方法相比有substantially improved quality和significant performance boost。<details>
+<summary>Abstract</summary>
+The workload of real-time rendering is steeply increasing as the demand for high resolution, high refresh rates, and high realism rises, overwhelming most graphics cards. To mitigate this problem, one of the most popular solutions is to render images at a low resolution to reduce rendering overhead, and then manage to accurately upsample the low-resolution rendered image to the target resolution, a.k.a. super-resolution techniques. Most existing methods focus on exploiting information from low-resolution inputs, such as historical frames. The absence of high frequency details in those LR inputs makes them hard to recover fine details in their high-resolution predictions. In this paper, we propose an efficient and effective super-resolution method that predicts high-quality upsampled reconstructions utilizing low-cost high-resolution auxiliary G-Buffers as additional input. With LR images and HR G-buffers as input, the network requires to align and fuse features at multi resolution levels. We introduce an efficient and effective H-Net architecture to solve this problem and significantly reduce rendering overhead without noticeable quality deterioration. Experiments show that our method is able to produce temporally consistent reconstructions in $4 \times 4$ and even challenging $8 \times 8$ upsampling cases at 4K resolution with real-time performance, with substantially improved quality and significant performance boost compared to existing works.
+</details>
+<details>
+<summary>摘要</summary>
+工作负载实时渲染在需求高分辨率、高刷新率和高现实性的需求增长，导致大多数图形卡被拥塞。为解决这个问题，一种非常流行的解决方案是在低分辨率下渲染图像，以减轻渲染负担，然后使用高分辨率auxiliary G-Buffers作为额外输入，进行高分辨率恢复。大多数现有方法都是利用低分辨率输入的信息，如历史帧，但是低分辨率输入缺乏高频率细节，使其很难回归高分辨率预测中的细节。在这篇论文中，我们提出了一种高效、高质量的超解像技术，通过利用低成本高分辨率auxiliary G-Buffers作为额外输入，将LR图像和HR G-Buffers作为输入，并对多个分辨率水平进行对齐和融合特征。我们提出了一种高效的H-Net架构来解决这个问题，实现了显著减少渲染负担，无需明显下降质量。实验表明，我们的方法在4K分辨率的$4 \times 4$和甚至更加挑战性的$8 \times 8$恢复 случа中，可以实现实时性和显著性能提升，而且与现有方法相比，有较大的质量提升和性能提升。
+</details></li>
+</ul>
+<hr>
+<h2 id="Efficient-and-Effective-Multi-View-Subspace-Clustering-for-Large-scale-Data"><a href="#Efficient-and-Effective-Multi-View-Subspace-Clustering-for-Large-scale-Data" class="headerlink" title="Efficient and Effective Multi-View Subspace Clustering for Large-scale Data"></a>Efficient and Effective Multi-View Subspace Clustering for Large-scale Data</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09718">http://arxiv.org/abs/2310.09718</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yuxiu Lin, Hui Liu, Ren Wang, Gongguan Chen, Caiming Zhang</li>
+<li>For: 提高大规模多视图数据集中 clustering 性能，解决现有方法中FC层的参数缺乏效率和内存成本问题。* Methods: 提出了一种新的深度框架E$^2$LMVSC，通过在多视图数据上实现硬件约束来提高共享表示的质量，并使用信息瓶颈理论来获得最小够的共享特征表示。* Results: 对大规模多视图数据集进行了广泛的实验，并证明了E$^2$LMVSC可以与现有方法匹配性能，同时在大规模数据集中实现更高的 clustering 性能。<details>
+<summary>Abstract</summary>
+Recent multi-view subspace clustering achieves impressive results utilizing deep networks, where the self-expressive correlation is typically modeled by a fully connected (FC) layer. However, they still suffer from two limitations: i) it is under-explored to extract a unified representation from multiple views that simultaneously satisfy minimal sufficiency and discriminability. ii) the parameter scale of the FC layer is quadratic to the number of samples, resulting in high time and memory costs that significantly degrade their feasibility in large-scale datasets. In light of this, we propose a novel deep framework termed Efficient and Effective Large-scale Multi-View Subspace Clustering (E$^2$LMVSC). Specifically, to enhance the quality of the unified representation, a soft clustering assignment similarity constraint is devised for explicitly decoupling consistent, complementary, and superfluous information across multi-view data. Then, following information bottleneck theory, a sufficient yet minimal unified feature representation is obtained. Moreover, E$^2$LMVSC employs the maximal coding rate reduction principle to promote intra-cluster aggregation and inter-cluster separability within the unified representation. Finally, the self-expressive coefficients are learned by a Relation-Metric Net instead of a parameterized FC layer for greater efficiency. Extensive experiments show that E$^2$LMVSC yields comparable results to existing methods and achieves state-of-the-art clustering performance in large-scale multi-view datasets.
+</details>
+<details>
+<summary>摘要</summary>
+最近的多视图子空间分 clustering 技术已经取得了很好的成果，使用深度网络，其中自我表达相关性通常是使用全连接（FC）层来模型的。然而，它们仍然受到两种限制：一是不足地提取多视图数据中共同满足最小充分和分类可能性的统一表示。二是FC层的参数缺省是数据样本的平方，导致时间和内存成本很高，使其在大规模数据集中不可行。为此，我们提出了一种新的深度框架，称为高效高质量大规模多视图子空间分 clustering（E$^2$LMVSC）。Specifically, E$^2$LMVSC 使用软 clustering分配相似性约束，以解耦多视图数据中一致、补充和冗余信息的信息。然后，根据信息瓶颈理论，从多视图数据中获得最小充分的统一特征表示。此外，E$^2$LMVSC 使用最大编码率减少原理，以促进内群归一化和间群分离在统一表示中。最后，相关度 metric 网络代替 parameterized FC 层来学习自我表达系数，以提高效率。我们的实验表明，E$^2$LMVSC 与现有方法相当，并在大规模多视图数据集中实现了状态机器人的分 clustering性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="LOVECon-Text-driven-Training-Free-Long-Video-Editing-with-ControlNet"><a href="#LOVECon-Text-driven-Training-Free-Long-Video-Editing-with-ControlNet" class="headerlink" title="LOVECon: Text-driven Training-Free Long Video Editing with ControlNet"></a>LOVECon: Text-driven Training-Free Long Video Editing with ControlNet</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.09711">http://arxiv.org/abs/2310.09711</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/zhijie-group/lovecon">https://github.com/zhijie-group/lovecon</a></li>
+<li>paper_authors: Zhenyi Liao, Zhijie Deng</li>
+<li>for: 这 paper targets 长视频编辑 без需要训练，以满足电影制作、广告等领域的需求。</li>
+<li>methods: 我们基于 ControlNet 建立了一个简单而有效的基线，通过将长视频分成窗口，并开发了一种跨窗口注意力机制来保证全局风格的一致性和最大化窗口之间的平滑性。 我们还利用 DDIM 逆转来提取源视频中的信息，并将其集成到生成过程中的秘密状态中。</li>
+<li>results: 我们的方法在不同场景中（包括Attributes改变、风格传输和背景替换等）都显示出了超越基eline的效果，能够编辑长达 128 帧的视频 according to 用户需求。<details>
+<summary>Abstract</summary>
+Leveraging pre-trained conditional diffusion models for video editing without further tuning has gained increasing attention due to its promise in film production, advertising, etc. Yet, seminal works in this line fall short in generation length, temporal coherence, or fidelity to the source video. This paper aims to bridge the gap, establishing a simple and effective baseline for training-free diffusion model-based long video editing. As suggested by prior arts, we build the pipeline upon ControlNet, which excels at various image editing tasks based on text prompts. To break down the length constraints caused by limited computational memory, we split the long video into consecutive windows and develop a novel cross-window attention mechanism to ensure the consistency of global style and maximize the smoothness among windows. To achieve more accurate control, we extract the information from the source video via DDIM inversion and integrate the outcomes into the latent states of the generations. We also incorporate a video frame interpolation model to mitigate the frame-level flickering issue. Extensive empirical studies verify the superior efficacy of our method over competing baselines across scenarios, including the replacement of the attributes of foreground objects, style transfer, and background replacement. In particular, our method manages to edit videos with up to 128 frames according to user requirements. Code is available at https://github.com/zhijie-group/LOVECon.
+</details>
+<details>
+<summary>摘要</summary>
+利用预训练的条件扩散模型进行视频编辑，无需进一步调参，在电影制作、广告等领域受到了越来越多的关注。然而，先前的研究在这一领域缺乏长期编辑、时间准确性和原始视频忠实性等方面的表现。本文旨在填补这一空白，建立一个简单有效的基线方法，通过控制网络（ControlNet）和跨窗口注意力机制来实现无需训练的扩散模型基于长视频编辑。为了缓解由计算机内存限制所导致的长度约束，我们将长视频拆分成连续的窗口，并开发了一种新的跨窗口注意力机制，以保证全局风格的一致性和最大化窗口之间的平滑性。此外，我们还提取了源视频中的信息通过DDIM反向减法，并将其 интегрирова到生成过程中的幂态态中。此外，我们还添加了一种视频帧 interpolate模型，以减少帧级闪烁问题。经验研究表明，我们的方法在不同场景中，如改变对eground对象的特性、风格传递和背景替换等场景中，具有更高的效果，并能编辑长达128帧的视频。代码可以在https://github.com/zhijie-group/LOVECon中下载。
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/10/15/cs.CV_2023_10_15/" data-id="clogxf3nh00j25xra4eqtgkcs" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/16/eess.SP_2023_10_16/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          eess.SP - 2023-10-16
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/15/cs.AI_2023_10_15/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.AI - 2023-10-15</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">121</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">115</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">55</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">111</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">61</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">231</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">212</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
