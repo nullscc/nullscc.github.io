@@ -1,0 +1,947 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CV - 2023-11-26 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="DISYRE: Diffusion-Inspired SYnthetic REstoration for Unsupervised Anomaly Detection paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2311.15453 repo_url: None paper_authors: Sergio Naval Marimont, Matthew Baugh, Vasil">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CV - 2023-11-26">
+<meta property="og:url" content="https://nullscc.github.io/2023/11/26/cs.CV_2023_11_26/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="DISYRE: Diffusion-Inspired SYnthetic REstoration for Unsupervised Anomaly Detection paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2311.15453 repo_url: None paper_authors: Sergio Naval Marimont, Matthew Baugh, Vasil">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-26T13:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-11T10:23:42.064Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CV_2023_11_26" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/11/26/cs.CV_2023_11_26/" class="article-date">
+  <time datetime="2023-11-26T13:00:00.000Z" itemprop="datePublished">2023-11-26</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CV/">cs.CV</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CV - 2023-11-26
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="DISYRE-Diffusion-Inspired-SYnthetic-REstoration-for-Unsupervised-Anomaly-Detection"><a href="#DISYRE-Diffusion-Inspired-SYnthetic-REstoration-for-Unsupervised-Anomaly-Detection" class="headerlink" title="DISYRE: Diffusion-Inspired SYnthetic REstoration for Unsupervised Anomaly Detection"></a>DISYRE: Diffusion-Inspired SYnthetic REstoration for Unsupervised Anomaly Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15453">http://arxiv.org/abs/2311.15453</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Sergio Naval Marimont, Matthew Baugh, Vasilis Siomos, Christos Tzelepis, Bernhard Kainz, Giacomo Tarroni</li>
+<li>for: 这个研究旨在提出一种不需要标注的异常检测技术，并且可以对医疗影像中的异常进行检测。</li>
+<li>methods: 本研究使用了传播模型，并将其应用于异常检测中。传播模型可以将输入 $x$ 转换为一个更有可能性的分布，这样就可以将 $x$ 转换为一个异常检测结果。</li>
+<li>results: 本研究在三个常见的脑MRI异常检测任务中，与其他方法比较，DISYRE 表现了优异的成绩，在两个任务中表现更好。<details>
+<summary>Abstract</summary>
+Unsupervised Anomaly Detection (UAD) techniques aim to identify and localize anomalies without relying on annotations, only leveraging a model trained on a dataset known to be free of anomalies. Diffusion models learn to modify inputs $x$ to increase the probability of it belonging to a desired distribution, i.e., they model the score function $\nabla_x \log p(x)$. Such a score function is potentially relevant for UAD, since $\nabla_x \log p(x)$ is itself a pixel-wise anomaly score. However, diffusion models are trained to invert a corruption process based on Gaussian noise and the learned score function is unlikely to generalize to medical anomalies. This work addresses the problem of how to learn a score function relevant for UAD and proposes DISYRE: Diffusion-Inspired SYnthetic REstoration. We retain the diffusion-like pipeline but replace the Gaussian noise corruption with a gradual, synthetic anomaly corruption so the learned score function generalizes to medical, naturally occurring anomalies. We evaluate DISYRE on three common Brain MRI UAD benchmarks and substantially outperform other methods in two out of the three tasks.
+</details>
+<details>
+<summary>摘要</summary>
+非监督异常检测（USD）技术目标是无需注释，只是利用已知无异常数据集上训练的模型来识别和地图异常。 Diffusion模型可以改变输入$x$，使其更有可能属于某个愿望分布，即它们模型了$\nabla_x \log p(x)$的Score函数。这个Score函数可能对USD有用，因为它是每个像素异常分数。然而，Diffusion模型通常是基于 Gaussian 噪声的损坏过程的，学习的Score函数不太可能泛化到医疗异常。这个研究解决了如何学习 relevante дляUSD的Score函数，并提出了DISYRE：Diffusion-Inspired SYnthetic REstoration。我们保留了Diffusion-like管道，但是将Gaussian 噪声损坏 replaced withgradual、自然出现的医疗异常损坏，以便学习的Score函数泛化到医疗异常。我们对三个常见的脑MRI USD benchmark进行了评估，并在两个任务中明显超过了其他方法。
+</details></li>
+</ul>
+<hr>
+<h2 id="FLAIR-A-Conditional-Diffusion-Framework-with-Applications-to-Face-Video-Restoration"><a href="#FLAIR-A-Conditional-Diffusion-Framework-with-Applications-to-Face-Video-Restoration" class="headerlink" title="FLAIR: A Conditional Diffusion Framework with Applications to Face Video Restoration"></a>FLAIR: A Conditional Diffusion Framework with Applications to Face Video Restoration</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15445">http://arxiv.org/abs/2311.15445</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zihao Zou, Jiaming Liu, Shirin Shoushtari, Yubo Wang, Weijie Gan, Ulugbek S. Kamilov</li>
+<li>for:  restore perceptually realistic face videos from low-quality inputs</li>
+<li>methods:  conditional diffusion framework called FLAIR, which ensures temporal consistency and uses a recurrent video refinement layer and temporal self-attention</li>
+<li>results:  superior performance compared to current state-of-the-art for video super-resolution, deblurring, JPEG restoration, and space-time frame interpolation on two high-quality face video datasets<details>
+<summary>Abstract</summary>
+Face video restoration (FVR) is a challenging but important problem where one seeks to recover a perceptually realistic face videos from a low-quality input. While diffusion probabilistic models (DPMs) have been shown to achieve remarkable performance for face image restoration, they often fail to preserve temporally coherent, high-quality videos, compromising the fidelity of reconstructed faces. We present a new conditional diffusion framework called FLAIR for FVR. FLAIR ensures temporal consistency across frames in a computationally efficient fashion by converting a traditional image DPM into a video DPM. The proposed conversion uses a recurrent video refinement layer and a temporal self-attention at different scales. FLAIR also uses a conditional iterative refinement process to balance the perceptual and distortion quality during inference. This process consists of two key components: a data-consistency module that analytically ensures that the generated video precisely matches its degraded observation and a coarse-to-fine image enhancement module specifically for facial regions. Our extensive experiments show superiority of FLAIR over the current state-of-the-art (SOTA) for video super-resolution, deblurring, JPEG restoration, and space-time frame interpolation on two high-quality face video datasets.
+</details>
+<details>
+<summary>摘要</summary>
+“Face video restoration（FVR）是一个具有挑战性和重要性的问题，旨在从低质量输入中恢复出高品质的面部视频。而传播概率模型（DPM）通常不能保持高质量的视频，导致重建的脸部质量下降。我们提出了一个新的增强型条件传播框架，称为FLAIR，以解决FVR这个问题。FLAIR通过将传播图像DPM转换为视频DPM，以确保几帧内的一致性。这个转换使用了回归视频修正层和不同的时间自我注意力。FLAIR还使用了一个条件迭代约束 процедуre来寻求具有优化质量和稳定性的实际恢复。这个过程包括两个关键 ком成分：一个数据一致模块，以确保生成的视频与其损坏观察相符，以及一个特殊设计 для face region的粗糙增强模块。我们的广泛实验显示FLAIR在视频超解析、对照滤过、JPEG重建和时空架构 interpolating four high-quality face video datasets中具有较高的表现。”
+</details></li>
+</ul>
+<hr>
+<h2 id="Efficient-Encoding-of-Graphics-Primitives-with-Simplex-based-Structures"><a href="#Efficient-Encoding-of-Graphics-Primitives-with-Simplex-based-Structures" class="headerlink" title="Efficient Encoding of Graphics Primitives with Simplex-based Structures"></a>Efficient Encoding of Graphics Primitives with Simplex-based Structures</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15439">http://arxiv.org/abs/2311.15439</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yibo Wen, Yunfan Yang</li>
+<li>for: 图像和数据精度渲染</li>
+<li>methods: 使用 simplicial 结构编码、坐标变换、积分 interpolate 和 hash 表存储</li>
+<li>results: 在2D图像适应任务中比基eline方法快9.4%，在稠密样本情况下最大提高41.2%的速度提升<details>
+<summary>Abstract</summary>
+Grid-based structures are commonly used to encode explicit features for graphics primitives such as images, signed distance functions (SDF), and neural radiance fields (NeRF) due to their simple implementation. However, in $n$-dimensional space, calculating the value of a sampled point requires interpolating the values of its $2^n$ neighboring vertices. The exponential scaling with dimension leads to significant computational overheads. To address this issue, we propose a simplex-based approach for encoding graphics primitives. The number of vertices in a simplex-based structure increases linearly with dimension, making it a more efficient and generalizable alternative to grid-based representations. Using the non-axis-aligned simplicial structure property, we derive and prove a coordinate transformation, simplicial subdivision, and barycentric interpolation scheme for efficient sampling, which resembles transformation procedures in the simplex noise algorithm. Finally, we use hash tables to store multiresolution features of all interest points in the simplicial grid, which are passed into a tiny fully connected neural network to parameterize graphics primitives. We implemented a detailed simplex-based structure encoding algorithm in C++ and CUDA using the methods outlined in our approach. In the 2D image fitting task, the proposed method is capable of fitting a giga-pixel image with 9.4% less time compared to the baseline method proposed by instant-ngp, while maintaining the same quality and compression rate. In the volumetric rendering setup, we observe a maximum 41.2% speedup when the samples are dense enough.
+</details>
+<details>
+<summary>摘要</summary>
+Grid-based structures are commonly used to encode explicit features for graphics primitives such as images, signed distance functions (SDF), and neural radiance fields (NeRF) due to their simple implementation. However, in $n$-dimensional space, calculating the value of a sampled point requires interpolating the values of its $2^n$ neighboring vertices. The exponential scaling with dimension leads to significant computational overheads. To address this issue, we propose a simplex-based approach for encoding graphics primitives. The number of vertices in a simplex-based structure increases linearly with dimension, making it a more efficient and generalizable alternative to grid-based representations. Using the non-axis-aligned simplicial structure property, we derive and prove a coordinate transformation, simplicial subdivision, and barycentric interpolation scheme for efficient sampling, which resembles transformation procedures in the simplex noise algorithm. Finally, we use hash tables to store multiresolution features of all interest points in the simplicial grid, which are passed into a tiny fully connected neural network to parameterize graphics primitives. We implemented a detailed simplex-based structure encoding algorithm in C++ and CUDA using the methods outlined in our approach. In the 2D image fitting task, the proposed method is capable of fitting a giga-pixel image with 9.4% less time compared to the baseline method proposed by instant-ngp, while maintaining the same quality and compression rate. In the volumetric rendering setup, we observe a maximum 41.2% speedup when the samples are dense enough.
+</details></li>
+</ul>
+<hr>
+<h2 id="Quality-Modeling-Under-A-Relaxed-Natural-Scene-Statistics-Model"><a href="#Quality-Modeling-Under-A-Relaxed-Natural-Scene-Statistics-Model" class="headerlink" title="Quality Modeling Under A Relaxed Natural Scene Statistics Model"></a>Quality Modeling Under A Relaxed Natural Scene Statistics Model</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15437">http://arxiv.org/abs/2311.15437</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Abhinau K. Venkataramanan, Alan C. Bovik</li>
+<li>for: 本研究旨在推广现有的图像质量评估模型，以适应社交媒体上的用户生成内容，这些内容通常受到多种不确定的缺陷影响。</li>
+<li>methods: 本研究使用了信息论基础的图像质量评估模型，包括视觉信息准确性指数（VIF）和时空减少参照信息差分（ST-RRED）。这些模型基于自然场景统计（NSS）和信息论。</li>
+<li>results: 本研究发现，通过使用多元泛化 Gaussian Scale Mixture（GSM）模型，可以更好地捕捉社交媒体上的图像缺陷。此外，通过研究视觉信息准确性指数（VIF）的性质，可以更好地理解图像质量评估模型的行为。<details>
+<summary>Abstract</summary>
+Information-theoretic image quality assessment (IQA) models such as Visual Information Fidelity (VIF) and Spatio-temporal Reduced Reference Entropic Differences (ST-RRED) have enjoyed great success by seamlessly integrating natural scene statistics (NSS) with information theory. The Gaussian Scale Mixture (GSM) model that governs the wavelet subband coefficients of natural images forms the foundation for these algorithms. However, the explosion of user-generated content on social media, which is typically distorted by one or more of many possible unknown impairments, has revealed the limitations of NSS-based IQA models that rely on the simple GSM model. Here, we seek to elaborate the VIF index by deriving useful properties of the Multivariate Generalized Gaussian Distribution (MGGD), and using them to study the behavior of VIF under a Generalized GSM (GGSM) model.
+</details>
+<details>
+<summary>摘要</summary>
+信息理论图像质量评估（IQA）模型，如视觉信息准确度（VIF）和时空减 Referential Entropic Differences（ST-RRED），在将自然场景统计（NSS）与信息理论相结合的基础上取得了很大的成功。然而，社交媒体上的用户生成内容的普遍性损害，通常是一种或多种未知的障碍，已经暴露了基于简单的GSM模型的NSS-based IQA模型的局限性。在这里，我们寻求通过 derivation of useful properties of the Multivariate Generalized Gaussian Distribution（MGGD），使得VIFIndex在Generalized GSM（GGSM）模型下的行为得到更好的理解。
+</details></li>
+</ul>
+<hr>
+<h2 id="Functional-Diffusion"><a href="#Functional-Diffusion" class="headerlink" title="Functional Diffusion"></a>Functional Diffusion</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15435">http://arxiv.org/abs/2311.15435</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/nipreps/niworkflows">https://github.com/nipreps/niworkflows</a></li>
+<li>paper_authors: Biao Zhang, Peter Wonka</li>
+<li>for: 该论文旨在提出一种新的生成扩散模型，称为函数扩散模型，可以处理样本的函数表示形式。</li>
+<li>methods: 该论文使用了 transformer 架构进行实现，并 derive 了必要的基础知识。</li>
+<li>results: 论文通过处理各种复杂的 signed distance functions 和 deformation functions 来展示生成的能力。<details>
+<summary>Abstract</summary>
+We propose a new class of generative diffusion models, called functional diffusion. In contrast to previous work, functional diffusion works on samples that are represented by functions with a continuous domain. Functional diffusion can be seen as an extension of classical diffusion models to an infinite-dimensional domain. Functional diffusion is very versatile as images, videos, audio, 3D shapes, deformations, \etc, can be handled by the same framework with minimal changes. In addition, functional diffusion is especially suited for irregular data or data defined in non-standard domains. In our work, we derive the necessary foundations for functional diffusion and propose a first implementation based on the transformer architecture. We show generative results on complicated signed distance functions and deformation functions defined on 3D surfaces.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出一种新的生成扩散模型，即功能扩散。与前作不同，功能扩散在样本上进行处理，即通过函数表示，其域为连续的。功能扩散可以看作是传统扩散模型的扩展，扩展到无穷度域。功能扩散非常灵活，图像、视频、音频、3D形状、扭形等都可以通过同一个框架进行处理，只需要小量的修改。此外，功能扩散尤其适用于不规则数据或非标准域上的数据。在我们的工作中，我们 derivation 功能扩散的必要基础和基于 transformer 架构的首个实现。我们在 complicated 签名距离函数和形变函数上进行生成试验，并取得了良好的结果。
+</details></li>
+</ul>
+<hr>
+<h2 id="Data-Driven-Modelling-for-Harmonic-Current-Emission-in-Low-Voltage-Grid-Using-MCReSANet-with-Interpretability-Analysis"><a href="#Data-Driven-Modelling-for-Harmonic-Current-Emission-in-Low-Voltage-Grid-Using-MCReSANet-with-Interpretability-Analysis" class="headerlink" title="Data-Driven Modelling for Harmonic Current Emission in Low-Voltage Grid Using MCReSANet with Interpretability Analysis"></a>Data-Driven Modelling for Harmonic Current Emission in Low-Voltage Grid Using MCReSANet with Interpretability Analysis</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15420">http://arxiv.org/abs/2311.15420</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jieyu Yao, Hao Yu, Paul Judge, Jiabin Jia, Sasa Djokic, Verner Püvi, Matti Lehtonen, Jan Meyer<br>for: 这个论文旨在解决在分布系统中多种异类负荷的交互作用使得建立分析模型变得复杂，从而影响了电力质量优化的问题。methods: 本论文使用MCReSANet建立数据驱动模型，以建立不同分布系统特点下的异harmonic voltage和current之间的非线性映射。results:  comparative study shows that MCReSANet可以在不同的网络特点下建立高精度的非线性映射，并且与CNN和MLP模型相比，MCReSANet可以提高MAE值10%-17%，同时显示出较低的模型不确定性。这些结果表明MCReSANet可以为分布系统中异类负荷的电力质量优化提供更好的预测性。<details>
+<summary>Abstract</summary>
+Even though the use of power electronics PE loads offers enhanced electrical energy conversion efficiency and control, they remain the primary sources of harmonics in grids. When diverse loads are connected in the distribution system, their interactions complicate establishing analytical models for the relationship between harmonic voltages and currents. To solve this, our paper presents a data-driven model using MCReSANet to construct the highly nonlinear between harmonic voltage and current. Two datasets from PCCs in Finland and Germany are utilized, which demonstrates that MCReSANet is capable of establishing accurate nonlinear mappings, even in the presence of various network characteristics for selected Finland and Germany datasets. The model built by MCReSANet can improve the MAE by 10% and 14% compared to the CNN, and by 8% and 17% compared to the MLP for both Finnish and German datasets, also showing much lower model uncertainty than others. This is a crucial prerequisite for more precise SHAP value-based feature importance analysis, which is a method for the model interpretability analysis in this paper. The results by feature importance analysis show the detailed relationships between each order of harmonic voltage and current in the distribution system. There is an interactive impact on each order of harmonic current, but some orders of harmonic voltages have a dominant influence on harmonic current emissions: positive sequence and zero sequence harmonics have the dominant importance in the Finnish and German networks, respectively, which conforms to the pattern of connected load types in two selected Finnish and German datasets. This paper enhances the potential for understanding and predicting harmonic current emissions by diverse PE loads in distribution systems, which is beneficial to more effective management for optimizing power quality in diverse grid environments.
+</details>
+<details>
+<summary>摘要</summary>
+尽管具有更高的电能转换效率和控制能力的劳电电子荷载（PELoads）在电网中仍然是主要的幂强来源，它们的互动会复杂电网的分析模型。为解决这个问题，我们的论文提出了基于MCReSANet的数据驱动模型，用于构建幂强和电流之间的非线性映射。我们使用了芬兰和德国PCC（劳电电子荷载控制中心）的两个数据集，并证明MCReSANet可以在不同的网络特点下建立高精度的非线性映射，比其他模型更加稳定。这个模型可以提高MAE（平均平方误差）的精度，相比于CNN和MLP模型，在芬兰和德国数据集中提高了10%和14%，并且显示了远低于其他模型的模型不确定性。这对于更精准的SHAP值基本特征重要性分析（模型解释分析）是非常重要的。结果表明，每个幂强频率和电流频率之间存在互动，但是某些幂强频率对幂强电流排泄产生主导性的影响。芬兰网络中，正弦和零弦幂强频率具有主导性的重要性，而德国网络中，零弦幂强频率具有主导性的重要性，这与连接的加装类型在两个选择的芬兰和德国数据集中的征文匹配。这篇论文可以增强了对劳电电子荷载在分布系统中幂强电流排泄的理解和预测，这对于优化电力质量在多种网络环境中是非常有用。
+</details></li>
+</ul>
+<hr>
+<h2 id="GAN-Based-LiDAR-Intensity-Simulation"><a href="#GAN-Based-LiDAR-Intensity-Simulation" class="headerlink" title="GAN-Based LiDAR Intensity Simulation"></a>GAN-Based LiDAR Intensity Simulation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15415">http://arxiv.org/abs/2311.15415</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Richard Marcus, Felix Gabel, Niklas Knoop, Marc Stamminger</li>
+<li>for: 研发自动驾驶技术的实用车载传感器模拟</li>
+<li>methods: 使用实际测试驾驶数据对LiDAR扫描数据进行GAN适应训练，并利用摄像头图像获取分割数据和精度深度地图作为训练输入</li>
+<li>results: 实现了可靠地生成真实的LiDAR扫描点云数据，并证明了对象检测网络在真实和 sintetic 点云数据之间的泛化性能良好，无需真实点云数据进行评估。<details>
+<summary>Abstract</summary>
+Realistic vehicle sensor simulation is an important element in developing autonomous driving. As physics-based implementations of visual sensors like LiDAR are complex in practice, data-based approaches promise solutions. Using pairs of camera images and LiDAR scans from real test drives, GANs can be trained to translate between them. For this process, we contribute two additions. First, we exploit the camera images, acquiring segmentation data and dense depth maps as additional input for training. Second, we test the performance of the LiDAR simulation by testing how well an object detection network generalizes between real and synthetic point clouds to enable evaluation without ground truth point clouds. Combining both, we simulate LiDAR point clouds and demonstrate their realism.
+</details>
+<details>
+<summary>摘要</summary>
+现实主义汽车感测模拟在自动驾驶发展中具有重要地位。由于物理实现视频感测器如LiDAR实际做起来复杂，数据基本方法提供解决方案。通过使用实际测试驾驶中的相对应的摄像头图像和LiDAR扫描数据，我们可以使用GAN进行训练，将其翻译成对应的点云数据。为此，我们提供了两项贡献：首先，我们利用摄像头图像，从中获取分割数据和密集的深度地图作为训练输入。其次，我们测试了LiDAR模拟的性能，通过评估一个物体检测网络在实际和 sintetic点云之间的泛化能力，以无需基准点云数据进行评估。将这两种方法结合使用，我们可以模拟LiDAR点云并证明其现实性。
+</details></li>
+</ul>
+<hr>
+<h2 id="KOPPA-Improving-Prompt-based-Continual-Learning-with-Key-Query-Orthogonal-Projection-and-Prototype-based-One-Versus-All"><a href="#KOPPA-Improving-Prompt-based-Continual-Learning-with-Key-Query-Orthogonal-Projection-and-Prototype-based-One-Versus-All" class="headerlink" title="KOPPA: Improving Prompt-based Continual Learning with Key-Query Orthogonal Projection and Prototype-based One-Versus-All"></a>KOPPA: Improving Prompt-based Continual Learning with Key-Query Orthogonal Projection and Prototype-based One-Versus-All</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15414">http://arxiv.org/abs/2311.15414</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Quyen Tran, Lam Tran, Khoat Than, Toan Tran, Dinh Phung, Trung Le</li>
+<li>for: 提高 Continual Learning 中的模型表现，解决各个任务之间的相互影响和特征推移问题。</li>
+<li>methods: 基于预训练 ViT 网络的新方法，包括维护一组提醒和对每个任务使用键值匹配策略。</li>
+<li>results: 实验结果表明，我们的方法可以使模型的表现超过当前状态艺术方法的最大差距达到20%。<details>
+<summary>Abstract</summary>
+Drawing inspiration from prompt tuning techniques applied to Large Language Models, recent methods based on pre-trained ViT networks have achieved remarkable results in the field of Continual Learning. Specifically, these approaches propose to maintain a set of prompts and allocate a subset of them to learn each task using a key-query matching strategy. However, they may encounter limitations when lacking control over the correlations between old task queries and keys of future tasks, the shift of features in the latent space, and the relative separation of latent vectors learned in independent tasks. In this work, we introduce a novel key-query learning strategy based on orthogonal projection, inspired by model-agnostic meta-learning, to enhance prompt matching efficiency and address the challenge of shifting features. Furthermore, we introduce a One-Versus-All (OVA) prototype-based component that enhances the classification head distinction. Experimental results on benchmark datasets demonstrate that our method empowers the model to achieve results surpassing those of current state-of-the-art approaches by a large margin of up to 20%.
+</details>
+<details>
+<summary>摘要</summary>
+以启发自大语言模型的技巧为基础，最近的方法基于预训练ViT网络实现了逐渐学习领域的出色成绩。这些方法建议将一组提示分配给每个任务学习，使用键Query匹配策略。然而，它们可能会遇到不同任务预测查询和键之间的相关性控制、特征空间的滑块和独立任务学习 latent vector 之间的相对分离的问题。在这种情况下，我们提出了一种新的键Query学习策略基于正交投影， inspirited  by model-agnostic meta-learning，以提高提示匹配效率和feature shift 问题。此外，我们引入了一个One-Versus-All（OVA）原型基于组件，以增强分类头的 отличимость。实验结果表明，我们的方法使得模型在标准 benchmark 数据集上达到了当前领先方法的最高记录，高达20%。
+</details></li>
+</ul>
+<hr>
+<h2 id="ConstraintMatch-for-Semi-constrained-Clustering"><a href="#ConstraintMatch-for-Semi-constrained-Clustering" class="headerlink" title="ConstraintMatch for Semi-constrained Clustering"></a>ConstraintMatch for Semi-constrained Clustering</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15395">http://arxiv.org/abs/2311.15395</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/slds-lmu/constraintmatch">https://github.com/slds-lmu/constraintmatch</a></li>
+<li>paper_authors: Jann Goschenhofer, Bernd Bischl, Zsolt Kira</li>
+<li>for: 这个论文的目的是提出一种受限集成方法，可以使用对数据点的对数据点约束来训练分类模型，而不需要全量标签数据。</li>
+<li>methods: 该方法使用了一种叫做约束匹配的方法，可以利用大量的不受限数据和一个更小的约束集来训练分类模型。</li>
+<li>results: 在五个复杂的标准测试集上，该方法表现出色，比基eline表现更好，并且可以在不受限数据和约束集的情况下提供高质量的分类模型。<details>
+<summary>Abstract</summary>
+Constrained clustering allows the training of classification models using pairwise constraints only, which are weak and relatively easy to mine, while still yielding full-supervision-level model performance. While they perform well even in the absence of the true underlying class labels, constrained clustering models still require large amounts of binary constraint annotations for training. In this paper, we propose a semi-supervised context whereby a large amount of \textit{unconstrained} data is available alongside a smaller set of constraints, and propose \textit{ConstraintMatch} to leverage such unconstrained data. While a great deal of progress has been made in semi-supervised learning using full labels, there are a number of challenges that prevent a naive application of the resulting methods in the constraint-based label setting. Therefore, we reason about and analyze these challenges, specifically 1) proposing a \textit{pseudo-constraining} mechanism to overcome the confirmation bias, a major weakness of pseudo-labeling, 2) developing new methods for pseudo-labeling towards the selection of \textit{informative} unconstrained samples, 3) showing that this also allows the use of pairwise loss functions for the initial and auxiliary losses which facilitates semi-constrained model training. In extensive experiments, we demonstrate the effectiveness of ConstraintMatch over relevant baselines in both the regular clustering and overclustering scenarios on five challenging benchmarks and provide analyses of its several components.
+</details>
+<details>
+<summary>摘要</summary>
+straight clustering 允许通过对应关系只需要弱和容易采集的约束来训练分类模型，而仍然可以达到全监督模型性能水平。尽管它们在真实类别标签缺失时也可以表现良好，但Constrained clustering模型仍然需要大量的二分类约束注释来训练。在这篇论文中，我们提出了一种半监督的上下文，其中有大量的不约束数据和一个更小的约束集，并提出了一种名为《ConstraintMatch》的方法来利用这些不约束数据。虽然在半监督学习中有很大的进步，但在约束基于标签设置中存在一些挑战，因此我们考虑和分析这些挑战，包括1）提出一种《pseudo-约束》机制来超越偏见假设，2）开发新的方法来pseudo-标签选择有用的不约束样本，3）示出这也允许使用对应关系损失函数来初始化和辅助损失，从而实现半监督模型训练。在广泛的实验中，我们证明了 ConstraintMatch 在相关的基准点上表现出色，并提供了几个组件的分析。
+</details></li>
+</ul>
+<hr>
+<h2 id="Visual-Programming-for-Zero-shot-Open-Vocabulary-3D-Visual-Grounding"><a href="#Visual-Programming-for-Zero-shot-Open-Vocabulary-3D-Visual-Grounding" class="headerlink" title="Visual Programming for Zero-shot Open-Vocabulary 3D Visual Grounding"></a>Visual Programming for Zero-shot Open-Vocabulary 3D Visual Grounding</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15383">http://arxiv.org/abs/2311.15383</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/CurryYuan/ZSVG3D">https://github.com/CurryYuan/ZSVG3D</a></li>
+<li>paper_authors: Zhihao Yuan, Jinke Ren, Chun-Mei Feng, Hengshuang Zhao, Shuguang Cui, Zhen Li</li>
+<li>for: 本研究旨在实现基于文本描述的3D物体localization。</li>
+<li>methods: 我们提出了一种新的视觉编程方法，利用大型语言模型（LLMs）实现零基础、开 vocabulary 3DVG。我们的方法始于对 LLMs 进行对话，以建立零基础 3DVG 的基础理解。然后，我们设计了三种类型的模块：视图独立、视图依赖和功能模块。这些模块，特意设计 для 3D 场景，协作进行复杂的推理和推论。</li>
+<li>results: 我们的零基础方法可以超越一些基础过程的基础模型，在开 vocabulary 3DVG 中实现更高的性能。<details>
+<summary>Abstract</summary>
+3D Visual Grounding (3DVG) aims at localizing 3D object based on textual descriptions. Conventional supervised methods for 3DVG often necessitate extensive annotations and a predefined vocabulary, which can be restrictive. To address this issue, we propose a novel visual programming approach for zero-shot open-vocabulary 3DVG, leveraging the capabilities of large language models (LLMs). Our approach begins with a unique dialog-based method, engaging with LLMs to establish a foundational understanding of zero-shot 3DVG. Building on this, we design a visual program that consists of three types of modules, i.e., view-independent, view-dependent, and functional modules. These modules, specifically tailored for 3D scenarios, work collaboratively to perform complex reasoning and inference. Furthermore, we develop an innovative language-object correlation module to extend the scope of existing 3D object detectors into open-vocabulary scenarios. Extensive experiments demonstrate that our zero-shot approach can outperform some supervised baselines, marking a significant stride towards effective 3DVG.
+</details>
+<details>
+<summary>摘要</summary>
+三维视觉根据（3DVG）targets at localizing 3D object based on textual descriptions. Conventional supervised methods for 3DVG often require extensive annotations and a predefined vocabulary, which can be restrictive. To address this issue, we propose a novel visual programming approach for zero-shot open-vocabulary 3DVG, leveraging the capabilities of large language models (LLMs). Our approach begins with a unique dialog-based method, engaging with LLMs to establish a foundational understanding of zero-shot 3DVG. Building on this, we design a visual program that consists of three types of modules, i.e., view-independent, view-dependent, and functional modules. These modules, specifically tailored for 3D scenarios, work collaboratively to perform complex reasoning and inference. Furthermore, we develop an innovative language-object correlation module to extend the scope of existing 3D object detectors into open-vocabulary scenarios. Extensive experiments demonstrate that our zero-shot approach can outperform some supervised baselines, marking a significant stride towards effective 3DVG.Here's the word-for-word translation of the text into Simplified Chinese:三维视觉根据（3DVG）targets at localizing 3D object based on textual descriptions. 常见的超级vised方法 для 3DVG often require extensive annotations and a predefined vocabulary, which can be restrictive. To address this issue, we propose a novel visual programming approach for zero-shot open-vocabulary 3DVG, leveraging the capabilities of large language models (LLMs). Our approach begins with a unique dialog-based method, engaging with LLMs to establish a foundational understanding of zero-shot 3DVG. Building on this, we design a visual program that consists of three types of modules, i.e., view-independent, view-dependent, and functional modules. These modules, specifically tailored for 3D scenarios, work collaboratively to perform complex reasoning and inference. Furthermore, we develop an innovative language-object correlation module to extend the scope of existing 3D object detectors into open-vocabulary scenarios. Extensive experiments demonstrate that our zero-shot approach can outperform some supervised baselines, marking a significant stride towards effective 3DVG.
+</details></li>
+</ul>
+<hr>
+<h2 id="Flow-Guided-Diffusion-for-Video-Inpainting"><a href="#Flow-Guided-Diffusion-for-Video-Inpainting" class="headerlink" title="Flow-Guided Diffusion for Video Inpainting"></a>Flow-Guided Diffusion for Video Inpainting</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15368">http://arxiv.org/abs/2311.15368</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/nevsnev/fgdvi">https://github.com/nevsnev/fgdvi</a></li>
+<li>paper_authors: Bohai Gu, Yongsheng Yu, Heng Fan, Libo Zhang</li>
+<li>for: 提高视频填充质量和效率，解决复杂场景下的大规模运动和低光照问题。</li>
+<li>methods: 基于现有的图像生成扩散模型，提出了流场导向扩散模型 для视频填充（FGDVI），通过精准的一步潜在流场传播来提高时间一致性，并提出了一种模型无关的流场导向潜在 interpolate 技术来加速净化和融合。</li>
+<li>results: FGDVI 在流扰error E_warp 方面达到了10%的提高，并在多种场景下进行了广泛的实验验证， validate 了 FGDVI 的superior performance，提供了进一步提高视频填充质量的可能性。<details>
+<summary>Abstract</summary>
+Video inpainting has been challenged by complex scenarios like large movements and low-light conditions. Current methods, including emerging diffusion models, face limitations in quality and efficiency. This paper introduces the Flow-Guided Diffusion model for Video Inpainting (FGDVI), a novel approach that significantly enhances temporal consistency and inpainting quality via reusing an off-the-shelf image generation diffusion model. We employ optical flow for precise one-step latent propagation and introduces a model-agnostic flow-guided latent interpolation technique. This technique expedites denoising, seamlessly integrating with any Video Diffusion Model (VDM) without additional training. Our FGDVI demonstrates a remarkable 10% improvement in flow warping error E_warp over existing state-of-the-art methods. Our comprehensive experiments validate superior performance of FGDVI, offering a promising direction for advanced video inpainting. The code and detailed results will be publicly available in https://github.com/NevSNev/FGDVI.
+</details>
+<details>
+<summary>摘要</summary>
+视频填充面临了复杂的场景，如大 движения和低光照情况。当前方法，包括出现的扩散模型，受到质量和效率的限制。这篇论文介绍了流导引扩散模型 для视频填充（FGDVI），一种新的方法，通过 reuse off-the-shelf 图像生成扩散模型来显著提高时间一致性和填充质量。我们使用光学流来实现精确的一步潜在幂propagation，并引入一种模型无关的流导引潜在 interpolating技术。这种技术可以快速去噪，无需额外训练，可以与任何视频扩散模型（VDM）集成。我们的FGDVI在流扭距error E_warp中表现出了10%的显著提高。我们的全面实验证明了FGDVI的超过当前状态的表现，提供了一个有前途的方向，为高级视频填充做出了贡献。代码和详细结果将在https://github.com/NevSNev/FGDVI上公开。
+</details></li>
+</ul>
+<hr>
+<h2 id="BatchNorm-based-Weakly-Supervised-Video-Anomaly-Detection"><a href="#BatchNorm-based-Weakly-Supervised-Video-Anomaly-Detection" class="headerlink" title="BatchNorm-based Weakly Supervised Video Anomaly Detection"></a>BatchNorm-based Weakly Supervised Video Anomaly Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15367">http://arxiv.org/abs/2311.15367</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/cool-xuan/bn-wvad">https://github.com/cool-xuan/bn-wvad</a></li>
+<li>paper_authors: Yixuan Zhou, Yi Qu, Xing Xu, Fumin Shen, Jingkuan Song, Hengtao Shen</li>
+<li>for: 这篇研究旨在提高弱指导影像异常检测（WVAD）中的表现，尤其是在只有影像层级标签（表示异常事件存在或不存在）的情况下。</li>
+<li>methods: 本研究提出了一个名为BN-WVAD的新方法，它将BatchNorm技术应用到WVAD中。在提案的BN-WVAD中，我们利用BatchNorm的弹性分布Feature from Mean vector（DFM）作为可靠的异常标准，以检测影像中的异常片段。此外，我们还提出了一个批次选择策略，以筛选影像中更多的异常片段。</li>
+<li>results: 在UCF-Crime和XD-Violence这两个资料集上，BN-WVAD模型的性能均达到了州际级水平，其中UCF-Crime上的AUC为87.24%，XD-Violence上的AP可达84.93%。<details>
+<summary>Abstract</summary>
+In weakly supervised video anomaly detection (WVAD), where only video-level labels indicating the presence or absence of abnormal events are available, the primary challenge arises from the inherent ambiguity in temporal annotations of abnormal occurrences. Inspired by the statistical insight that temporal features of abnormal events often exhibit outlier characteristics, we propose a novel method, BN-WVAD, which incorporates BatchNorm into WVAD. In the proposed BN-WVAD, we leverage the Divergence of Feature from Mean vector (DFM) of BatchNorm as a reliable abnormality criterion to discern potential abnormal snippets in abnormal videos. The proposed DFM criterion is also discriminative for anomaly recognition and more resilient to label noise, serving as the additional anomaly score to amend the prediction of the anomaly classifier that is susceptible to noisy labels. Moreover, a batch-level selection strategy is devised to filter more abnormal snippets in videos where more abnormal events occur. The proposed BN-WVAD model demonstrates state-of-the-art performance on UCF-Crime with an AUC of 87.24%, and XD-Violence, where AP reaches up to 84.93%. Our code implementation is accessible at https://github.com/cool-xuan/BN-WVAD.
+</details>
+<details>
+<summary>摘要</summary>
+弱监视视频异常检测（WVAD）中，主要挑战在于视频水平标签（即异常事件存在或缺失）的时间标注的潜在歧义。我们提出了一种新方法：BN-WVAD，它将批处理标准（BatchNorm）结合到WVAD中。在我们的提议中，我们利用批处理的特征差异向量（DFM）来判断潜在异常片段是否存在异常事件。这个DFM criterion不仅能够识别异常事件，而且对干扰标签具有更高的抗性，可以增强异常类别器的预测。此外，我们还提出了一种批处理筛选策略，以便在视频中更多的异常事件存在时，筛选更多的异常片段。BN-WVAD模型在UCF-Crime上达到了87.24%的AUC，以及XD-Violence上的AP达到了84.93%。我们的代码实现可以在GitHub上找到：https://github.com/cool-xuan/BN-WVAD。
+</details></li>
+</ul>
+<hr>
+<h2 id="Ultra-Range-Gesture-Recognition-using-an-RGB-Camera-in-Human-Robot-Interaction"><a href="#Ultra-Range-Gesture-Recognition-using-an-RGB-Camera-in-Human-Robot-Interaction" class="headerlink" title="Ultra-Range Gesture Recognition using an RGB Camera in Human-Robot Interaction"></a>Ultra-Range Gesture Recognition using an RGB Camera in Human-Robot Interaction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15361">http://arxiv.org/abs/2311.15361</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Eran Bamani, Eden Nissinman, Inbar Meir, Lisa Koenigsberg, Avishai Sintov<br>for:* The paper addresses the Ultra-Range Gesture Recognition (URGR) problem in Human-Robot Interaction (HRI), aiming for a recognition distance of up to 25 meters using a simple RGB camera.methods:* The proposed framework uses a novel super-resolution model called HQ-Net to enhance the low-resolution image of the user, followed by a novel URGR classifier called Graph Vision Transformer (GViT) that combines the benefits of a Graph Convolutional Network (GCN) and a modified Vision Transformer (ViT).results:* The proposed framework achieves a high recognition rate of 98.1% over diverse test data, and exhibits superior performance compared to human recognition in ultra-range distances. The framework is demonstrated to control an autonomous quadruped robot directed by human gestures in complex ultra-range indoor and outdoor environments.<details>
+<summary>Abstract</summary>
+Hand gestures play a significant role in human interactions where non-verbal intentions, thoughts and commands are conveyed. In Human-Robot Interaction (HRI), hand gestures offer a similar and efficient medium for conveying clear and rapid directives to a robotic agent. However, state-of-the-art vision-based methods for gesture recognition have been shown to be effective only up to a user-camera distance of seven meters. Such a short distance range limits practical HRI with, for example, service robots, search and rescue robots and drones. In this work, we address the Ultra-Range Gesture Recognition (URGR) problem by aiming for a recognition distance of up to 25 meters and in the context of HRI. We propose a novel deep-learning framework for URGR using solely a simple RGB camera. First, a novel super-resolution model termed HQ-Net is used to enhance the low-resolution image of the user. Then, we propose a novel URGR classifier termed Graph Vision Transformer (GViT) which takes the enhanced image as input. GViT combines the benefits of a Graph Convolutional Network (GCN) and a modified Vision Transformer (ViT). Evaluation of the proposed framework over diverse test data yields a high recognition rate of 98.1%. The framework has also exhibited superior performance compared to human recognition in ultra-range distances. With the framework, we analyze and demonstrate the performance of an autonomous quadruped robot directed by human gestures in complex ultra-range indoor and outdoor environments.
+</details>
+<details>
+<summary>摘要</summary>
+人体姿势在人类互动中扮演着重要的角色，通过非语言意图、思想和命令来传递非语言意图、思想和命令。在人机交互（HRI）中，人体姿势提供了一种效率的媒体，以便通过清晰快速的指令来控制 робо控制器。然而，现有的视觉基于方法在用户摄像头距离上限为7米，这限制了实用HRI的应用，例如服务机器人、搜救机器人和无人机。在这种工作中，我们解决了超距离姿势识别（URGR）问题，并且在HRI上下文中实现了识别距离达25米。我们提议一种深度学习框架，使用单个简单的RGB摄像头。首先，我们使用一种新的超解析模型，称为HQ-Net，来提高用户的低分辨率图像。然后，我们提议一种新的URGR分类器，称为图像视觉变换器（GViT），它将提高图像的分辨率。GViT结合了图像卷积网络（GCN）和修改后的视觉变换器（ViT）的优点。我们对提议的框架进行了多种测试数据的评估，并取得了98.1%的识别率。我们还发现，我们的框架在超距离距离下的表现优于人类识别。我们通过使用该框架，分析和示例了一个自动化的四脚Robot，通过人类姿势控制在复杂的超距离室内和室外环境中。
+</details></li>
+</ul>
+<hr>
+<h2 id="Adversarial-Purification-of-Information-Masking"><a href="#Adversarial-Purification-of-Information-Masking" class="headerlink" title="Adversarial Purification of Information Masking"></a>Adversarial Purification of Information Masking</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15339">http://arxiv.org/abs/2311.15339</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/nowindbutrain/impure">https://github.com/nowindbutrain/impure</a></li>
+<li>paper_authors: Sitong Liu, Zhichao Lian, Shuangquan Zhang, Liang Xiao</li>
+<li>For: The paper aims to defend against adversarial attacks by purifying the input images to eliminate imperceptible perturbations and increase the robustness of neural networks.* Methods: The proposed approach, called Information Mask Purification (IMPure), involves masking part of the patches in the input image, reconstructing the patches to resist adversarial perturbations, and simulating potential similar regional perturbations to protect the purified samples.* Results: The approach achieves state-of-the-art results against nine adversarial attack methods on the ImageNet dataset with three classifier models, demonstrating its effectiveness in defending against adversarial attacks.Here is the information in Simplified Chinese text:* For: 本 paper 的目的是为了防止针对神经网络的攻击，通过纯化输入图像来减少微小的杂音和增强神经网络的 robustness。* Methods: 提议的方法是信息屏蔽纯化（IMPure），它包括对输入图像中的patch进行屏蔽，然后重建patch来抵抗攻击，并模拟可能的相似地域杂音来保护纯化的样本。* Results: 对于 ImageNet  dataset 上的三种分类器模型，提议的方法可以达到最佳的效果，在九种攻击方法下都达到了领先的result。<details>
+<summary>Abstract</summary>
+Adversarial attacks meticulously generate minuscule, imperceptible perturbations to images to deceive neural networks. Counteracting these, adversarial purification methods seek to transform adversarial input samples into clean output images to defend against adversarial attacks. Nonetheless, extent generative models fail to effectively eliminate adversarial perturbations, yielding less-than-ideal purification results. We emphasize the potential threat of residual adversarial perturbations to target models, quantitatively establishing a relationship between perturbation scale and attack capability. Notably, the residual perturbations on the purified image primarily stem from the same-position patch and similar patches of the adversarial sample. We propose a novel adversarial purification approach named Information Mask Purification (IMPure), aims to extensively eliminate adversarial perturbations. To obtain an adversarial sample, we first mask part of the patches information, then reconstruct the patches to resist adversarial perturbations from the patches. We reconstruct all patches in parallel to obtain a cohesive image. Then, in order to protect the purified samples against potential similar regional perturbations, we simulate this risk by randomly mixing the purified samples with the input samples before inputting them into the feature extraction network. Finally, we establish a combined constraint of pixel loss and perceptual loss to augment the model's reconstruction adaptability. Extensive experiments on the ImageNet dataset with three classifier models demonstrate that our approach achieves state-of-the-art results against nine adversarial attack methods. Implementation code and pre-trained weights can be accessed at \textcolor{blue}{https://github.com/NoWindButRain/IMPure}.
+</details>
+<details>
+<summary>摘要</summary>
+adversarial 攻击 меiculously 生成minuscule, imperceptible 杂化来图像，以骗 neural network。对于这些攻击， adversarial 纯化方法 seek 以 transform 攻击输入样本为 clean 输出图像，以防止 adversarial 攻击。然而， extent 生成模型不能有效地消除 adversarial 杂化，导致纯化结果不如意料的。我们强调了残留的 adversarial 杂化对目标模型的威胁，量化地建立了杂化规模和攻击能力之间的关系。尤其是，残留的杂化在纯化后的图像主要来自相同位置的 patch 和相似的 patches。我们提出了一种名为 Information Mask Purification (IMPure)的新的 adversarial 纯化方法。我们首先对 patches 中的一部分信息进行遮盖，然后重建 patches 以抵抗攻击。我们在并行的方式重建所有 patches，以获得一个协调的图像。然后，为保护纯化样本免受可能的相似地区域攻击，我们随机混合纯化样本与输入样本，并在输入到特征提取网络之前进行混合。最后，我们建立了一个结合像素损失和感知损失的共同约束，以增强模型的重建适应能力。我们在 ImageNet 数据集上进行了三个分类器模型的实验，证明了我们的方法可以与九种 adversarial 攻击方法进行比较。实现代码和预训练 веса可以在 \textcolor{blue}{https://github.com/NoWindButRain/IMPure} 上获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="How-much-data-do-I-need-A-case-study-on-medical-data"><a href="#How-much-data-do-I-need-A-case-study-on-medical-data" class="headerlink" title="How much data do I need? A case study on medical data"></a>How much data do I need? A case study on medical data</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15331">http://arxiv.org/abs/2311.15331</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ayse Betul Cengiz, A. Stephen McGough</li>
+<li>for: 本研究旨在检验深度学习中两个通行见解：更多数据提供更好的结果，以及在缺乏数据时，可以通过知识转移来提高性能。</li>
+<li>methods: 研究使用了六个医疗数据集和六个通用数据集，对于不同的数据集进行训练，以评估“更多数据提供更好的结果”这个见解。此外，研究还使用了十一个数据集进行知识转移，以评估知识转移是否总是有利的。</li>
+<li>results: 研究发现，更多数据不一定意味着更好的结果，而且选择不合适的数据集进行知识转移可能会导致性能更差。此外，多stage知识转移也显示了数据集之间的复杂关系。<details>
+<summary>Abstract</summary>
+The collection of data to train a Deep Learning network is costly in terms of effort and resources. In many cases, especially in a medical context, it may have detrimental impacts. Such as requiring invasive medical procedures or processes which could in themselves cause medical harm. However, Deep Learning is seen as a data hungry method. Here, we look at two commonly held adages i) more data gives better results and ii) transfer learning will aid you when you don't have enough data. These are widely assumed to be true and used as evidence for choosing how to solve a problem when Deep Learning is involved. We evaluate six medical datasets and six general datasets. Training a ResNet18 network on varying subsets of these datasets to evaluate `more data gives better results'. We take eleven of these datasets as the sources for Transfer Learning on subsets of the twelfth dataset -- Chest -- in order to determine whether Transfer Learning is universally beneficial. We go further to see whether multi-stage Transfer Learning provides a consistent benefit. Our analysis shows that the real situation is more complex than these simple adages -- more data could lead to a case of diminishing returns and an incorrect choice of dataset for transfer learning can lead to worse performance, with datasets which we would consider highly similar to the Chest dataset giving worse results than datasets which are more dissimilar. Multi-stage transfer learning likewise reveals complex relationships between datasets.
+</details>
+<details>
+<summary>摘要</summary>
+集成数据用于训练深度学习网络是费时和资源的。在医疗上，这可能会有不良影响，例如需要侵入性的医疗程序或过程，这些过程可能会引起医疗损害。然而，深度学习被视为数据吃猛的方法。我们在这里考虑了两个通常被接受的谬误：一是更多的数据会得到更好的结果，二是转移学习会帮助你当你没有够多的数据。这些谬误广泛被用作解决问题时的证据，当深度学习被用时。我们评估了六个医学数据集和六个通用数据集。我们在不同的子集上训练了ResNet18网络，以评估“更多数据会得到更好的结果”。我们选择了十一个数据集作为转移学习的来源，用于评估是否在不同的数据集上进行转移学习会帮助。我们进一步发现，实际情况比这些简单的谬误更复杂：更多的数据可能会导致减少的回报，而不合适的数据集选择可能会导致性能更差，尤其是在与Chest数据集相似的数据集上。多stage转移学习也显示了数据集之间的复杂关系。
+</details></li>
+</ul>
+<hr>
+<h2 id="BS-Diff-Effective-Bone-Suppression-Using-Conditional-Diffusion-Models-from-Chest-X-Ray-Images"><a href="#BS-Diff-Effective-Bone-Suppression-Using-Conditional-Diffusion-Models-from-Chest-X-Ray-Images" class="headerlink" title="BS-Diff: Effective Bone Suppression Using Conditional Diffusion Models from Chest X-Ray Images"></a>BS-Diff: Effective Bone Suppression Using Conditional Diffusion Models from Chest X-Ray Images</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15328">http://arxiv.org/abs/2311.15328</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zhanghao Chen, Yifei Sun, Wenjian Qin, Ruiquan Ge, Cheng Pan, Wenming Deng, Zhou Liu, Wenwen Min, Ahmed Elazab, Xiang Wan, Changmiao Wang</li>
+<li>for: 这篇论文旨在提高乳影X射线（CXR）的效率，以便更好地诊断肺部疾病。</li>
+<li>methods: 本文提出了一个新的骨抑制框架，称为BS-Diff，其包括一个具有U-Net架构的条件散布模型，以及一个简单的增强模块，以实现高品质的骨抑制。</li>
+<li>results: 实验结果显示，BS-Diff比以往的抑制模型在多个指标上表现更好，并且能够更好地捕捉肺部疾病的细微特征。<details>
+<summary>Abstract</summary>
+Chest X-rays (CXRs) are commonly utilized as a low-dose modality for lung screening. Nonetheless, the efficacy of CXRs is somewhat impeded, given that approximately 75% of the lung area overlaps with bone, which in turn hampers the detection and diagnosis of diseases. As a remedial measure, bone suppression techniques have been introduced. The current dual-energy subtraction imaging technique in the clinic requires costly equipment and subjects being exposed to high radiation. To circumvent these issues, deep learning-based image generation algorithms have been proposed. However, existing methods fall short in terms of producing high-quality images and capturing texture details, particularly with pulmonary vessels. To address these issues, this paper proposes a new bone suppression framework, termed BS-Diff, that comprises a conditional diffusion model equipped with a U-Net architecture and a simple enhancement module to incorporate an autoencoder. Our proposed network cannot only generate soft tissue images with a high bone suppression rate but also possesses the capability to capture fine image details. Additionally, we compiled the largest dataset since 2010, including data from 120 patients with high-definition, high-resolution paired CXRs and soft tissue images collected by our affiliated hospital. Extensive experiments, comparative analyses, ablation studies, and clinical evaluations indicate that the proposed BS-Diff outperforms several bone-suppression models across multiple metrics.
+</details>
+<details>
+<summary>摘要</summary>
+胸部X射像（CXR）是一种常用的低剂量成像模式，但它们的效果有所受限，因为肺部约75%的区域与骨部重叠，从而降低了疾病检测和诊断的效果。为了解决这些问题，骨部抑制技术已经被引入。现有的双能量减少成像技术在临床中使用了昂贵的设备和高剂量辐射。为了绕过这些问题，这篇论文提出了一种新的骨部抑制框架，称之为BS-Diff。该框架包括一个条件扩散模型和一个U-Net架构，以及一个简单的优化模块来吸收自动encoder。我们的提议的网络不仅可以生成高骨部抑制率的软组织图像，而且具有捕捉细节图像的能力。此外，我们编辑了自2010年以来最大的数据集，包括120名患者的高分辨率、高分辨率的对应CXR和软组织图像，收集自我们的附属医院。我们进行了广泛的实验、比较分析、剖析研究和临床评估，结果表明，我们的BS-Diff在多个纪录中超过了多种骨部抑制模型。
+</details></li>
+</ul>
+<hr>
+<h2 id="BadCLIP-Trigger-Aware-Prompt-Learning-for-Backdoor-Attacks-on-CLIP"><a href="#BadCLIP-Trigger-Aware-Prompt-Learning-for-Backdoor-Attacks-on-CLIP" class="headerlink" title="BadCLIP: Trigger-Aware Prompt Learning for Backdoor Attacks on CLIP"></a>BadCLIP: Trigger-Aware Prompt Learning for Backdoor Attacks on CLIP</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.16194">http://arxiv.org/abs/2311.16194</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jiawang Bai, Kuofeng Gao, Shaobo Min, Shu-Tao Xia, Zhifeng Li, Wei Liu</li>
+<li>for: 增强图像识别任务的下游性能，例如CLIP模型。</li>
+<li>methods: 利用learnable prompts技术在CLIP模型中植入后门。</li>
+<li>results: 成功率高于99%，可以在不同的数据集和频谱上进行攻击。<details>
+<summary>Abstract</summary>
+Contrastive Vision-Language Pre-training, known as CLIP, has shown promising effectiveness in addressing downstream image recognition tasks. However, recent works revealed that the CLIP model can be implanted with a downstream-oriented backdoor. On downstream tasks, one victim model performs well on clean samples but predicts a specific target class whenever a specific trigger is present. For injecting a backdoor, existing attacks depend on a large amount of additional data to maliciously fine-tune the entire pre-trained CLIP model, which makes them inapplicable to data-limited scenarios. In this work, motivated by the recent success of learnable prompts, we address this problem by injecting a backdoor into the CLIP model in the prompt learning stage. Our method named BadCLIP is built on a novel and effective mechanism in backdoor attacks on CLIP, i.e., influencing both the image and text encoders with the trigger. It consists of a learnable trigger applied to images and a trigger-aware context generator, such that the trigger can change text features via trigger-aware prompts, resulting in a powerful and generalizable attack. Extensive experiments conducted on 11 datasets verify that the clean accuracy of BadCLIP is similar to those of advanced prompt learning methods and the attack success rate is higher than 99% in most cases. BadCLIP is also generalizable to unseen classes, and shows a strong generalization capability under cross-dataset and cross-domain settings.
+</details>
+<details>
+<summary>摘要</summary>
+具有可Implanting下游 oriented backdoor的 Contrastive Vision-Language Pre-training（CLIP）已经在下游图像识别任务中表现出了扎实的效果。然而，最近的研究发现，CLIP模型可以被植入一个特定的下游任务oriented backdoor。在下游任务上，一个受害者模型在干净样本上表现良好，但是在特定的触发器存在时，它会预测特定的目标类。现有的攻击都需要大量的额外数据来恶意 fine-tune 整个预训练CLIP模型，这使得它们在数据有限的情况下不可用。在这种情况下，我们被动地采用了learnable prompts的最近成功，并在prompt学习阶段植入了backdoor到CLIP模型中。我们的方法名为BadCLIP，它基于在CLIP模型中植入backdoor的新和有效机制，即通过触发器影响图像和文本编码器。BadCLIP包含一个可学习的触发器，用于图像，以及一个触发器意识的上下文生成器，以至于触发器可以通过触发器意识的提问改变文本特征，从而导致一种强大和通用的攻击。我们在11个数据集上进行了广泛的实验，并证明了BadCLIP的干净精度与先进的提问学习方法相当，并且攻击成功率大于99%。BadCLIP还能够通过cross-dataset和cross-domain设置来 generalized 到未看过类和不同的数据集。
+</details></li>
+</ul>
+<hr>
+<h2 id="AV-Deepfake1M-A-Large-Scale-LLM-Driven-Audio-Visual-Deepfake-Dataset"><a href="#AV-Deepfake1M-A-Large-Scale-LLM-Driven-Audio-Visual-Deepfake-Dataset" class="headerlink" title="AV-Deepfake1M: A Large-Scale LLM-Driven Audio-Visual Deepfake Dataset"></a>AV-Deepfake1M: A Large-Scale LLM-Driven Audio-Visual Deepfake Dataset</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15308">http://arxiv.org/abs/2311.15308</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/controlnet/av-deepfake1m">https://github.com/controlnet/av-deepfake1m</a></li>
+<li>paper_authors: Zhixi Cai, Shreya Ghosh, Aman Pankaj Adatia, Munawar Hayat, Abhinav Dhall, Kalin Stefanov</li>
+<li>for: 本研究旨在提供一个大规模的深伪视频内容生成和检测数据集，以便提高深伪检测和地址化技术的性能。</li>
+<li>methods: 该研究使用了一种基于内容的生成策略，通过混合视频和音频杂音来生成深伪视频内容。</li>
+<li>results: 对于已有的深伪检测和地址化方法，对于该数据集进行了严格的测试，并得到了较低的性能表现，表明该数据集可以帮助建立下一代的深伪地址化方法。Here’s the translation in English:</li>
+<li>for: The purpose of this research is to provide a large-scale deepfake audio-visual content generation and detection dataset to improve the performance of deepfake detection and localization technologies.</li>
+<li>methods: The research uses a content-driven generation strategy that combines video and audio manipulations to generate realistic deepfake audio-visual content.</li>
+<li>results: The proposed dataset was tested using existing deepfake detection and localization methods, and the results show a significant drop in performance, indicating that the dataset can help build next-generation deepfake localization methods.<details>
+<summary>Abstract</summary>
+The detection and localization of highly realistic deepfake audio-visual content are challenging even for the most advanced state-of-the-art methods. While most of the research efforts in this domain are focused on detecting high-quality deepfake images and videos, only a few works address the problem of the localization of small segments of audio-visual manipulations embedded in real videos. In this research, we emulate the process of such content generation and propose the AV-Deepfake1M dataset. The dataset contains content-driven (i) video manipulations, (ii) audio manipulations, and (iii) audio-visual manipulations for more than 2K subjects resulting in a total of more than 1M videos. The paper provides a thorough description of the proposed data generation pipeline accompanied by a rigorous analysis of the quality of the generated data. The comprehensive benchmark of the proposed dataset utilizing state-of-the-art deepfake detection and localization methods indicates a significant drop in performance compared to previous datasets. The proposed dataset will play a vital role in building the next-generation deepfake localization methods. The dataset and associated code are available at https://github.com/ControlNet/AV-Deepfake1M .
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>转换文本到简化中文。<</SYS>>探测和特定深圳潜在伪造音视频内容是复杂的，即使使用最先进的方法也有困难。大多数研究努力在这个领域都是针对高品质深圳图像和视频进行探测，只有一些研究专注于实际录影内容中的小段音频修改的位置探测。在这个研究中，我们模拟了内容生成过程，并提出了AV-Deepfake1M数据集。这个数据集包含了内容驱动的（一）视频修改、（二）音频修改和（三）音视修改，共有超过2K名主题，总共超过100万个视频。文章提供了生成数据的详细描述，以及使用现有的深圳探测和定位方法进行严格的分析。基于这个数据集，我们进行了完整的实验，结果显示了与先前的数据集相比，深圳探测和定位方法的性能有明显下降。我们提出的数据集将会在建立下一代深圳定位方法方面扮演重要的角色。数据集和相关的代码可以在 GitHub 上获取：https://github.com/ControlNet/AV-Deepfake1M。
+</details></li>
+</ul>
+<hr>
+<h2 id="Sketch-Video-Synthesis"><a href="#Sketch-Video-Synthesis" class="headerlink" title="Sketch Video Synthesis"></a>Sketch Video Synthesis</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15306">http://arxiv.org/abs/2311.15306</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/yudianzheng/sketchvideo">https://github.com/yudianzheng/sketchvideo</a></li>
+<li>paper_authors: Yudian Zheng, Xiaodong Cun, Menghan Xia, Chi-Man Pun</li>
+<li>for: 这个研究是为了生成类似于画作的动画绘制，以提高动画的抽象和时间一致性。</li>
+<li>methods: 本研究使用了一个新的优化基准框架，包括跨帧画线初始化方法和基于 CLIP 特征的 semantics 损失，以及一个新的自相似 2D 图集网络的一致损失。</li>
+<li>results: 本研究的结果显示了具有优秀的视觉抽象和时间一致性的画制动画，并且可以实现类似于画作的动画编辑和游戏。<details>
+<summary>Abstract</summary>
+Understanding semantic intricacies and high-level concepts is essential in image sketch generation, and this challenge becomes even more formidable when applied to the domain of videos. To address this, we propose a novel optimization-based framework for sketching videos represented by the frame-wise B\'ezier curve. In detail, we first propose a cross-frame stroke initialization approach to warm up the location and the width of each curve. Then, we optimize the locations of these curves by utilizing a semantic loss based on CLIP features and a newly designed consistency loss using the self-decomposed 2D atlas network. Built upon these design elements, the resulting sketch video showcases impressive visual abstraction and temporal coherence. Furthermore, by transforming a video into SVG lines through the sketching process, our method unlocks applications in sketch-based video editing and video doodling, enabled through video composition, as exemplified in the teaser.
+</details>
+<details>
+<summary>摘要</summary>
+<SYS><translation>理解 semantic 细节和高级概念是视频绘制中的关键，而在视频 domain 中，这种挑战变得更加困难。为解决这个问题，我们提出了一种基于优化的框架，用于绘制 represented by frame-wise B\'ezier 曲线的视频绘制。在详细的实现方式中，我们首先提出了跨帧roke 初始化方法，以温身位置和宽度的 curve。然后，我们使用基于 CLIP 特征的 semantic 损失和自定义设计的 consistency 损失来优化这些曲线的位置。通过这些设计元素，我们得到了具有吸引人的视觉抽象和时间准确性的结果。此外，通过将视频转换为 SVG 线条，我们的方法打开了基于绘制的视频编辑和视频涂鸦的应用，例如视频组合，如例子所示。</translation></SYS>Note: "clip" in the text refers to the Contrastive Language-Image Pre-training (CLIP) model, which is a popular deep learning model used for image and video analysis.
+</details></li>
+</ul>
+<hr>
+<h2 id="Eye-Disease-Prediction-using-Ensemble-Learning-and-Attention-on-OCT-Scans"><a href="#Eye-Disease-Prediction-using-Ensemble-Learning-and-Attention-on-OCT-Scans" class="headerlink" title="Eye Disease Prediction using Ensemble Learning and Attention on OCT Scans"></a>Eye Disease Prediction using Ensemble Learning and Attention on OCT Scans</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15301">http://arxiv.org/abs/2311.15301</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Gauri Naik, Nandini Narvekar, Dimple Agarwal, Nishita Nandanwar, Himangi Pande</li>
+<li>for: 提高眼病检测和诊断效率，帮助早期发现和及时 intervene。</li>
+<li>methods: 使用机器学习和深度学习算法，并与Optical Coherent Technology（OCT）成像结合，开发了一种高效的眼病检测方法。</li>
+<li>results: 实现了眼病检测的高精度预测，并且对多种眼病（如choroidal neovascularization、diabetic macular edema和druzen）进行了分类。<details>
+<summary>Abstract</summary>
+Eye diseases have posed significant challenges for decades, but advancements in technology have opened new avenues for their detection and treatment. Machine learning and deep learning algorithms have become instrumental in this domain, particularly when combined with Optical Coherent Technology (OCT) imaging. We propose a novel method for efficient detection of eye diseases from OCT images. Our technique enables the classification of patients into disease free (normal eyes) or affected by specific conditions such as Choroidal Neovascularization (CNV), Diabetic Macular Edema (DME), or Drusen. In this work, we introduce an end to end web application that utilizes machine learning and deep learning techniques for efficient eye disease prediction. The application allows patients to submit their raw OCT scanned images, which undergo segmentation using a trained custom UNet model. The segmented images are then fed into an ensemble model, comprising InceptionV3 and Xception networks, enhanced with a self attention layer. This self attention approach leverages the feature maps of individual models to achieve improved classification accuracy. The ensemble model's output is aggregated to predict and classify various eye diseases. Extensive experimentation and optimization have been conducted to ensure the application's efficiency and optimal performance. Our results demonstrate the effectiveness of the proposed approach in accurate eye disease prediction. The developed web application holds significant potential for early detection and timely intervention, thereby contributing to improved eye healthcare outcomes.
+</details>
+<details>
+<summary>摘要</summary>
+眼疾病已经对社会造成了长期的挑战，但是技术的进步已经开启了新的检测和治疗途径。机器学习和深度学习算法在这个领域特别有用，尤其是与光学同步技术（OCT）成像结合使用。我们提出了一种高效的眼疾病检测方法，可以将患者分为正常眼（健康眼）和受到特定疾病的影响（如choroidal neovascularization（CNV）、diabetic macular edema（DME）或druzen）。在这项工作中，我们开发了一个简洁的Web应用程序，使用机器学习和深度学习技术进行眼疾病预测。用户可以将自己的raw OCT扫描图像上传到应用程序中，并使用自定义的U-Net模型进行分 segmentation。分 segmentation后，图像将被传递给一个集成模型，包括InceptionV3和Xception网络，并添加了一个自注意层。这个自注意层可以使用不同网络的特征图来实现更好的分类精度。集成模型的输出将被聚合来预测和分类不同的眼疾病。我们进行了广泛的实验和优化，以确保应用程序的效率和最佳性能。我们的结果表明，我们提出的方法可以高效地预测眼疾病。开发的Web应用程序具有 significannot potential for early detection和及时 intervención，从而为眼保健带来改善的结果。
+</details></li>
+</ul>
+<hr>
+<h2 id="Obj-NeRF-Extract-Object-NeRFs-from-Multi-view-Images"><a href="#Obj-NeRF-Extract-Object-NeRFs-from-Multi-view-Images" class="headerlink" title="Obj-NeRF: Extract Object NeRFs from Multi-view Images"></a>Obj-NeRF: Extract Object NeRFs from Multi-view Images</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15291">http://arxiv.org/abs/2311.15291</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Zhiyi Li, Lihe Ding, Tianfan Xue</li>
+<li>for: 本文提出了一种解决基于多视图图像的NeRF（Neural Radiance Fields）中EXTRACTING一个特定对象的颜色场的问题，以便在下游应用中进行NeRF编辑和3D网格提取。</li>
+<li>methods: 本文提出了一种 combiningSegment Anything Model（SAM）和NeRF的全面管道，使得通过单个提示可以从多视图图像中提取出3D对象的几何结构。具体来说，首先通过SAM在多视图图像中获得对象的多视图分割，然后使用分割图像来监督NeRF的建构，并应用了一些有效的技巧。</li>
+<li>results: 本文 constructed一个大量的对象级NeRF数据集，其中包含了多种对象，可以用于多种下游任务。此外，本文还应用了Obj-NeRF在不同应用中，包括对象移除、旋转、替换和重新颜色等。<details>
+<summary>Abstract</summary>
+Neural Radiance Fields (NeRFs) have demonstrated remarkable effectiveness in novel view synthesis within 3D environments. However, extracting a radiance field of one specific object from multi-view images encounters substantial challenges due to occlusion and background complexity, thereby presenting difficulties in downstream applications such as NeRF editing and 3D mesh extraction. To solve this problem, in this paper, we propose Obj-NeRF, a comprehensive pipeline that recovers the 3D geometry of a specific object from multi-view images using a single prompt. This method combines the 2D segmentation capabilities of the Segment Anything Model (SAM) in conjunction with the 3D reconstruction ability of NeRF. Specifically, we first obtain multi-view segmentation for the indicated object using SAM with a single prompt. Then, we use the segmentation images to supervise NeRF construction, integrating several effective techniques. Additionally, we construct a large object-level NeRF dataset containing diverse objects, which can be useful in various downstream tasks. To demonstrate the practicality of our method, we also apply Obj-NeRF to various applications, including object removal, rotation, replacement, and recoloring.
+</details>
+<details>
+<summary>摘要</summary>
+神经辐射场（NeRF）已经在3D环境中展现出了非常出色的效果。然而，从多视图图像中提取一个特定物体的辐射场受到遮挡和背景复杂性的限制，从而对下游应用 such as NeRF编辑和3D网格提取带来了困难。为解决这个问题，在这篇论文中，我们提出了Obj-NeRF，一个完整的管道，可以从多视图图像中提取一个特定物体的3D几何结构。这种方法结合了2D分割能力的Segment Anything Model（SAM）和NeRF的3D重建能力。具体来说，我们首先使用SAM在多视图图像中提取指定的物体的多视图分割。然后，我们使用分割图像来监督NeRF的构建，并结合了一些有效的技术。此外，我们还构建了包含多种物体的大型物体级NeRF数据集，这可以在多种下游任务中被利用。为证明我们的方法的实用性，我们还应用了Obj-NeRF于多种应用，包括物体除除、旋转、替换和重新颜色。
+</details></li>
+</ul>
+<hr>
+<h2 id="Efficient-Rehearsal-Free-Zero-Forgetting-Continual-Learning-using-Adaptive-Weight-Modulation"><a href="#Efficient-Rehearsal-Free-Zero-Forgetting-Continual-Learning-using-Adaptive-Weight-Modulation" class="headerlink" title="Efficient Rehearsal Free Zero Forgetting Continual Learning using Adaptive Weight Modulation"></a>Efficient Rehearsal Free Zero Forgetting Continual Learning using Adaptive Weight Modulation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15276">http://arxiv.org/abs/2311.15276</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yonatan Sverdlov, Shimon Ullman</li>
+<li>for: 这个研究旨在解决人工神经网络在长期学习多个任务时所遇到的挑战，即“连续学习”，以及该过程中学习的问题。</li>
+<li>methods: 本研究使用了一种专门设计的任务特有的调整参数，将每个任务的学习结果分类为两类：一是不会忘记前一个任务的学习结果，二是会忘记前一个任务的学习结果。</li>
+<li>results: 研究发现，使用专门设计的任务特有的调整参数可以实现预 Ventures 的连续学习，并且在获得新任务时，不会忘记之前的任务。此外，研究还发现，这种方法可以在多个任务之间进行协调，以提高总的学习效果。<details>
+<summary>Abstract</summary>
+Artificial neural networks encounter a notable challenge known as continual learning, which involves acquiring knowledge of multiple tasks over an extended period. This challenge arises due to the tendency of previously learned weights to be adjusted to suit the objectives of new tasks, resulting in a phenomenon called catastrophic forgetting. Most approaches to this problem seek a balance between maximizing performance on the new tasks and minimizing the forgetting of previous tasks. In contrast, our approach attempts to maximize the performance of the new task, while ensuring zero forgetting. This is accomplished by creating a task-specific modulation parameters for each task. Only these would be learnable parameters during learning of consecutive tasks. Through comprehensive experimental evaluations, our model demonstrates superior performance in acquiring and retaining novel tasks that pose difficulties for other multi-task models. This emphasizes the efficacy of our approach in preventing catastrophic forgetting while accommodating the acquisition of new tasks
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="An-Intelligent-Detection-Network-for-Handwritten-Mathematical-Expression-Recognition"><a href="#An-Intelligent-Detection-Network-for-Handwritten-Mathematical-Expression-Recognition" class="headerlink" title="An Intelligent-Detection Network for Handwritten Mathematical Expression Recognition"></a>An Intelligent-Detection Network for Handwritten Mathematical Expression Recognition</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15273">http://arxiv.org/abs/2311.15273</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Ziqi Ye</li>
+<li>for: 本研究旨在提高手写数学表达识别精度，提供更高精度的手写数学表达识别方法。</li>
+<li>methods: 本研究使用物体检测技术，开发了增强的YOLOv7网络，可准确检测数字和符号对象。然后，通过笔直流网络和基线符号关系树（BSRT），确定符号和数字之间的关系。</li>
+<li>results: 实验结果表明，提出的方法在识别复杂手写数学表达方面比传统编码器-解码器网络高精度。这是因为物体检测技术可以准确检测符号和数字。这些研究结果有望在各种实际应用中提供价值，如学生作业评分和纸质文档信息入库。<details>
+<summary>Abstract</summary>
+The use of artificial intelligence technology in education is growing rapidly, with increasing attention being paid to handwritten mathematical expression recognition (HMER) by researchers. However, many existing methods for HMER may fail to accurately read formulas with complex structures, as the attention results can be inaccurate due to illegible handwriting or large variations in writing styles. Our proposed Intelligent-Detection Network (IDN) for HMER differs from traditional encoder-decoder methods by utilizing object detection techniques. Specifically, we have developed an enhanced YOLOv7 network that can accurately detect both digital and symbolic objects. The detection results are then integrated into the bidirectional gated recurrent unit (BiGRU) and the baseline symbol relationship tree (BSRT) to determine the relationships between symbols and numbers. The experiments demonstrate that the proposed method outperforms those encoder-decoder networks in recognizing complex handwritten mathematical expressions. This is due to the precise detection of symbols and numbers. Our research has the potential to make valuable contributions to the field of HMER. This could be applied in various practical scenarios, such as assignment grading in schools and information entry of paper documents.
+</details>
+<details>
+<summary>摘要</summary>
+使用人工智能技术在教育领域的应用正在迅速增长，研究人员对手写数学表达识别（HMER）的关注也在不断增加。然而，现有的HMER方法可能无法准确识别复杂结构的方程，因为注意结果可能因为难读或写作风格差异而不准确。我们提出的智能检测网络（IDN）对HMER differ from traditional encoder-decoder方法，通过使用对象检测技术。具体来说，我们开发了一个改进的YOLOv7网络，可以准确检测数字和符号对象。检测结果然后被集成到双向导引回征unit（BiGRU）和基础符号关系树（BSRT）中，以确定符号和数字之间的关系。实验结果表明，我们提出的方法在识别复杂手写数学表达方面高效。这是因为准确检测符号和数字。我们的研究有可能对HMER领域产生重要贡献。这可以应用于学校作业评分和纸质文档信息入库等实际场景。
+</details></li>
+</ul>
+<hr>
+<h2 id="ChAda-ViT-Channel-Adaptive-Attention-for-Joint-Representation-Learning-of-Heterogeneous-Microscopy-Images"><a href="#ChAda-ViT-Channel-Adaptive-Attention-for-Joint-Representation-Learning-of-Heterogeneous-Microscopy-Images" class="headerlink" title="ChAda-ViT : Channel Adaptive Attention for Joint Representation Learning of Heterogeneous Microscopy Images"></a>ChAda-ViT : Channel Adaptive Attention for Joint Representation Learning of Heterogeneous Microscopy Images</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15264">http://arxiv.org/abs/2311.15264</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Nicolas Bourriez, Ihab Bendidi, Ethan Cohen, Gabriel Watkinson, Maxime Sanchez, Guillaume Bollot, Auguste Genovesio</li>
+<li>for: 这个论文主要针对的是生物图像分析领域中的图像模式识别和下游任务问题，具体来说是处理具有不同渠道、数量和类型的生物图像。</li>
+<li>methods: 该论文提出了一种 Channel Adaptive Vision Transformer 架构，并在其中引入了 между渠道注意 Mechanism，以适应生物图像中的多渠道、多类型和多数据种情况。</li>
+<li>results: 该论文通过自然地自监学习方式训练 Channel Adaptive Vision Transformer 架构，并在多个生物图像分析任务上达到了比较好的效果，同时可以帮助 bridge 不同的探针、渠道数量或类型之间的 gap。<details>
+<summary>Abstract</summary>
+Unlike color photography images, which are consistently encoded into RGB channels, biological images encompass various modalities, where the type of microscopy and the meaning of each channel varies with each experiment. Importantly, the number of channels can range from one to a dozen and their correlation is often comparatively much lower than RGB, as each of them brings specific information content. This aspect is largely overlooked by methods designed out of the bioimage field, and current solutions mostly focus on intra-channel spatial attention, often ignoring the relationship between channels, yet crucial in most biological applications. Importantly, the variable channel type and count prevent the projection of several experiments to a unified representation for large scale pre-training. In this study, we propose ChAda-ViT, a novel Channel Adaptive Vision Transformer architecture employing an Inter-Channel Attention mechanism on images with an arbitrary number, order and type of channels. We also introduce IDRCell100k, a bioimage dataset with a rich set of 79 experiments covering 7 microscope modalities, with a multitude of channel types, and channel counts varying from 1 to 10 per experiment. Our proposed architecture, trained in a self-supervised manner, outperforms existing approaches in several biologically relevant downstream tasks. Additionally, it can be used to bridge the gap for the first time between assays with different microscopes, channel numbers or types by embedding various image and experimental modalities into a unified biological image representation. The latter should facilitate interdisciplinary studies and pave the way for better adoption of deep learning in biological image-based analyses. Code and Data to be released soon.
+</details>
+<details>
+<summary>摘要</summary>
+不同于颜色摄影图像，生物图像包括多种模式，其中每个渠道的类型和意义因每个实验而异，并且渠道的数量可以从一到十二。此外，渠道之间的相关性通常较低，每个渠道都带来特定的信息内容。这一点在生物图像处理领域中一般被忽略，现有方法通常只关注每个渠道的空间注意力，忽略渠道之间的关系，尤其在生物应用中关键。此外，变量的渠道类型和数量使得将多个实验 projet到统一的表示方法上进行大规模预训练是困难的。在本研究中，我们提出了Channel Adaptive Vision Transformer架构（ChAda-ViT），该架构使用 между渠道注意力机制来处理具有不同数量、顺序和类型的渠道的图像。我们还提出了IDRCell100k生物图像集，该集包括79个实验，每个实验包括7种微镜Modalities，多种渠道类型和渠道数量变化在1-10之间。我们的提posed架构通过自助学习方式训练，在多种生物相关下游任务中表现出色。此外，它可以 bridging the gap between不同的微镜、渠道数量或类型的实验，将不同的图像和实验模式embedding into a unified biological image representation。这将促进跨学科研究并为生物图像基于分析领域 deeper learning的应用做出了大开口。代码和数据将即将发布。
+</details></li>
+</ul>
+<hr>
+<h2 id="Revealing-Cortical-Layers-In-Histological-Brain-Images-With-Self-Supervised-Graph-Convolutional-Networks-Applied-To-Cell-Graphs"><a href="#Revealing-Cortical-Layers-In-Histological-Brain-Images-With-Self-Supervised-Graph-Convolutional-Networks-Applied-To-Cell-Graphs" class="headerlink" title="Revealing Cortical Layers In Histological Brain Images With Self-Supervised Graph Convolutional Networks Applied To Cell-Graphs"></a>Revealing Cortical Layers In Histological Brain Images With Self-Supervised Graph Convolutional Networks Applied To Cell-Graphs</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15262">http://arxiv.org/abs/2311.15262</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Valentina Vadori, Antonella Peruffo, Jean-Marie Graïc, Giulia Vadori, Livio Finos, Enrico Grisan</li>
+<li>For: 用于提高 Comparative studies of cerebral cortex cytoarchitecture, 以便了解脑结构和功能之间的关系 across species.* Methods: 使用自动学习方法，首先 segmentation of individual cells, 然后创建一个 attributed cell-graph，最后使用自我超vised graph convolutional network 生成细胞特征，并使用社区探测算法 для最终层分.* Results: 可以快速和无需注释数据，自动检测细胞层，提高了 Comparative studies of cerebral cortex cytoarchitecture, 并可以促进跨种研究.<details>
+<summary>Abstract</summary>
+Identifying cerebral cortex layers is crucial for comparative studies of the cytoarchitecture aiming at providing insights into the relations between brain structure and function across species. The absence of extensive annotated datasets typically limits the adoption of machine learning approaches, leading to the manual delineation of cortical layers by neuroanatomists. We introduce a self-supervised approach to detect layers in 2D Nissl-stained histological slices of the cerebral cortex. It starts with the segmentation of individual cells and the creation of an attributed cell-graph. A self-supervised graph convolutional network generates cell embeddings that encode morphological and structural traits of the cellular environment and are exploited by a community detection algorithm for the final layering. Our method, the first self-supervised of its kind with no spatial transcriptomics data involved, holds the potential to accelerate cytoarchitecture analyses, sidestepping annotation needs and advancing cross-species investigation.
+</details>
+<details>
+<summary>摘要</summary>
+描述大脑皮层是重要的 для比较研究，以获得脑结构和功能之间的关系。然而，由于缺乏充分的标注数据，通常会使得机器学习方法的应用受限。我们提出了一种自动化的方法，通过自我超视的方式检测皮层。这个方法首先对射电图像中的单个细胞进行分割，然后生成一个归属细胞图。一个基于自我超视的图像conv网络生成细胞特征，这些特征捕捉细胞环境的形态和结构特征，并将其用于社区探测算法进行最终层分。我们的方法是首个不需要空间脑层数据的自动化方法，它可能会加速皮层分析，绕过标注需求，并推动跨物种研究。
+</details></li>
+</ul>
+<hr>
+<h2 id="NeuRAD-Neural-Rendering-for-Autonomous-Driving"><a href="#NeuRAD-Neural-Rendering-for-Autonomous-Driving" class="headerlink" title="NeuRAD: Neural Rendering for Autonomous Driving"></a>NeuRAD: Neural Rendering for Autonomous Driving</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15260">http://arxiv.org/abs/2311.15260</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/georghess/neurad">https://github.com/georghess/neurad</a></li>
+<li>paper_authors: Adam Tonderski, Carl Lindström, Georg Hess, William Ljungbergh, Lennart Svensson, Christoffer Petersson</li>
+<li>for: 这篇论文主要是为了解决自动驾驶领域中的神经辐射场（NeRFs）问题，提高NeRFs的应用率和可扩展性。</li>
+<li>methods: 该论文提出了一种名为NeuRAD的新型视角合成方法，该方法采用简单的网络设计，全面模拟摄像头和激光仪的传感器，并适用于多个数据集。</li>
+<li>results: 论文通过对五个流行的自动驾驶数据集进行测试，得到了最佳性能。同时，作者还公开发布了NeuRAD的源代码，以便进一步的研发和应用。<details>
+<summary>Abstract</summary>
+Neural radiance fields (NeRFs) have gained popularity in the autonomous driving (AD) community. Recent methods show NeRFs' potential for closed-loop simulation, enabling testing of AD systems, and as an advanced training data augmentation technique. However, existing methods often require long training times, dense semantic supervision, or lack generalizability. This, in turn, hinders the application of NeRFs for AD at scale. In this paper, we propose NeuRAD, a robust novel view synthesis method tailored to dynamic AD data. Our method features simple network design, extensive sensor modeling for both camera and lidar -- including rolling shutter, beam divergence and ray dropping -- and is applicable to multiple datasets out of the box. We verify its performance on five popular AD datasets, achieving state-of-the-art performance across the board. To encourage further development, we openly release the NeuRAD source code. See https://github.com/georghess/NeuRAD .
+</details>
+<details>
+<summary>摘要</summary>
+In this paper, we propose NeuRAD, a robust novel view synthesis method tailored to dynamic AD data. Our method features a simple network design, extensive sensor modeling for both camera and lidar, including rolling shutter, beam divergence, and ray dropping, and is applicable to multiple datasets out of the box. We verify its performance on five popular AD datasets, achieving state-of-the-art performance across the board. To encourage further development, we openly release the NeuRAD source code. See <https://github.com/georghess/NeuRAD>.
+</details></li>
+</ul>
+<hr>
+<h2 id="Generating-Human-Centric-Visual-Cues-for-Human-Object-Interaction-Detection-via-Large-Vision-Language-Models"><a href="#Generating-Human-Centric-Visual-Cues-for-Human-Object-Interaction-Detection-via-Large-Vision-Language-Models" class="headerlink" title="Generating Human-Centric Visual Cues for Human-Object Interaction Detection via Large Vision-Language Models"></a>Generating Human-Centric Visual Cues for Human-Object Interaction Detection via Large Vision-Language Models</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.16475">http://arxiv.org/abs/2311.16475</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yu-Wei Zhan, Fan Liu, Xin Luo, Liqiang Nie, Xin-Shun Xu, Mohan Kankanhalli</li>
+<li>for: 本研究旨在提高人机交互探测的精度，通过生成多个视角的人Centric Visual Cues来帮助预测人机交互。</li>
+<li>methods: 本文提议使用Visual Language Model（VLM）生成多个视角的人Centric Visual Cues，并通过多塔 architecture的 transformer 模块将视觉缘点特征与实体和交互解码器结合。</li>
+<li>results: 实验结果表明，基于生成的人Centric Visual Cues的方法在两个广泛使用的数据集上表现出色，与现有的状态对照方法相比有所提高。<details>
+<summary>Abstract</summary>
+Human-object interaction (HOI) detection aims at detecting human-object pairs and predicting their interactions. However, the complexity of human behavior and the diverse contexts in which these interactions occur make it challenging. Intuitively, human-centric visual cues, such as the involved participants, the body language, and the surrounding environment, play crucial roles in shaping these interactions. These cues are particularly vital in interpreting unseen interactions. In this paper, we propose three prompts with VLM to generate human-centric visual cues within an image from multiple perspectives of humans. To capitalize on these rich Human-Centric Visual Cues, we propose a novel approach named HCVC for HOI detection. Particularly, we develop a transformer-based multimodal fusion module with multitower architecture to integrate visual cue features into the instance and interaction decoders. Our extensive experiments and analysis validate the efficacy of leveraging the generated human-centric visual cues for HOI detection. Notably, the experimental results indicate the superiority of the proposed model over the existing state-of-the-art methods on two widely used datasets.
+</details>
+<details>
+<summary>摘要</summary>
+人机交互检测（HOI）的目标是检测人机对象对的存在和预测他们之间的交互。然而，人类行为的复杂性和交互场景的多样性使得这个任务变得困难。人类中心的视觉特征，如参与者、姿势和周围环境，在解释这些交互中扮演关键角色。这些特征特别重要在解释未看到的交互中。在这篇论文中，我们提出了三个提示与VLM生成多个人中心视觉特征的方法。为了利用这些丰富的人类中心视觉特征，我们提出了一种名为HCVC的新方法。特别是，我们开发了一种基于转换器的多模式融合模块，将视觉特征纳入实例和交互解码器中。我们的广泛的实验和分析证明了利用生成的人类中心视觉特征对HOI检测的有效性。尤其是，实验结果表明我们提出的模型在两个广泛使用的数据集上与现有的状态对方法相比具有优势。
+</details></li>
+</ul>
+<hr>
+<h2 id="CalibFormer-A-Transformer-based-Automatic-LiDAR-Camera-Calibration-Network"><a href="#CalibFormer-A-Transformer-based-Automatic-LiDAR-Camera-Calibration-Network" class="headerlink" title="CalibFormer: A Transformer-based Automatic LiDAR-Camera Calibration Network"></a>CalibFormer: A Transformer-based Automatic LiDAR-Camera Calibration Network</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15241">http://arxiv.org/abs/2311.15241</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yuxuan Xiao, Yao Li, Chengzhen Meng, Xingchen Li, Yanyong Zhang</li>
+<li>for: 本研究旨在提出一种自适应LiDAR-camera协调方法，以解决探测器协调问题中的准确性和可靠性问题。</li>
+<li>methods: 我们提出了一种名为CalibFormer的终端网络，该网络可以自动将LiDAR和摄像头图像特征进行协调，并使用多头相关模块和变换器架构来估算准确的协调参数。</li>
+<li>results: 我们在KITTI数据集上测试了我们的方法，并获得了0.8751cm的平均翻译错误和0.0562度的平均旋转错误，超过了现有状态的方法，表明我们的方法具有强大的稳定性、准确性和泛化能力。<details>
+<summary>Abstract</summary>
+The fusion of LiDARs and cameras has been increasingly adopted in autonomous driving for perception tasks. The performance of such fusion-based algorithms largely depends on the accuracy of sensor calibration, which is challenging due to the difficulty of identifying common features across different data modalities. Previously, many calibration methods involved specific targets and/or manual intervention, which has proven to be cumbersome and costly. Learning-based online calibration methods have been proposed, but their performance is barely satisfactory in most cases. These methods usually suffer from issues such as sparse feature maps, unreliable cross-modality association, inaccurate calibration parameter regression, etc. In this paper, to address these issues, we propose CalibFormer, an end-to-end network for automatic LiDAR-camera calibration. We aggregate multiple layers of camera and LiDAR image features to achieve high-resolution representations. A multi-head correlation module is utilized to identify correlations between features more accurately. Lastly, we employ transformer architectures to estimate accurate calibration parameters from the correlation information. Our method achieved a mean translation error of $0.8751 \mathrm{cm}$ and a mean rotation error of $0.0562 ^{\circ}$ on the KITTI dataset, surpassing existing state-of-the-art methods and demonstrating strong robustness, accuracy, and generalization capabilities.
+</details>
+<details>
+<summary>摘要</summary>
+“激光探测器和摄像头的融合在自动驾驶中用于感知任务越来越普遍。这种融合算法的性能很大程度上取决于探测器和摄像头的敏感器准确性，但是这是一项具有挑战性的任务，因为寻找不同数据模式之间的共同特征是困难的。过去，许多准确性方法都需要特定的目标和/或人工干预，这些方法一般是费时费力的。在线学习基于准确性方法也有很多问题，如稀疏特征地图、不可靠的跨模态相关性、不准确的准确参数回归等。在这篇论文中，我们提出了CalibFormer，一种完整的端到端网络用于自动激光探测器和摄像头准确性排序。我们将多层camera和激光图像特征聚合到高分辨率表示中，并使用多头相关模块来更准确地识别共同特征。最后，我们使用变换架构来从相关信息中估算准确的准确参数。我们的方法在KITTI数据集上实现了平均翻译误差0.8751公分和平均旋转误差0.0562度，超越现有的状态级方法，展现出强大的稳定性、准确性和泛化能力。”
+</details></li>
+</ul>
+<hr>
+<h2 id="Double-Reverse-Regularization-Network-Based-on-Self-Knowledge-Distillation-for-SAR-Object-Classification"><a href="#Double-Reverse-Regularization-Network-Based-on-Self-Knowledge-Distillation-for-SAR-Object-Classification" class="headerlink" title="Double Reverse Regularization Network Based on Self-Knowledge Distillation for SAR Object Classification"></a>Double Reverse Regularization Network Based on Self-Knowledge Distillation for SAR Object Classification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15231">http://arxiv.org/abs/2311.15231</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/consult98/DRRNet-SKD">https://github.com/consult98/DRRNet-SKD</a></li>
+<li>paper_authors: Bo Xu, Hao Zheng, Zhigang Hu, Liu Yang, Meiguang Zheng</li>
+<li>for: 本研究旨在解决现代 Synthetic Aperture Radar (SAR) 对象分类中的严重欠拟合问题，特别是由于数据量 Limited (few-shot) 和噪音引起的。</li>
+<li>methods: 本研究提出了一种基于 Self-Knowledge Distillation (SKD) 的 Double Reverse Regularization Network (DRRNet-SKD)，通过探索热力学液体填充的效果，采用了双向反思思想来实现有效的规范网络。然后，采用 Adaptive Weight Assignment (AWA) 模块，自适应地分配两个反向改变的质量，使学生网络更好地从两个教师中吸取知识。</li>
+<li>results: 实验结果表明，DRRNet-SKD 在 OpenSARShip 和 FUSAR-Ship 上表现出色，超过了现有的自知ledge distillation方法，并且在 classical CNNs 上显示出了remarkable的性能提升。<details>
+<summary>Abstract</summary>
+In current synthetic aperture radar (SAR) object classification, one of the major challenges is the severe overfitting issue due to the limited dataset (few-shot) and noisy data. Considering the advantages of knowledge distillation as a learned label smoothing regularization, this paper proposes a novel Double Reverse Regularization Network based on Self-Knowledge Distillation (DRRNet-SKD). Specifically, through exploring the effect of distillation weight on the process of distillation, we are inspired to adopt the double reverse thought to implement an effective regularization network by combining offline and online distillation in a complementary way. Then, the Adaptive Weight Assignment (AWA) module is designed to adaptively assign two reverse-changing weights based on the network performance, allowing the student network to better benefit from both teachers. The experimental results on OpenSARShip and FUSAR-Ship demonstrate that DRRNet-SKD exhibits remarkable performance improvement on classical CNNs, outperforming state-of-the-art self-knowledge distillation methods.
+</details>
+<details>
+<summary>摘要</summary>
+现在的 Synthetic Aperture Radar (SAR) 对象分类中，一个主要挑战是严重的适应过拟合问题，即因数据集（几个样本）的有限性和噪声导致的问题。本文提出了一种新的 Double Reverse Regularization Network based on Self-Knowledge Distillation (DRRNet-SKD)，具体来说，通过研究报导权重对报导过程的影响，我们被 inspirited 到采用双反思想来实现一个有效的正则化网络，通过在线和离线报导的组合来解决这个问题。然后，我们设计了适应性Weight分配（AWA）模块，以适应性地分配两个反向变化的权重，使学生网络可以更好地从两个教师中获得利益。实验结果表明，DRRNet-SKD在 OpenSARShip 和 FUSAR-Ship 上表现出了remarkable的性能提高，超过了当前的自知知识抖动方法。
+</details></li>
+</ul>
+<hr>
+<h2 id="GAIA-Zero-shot-Talking-Avatar-Generation"><a href="#GAIA-Zero-shot-Talking-Avatar-Generation" class="headerlink" title="GAIA: Zero-shot Talking Avatar Generation"></a>GAIA: Zero-shot Talking Avatar Generation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15230">http://arxiv.org/abs/2311.15230</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Tianyu He, Junliang Guo, Runyi Yu, Yuchi Wang, Jialiang Zhu, Kaikai An, Leyi Li, Xu Tan, Chunyu Wang, Han Hu, HsiangTao Wu, Sheng Zhao, Jiang Bian</li>
+<li>for: 这个论文的目的是生成自然的 talking video，从语音和一幅肖像图来 sinthezise 自然的 talking avatar。</li>
+<li>methods: 这个论文使用了一种新的方法，叫做 GAIA（生成AI дляavatar），它消除了 talking avatar 生成中的域约束，从而提高了生成的自然性和多样性。</li>
+<li>results: 实验结果表明，GAIA 比前一代模型更加自然、多样、唇 sync 质量和视觉质量更高。此外，这个框架可以扩展到不同的应用，如可控 talking avatar 生成和文本 instructed avatar 生成。<details>
+<summary>Abstract</summary>
+Zero-shot talking avatar generation aims at synthesizing natural talking videos from speech and a single portrait image. Previous methods have relied on domain-specific heuristics such as warping-based motion representation and 3D Morphable Models, which limit the naturalness and diversity of the generated avatars. In this work, we introduce GAIA (Generative AI for Avatar), which eliminates the domain priors in talking avatar generation. In light of the observation that the speech only drives the motion of the avatar while the appearance of the avatar and the background typically remain the same throughout the entire video, we divide our approach into two stages: 1) disentangling each frame into motion and appearance representations; 2) generating motion sequences conditioned on the speech and reference portrait image. We collect a large-scale high-quality talking avatar dataset and train the model on it with different scales (up to 2B parameters). Experimental results verify the superiority, scalability, and flexibility of GAIA as 1) the resulting model beats previous baseline models in terms of naturalness, diversity, lip-sync quality, and visual quality; 2) the framework is scalable since larger models yield better results; 3) it is general and enables different applications like controllable talking avatar generation and text-instructed avatar generation.
+</details>
+<details>
+<summary>摘要</summary>
+zero-shot talking avatar 生成目标是从语音和一幅肖像图生成自然的 talking 视频。 前一些方法通过域特定的规则，如扭曲基于动作表示和3D 形态模型，来限制生成的人物的自然性和多样性。 在这种工作中，我们介绍了GAIA（生成AI для人物），它消除了 talking 人物生成中的域特定约束。 基于语音只影响人物的动作，而人物的外观和背景通常在整个视频中保持不变的观察，我们将我们的方法分成两个阶段： 1）每帧分解为动作和外观表示; 2）基于语音和参考肖像图生成动作序列。 我们收集了大规模高质量 talking 人物数据集，并在其中训练模型（最多2B参数）。 实验结果表明GAIA的优势，包括：1）生成的模型在自然性、多样性、唇 sync 质量和视觉质量方面超越先前的基准模型; 2）框架可扩展，大型模型可以获得更好的结果; 3）可控和文本指导的人物生成等多种应用。
+</details></li>
+</ul>
+<hr>
+<h2 id="One-bit-Supervision-for-Image-Classification-Problem-Solution-and-Beyond"><a href="#One-bit-Supervision-for-Image-Classification-Problem-Solution-and-Beyond" class="headerlink" title="One-bit Supervision for Image Classification: Problem, Solution, and Beyond"></a>One-bit Supervision for Image Classification: Problem, Solution, and Beyond</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15225">http://arxiv.org/abs/2311.15225</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hengtong Hu, Lingxi Xie, Xinyue Hue, Richang Hong, Qi Tian</li>
+<li>for: 这篇论文探讨了一种名为“一比特监督”的新设定，用于图像识别 tasks 的学习。在这个设定下，模型不需要使用每个样本的精确标签，而是通过预测每个样本的分类标签，然后从系统回传的答案中获取一个比特（是或否）的信息。</li>
+<li>methods: 为了实现一比特监督，这篇论文提出了两个关键方法：一是提高预测精度，二是将错误预测作为学习资源。这些方法包括多阶段训练架构和抑制负标签。</li>
+<li>results: 这篇论文的实验结果显示，一比特监督可以比拟使用全比特监督更有效率地进行学习。另外，这篇论文还发现，使用自我监督学习初始化模型后，通过对应的硬例子挑战和对称调整，可以进一步提高学习效率。<details>
+<summary>Abstract</summary>
+This paper presents one-bit supervision, a novel setting of learning with fewer labels, for image classification. Instead of training model using the accurate label of each sample, our setting requires the model to interact with the system by predicting the class label of each sample and learn from the answer whether the guess is correct, which provides one bit (yes or no) of information. An intriguing property of the setting is that the burden of annotation largely alleviates in comparison to offering the accurate label. There are two keys to one-bit supervision, which are (i) improving the guess accuracy and (ii) making good use of the incorrect guesses. To achieve these goals, we propose a multi-stage training paradigm and incorporate negative label suppression into an off-the-shelf semi-supervised learning algorithm. Theoretical analysis shows that one-bit annotation is more efficient than full-bit annotation in most cases and gives the conditions of combining our approach with active learning. Inspired by this, we further integrate the one-bit supervision framework into the self-supervised learning algorithm which yields an even more efficient training schedule. Different from training from scratch, when self-supervised learning is used for initialization, both hard example mining and class balance are verified effective in boosting the learning performance. However, these two frameworks still need full-bit labels in the initial stage. To cast off this burden, we utilize unsupervised domain adaptation to train the initial model and conduct pure one-bit annotations on the target dataset. In multiple benchmarks, the learning efficiency of the proposed approach surpasses that using full-bit, semi-supervised supervision.
+</details>
+<details>
+<summary>摘要</summary>
+In this paper, the authors propose a new setting for image classification called one-bit supervision, where the model is trained using only one bit of information, whether the guess is correct or not. This setting alleviates the burden of annotation and can be more efficient than full-bit annotation in most cases. To achieve this, the authors propose a multi-stage training paradigm and incorporate negative label suppression into an off-the-shelf semi-supervised learning algorithm. The proposed approach is tested on multiple benchmarks and shows better learning efficiency than using full-bit, semi-supervised supervision.The key ideas of the proposed approach are:1. Improving the guess accuracy: The model is trained to improve its guess accuracy using only one bit of information.2. Making good use of incorrect guesses: The model is trained to learn from its incorrect guesses, which provides valuable information for improvement.3. Multi-stage training paradigm: The model is trained in multiple stages, each stage using a different portion of the data, to improve its performance.4. Negative label suppression: The model is trained to suppress the negative labels, which can improve its performance and reduce the burden of annotation.The proposed approach is integrated into the self-supervised learning algorithm, which yields an even more efficient training schedule. The approach is tested on multiple benchmarks and shows better learning efficiency than using full-bit, semi-supervised supervision.In summary, the proposed approach of one-bit supervision for image classification alleviates the burden of annotation and can be more efficient than full-bit annotation in most cases. The approach is based on a multi-stage training paradigm, negative label suppression, and integration with self-supervised learning. The proposed approach is tested on multiple benchmarks and shows better learning efficiency than using full-bit, semi-supervised supervision.
+</details></li>
+</ul>
+<hr>
+<h2 id="Leveraging-Anatomical-Constraints-with-Uncertainty-for-Pneumothorax-Segmentation"><a href="#Leveraging-Anatomical-Constraints-with-Uncertainty-for-Pneumothorax-Segmentation" class="headerlink" title="Leveraging Anatomical Constraints with Uncertainty for Pneumothorax Segmentation"></a>Leveraging Anatomical Constraints with Uncertainty for Pneumothorax Segmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15213">http://arxiv.org/abs/2311.15213</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Han Yuan, Chuan Hong, Nguyen Tuan Anh Tran, Xinxing Xu, Nan Liu</li>
+<li>for: 增强基于深度学习的肺部液肿检测方法，特别是考虑肺部空间的位置特征。</li>
+<li>methods: 提出一种新的方法，利用肺部空间作为约束，在深度学习模型训练中进行肺部液肿检测。通过使用外部数据集和副 зада务肺部分 segmentation，生成每个胸部X射像中特定的肺部空间约束。同时，利用验证器来消除域转换导致的不可靠约束。</li>
+<li>results: 实验结果显示，与基eline方法相比，提出的方法在IoU、DSC和HD三个指标上均达到了显著的提高，具体提高4.6%、3.6%和3.3%。这些结果证明，在基于深度学习的肺部液肿检测方法中，考虑肺部空间的位置特征可以提高检测精度。<details>
+<summary>Abstract</summary>
+Pneumothorax is a medical emergency caused by abnormal accumulation of air in the pleural space - the potential space between the lungs and chest wall. On 2D chest radiographs, pneumothorax occurs within the thoracic cavity and outside of the mediastinum and we refer to this area as "lung+ space". While deep learning (DL) has increasingly been utilized to segment pneumothorax lesions in chest radiographs, many existing DL models employ an end-to-end approach. These models directly map chest radiographs to clinician-annotated lesion areas, often neglecting the vital domain knowledge that pneumothorax is inherently location-sensitive.   We propose a novel approach that incorporates the lung+ space as a constraint during DL model training for pneumothorax segmentation on 2D chest radiographs. To circumvent the need for additional annotations and to prevent potential label leakage on the target task, our method utilizes external datasets and an auxiliary task of lung segmentation. This approach generates a specific constraint of lung+ space for each chest radiograph. Furthermore, we have incorporated a discriminator to eliminate unreliable constraints caused by the domain shift between the auxiliary and target datasets.   Our results demonstrated significant improvements, with average performance gains of 4.6%, 3.6%, and 3.3% regarding Intersection over Union (IoU), Dice Similarity Coefficient (DSC), and Hausdorff Distance (HD). Our research underscores the significance of incorporating medical domain knowledge about the location-specific nature of pneumothorax to enhance DL-based lesion segmentation.
+</details>
+<details>
+<summary>摘要</summary>
+肺膜破裂是医疗紧急情况，由肺膜和胸壁之间的空间内的空气堆积所致。在二维胸部X射线图像上，肺膜破裂发生在胸部内部，而不在 mediastinum 中。许多现有的深度学习（DL）模型在胸部X射线图像上 segmentation 肺膜破裂 lesion 时，采用了端到端的方法。这些模型直接将胸部X射线图像映射到临床注意力的 lesion 区域，经常忽视肺膜破裂的医学特定知识，即肺膜破裂是位置特定的。我们提出了一种新的方法，即在 DL 模型训练时，通过肺+空间作为约束来进行肺膜破裂 segmentation。为了避免额外标注和可能的标签泄露问题，我们的方法使用了外部数据集和副任务肺部分 segmentation。这种方法生成了每个胸部X射线图像的特定肺+空间约束。此外，我们还添加了一个探测器，以消除由数据集领域转换所引起的不可靠约束。我们的结果显示，在 IoU、DSC 和 HD 等指标上，我们的方法可以获得显著的改善，升幅为 4.6%、3.6% 和 3.3%。我们的研究强调了在深度学习基于肺膜破裂 lesion segmentation 的情况下，应该考虑医学特定知识，以提高模型的性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="PISA-Point-cloud-based-Instructed-Scene-Augmentation"><a href="#PISA-Point-cloud-based-Instructed-Scene-Augmentation" class="headerlink" title="PISA: Point-cloud-based Instructed Scene Augmentation"></a>PISA: Point-cloud-based Instructed Scene Augmentation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.16501">http://arxiv.org/abs/2311.16501</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yiyang Luo, Ke Lin</li>
+<li>for: 本研究旨在提出一种基于多模态深度学习的室内场景增强方法，可以根据文本描述生成符合室内环境的物体。</li>
+<li>methods: 我们提出了一种基于Point-E模型的端到端多模态深度学习方法，并引入了量化位置预测和Top-K估算等方法来解决由于模糊语言描述而导致的假阳性问题。</li>
+<li>results: 我们通过评估多个指标，包括生成物体的多样性、指令效果和量化指标结果，证明了我们的模型能够生成真实的室内物体。此外，我们还包括视觉定位作为评估 metric，以评估生成的场景质量。<details>
+<summary>Abstract</summary>
+Indoor scene augmentation has become an emerging topic in the field of computer vision with applications in augmented and virtual reality. However, existing scene augmentation methods mostly require a pre-built object database with a given position as the desired location. In this paper, we propose the first end-to-end multi-modal deep neural network that can generate point cloud objects consistent with their surroundings, conditioned on text instructions. Our model generates a seemly object in the appropriate position based on the inputs of a query and point clouds, thereby enabling the creation of new scenarios involving previously unseen layouts of objects. Database of pre-stored CAD models is no longer needed. We use Point-E as our generative model and introduce methods including quantified position prediction and Top-K estimation to mitigate the false negative problems caused by ambiguous language description. Moreover, we evaluate the ability of our model by demonstrating the diversity of generated objects, the effectiveness of instruction, and quantitative metric results, which collectively indicate that our model is capable of generating realistic in-door objects. For a more thorough evaluation, we also incorporate visual grounding as a metric to assess the quality of the scenes generated by our model.
+</details>
+<details>
+<summary>摘要</summary>
+室内场景增强已成为计算机视觉领域的一个emerging话题，应用于增强和虚拟现实。然而，现有的场景增强方法大多需要一个预建的物体数据库，其中物体的位置为所需的位置。在这篇论文中，我们提出了第一个综合多Modal深度神经网络，可以根据文本指令生成与室内环境相符的点云对象。我们的模型可以根据查询和点云输入生成一个看上去准确的对象，从而实现创建新的enario并不需要预先存储的CAD模型库。我们使用Point-E作为我们的生成模型，并引入了量化位置预测和Top-K估计等方法，以解决由 ambiguous语言描述引起的假阳性问题。此外，我们评估了我们的模型的能力，包括生成对象的多样性、指令的有效性以及量化指标结果，这些结果表明我们的模型可以生成真实的室内对象。为了进行更加全面的评估，我们还 incorporated visual grounding作为一个评估 metric，以评估生成的场景的质量。
+</details></li>
+</ul>
+<hr>
+<h2 id="Insect-Foundation-A-Foundation-Model-and-Large-scale-1M-Dataset-for-Visual-Insect-Understanding"><a href="#Insect-Foundation-A-Foundation-Model-and-Large-scale-1M-Dataset-for-Visual-Insect-Understanding" class="headerlink" title="Insect-Foundation: A Foundation Model and Large-scale 1M Dataset for Visual Insect Understanding"></a>Insect-Foundation: A Foundation Model and Large-scale 1M Dataset for Visual Insect Understanding</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15206">http://arxiv.org/abs/2311.15206</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Hoang-Quan Nguyen, Thanh-Dat Truong, Xuan Bac Nguyen, Ashley Dowling, Xin Li, Khoa Luu<br>for: 这个论文的目的是为了提高精准农业中对昆虫的识别和检测，以提高作物的生长和产量。methods: 这个论文使用了一种新的“昆虫100万”数据集，这个数据集包含100万张昆虫图像，每张图像都有密集的标注标签，包括昆虫的种类层次和描述。此外，这个论文还使用了一种微特征自我超参方法，该方法可以在昆虫图像中提取微scopic特征，并使用描述一致损失来提高微特征模型的建立。results: 这个论文通过实验证明了其提出的方法的有效性，在标准的昆虫相关任务上达到了State-of-the-Art的性能。这个论文的昆虫基础模型和数据集将为以后的昆虫相关视觉模型提供一个强大的基础，使其更近于实现精准农业的最终目标。<details>
+<summary>Abstract</summary>
+In precision agriculture, the detection and recognition of insects play an essential role in the ability of crops to grow healthy and produce a high-quality yield. The current machine vision model requires a large volume of data to achieve high performance. However, there are approximately 5.5 million different insect species in the world. None of the existing insect datasets can cover even a fraction of them due to varying geographic locations and acquisition costs. In this paper, we introduce a novel ``Insect-1M'' dataset, a game-changing resource poised to revolutionize insect-related foundation model training. Covering a vast spectrum of insect species, our dataset, including 1 million images with dense identification labels of taxonomy hierarchy and insect descriptions, offers a panoramic view of entomology, enabling foundation models to comprehend visual and semantic information about insects like never before. Then, to efficiently establish an Insect Foundation Model, we develop a micro-feature self-supervised learning method with a Patch-wise Relevant Attention mechanism capable of discerning the subtle differences among insect images. In addition, we introduce Description Consistency loss to improve micro-feature modeling via insect descriptions. Through our experiments, we illustrate the effectiveness of our proposed approach in insect modeling and achieve State-of-the-Art performance on standard benchmarks of insect-related tasks. Our Insect Foundation Model and Dataset promise to empower the next generation of insect-related vision models, bringing them closer to the ultimate goal of precision agriculture.
+</details>
+<details>
+<summary>摘要</summary>
+在精准农业中，检测和识别昆虫具有重要的作用，以确保作物健康成长并生产高质量的产品。现有的机器视觉模型需要大量数据来达到高性能，但世界上约有550万种不同的昆虫种类，现有的任何昆虫数据集都无法覆盖其中的一部分，主要因为不同的地理位置和获取成本。在本文中，我们介绍了一个新的“昆虫-1M”数据集，这是一种可能改变现有模型训练的渠道。我们的数据集包括100万张昆虫图像，每张图像都有密集的种系树标签和昆虫描述，提供了昆虫学的广泛视野，使基础模型能够从视觉和语义角度理解昆虫，比以往不同。然后，我们开发了一种微特征自我超级学习方法，具有 patch-wise 相关注意力机制，能够在昆虫图像中捕捉到细微差异。此外，我们引入描述一致损失，以改进微特征模型。我们的实验表明，我们的提议方法在昆虫模型建立和昆虫相关任务的标准评价指标上具有出色的表现。我们的昆虫基础模型和数据集承诺将推动下一代昆虫相关视觉模型的发展，使其更接近精准农业的目标。
+</details></li>
+</ul>
+<hr>
+<h2 id="Dual-stream-contrastive-predictive-network-with-joint-handcrafted-feature-view-for-SAR-ship-classification"><a href="#Dual-stream-contrastive-predictive-network-with-joint-handcrafted-feature-view-for-SAR-ship-classification" class="headerlink" title="Dual-stream contrastive predictive network with joint handcrafted feature view for SAR ship classification"></a>Dual-stream contrastive predictive network with joint handcrafted feature view for SAR ship classification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15202">http://arxiv.org/abs/2311.15202</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/Haosheng-Chen/DCPNet">https://github.com/Haosheng-Chen/DCPNet</a></li>
+<li>paper_authors: Xianting Feng, Hao zheng, Zhigang Hu, Liu Yang, Meiguang Zheng</li>
+<li>for: 本研究旨在提高Synthetic Aperture Radar（SAR）船舶分类技术的精度，通过不正确标注的数据来增强SAR船舶图像的特征。</li>
+<li>methods: 该研究提出了一种新的双流对比预测网络（DCPNet），包括两个不同的任务设计和假性采样除Module。第一个任务是构建正例对，导致核心编码器学习更通用的表示。第二个任务是促进深度特征和手动特征之间的对应关系捕捉，实现模型内知识传递，并有效地减少由特征融合而引起的信息重复。</li>
+<li>results: 实验结果表明，DCPNet可以提高supervised模型的分类精度，并学习有效的SAR船舶图像表示。<details>
+<summary>Abstract</summary>
+Most existing synthetic aperture radar (SAR) ship classification technologies heavily rely on correctly labeled data, ignoring the discriminative features of unlabeled SAR ship images. Even though researchers try to enrich CNN-based features by introducing traditional handcrafted features, existing methods easily cause information redundancy and fail to capture the interaction between them. To address these issues, we propose a novel dual-stream contrastive predictive network (DCPNet), which consists of two asymmetric task designs and the false negative sample elimination module. The first task is to construct positive sample pairs, guiding the core encoder to learn more general representations. The second task is to encourage adaptive capture of the correspondence between deep features and handcrated features, achieving knowledge transfer within the model, and effectively improving the redundancy caused by the feature fusion. To increase the separability between clusters, we also design a cluster-level tasks. The experimental results on OpenSARShip and FUSAR-Ship datasets demonstrate the improvement in classification accuracy of supervised models and confirm the capability of learning effective representations of DCPNet.
+</details>
+<details>
+<summary>摘要</summary>
+现有的Synthetic Aperture Radar（SAR）船类分类技术大多数依赖于正确的标签数据，忽略SAR船图像的特征特异性。即使研究人员尝试通过引入传统的手工特征来增强CNN基于的特征，现有的方法易引起信息重复和特征之间的交互不足。为解决这些问题，我们提出了一种新的双流对比预测网络（DCPNet），其包括两个异 symmetry任务设计和假值采样除Module。第一个任务是建立正样本对，引导核心编码器学习更通用的表示。第二个任务是促进深度特征和手工特征之间的匹配，实现模型内知识传递，有效地减少由特征混合引起的信息重复。为提高分布间的分离度，我们还设计了群集级任务。实验结果表明，DCPNet可以提高supervised模型的分类精度，并证明其能够学习有效的表示。
+</details></li>
+</ul>
+<hr>
+<h2 id="SpliceMix-A-Cross-scale-and-Semantic-Blending-Augmentation-Strategy-for-Multi-label-Image-Classification"><a href="#SpliceMix-A-Cross-scale-and-Semantic-Blending-Augmentation-Strategy-for-Multi-label-Image-Classification" class="headerlink" title="SpliceMix: A Cross-scale and Semantic Blending Augmentation Strategy for Multi-label Image Classification"></a>SpliceMix: A Cross-scale and Semantic Blending Augmentation Strategy for Multi-label Image Classification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15200">http://arxiv.org/abs/2311.15200</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Lei Wang, Yibing Zhan, Leilei Ma, Dapeng Tao, Liang Ding, Chen Gong<br>for:这篇论文主要针对多标签图像分类（MLIC）领域，旨在提出一种简单 yet effective的数据增强策略，以提高MLIC模型的性能。methods:该策略被称为SpliceMix，其中“拼接”是两重的：1）每个拼接图像是一个网格中的多个下采样图像的拼接，这些图像的 semantics 在拼接后保持不受对象缺失的影响，以解决同类干扰的问题；2）我们将拼接图像和原始小批量拼接成一个新的 SpliceMixed 小批量，这样一个图像可以在不同的缩放比例下进行训练。results:广泛的实验结果表明，只使用 SpliceMix 与基eline模型（例如 ResNet）可以获得更好的性能，并且我们的 SpliceMix 可以与当前 MLIC 方法结合使用，提高其性能。此外，我们的 SpliceMix 的普适性也得到了证明，当 MLIC 模型结合使用 SpliceMix 时，其性能得到了改善。代码可以在 <a target="_blank" rel="noopener" href="https://github.com/zuiran/SpliceMix">https://github.com/zuiran/SpliceMix</a> 上获取。<details>
+<summary>Abstract</summary>
+Recently, Mix-style data augmentation methods (e.g., Mixup and CutMix) have shown promising performance in various visual tasks. However, these methods are primarily designed for single-label images, ignoring the considerable discrepancies between single- and multi-label images, i.e., a multi-label image involves multiple co-occurred categories and fickle object scales. On the other hand, previous multi-label image classification (MLIC) methods tend to design elaborate models, bringing expensive computation. In this paper, we introduce a simple but effective augmentation strategy for multi-label image classification, namely SpliceMix. The "splice" in our method is two-fold: 1) Each mixed image is a splice of several downsampled images in the form of a grid, where the semantics of images attending to mixing are blended without object deficiencies for alleviating co-occurred bias; 2) We splice mixed images and the original mini-batch to form a new SpliceMixed mini-batch, which allows an image with different scales to contribute to training together. Furthermore, such splice in our SpliceMixed mini-batch enables interactions between mixed images and original regular images. We also offer a simple and non-parametric extension based on consistency learning (SpliceMix-CL) to show the flexible extensibility of our SpliceMix. Extensive experiments on various tasks demonstrate that only using SpliceMix with a baseline model (e.g., ResNet) achieves better performance than state-of-the-art methods. Moreover, the generalizability of our SpliceMix is further validated by the improvements in current MLIC methods when married with our SpliceMix. The code is available at https://github.com/zuiran/SpliceMix.
+</details>
+<details>
+<summary>摘要</summary>
+近些年，mix样式数据增强方法（如Mixup和CutMix）在视觉任务中表现出色，但这些方法主要针对单标图像，忽视了多标图像中的显著差异，即多标图像包含多个同时出现的类别和不确定的物体比例。而之前的多标图像分类（MLIC）方法往往设计了复杂的模型，带来昂贵的计算成本。在这篇论文中，我们介绍了一种简单 yet effective的增强策略 для MLIC，即SpliceMix。我们的“拼接”在两个方面：1）每个混合图像是一个格式的多个下采样图像的拼接，这些图像的 semantics 被混合而不会出现物体不足的问题，以降低同类别偏好；2）我们将混合图像和原始小批量拼接成一个新的 SpliceMixed 小批量，这allow 图像不同的比例参与到训练中。此外，我们的 SpliceMixed 小批量中的拼接允许混合图像和原始正常图像之间的互动。我们还提供了一种简单、非参数的扩展（SpliceMix-CL），以示我们的 SpliceMix 的可扩展性。我们的实验表明，只使用 SpliceMix 与基eline模型（如ResNet）可以超越现状最佳方法。此外，我们的 SpliceMix 的通用性得到了当前 MLIC 方法的改进， thereby further validating the flexibility and effectiveness of our SpliceMix. 代码可以在 <https://github.com/zuiran/SpliceMix> 上获取。
+</details></li>
+</ul>
+<hr>
+<h2 id="Eye-vs-AI-Human-Gaze-and-Model-Attention-in-Video-Memorability"><a href="#Eye-vs-AI-Human-Gaze-and-Model-Attention-in-Video-Memorability" class="headerlink" title="Eye vs. AI: Human Gaze and Model Attention in Video Memorability"></a>Eye vs. AI: Human Gaze and Model Attention in Video Memorability</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.16484">http://arxiv.org/abs/2311.16484</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Prajneya Kumar, Eshika Khandelwal, Makarand Tapaswi, Vishnu Sreekumar</li>
+<li>for: 该研究的目的是理解视频吸引力的因素，以便在教育技术和广告等领域应用。</li>
+<li>methods: 该研究使用了Transformer架构和空间-时间注意力，以达到现有大量自然视频数据上的SoTA性能。</li>
+<li>results: 研究发现，模型的自注意力和人类眼动追踪图中的焦点密度图呈同样的模式，而且模型和人类在视频中吸引力高的部分具有相似的注意力强度。<details>
+<summary>Abstract</summary>
+Understanding the factors that determine video memorability has important applications in areas such as educational technology and advertising. Towards this goal, we investigate the semantic and temporal attention mechanisms underlying video memorability. We propose a Transformer-based model with spatio-temporal attention that matches SoTA performance on video memorability prediction on a large naturalistic video dataset. More importantly, the self-attention patterns show us where the model looks to predict memorability. We compare model attention against human gaze fixation density maps collected through a small-scale eye-tracking experiment where humans perform a video memory task. Quantitative saliency metrics show that the model attention and human gaze follow similar patterns. Furthermore, while panoptic segmentation confirms that the model and humans attend more to thing classes, stuff classes that receive increased/decreased attention tend to have higher memorability scores. We also observe that the model assigns greater importance to the initial frames, mimicking temporal attention patterns found in humans.
+</details>
+<details>
+<summary>摘要</summary>
+理解视频记忆的因素有重要应用于教育技术和广告领域。为实现这个目标，我们研究了视频记忆下的语义和时间注意力机制。我们提出一种基于Transformer的模型，具有空间时间注意力，可以与现有的State-of-the-Art（SoTA）性能相匹配在大规模自然视频集上的视频记忆预测任务。更重要的是，模型的自注意 patrtern 可以告诉我们模型在预测记忆性时看到了哪些地方。我们比较模型注意力和人类眼动 fixation density map，通过小规模的眼动跟踪实验，在视频记忆任务中，人类的眼动和模型注意力 Display similar patterns。此外，我们发现，模型和人类在 thing 和 stuff 类别上都具有更高的注意力，而受到增加/减少注意力的 stuff 类别通常会得到更高的记忆性分数。此外，我们发现模型在初始帧中具有更高的重要性，与人类的时间注意力模式相似。
+</details></li>
+</ul>
+<hr>
+<h2 id="HumanRecon-Neural-Reconstruction-of-Dynamic-Human-Using-Geometric-Cues-and-Physical-Priors"><a href="#HumanRecon-Neural-Reconstruction-of-Dynamic-Human-Using-Geometric-Cues-and-Physical-Priors" class="headerlink" title="HumanRecon: Neural Reconstruction of Dynamic Human Using Geometric Cues and Physical Priors"></a>HumanRecon: Neural Reconstruction of Dynamic Human Using Geometric Cues and Physical Priors</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15171">http://arxiv.org/abs/2311.15171</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/pris-cv/humanrecon">https://github.com/pris-cv/humanrecon</a></li>
+<li>paper_authors: Junhui Yin, Wei Yin, Hao Chen, Xuqian Ren, Zhanyu Ma, Jun Guo, Yifan Liu</li>
+<li>for: 这篇论文是关于动态人体重建的最新方法的研究。</li>
+<li>methods: 这些方法使用RGB色彩监督，不考虑显式的 геометрические约束。这会导致现有的人体重建技术更容易过拟合颜色，并且在缺乏视角的情况下存在几何内在的抽象。</li>
+<li>results: 作者通过考虑估算深度和法向的几何约束，在学习神经隐式表示方法时使用几何规范作为可靠的监督信号。这种约束可以提供可靠的监督信号，并且提高重建质量。此外，作者还利用了一些有利的物理约束，如添加视向方向上的噪音和最大化人体表面上的浓度。这些约束使得颜色渲染在光束上更加稳定和robust。实验结果表明，depth和法向估计器预测的约束信号可以提供有效的监督信号，并且生成更加准确的图像。最后，作者还证明了提出的物理约束可以减少过拟合和提高总体重建质量。<details>
+<summary>Abstract</summary>
+Recent methods for dynamic human reconstruction have attained promising reconstruction results. Most of these methods rely only on RGB color supervision without considering explicit geometric constraints. This leads to existing human reconstruction techniques being more prone to overfitting to color and causes geometrically inherent ambiguities, especially in the sparse multi-view setup.   Motivated by recent advances in the field of monocular geometry prediction, we consider the geometric constraints of estimated depth and normals in the learning of neural implicit representation for dynamic human reconstruction. As a geometric regularization, this provides reliable yet explicit supervision information, and improves reconstruction quality. We also exploit several beneficial physical priors, such as adding noise into view direction and maximizing the density on the human surface. These priors ensure the color rendered along rays to be robust to view direction and reduce the inherent ambiguities of density estimated along rays. Experimental results demonstrate that depth and normal cues, predicted by human-specific monocular estimators, can provide effective supervision signals and render more accurate images. Finally, we also show that the proposed physical priors significantly reduce overfitting and improve the overall quality of novel view synthesis. Our code is available at:~\href{https://github.com/PRIS-CV/HumanRecon}{https://github.com/PRIS-CV/HumanRecon}.
+</details>
+<details>
+<summary>摘要</summary>
+现代人体重建方法已经取得了有前例的重建结果。大多数这些方法仅基于RGB颜色监督而没有考虑直接的 геометрические约束。这会导致现有的人体重建技术更易于颜色拟合和存在缺失视角设置中的几何约束，尤其是在缺失多视角设置中。我们受到最近的计算机视觉领域的干扰geometry预测技术的激发，我们考虑了重建人体的几何约束。在学习各种神经隐式表示中，我们利用了估计深度和法向的几何约束，这提供了可靠的直接监督信息，并改善重建质量。我们还利用了一些有利的物理约束，例如在视向中添加噪声和最大化人体表面上的浓度。这些约束使得颜色在光梯上渲染的是robust to view direction和减少了人体表面上的几何约束歧义。实验结果表明，人体特定的单视预测器预测的深度和法向信号可以提供有效的监督信号，并生成更加准确的图像。此外，我们还发现了我们所提出的物理约束有效地减少了过拟合和改善了总体图像重建质量。我们的代码可以在：https://github.com/PRIS-CV/HumanRecon 中找到。
+</details></li>
+</ul>
+<hr>
+<h2 id="Self-supervised-OCT-Image-Denoising-with-Slice-to-Slice-Registration-and-Reconstruction"><a href="#Self-supervised-OCT-Image-Denoising-with-Slice-to-Slice-Registration-and-Reconstruction" class="headerlink" title="Self-supervised OCT Image Denoising with Slice-to-Slice Registration and Reconstruction"></a>Self-supervised OCT Image Denoising with Slice-to-Slice Registration and Reconstruction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15167">http://arxiv.org/abs/2311.15167</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/cjlee94/slice2slice">https://github.com/cjlee94/slice2slice</a></li>
+<li>paper_authors: Shijie Li, Palaiologos Alexopoulos, Anse Vellappally, Ronald Zambrano, Wollstein Gadi, Guido Gerig</li>
+<li>for: 提高Retinal structures的精度量化分析，帮助临床诊断和病种监测。</li>
+<li>methods: 学习自主方法，特别是结构保持性噪声减少方法，可以更好地适应OCT图像噪声。</li>
+<li>results: 提出了一种新的自主学习框架，可以更好地处理OCT图像噪声，并且与之前发表的自主减噪模型进行比较，得到了更好的性能。<details>
+<summary>Abstract</summary>
+Strong speckle noise is inherent to optical coherence tomography (OCT) imaging and represents a significant obstacle for accurate quantitative analysis of retinal structures which is key for advances in clinical diagnosis and monitoring of disease. Learning-based self-supervised methods for structure-preserving noise reduction have demonstrated superior performance over traditional methods but face unique challenges in OCT imaging. The high correlation of voxels generated by coherent A-scan beams undermines the efficacy of self-supervised learning methods as it violates the assumption of independent pixel noise. We conduct experiments demonstrating limitations of existing models due to this independence assumption. We then introduce a new end-to-end self-supervised learning framework specifically tailored for OCT image denoising, integrating slice-by-slice training and registration modules into one network. An extensive ablation study is conducted for the proposed approach. Comparison to previously published self-supervised denoising models demonstrates improved performance of the proposed framework, potentially serving as a preprocessing step towards superior segmentation performance and quantitative analysis.
+</details>
+<details>
+<summary>摘要</summary>
+强度的点杂论是optical coherence tomography（OCT）成像中的内在障碍，对于准确地分析肉眼结构进行临床诊断和监测疾病具有重要意义。学习自主式自我监督方法在OCT成像中表现出了更高的性能，但面临了uniquecalendar挑战。协议生成的voxels之间的高相关性让自主学习方法失效，因为它违反了独立像素噪声的假设。我们进行了实验，示出了现有模型的局限性。然后，我们介绍了一种专门针对OCT成像的新自主学习框架，将扫描模块和注册模块集成到一个网络中。我们进行了广泛的ablation研究。与之前发表的自主净化模型进行比较，我们的提议框架表现出了更高的性能，可能作为预处理步骤，为高级分析和诊断做出贡献。
+</details></li>
+</ul>
+<hr>
+<h2 id="GS-IR-3D-Gaussian-Splatting-for-Inverse-Rendering"><a href="#GS-IR-3D-Gaussian-Splatting-for-Inverse-Rendering" class="headerlink" title="GS-IR: 3D Gaussian Splatting for Inverse Rendering"></a>GS-IR: 3D Gaussian Splatting for Inverse Rendering</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.16473">http://arxiv.org/abs/2311.16473</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/lzhnb/gs-ir">https://github.com/lzhnb/gs-ir</a></li>
+<li>paper_authors: Zhihao Liang, Qi Zhang, Ying Feng, Ying Shan, Kui Jia</li>
+<li>for: 该 paper 用于 achieving photorealistic novel view synthesis and relighting results through inverse rendering.</li>
+<li>methods: 该 paper 使用了一种基于 3D Gaussian Splatting (GS) 的新的 inverse rendering 方法，具有 photorealistic 的结果和高效的计算复杂度.</li>
+<li>results: 该 paper 实现了高质量的 geometry 重建、新视角synthesis 和物理基本的rendering, 并且在各种复杂的场景下进行了质量和量化的评估.<details>
+<summary>Abstract</summary>
+We propose GS-IR, a novel inverse rendering approach based on 3D Gaussian Splatting (GS) that leverages forward mapping volume rendering to achieve photorealistic novel view synthesis and relighting results. Unlike previous works that use implicit neural representations and volume rendering (e.g. NeRF), which suffer from low expressive power and high computational complexity, we extend GS, a top-performance representation for novel view synthesis, to estimate scene geometry, surface material, and environment illumination from multi-view images captured under unknown lighting conditions. There are two main problems when introducing GS to inverse rendering: 1) GS does not support producing plausible normal natively; 2) forward mapping (e.g. rasterization and splatting) cannot trace the occlusion like backward mapping (e.g. ray tracing). To address these challenges, our GS-IR proposes an efficient optimization scheme that incorporates a depth-derivation-based regularization for normal estimation and a baking-based occlusion to model indirect lighting. The flexible and expressive GS representation allows us to achieve fast and compact geometry reconstruction, photorealistic novel view synthesis, and effective physically-based rendering. We demonstrate the superiority of our method over baseline methods through qualitative and quantitative evaluations on various challenging scenes.
+</details>
+<details>
+<summary>摘要</summary>
+我们提出了GS-IR，一种基于三角形拟合（GS）的新的反向渲染方法，利用前向映射量子Rendering实现高品质的新视图合成和照明重新渲染。与之前的工作使用卷积神经表示和量子Rendering（例如NeRF）不同，我们扩展了GS，一种高性能的表示方法，以估计场景几何结构、表面材料和环境照明conditions from multi-view images captured under unknown lighting conditions.在将GS应用到反向渲染中，存在两个主要挑战：1）GS不能生成可靠的法向；2）前向映射（例如排列和拟合）无法跟踪遮盖物如backward mapping（例如ray tracing）。为了解决这些挑战，我们的GS-IR提出了一种高效的优化方案，其中包括了深度梯度基于的常量估计和烘焙基于的遮盖物模型。通过这种灵活和表达强的GS表示，我们可以实现快速和 компакт的几何重建、高品质的新视图合成和有效的物理基于渲染。我们通过对多种复杂的场景进行质量和量化评价，证明了我们的方法的优越性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Mixing-Classifiers-to-Alleviate-the-Accuracy-Robustness-Trade-Off"><a href="#Mixing-Classifiers-to-Alleviate-the-Accuracy-Robustness-Trade-Off" class="headerlink" title="Mixing Classifiers to Alleviate the Accuracy-Robustness Trade-Off"></a>Mixing Classifiers to Alleviate the Accuracy-Robustness Trade-Off</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15165">http://arxiv.org/abs/2311.15165</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Yatong Bai, Brendon G. Anderson, Somayeh Sojoudi</li>
+<li>for: 这个论文旨在提高数据驱动控制系统中的机器学习模型的准确率和可靠性。</li>
+<li>methods: 这篇论文使用了“本地偏好平滑”方法，并将其扩展到多类 Setting，以提高标准模型的准确率和可靠性模型的可靠性。</li>
+<li>results: 数字实验表明，混合模型可以明显改善准确率和可靠性的负荷-鲁棒性质量。<details>
+<summary>Abstract</summary>
+Machine learning models have recently found tremendous success in data-driven control systems. However, standard learning models often suffer from an accuracy-robustness trade-off, which is a limitation that must be overcome in the control of safety-critical systems that require both high performance and rigorous robustness guarantees. In this work, we build upon the recent "locally biased smoothing" method to develop classifiers that simultaneously inherit high accuracy from standard models and high robustness from robust models. Specifically, we extend locally biased smoothing to the multi-class setting, and then overcome its performance bottleneck by generalizing the formulation to "mix" the outputs of a standard neural network and a robust neural network. We prove that when the robustness of the robust base model is certifiable, within a closed-form $\ell_p$ radius, no alteration or attack on an input can result in misclassification of the mixed classifier; the proposed model inherits the certified robustness. Moreover, we use numerical experiments on the CIFAR-10 benchmark dataset to verify that the mixed model noticeably improves the accuracy-robustness trade-off.
+</details>
+<details>
+<summary>摘要</summary>
+Translated into Simplified Chinese:机器学习模型在数据驱动控制系统中最近发现了很大的成功。然而，标准学习模型经常面临精度与可靠性之间的负面选择，这是安全关键系统需要的高性能和严格可靠性保证的一个限制。在这种情况下，我们基于最近的“本地偏见缓和”方法，开发出同时继承标准模型高精度和可靠模型高可靠性的分类器。具体来说，我们将本地偏见缓和方法扩展到多类 Setting中，然后超越其性能瓶颈，通过将标准神经网络和可靠神经网络的输出“混合”起来。我们证明，当可靠性可证明的粗略模型的粗略性在closed-form $\ell_p$ 范围内，则无论对输入进行任何修改或攻击，也无法导致混合分类器对输入进行误分类;我们的模型继承了证明的可靠性。此外，我们通过对CIFAR-10 benchmark数据集进行数值实验，证明混合模型明显改善了精度与可靠性之间的负面选择。
+</details></li>
+</ul>
+<hr>
+<h2 id="Deep-Learning-Based-Approaches-for-Contactless-Fingerprints-Segmentation-and-Extraction"><a href="#Deep-Learning-Based-Approaches-for-Contactless-Fingerprints-Segmentation-and-Extraction" class="headerlink" title="Deep Learning-Based Approaches for Contactless Fingerprints Segmentation and Extraction"></a>Deep Learning-Based Approaches for Contactless Fingerprints Segmentation and Extraction</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15163">http://arxiv.org/abs/2311.15163</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: M. G. Sarwar Murshed, Syed Konain Abbas, Sandip Purnapatra, Daqing Hou, Faraz Hussain</li>
+<li>for: 这个论文的目的是为了开发一种基于深度学习的无接触指纹分割和提取工具，以提高无接触指纹认证系统的精度和可靠性。</li>
+<li>methods: 该论文使用了深度学习技术来实现高精度的指纹分割和指纹提取。</li>
+<li>results: 论文中的分割方法在评估中示出了平均绝对误差（MAE）为30像素，错误角预测（EAP）为5.92度，并达到了97.46%的标签准确率。这些结果表明了该工具的效果。<details>
+<summary>Abstract</summary>
+Fingerprints are widely recognized as one of the most unique and reliable characteristics of human identity. Most modern fingerprint authentication systems rely on contact-based fingerprints, which require the use of fingerprint scanners or fingerprint sensors for capturing fingerprints during the authentication process. Various types of fingerprint sensors, such as optical, capacitive, and ultrasonic sensors, employ distinct techniques to gather and analyze fingerprint data. This dependency on specific hardware or sensors creates a barrier or challenge for the broader adoption of fingerprint based biometric systems. This limitation hinders the widespread adoption of fingerprint authentication in various applications and scenarios. Border control, healthcare systems, educational institutions, financial transactions, and airport security face challenges when fingerprint sensors are not universally available. To mitigate the dependence on additional hardware, the use of contactless fingerprints has emerged as an alternative. Developing precise fingerprint segmentation methods, accurate fingerprint extraction tools, and reliable fingerprint matchers are crucial for the successful implementation of a robust contactless fingerprint authentication system. This paper focuses on the development of a deep learning-based segmentation tool for contactless fingerprint localization and segmentation. Our system leverages deep learning techniques to achieve high segmentation accuracy and reliable extraction of fingerprints from contactless fingerprint images. In our evaluation, our segmentation method demonstrated an average mean absolute error (MAE) of 30 pixels, an error in angle prediction (EAP) of 5.92 degrees, and a labeling accuracy of 97.46%. These results demonstrate the effectiveness of our novel contactless fingerprint segmentation and extraction tools.
+</details>
+<details>
+<summary>摘要</summary>
+人体指纹被广泛认为是人类身份认证中最独特和可靠的特征之一。现代人体指纹认证系统大多采用了贴近式指纹识别，需要使用指纹扫描仪或指纹感知器来获取指纹数据。不同类型的指纹感知器，如光学、电容式和超声感知器，采用不同的技术来收集和分析指纹数据。这种固定在特定硬件或感知器上的依赖性成为了人体指纹认证系统广泛应用的一大障碍。这种限制约束了人体指纹认证的应用范围，包括边境管控、医疗系统、教育机构、金融交易和机场安全等场景。为了减少特定硬件的依赖性，使用无接触指纹 authentication 系统成为了一种可能的解决方案。我们的系统利用深度学习技术来实现高精度的无接触指纹分割和检索。我们的 segmentation 方法在评估中达到了平均缺失Error (MAE) 30像素，错误角度预测 (EAP) 5.92度，并达到了97.46%的标签准确率。这些结果证明了我们的无接触指纹分割和检索工具的有效性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Advancing-Vision-Transformers-with-Group-Mix-Attention"><a href="#Advancing-Vision-Transformers-with-Group-Mix-Attention" class="headerlink" title="Advancing Vision Transformers with Group-Mix Attention"></a>Advancing Vision Transformers with Group-Mix Attention</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15157">http://arxiv.org/abs/2311.15157</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ailab-cvc/groupmixformer">https://github.com/ailab-cvc/groupmixformer</a></li>
+<li>paper_authors: Chongjian Ge, Xiaohan Ding, Zhan Tong, Li Yuan, Jiangliu Wang, Yibing Song, Ping Luo</li>
+<li>for: 这篇论文目标是提高视觉认知，提出了一种新的自注意机制，即分组混合注意（GMA），以capture多个相邻的符号之间的相关性，提高模型的表示能力。</li>
+<li>methods: 该论文提出了一种新的自注意机制，即分组混合注意（GMA），它可以同时capture token-to-token、token-to-组、和组-to-组的相关性，并通过不同的组合来生成多个组proxy。</li>
+<li>results: 根据GMA机制，该论文提出了一种新的底层模型，即GroupMixFormer，其在图像分类、物体检测和semantic segmentation中达到了 estado del arte的性能，而且参数数量较少。例如，GroupMixFormer-L（参数数量为70.3M，输入大小为384^2）在ImageNet-1K上达到了86.2%的Top-1准确率，而GroupMixFormer-B（参数数量为45.8M）在ADE20K上达到了51.2%的mIoU。<details>
+<summary>Abstract</summary>
+Vision Transformers (ViTs) have been shown to enhance visual recognition through modeling long-range dependencies with multi-head self-attention (MHSA), which is typically formulated as Query-Key-Value computation. However, the attention map generated from the Query and Key captures only token-to-token correlations at one single granularity. In this paper, we argue that self-attention should have a more comprehensive mechanism to capture correlations among tokens and groups (i.e., multiple adjacent tokens) for higher representational capacity. Thereby, we propose Group-Mix Attention (GMA) as an advanced replacement for traditional self-attention, which can simultaneously capture token-to-token, token-to-group, and group-to-group correlations with various group sizes. To this end, GMA splits the Query, Key, and Value into segments uniformly and performs different group aggregations to generate group proxies. The attention map is computed based on the mixtures of tokens and group proxies and used to re-combine the tokens and groups in Value. Based on GMA, we introduce a powerful backbone, namely GroupMixFormer, which achieves state-of-the-art performance in image classification, object detection, and semantic segmentation with fewer parameters than existing models. For instance, GroupMixFormer-L (with 70.3M parameters and 384^2 input) attains 86.2% Top-1 accuracy on ImageNet-1K without external data, while GroupMixFormer-B (with 45.8M parameters) attains 51.2% mIoU on ADE20K.
+</details>
+<details>
+<summary>摘要</summary>
+“视觉 трансформер”（ViTs）已经被证明可以提高视觉识别能力，通过多头自注意（MHSA）的模型，实现跨度取决关系。然而，从 Query 和 Key 中生成的注意地图仅仅捕捉了单个单位的 Token 之间的相互 correlations。在这篇文章中，我们主张自注意应该有更加全面的机制，以 capture Tokens 和groups（i.e.,多个邻近的 Token）之间的 correlations，以提高表达能力。因此，我们提出了 Group-Mix Attention（GMA），作为传统自注意的进阶替代方案，可以同时 capture Token-to-Token、Token-to-group、group-to-group 的相互 correlations，并且可以运用不同的 group size。为了实现这一点，GMA 将 Query、Key 和 Value 分割成段，并在不同的 group size下进行不同的group aggregation，以生成group proxies。然后，通过 mixture of Tokens 和 group proxies  compute attention map，并用这个注意地图来重新结合 Token 和 group。基于 GMA，我们提出了强大的背部架构，即 GroupMixFormer，它在图像分类、物体检测和Semantic Segmentation 中实现了 state-of-the-art 性能，并且具有较少参数的优点。例如，GroupMixFormer-L（具有 70.3M 参数和 384^2 输入）在 ImageNet-1K 上 достиieves 86.2% Top-1 准确率，而 GroupMixFormer-B（具有 45.8M 参数）在 ADE20K 上达到了 51.2% mIoU。
+</details></li>
+</ul>
+<hr>
+<h2 id="Self-Supervised-Learning-for-SAR-ATR-with-a-Knowledge-Guided-Predictive-Architecture"><a href="#Self-Supervised-Learning-for-SAR-ATR-with-a-Knowledge-Guided-Predictive-Architecture" class="headerlink" title="Self-Supervised Learning for SAR ATR with a Knowledge-Guided Predictive Architecture"></a>Self-Supervised Learning for SAR ATR with a Knowledge-Guided Predictive Architecture</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15153">http://arxiv.org/abs/2311.15153</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Weijie Li, Yang Wei, Tianpeng Liu, Yuenan Hou, Yongxiang Liu, Li Liu</li>
+<li>for: 本研究旨在提出一种基于自我超vised学习的基础模型，以解决SAR目标识别领域中的通用表示学习问题。</li>
+<li>methods: 该方法利用本地偏masked patches来预测SAR多尺度特征表示，并结合传统SAR领域特征提取和当前最佳自我超vised学习方法，以实现高精度和普适性的表示学习。</li>
+<li>results: 实验结果表明，该方法可以在不同目标、场景和探测器上提供一致性的性能提升，并且可以在低质量数据和噪声环境下实现高精度的表示学习。<details>
+<summary>Abstract</summary>
+Recently, the emergence of a large number of Synthetic Aperture Radar (SAR) sensors and target datasets has made it possible to unify downstream tasks with self-supervised learning techniques, which can pave the way for building the foundation model in the SAR target recognition field. The major challenge of self-supervised learning for SAR target recognition lies in the generalizable representation learning in low data quality and noise.To address the aforementioned problem, we propose a knowledge-guided predictive architecture that uses local masked patches to predict the multiscale SAR feature representations of unseen context. The core of the proposed architecture lies in combining traditional SAR domain feature extraction with state-of-the-art scalable self-supervised learning for accurate generalized feature representations. The proposed framework is validated on various downstream datasets (MSTAR, FUSAR-Ship, SAR-ACD and SSDD), and can bring consistent performance improvement for SAR target recognition. The experimental results strongly demonstrate the unified performance improvement of the self-supervised learning technique for SAR target recognition across diverse targets, scenes and sensors.
+</details>
+<details>
+<summary>摘要</summary>
+最近，巨量的Synthetic Aperture Radar（SAR）感知器和目标数据集的出现，使得可以通过自我超vised学习技术，建立SAR目标识别领域的基础模型。然而，SAR目标识别自我超vised学习的主要挑战在于低质量数据和噪声下的通用表征学习。为解决上述问题，我们提出了基于本地封闭矩阵的知识导向预测架构，使用本地封闭矩阵预测未经见过的多尺度SAR特征表示。核心在于结合传统SAR领域特征提取和当今最佳尺度自我超vised学习，以获得准确的通用表征表示。我们的框架在多个下游数据集（MSTAR、FUSAR-Ship、SAR-ACD和SSDD）上进行验证，可以带来不同目标、场景和感知器的SAR目标识别性能的统一改进。实验结果表明，自我超vised学习技术在SAR目标识别领域中具有普遍性和可靠性。
+</details></li>
+</ul>
+<hr>
+<h2 id="Choosing-Wisely-and-Learning-Deeply-Selective-Cross-Modality-Distillation-via-CLIP-for-Domain-Generalization"><a href="#Choosing-Wisely-and-Learning-Deeply-Selective-Cross-Modality-Distillation-via-CLIP-for-Domain-Generalization" class="headerlink" title="Choosing Wisely and Learning Deeply: Selective Cross-Modality Distillation via CLIP for Domain Generalization"></a>Choosing Wisely and Learning Deeply: Selective Cross-Modality Distillation via CLIP for Domain Generalization</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.15145">http://arxiv.org/abs/2311.15145</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jixuan Leng, Yijiang Li, Haohan Wang</li>
+<li>for: 本研究旨在提出一种新的方法，即选择性跨模态精炼（SCMD），以便在不同频率上训练模型，并在未经见过的频率上测试其泛化能力。</li>
+<li>methods: SCMD 利用了大型视觉语言模型CLIP的能力，具体来说是使用CLIP模型训练一个更加高效的模型，以确保它在未经见过的频率上具有更高的泛化能力。我们的主要贡献是一种独特的选择框架，用于针对硬度学习的样本进行精炼。同时，我们还提出了一种新的跨模态模块，用于将学生模型的投影特征与CLIP模型的文本嵌入相结合。</li>
+<li>results: 我们在多个标准 benchmark 上评估了 SCMD 的性能，并发现它可以使一个 ResNet50 模型在不同频率上达到状态机器人的性能，超过现有的频率泛化方法。此外，我们还提供了一种理论分析，以更深入地理解我们的选择策略的效果和潜在应用在频率泛化领域。<details>
+<summary>Abstract</summary>
+Domain Generalization (DG), a crucial research area, seeks to train models across multiple domains and test them on unseen ones. In this paper, we introduce a novel approach, namely, Selective Cross-Modality Distillation for Domain Generalization (SCMD). SCMD leverages the capabilities of large vision-language models, specifically the CLIP model, to train a more efficient model, ensuring it acquires robust generalization capabilities across unseen domains. Our primary contribution is a unique selection framework strategically designed to identify hard-to-learn samples for distillation. In parallel, we introduce a novel cross-modality module. This module seamlessly combines the projected features of the student model with the text embeddings from CLIP, ensuring the alignment of similarity distributions. We assess SCMD's performance on various benchmarks, where it empowers a ResNet50 to deliver state-of-the-art performance, surpassing existing domain generalization methods. Furthermore, we provide a theoretical analysis of our selection strategy, offering deeper insight into its effectiveness and potential in the field of DG.
+</details>
+<details>
+<summary>摘要</summary>
+领域总结（DG）是一个重要的研究领域，旨在训练模型在多个领域下，并在未见领域上进行测试。在这篇论文中，我们介绍了一种新的方法，即选择性跨模态精益（SCMD）。SCMD利用了大型视觉语言模型，特别是CLIP模型，来训练一个更高效的模型，以确保它在未见领域上获得稳定的泛化能力。我们的主要贡献是一种独特的选择框架，用于针对难以学习的样本进行精益。同时，我们还引入了一种跨模态模块，这个模块将学生模型的投影特征和CLIP的文本嵌入相结合，以确保相似性分布的协调。我们在多个benchmark上评估了SCMD的性能，其能使一个ResNet50模型在不同的领域上达到状态之最的表现，超越现有的领域总结方法。此外，我们还提供了选择策略的理论分析，为领域DG的发展提供更深入的理解和潜在。
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/11/26/cs.CV_2023_11_26/" data-id="clq0ru6vj00plto881g4deuff" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/27/eess.SP_2023_11_27/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          eess.SP - 2023-11-27
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/26/cs.AI_2023_11_26/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.AI - 2023-11-26</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">158</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">158</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">158</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">158</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">142</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">140</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">98</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a><span class="archive-list-count">49</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a><span class="archive-list-count">214</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">231</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">212</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

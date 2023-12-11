@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>cs.CL - 2023-12-01 | Fun Paper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Omni-SMoLA: Boosting Generalist Multimodal Models with Soft Mixture of Low-rank Experts paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2312.00968 repo_url: None paper_authors: Jialin Wu, Xia Hu, Yaqing Wang, Bo Pang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs.CL - 2023-12-01">
+<meta property="og:url" content="https://nullscc.github.io/2023/12/01/cs.CL_2023_12_01/index.html">
+<meta property="og:site_name" content="Fun Paper">
+<meta property="og:description" content="Omni-SMoLA: Boosting Generalist Multimodal Models with Soft Mixture of Low-rank Experts paper_url: http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2312.00968 repo_url: None paper_authors: Jialin Wu, Xia Hu, Yaqing Wang, Bo Pang">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-12-01T11:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-11T10:23:45.936Z">
+<meta property="article:author" content="nullscc">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
+        
+        
+          <a id="nav-github" class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nullscc"></a>
+        
+      </div>
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">Fun Paper</a>
+        </h1>
+      
+    </div>
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">Paper</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main"><article id="post-cs.CL_2023_12_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <h3 href="/2023/12/01/cs.CL_2023_12_01/" class="article-date">
+  <time datetime="2023-12-01T11:00:00.000Z" itemprop="datePublished">2023-12-01</time>
+</h3>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cs-CL/">cs.CL</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cs.CL - 2023-12-01
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <h2 id="Omni-SMoLA-Boosting-Generalist-Multimodal-Models-with-Soft-Mixture-of-Low-rank-Experts"><a href="#Omni-SMoLA-Boosting-Generalist-Multimodal-Models-with-Soft-Mixture-of-Low-rank-Experts" class="headerlink" title="Omni-SMoLA: Boosting Generalist Multimodal Models with Soft Mixture of Low-rank Experts"></a>Omni-SMoLA: Boosting Generalist Multimodal Models with Soft Mixture of Low-rank Experts</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00968">http://arxiv.org/abs/2312.00968</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Jialin Wu, Xia Hu, Yaqing Wang, Bo Pang, Radu Soricut</li>
+<li>for: 这篇论文主要关注于如何对大型多modal模型（LMMs）进行调整，以提高它们的通用性能。</li>
+<li>methods: 论文提出了一种名为Omni-SMoLA的架构，它使用软MoE方法将多modal低维度专家融合在一起，并避免了将大量新的参数添加到模型中。</li>
+<li>results: 实验结果显示，SMoLA架构可以帮助提高通用性能 across a broad range of generative vision-and-language tasks，常常与或超过单一专门LMM基eline，以及新的专家模型基eline。<details>
+<summary>Abstract</summary>
+Large multi-modal models (LMMs) exhibit remarkable performance across numerous tasks. However, generalist LMMs often suffer from performance degradation when tuned over a large collection of tasks. Recent research suggests that Mixture of Experts (MoE) architectures are useful for instruction tuning, but for LMMs of parameter size around O(50-100B), the prohibitive cost of replicating and storing the expert models severely limits the number of experts we can use. We propose Omni-SMoLA, an architecture that uses the Soft MoE approach to (softly) mix many multimodal low rank experts, and avoids introducing a significant number of new parameters compared to conventional MoE models. The core intuition here is that the large model provides a foundational backbone, while different lightweight experts residually learn specialized knowledge, either per-modality or multimodally. Extensive experiments demonstrate that the SMoLA approach helps improve the generalist performance across a broad range of generative vision-and-language tasks, achieving new SoTA generalist performance that often matches or outperforms single specialized LMM baselines, as well as new SoTA specialist performance.
+</details>
+<details>
+<summary>摘要</summary>
+大型多Modal模型（LMM）具有很好的表现能力，但是通常的总体LMM在处理大量任务时会导致性能下降。 latest research suggests that Mixture of Experts（MoE）架构是用于指导调整的有用，但是对于LMM的参数大小约为50-100B，复制和存储专家模型的成本是非常高的，这限制了我们可以使用的专家数量。我们提出了Omni-SMoLA架构，它使用软MoE方法将多种多Modal low rank专家轻松地混合，并避免了与传统MoE模型相比增加了很多新参数。核心想法是，大型模型提供了基础脊梁，而不同的轻量级专家 residually 学习特有的知识，可以是每个模式还是多modal。广泛的实验表明，SMoLA方法可以提高通用性能 across a broad range of generative vision-and-language tasks，实现了新的SoTA通用性能，经常与或超过单个专业LMM基线，以及新的SoTA专业性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="Hyperparameter-Optimization-for-Large-Language-Model-Instruction-Tuning"><a href="#Hyperparameter-Optimization-for-Large-Language-Model-Instruction-Tuning" class="headerlink" title="Hyperparameter Optimization for Large Language Model Instruction-Tuning"></a>Hyperparameter Optimization for Large Language Model Instruction-Tuning</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00949">http://arxiv.org/abs/2312.00949</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Christophe Tribes, Sacha Benarroch-Lelong, Peng Lu, Ivan Kobyzev</li>
+<li>for: 本研究旨在调整大语言模型（LLMs），以提高自然语言处理应用中的性能。</li>
+<li>methods: 本研究使用了低矩阵尺度化（LoRA）方法，即冻结大部分预训练LLM的权重，并通过低矩阵分解权重矩阵，只调整一小部分网络。</li>
+<li>results: 研究通过两种黑盒优化（BBO）技术，efficiently explore了优化参数的空间，并实现了性能和人类对齐的提升。<details>
+<summary>Abstract</summary>
+The fine-tuning of Large Language Models (LLMs) has enabled them to recently achieve milestones in natural language processing applications. The emergence of ever larger LLMs has paved the way for more efficient fine-tuning methods. Among these, the Low-Rank Adaptation (LoRA) method keeps most of the weights of the pre-trained LLM frozen while introducing a low-rank decomposition of the weight matrix, enabling the tuning of only a very small proportion of the network. The performance on downstream tasks of models fine-tuned with LoRA heavily relies on a set of hyperparameters including the rank of the decomposition. In this work, we investigate the choice of these hyperparameters through two main blackbox optimization (BBO) techniques. We examine the whole pipeline of performing fine-tuning and validation on a pre-trained LLM as a blackbox and efficiently explore the space of hyperparameters with the \nomad algorithm, achieving a boost in performance and human alignment of the tuned model.
+</details>
+<details>
+<summary>摘要</summary>
+大型自然语言模型（LLM）的精度调整已经使得它们在自然语言处理应用中实现了里程碑。大型LLM的出现使得更高效的调整方法得以出现。其中，低级别适应（LoRA）方法保持了预训练LLM中的大多数权重冻结，并引入了weight矩阵的低级别分解，只需调整一小部分网络。下游任务的模型经过LoRA调整后的性能高度取决于一组超参数，包括分解级别。在这项工作中，我们通过两种主要的黑盒优化（BBO）技术来调整这些超参数。我们对预训练LLM整个调整和验证管道进行黑盒处理，高效地探索超参数的空间，并实现了调整后的性能和人类对齐的提升。
+</details></li>
+</ul>
+<hr>
+<h2 id="Quick-Back-Translation-for-Unsupervised-Machine-Translation"><a href="#Quick-Back-Translation-for-Unsupervised-Machine-Translation" class="headerlink" title="Quick Back-Translation for Unsupervised Machine Translation"></a>Quick Back-Translation for Unsupervised Machine Translation</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00912">http://arxiv.org/abs/2312.00912</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/bbrimacombe/quick-back-translation">https://github.com/bbrimacombe/quick-back-translation</a></li>
+<li>paper_authors: Benjamin Brimacombe, Jiawei Zhou</li>
+<li>for: 这篇论文旨在提出一种以Transformer为基础的无监督自动翻译方法，并使用back-translation算法进行反向翻译和自我优化。</li>
+<li>methods: 该方法使用Transformer模型进行生成模型，并使用生成器生成的序列来训练解码器，同时与原有的 autoregressive back-translation 步骤结合使用。</li>
+<li>results: 实验结果表明，对于不同的 WMT 测试 benchmark，只需要一些简单的反向翻译步骤，可以提高当前的无监督自动翻译模型，并且 QBT 方法在相同的翻译质量下比标准的 back-translation 方法更高效。<details>
+<summary>Abstract</summary>
+The field of unsupervised machine translation has seen significant advancement from the marriage of the Transformer and the back-translation algorithm. The Transformer is a powerful generative model, and back-translation leverages Transformer's high-quality translations for iterative self-improvement. However, the Transformer is encumbered by the run-time of autoregressive inference during back-translation, and back-translation is limited by a lack of synthetic data efficiency. We propose a two-for-one improvement to Transformer back-translation: Quick Back-Translation (QBT). QBT re-purposes the encoder as a generative model, and uses encoder-generated sequences to train the decoder in conjunction with the original autoregressive back-translation step, improving data throughput and utilization. Experiments on various WMT benchmarks demonstrate that a relatively small number of refining steps of QBT improve current unsupervised machine translation models, and that QBT dramatically outperforms standard back-translation only method in terms of training efficiency for comparable translation qualities.
+</details>
+<details>
+<summary>摘要</summary>
+自然语言翻译领域中无监督机器翻译的发展很 significiant，即通过传统和回讲算法结合，使用传统的Transformer模型。传统模型具有高质量的生成能力，而回讲算法可以通过使用高质量的翻译来进行反向优化。然而，传统模型在回讲算法中的 autoregressive 推理步骤会增加运行时间，而且回讲算法受到生成数据的有效性限制。我们提出了一种两阶段改进方案：快速后翻译（QBT）。QBT 重用Encoder作为生成模型，并使用 Encoder 生成的序列来训练 Decoder，并在原有的 autoregressive 回讲步骤中进行同步训练。实验表明，只需要一些简单的改进步骤，QBT 可以提高当前无监督机器翻译模型的性能，并且 QBT 在相同的翻译质量下可以大幅提高训练效率。
+</details></li>
+</ul>
+<hr>
+<h2 id="Analyzing-the-Influence-of-Fake-News-in-the-2024-Elections-A-Comprehensive-Dataset"><a href="#Analyzing-the-Influence-of-Fake-News-in-the-2024-Elections-A-Comprehensive-Dataset" class="headerlink" title="Analyzing the Influence of Fake News in the 2024 Elections: A Comprehensive Dataset"></a>Analyzing the Influence of Fake News in the 2024 Elections: A Comprehensive Dataset</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.03750">http://arxiv.org/abs/2312.03750</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Mizanur Rahman, Shaina Raza</li>
+<li>for: 这个研究是为了研究美国政治演说中的假新闻，具体来说是检测种族骚扰和偏见。</li>
+<li>methods: 这个研究使用高级自然语言处理工具和人工验证，从40,000篇新闻文章中抽取和标注数据，为机器学习和偏见分析提供了丰富的资源。</li>
+<li>results: 这个研究提供了一个关于假新闻的数据集，可供研究人员、政策制定者和教育者使用，以开发抵御假新闻的策略和提高媒体Literacy。这个数据集专注于2024年选举中的假新闻分析，并且公共可访问，以便社区共同努力对假新闻进行识别。<details>
+<summary>Abstract</summary>
+This work introduces a dataset focused on fake news in US political speeches, specifically examining racial slurs and biases. By scraping and annotating 40,000 news articles, using advanced NLP tools and human verification, we provide a nuanced understanding of misinformation in political discourse. The dataset, designed for machine learning and bias analysis, is a critical resource for researchers, policymakers, and educators. It facilitates the development of strategies against misinformation and enhances media literacy, marking a significant contribution to the study of fake news and political communication. Our dataset, focusing on the analysis of fake news in the context of the 2024 elections, is publicly accessible for community to work on fake news identification. Our dataset, focusing on the analysis of fake news in the context of the 2024 elections, is publicly accessible.
+</details>
+<details>
+<summary>摘要</summary>
+这个研究介绍了一个关注美国政治演讲中的假新闻数据集，具体研究了种族诋毁和偏见。我们通过抓取和注释40,000篇新闻文章，使用先进的自然语言处理工具和人工验证，为研究人员、政策制定者和教育者提供了细腻的虚假新闻认知。这个数据集，针对机器学习和偏见分析，是一个重要的资源，帮助研究人员、政策制定者和教育者开发抵御虚假新闻策略，提高媒体素养，对假新闻和政治沟通做出了重要贡献。我们的数据集，专注于2024年选举的假新闻分析，公共可用，欢迎社区使用来鉴别假新闻。
+</details></li>
+</ul>
+<hr>
+<h2 id="Hi-ArG-Exploring-the-Integration-of-Hierarchical-Argumentation-Graphs-in-Language-Pretraining"><a href="#Hi-ArG-Exploring-the-Integration-of-Hierarchical-Argumentation-Graphs-in-Language-Pretraining" class="headerlink" title="Hi-ArG: Exploring the Integration of Hierarchical Argumentation Graphs in Language Pretraining"></a>Hi-ArG: Exploring the Integration of Hierarchical Argumentation Graphs in Language Pretraining</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00874">http://arxiv.org/abs/2312.00874</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/ljcleo/hi-arg">https://github.com/ljcleo/hi-arg</a></li>
+<li>paper_authors: Jingcong Liang, Rong Ye, Meng Han, Qi Zhang, Ruofei Lai, Xinyu Zhang, Zhao Cao, Xuanjing Huang, Zhongyu Wei</li>
+<li>for: 本研究旨在提出一种新的知识图 structures，帮助语言模型在不同应用中表现更好。</li>
+<li>methods: 本文提出了一种新的 Hierarchical Argumentation Graph (Hi-ArG) 结构，以及两种使用这种结构的方法：一种是 text-graph 多模态模型 GreaseArG，另一种是一种增强语言模型的预训练框架，并在这个框架中添加图形信息。</li>
+<li>results: 实验表明，在两个 Argumentation 任务上，经过进一步预训练和微调，GreaseArG 可以超越同等规模的语言模型的性能，而在把图形信息integrated into预训练框架中也可以提高vanilla语言模型的性能。<details>
+<summary>Abstract</summary>
+The knowledge graph is a structure to store and represent knowledge, and recent studies have discussed its capability to assist language models for various applications. Some variations of knowledge graphs aim to record arguments and their relations for computational argumentation tasks. However, many must simplify semantic types to fit specific schemas, thus losing flexibility and expression ability. In this paper, we propose the Hierarchical Argumentation Graph (Hi-ArG), a new structure to organize arguments. We also introduce two approaches to exploit Hi-ArG, including a text-graph multi-modal model GreaseArG and a new pre-training framework augmented with graph information. Experiments on two argumentation tasks have shown that after further pre-training and fine-tuning, GreaseArG supersedes same-scale language models on these tasks, while incorporating graph information during further pre-training can also improve the performance of vanilla language models. Code for this paper is available at https://github.com/ljcleo/Hi-ArG .
+</details>
+<details>
+<summary>摘要</summary>
+知识图是一种存储和表示知识的结构，最近的研究已经证明它可以帮助语言模型在多种应用中表现出色。一些变种的知识图旨在记录 Argument 和它们之间的关系，以便计算性的论证任务。然而，许多情况下需要简化 semantic type，以适应特定的模板，从而失去flexibility和表达能力。在本文中，我们提出了层次论证图（Hi-ArG），一种新的结构来组织 Argument。我们还介绍了两种方法来利用 Hi-ArG，包括文本-图模型 GreaseArG 和一种新的预训练框架，其中包含图信息。对于两个论证任务进行实验，我们发现，经过进一步预训练和细化，GreaseArG 可以在这些任务上超越同样规模的语言模型，而在预训练中包含图信息也可以提高 vanilla 语言模型的表现。代码可以在 GitHub 上找到：https://github.com/ljcleo/Hi-ArG。
+</details></li>
+</ul>
+<hr>
+<h2 id="SeaLLMs-–-Large-Language-Models-for-Southeast-Asia"><a href="#SeaLLMs-–-Large-Language-Models-for-Southeast-Asia" class="headerlink" title="SeaLLMs – Large Language Models for Southeast Asia"></a>SeaLLMs – Large Language Models for Southeast Asia</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00738">http://arxiv.org/abs/2312.00738</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/damo-nlp-sg/seallms">https://github.com/damo-nlp-sg/seallms</a></li>
+<li>paper_authors: Xuan-Phi Nguyen, Wenxuan Zhang, Xin Li, Mahani Aljunied, Qingyu Tan, Liying Cheng, Guanzheng Chen, Yue Deng, Sen Yang, Chaoqun Liu, Hang Zhang, Lidong Bing</li>
+<li>for: 增进 southeast asian 语言模型的研究和应用，提高 regional languages 的表达能力和文化准确性。</li>
+<li>methods: 基于 llama-2 模型，通过继续预训With 扩展词汇、特殊指导和对齐调整，进一步提高了 regional languages 的表达能力和文化准确性。</li>
+<li>results: 对比 comparable open-source models，SeaLLM-13b 模型在各种语言任务中表现出色，并在 non-Latin 语言中（如泰语、傣语、老语和缅甸语）与 ChatGPT-3.5 相比，具有大幅度的优势，同时具有轻量级和cost-effective的特点。<details>
+<summary>Abstract</summary>
+Despite the remarkable achievements of large language models (LLMs) in various tasks, there remains a linguistic bias that favors high-resource languages, such as English, often at the expense of low-resource and regional languages. To address this imbalance, we introduce SeaLLMs, an innovative series of language models that specifically focuses on Southeast Asian (SEA) languages. SeaLLMs are built upon the Llama-2 model and further advanced through continued pre-training with an extended vocabulary, specialized instruction and alignment tuning to better capture the intricacies of regional languages. This allows them to respect and reflect local cultural norms, customs, stylistic preferences, and legal considerations. Our comprehensive evaluation demonstrates that SeaLLM-13b models exhibit superior performance across a wide spectrum of linguistic tasks and assistant-style instruction-following capabilities relative to comparable open-source models. Moreover, they outperform ChatGPT-3.5 in non-Latin languages, such as Thai, Khmer, Lao, and Burmese, by large margins while remaining lightweight and cost-effective to operate.
+</details>
+<details>
+<summary>摘要</summary>
+尽管大型语言模型（LLM）在各种任务中做出了非凡的成就，但语言偏袋仍然存在，它们偏好高资源语言，如英语，并经常在低资源语言和地区语言的代价。为了解决这一不平等，我们引入SeaLLMs，一种革新的语言模型，专门针对东南亚（SEA）语言。SeaLLMs 基于 Llama-2 模型，并通过继续预训 With an extended vocabulary, specialized instruction and alignment tuning来更好地捕捉地区语言的细节。这使得它们能够尊重和反映本地文化规范、习惯、文体偏好和法律考虑。我们的全面评估表明，SeaLLM-13b 模型在各种语言任务和助手式指令遵循能力方面表现出色，与相关的开源模型相比。此外，它们在非拉丁语言，如泰语、傣语、寮语和缅甸语中，与 ChatGPT-3.5 模型相比，占据了很大的优势，而且具有轻量级和成本效果。
+</details></li>
+</ul>
+<hr>
+<h2 id="Contextualized-word-senses-from-attention-to-compositionality"><a href="#Contextualized-word-senses-from-attention-to-compositionality" class="headerlink" title="Contextualized word senses: from attention to compositionality"></a>Contextualized word senses: from attention to compositionality</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00680">http://arxiv.org/abs/2312.00680</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Pablo Gamallo</li>
+<li>for: 本文提出了一种透明、可解释的方法，用于EncodingContextual Sense of Words。</li>
+<li>methods: 本文提出了一种基于语言学理念的Semantic Compositionality模型，特别是关注依赖关系和Semantic Notions。</li>
+<li>results: 对于一个Semantic Task，即Word Sense Similarity Calculation，该模型可以与Transformer-based Architecture相比，并且获得竞争力。<details>
+<summary>Abstract</summary>
+The neural architectures of language models are becoming increasingly complex, especially that of Transformers, based on the attention mechanism. Although their application to numerous natural language processing tasks has proven to be very fruitful, they continue to be models with little or no interpretability and explainability. One of the tasks for which they are best suited is the encoding of the contextual sense of words using contextualized embeddings. In this paper we propose a transparent, interpretable, and linguistically motivated strategy for encoding the contextual sense of words by modeling semantic compositionality. Particular attention is given to dependency relations and semantic notions such as selection preferences and paradigmatic classes. A partial implementation of the proposed model is carried out and compared with Transformer-based architectures for a given semantic task, namely the similarity calculation of word senses in context. The results obtained show that it is possible to be competitive with linguistically motivated models instead of using the black boxes underlying complex neural architectures.
+</details>
+<details>
+<summary>摘要</summary>
+neural networks的语言模型结构在不断增加复杂度，特别是基于注意机制的Transformers。虽然它们在自然语言处理任务上表现非常成功，但是它们仍然是不可解释的模型。这种模型在编码上下文感知词语的任务中表现最佳，特别是在使用上下文化 embedding 来编码上下文感知词语的情况下。在这篇论文中，我们提出了一种透明、可解释、语言驱动的方法来编码上下文感知词语，包括依赖关系和语义概念如选择偏好和词语分类。我们对提出的模型进行了部分实现，并与基于Transformers的架构进行了比较，对一个 semantics 任务，即上下文中词语类似度计算。结果表明，可以与语言驱动的模型竞争，而不是使用复杂的神秘的神经网络架构。
+</details></li>
+</ul>
+<hr>
+<h2 id="The-Efficiency-Spectrum-of-Large-Language-Models-An-Algorithmic-Survey"><a href="#The-Efficiency-Spectrum-of-Large-Language-Models-An-Algorithmic-Survey" class="headerlink" title="The Efficiency Spectrum of Large Language Models: An Algorithmic Survey"></a>The Efficiency Spectrum of Large Language Models: An Algorithmic Survey</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00678">http://arxiv.org/abs/2312.00678</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/tding1/efficient-llm-survey">https://github.com/tding1/efficient-llm-survey</a></li>
+<li>paper_authors: Tianyu Ding, Tianyi Chen, Haidong Zhu, Jiachen Jiang, Yiqi Zhong, Jinxin Zhou, Guangzhi Wang, Zhihui Zhu, Ilya Zharkov, Luming Liang</li>
+<li>for: 本文旨在提供一份全面的大语言模型（LLM）效率提升方法的综述，帮助研究人员和实践者更好地理解LLM的效率问题。</li>
+<li>methods: 本文涵盖了多种方法来提升LLM效率，包括算法方法和硬件解决方案，以满足LLM在各种应用领域的需求。</li>
+<li>results: 本文提出了一系列有效的方法，包括扩大法律、数据利用、建筑创新、训练和调整策略、和推理技术，以提高LLM的效率。<details>
+<summary>Abstract</summary>
+The rapid growth of Large Language Models (LLMs) has been a driving force in transforming various domains, reshaping the artificial general intelligence landscape. However, the increasing computational and memory demands of these models present substantial challenges, hindering both academic research and practical applications. To address these issues, a wide array of methods, including both algorithmic and hardware solutions, have been developed to enhance the efficiency of LLMs. This survey delivers a comprehensive review of algorithmic advancements aimed at improving LLM efficiency. Unlike other surveys that typically focus on specific areas such as training or model compression, this paper examines the multi-faceted dimensions of efficiency essential for the end-to-end algorithmic development of LLMs. Specifically, it covers various topics related to efficiency, including scaling laws, data utilization, architectural innovations, training and tuning strategies, and inference techniques. This paper aims to serve as a valuable resource for researchers and practitioners, laying the groundwork for future innovations in this critical research area. Our repository of relevant references is maintained at url{https://github.com/tding1/Efficient-LLM-Survey}.
+</details>
+<details>
+<summary>摘要</summary>
+大量语言模型（LLM）的快速增长已经是许多领域的推动力，重新定义人工通用智能的景象。然而，这些模型的计算和记忆需求逐渐增加，对学术研究和实际应用都产生了严重的挑战。为了解决这些问题，一些方法，包括算法和硬件解决方案，已经开发出来来提高LLM的效率。本篇文章提供了LLM效率的全面评论，不同于其他文章通常专注于特定的领域，例如训练或模型压缩，本文则探讨LLM效率的多方面性，包括扩展法则、数据利用、建筑创新、训练和调整策略、推理技术等。本文的目的是为研究人员和实践者提供一个有价的资源，以便未来在这个重要的研究领域中发展新的创新。我们的相关参考文献存储在 GitHub 上的 url{https://github.com/tding1/Efficient-LLM-Survey}。
+</details></li>
+</ul>
+<hr>
+<h2 id="Nonparametric-Variational-Regularisation-of-Pretrained-Transformers"><a href="#Nonparametric-Variational-Regularisation-of-Pretrained-Transformers" class="headerlink" title="Nonparametric Variational Regularisation of Pretrained Transformers"></a>Nonparametric Variational Regularisation of Pretrained Transformers</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00662">http://arxiv.org/abs/2312.00662</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Fabio Fehr, James Henderson</li>
+<li>For: The paper aims to address the overfitting problem in large-scale pre-training and fine-tuning of Transformer language models, and to improve their out-of-domain generalization.* Methods: The paper proposes using Nonparametric Variational Information Bottleneck (NVIB) as a regulariser for training cross-attention in Transformers, and extends the NVIB framework to replace all types of attention functions in Transformers.* Results: The paper shows that existing pretrained Transformers can be reinterpreted as Nonparametric Variational (NV) models using a proposed identity initialisation, and that changing the initialisation introduces a novel, information-theoretic post-training regularisation in the attention mechanism, which improves out-of-domain generalization without any training.Here are the three points in Simplified Chinese text:* For: 这篇论文目标是解决大规模预训练和精度调整Transformer语言模型中的过拟合问题，并提高其异频域泛化性。* Methods: 论文提出使用非参数化变量信息瓶颈(NVIB)来规范Transformer语言模型中的交叉注意力训练，并扩展NVIB框架来取代所有类型的注意力函数。* Results: 论文显示，现有的预训练Transformer语言模型可以被视为非参数化变量(NV)模型，使用提posed的标识初始化。此外，改变初始化会引入一种新的信息理论post训练正则化在注意力机制中，无需任何训练，可以提高异频域泛化性。<details>
+<summary>Abstract</summary>
+The current paradigm of large-scale pre-training and fine-tuning Transformer large language models has lead to significant improvements across the board in natural language processing. However, such large models are susceptible to overfitting to their training data, and as a result the models perform poorly when the domain changes. Also, due to the model's scale, the cost of fine-tuning the model to the new domain is large. Nonparametric Variational Information Bottleneck (NVIB) has been proposed as a regulariser for training cross-attention in Transformers, potentially addressing the overfitting problem. We extend the NVIB framework to replace all types of attention functions in Transformers, and show that existing pretrained Transformers can be reinterpreted as Nonparametric Variational (NV) models using a proposed identity initialisation. We then show that changing the initialisation introduces a novel, information-theoretic post-training regularisation in the attention mechanism, which improves out-of-domain generalisation without any training. This success supports the hypothesis that pretrained Transformers are implicitly NV Bayesian models.
+</details>
+<details>
+<summary>摘要</summary>
+当前的大规模预训练和精度调整Transformer大语言模型已经导致自然语言处理领域的显著改进。然而，这些大型模型容易过拟合训练数据，并且当领域变化时表现不佳。此外，由于模型的规模， Fine-tuning模型到新领域的成本很高。非 Parametric Variational Information Bottleneck (NVIB) 已经被提议作为Transformer中的预测cross-attention的规则，可能解决过拟合问题。我们将 NVIB 框架扩展到所有类型的注意函数，并表示现有预训练Transformers可以被重新解释为非 Parametric Variational (NV) 模型，使用提议的标识初始化。我们然后表明，更改初始化会引入一种新的信息理论性后处理规则，该规则在注意机制中提高了频率外频训练。这种成功支持假设预训练Transformers是隐式的NV Bayesian模型。
+</details></li>
+</ul>
+<hr>
+<h2 id="Instruction-tuning-Aligns-LLMs-to-the-Human-Brain"><a href="#Instruction-tuning-Aligns-LLMs-to-the-Human-Brain" class="headerlink" title="Instruction-tuning Aligns LLMs to the Human Brain"></a>Instruction-tuning Aligns LLMs to the Human Brain</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00575">http://arxiv.org/abs/2312.00575</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Khai Loong Aw, Syrielle Montariol, Badr AlKhamissi, Martin Schrimpf, Antoine Bosselut</li>
+<li>For: The paper investigates the effect of instruction-tuning on the similarity between language models (LLMs) and human language processing.* Methods: The paper uses brain alignment and behavioral alignment to measure the similarity between LLMs and humans, and assesses the effect of instruction-tuning on these measures.* Results: The paper finds that instruction-tuning generally enhances brain alignment by an average of 6%, but does not have a similar effect on behavioral alignment. The paper also identifies a strong positive correlation between brain alignment and model size, as well as performance on tasks requiring world knowledge.<details>
+<summary>Abstract</summary>
+Instruction-tuning is a widely adopted method of finetuning that enables large language models (LLMs) to generate output that more closely resembles human responses to natural language queries, in many cases leading to human-level performance on diverse testbeds. However, it remains unclear whether instruction-tuning truly makes LLMs more similar to how humans process language. We investigate the effect of instruction-tuning on LLM-human similarity in two ways: (1) brain alignment, the similarity of LLM internal representations to neural activity in the human language system, and (2) behavioral alignment, the similarity of LLM and human behavior on a reading task. We assess 25 vanilla and instruction-tuned LLMs across three datasets involving humans reading naturalistic stories and sentences. We discover that instruction-tuning generally enhances brain alignment by an average of 6%, but does not have a similar effect on behavioral alignment. To identify the factors underlying LLM-brain alignment, we compute correlations between the brain alignment of LLMs and various model properties, such as model size, various problem-solving abilities, and performance on tasks requiring world knowledge spanning various domains. Notably, we find a strong positive correlation between brain alignment and model size (r = 0.95), as well as performance on tasks requiring world knowledge (r = 0.81). Our results demonstrate that instruction-tuning LLMs improves both world knowledge representations and brain alignment, suggesting that mechanisms that encode world knowledge in LLMs also improve representational alignment to the human brain.
+</details>
+<details>
+<summary>摘要</summary>
+instruction-tuning是一种广泛采用的方法，可以让大型语言模型（LLM）生成更加类似于人类对自然语言查询的回答，在许多情况下达到人类水平的测试表现。然而，其实际上是否使得LLM更加类似于人类处理语言的方式仍然不清楚。我们 investigate了instruction-tuning对LLM和人类语言系统之间的相似性的效果，通过两种方法：1）脑对Alignment，LLM内部表示与人类语言系统中的神经活动的相似性，2）行为对Alignment，LLM和人类在阅读任务中的行为的相似性。我们在三个含有人类阅读自然故事和句子的数据集上评估了25个vanilla和instruction-tuned LLM。我们发现，instruction-tuning通常提高了脑对Alignment的平均提高率为6%，但没有类似的效果在行为对Alignment方面。为了了解LLM-脑对Alignment的因素，我们计算了LLMs中不同特征和模型属性之间的相关性，如模型大小、不同领域的问题解决能力和世界知识表达能力。我们发现，脑对Alignment和模型大小之间存在强正相关关系（r = 0.95），以及世界知识表达能力和模型大小之间的强正相关关系（r = 0.81）。我们的结果表明，instruction-tuning LLMs可以提高世界知识表达和脑对Alignment， suggesting that mechanisms that encode world knowledge in LLMs also improve representational alignment to the human brain。
+</details></li>
+</ul>
+<hr>
+<h2 id="Explanatory-Argument-Extraction-of-Correct-Answers-in-Resident-Medical-Exams"><a href="#Explanatory-Argument-Extraction-of-Correct-Answers-in-Resident-Medical-Exams" class="headerlink" title="Explanatory Argument Extraction of Correct Answers in Resident Medical Exams"></a>Explanatory Argument Extraction of Correct Answers in Resident Medical Exams</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00567">http://arxiv.org/abs/2312.00567</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Iakes Goenaga, Aitziber Atutxa, Koldo Gojenola, Maite Oronoz, Rodrigo Agerri<br>for: 这篇论文的目的是为医疗专业人员提供一个有用的技术，以帮助他们在日常活动中使用人工智能。methods: 这篇论文使用了一些大型自然语言模型（LLM）和自动化的评估 benchmark，以便在医学基础知识（EBM）中进行信息提取，并使用自然语言来作为人机互动的工具。results: 这篇论文的结果显示，在西班牙语中的医疗问题中，使用了医生写的解释可以帮助医疗专业人员找到相关的证据基础解释。此外，这篇论文还发现，在不同的语言模型中，有时候多语言模型会比较好，甚至比过去特化 для医疗领域的模型。<details>
+<summary>Abstract</summary>
+Developing the required technology to assist medical experts in their everyday activities is currently a hot topic in the Artificial Intelligence research field. Thus, a number of large language models (LLMs) and automated benchmarks have recently been proposed with the aim of facilitating information extraction in Evidence-Based Medicine (EBM) using natural language as a tool for mediating in human-AI interaction. The most representative benchmarks are limited to either multiple-choice or long-form answers and are available only in English. In order to address these shortcomings, in this paper we present a new dataset which, unlike previous work: (i) includes not only explanatory arguments for the correct answer, but also arguments to reason why the incorrect answers are not correct; (ii) the explanations are written originally by medical doctors to answer questions from the Spanish Residency Medical Exams. Furthermore, this new benchmark allows us to setup a novel extractive task which consists of identifying the explanation of the correct answer written by medical doctors. An additional benefit of our setting is that we can leverage the extractive QA paradigm to automatically evaluate performance of LLMs without resorting to costly manual evaluation by medical experts. Comprehensive experimentation with language models for Spanish shows that sometimes multilingual models fare better than monolingual ones, even outperforming models which have been adapted to the medical domain. Furthermore, results across the monolingual models are mixed, with supposedly smaller and inferior models performing competitively. In any case, the obtained results show that our novel dataset and approach can be an effective technique to help medical practitioners in identifying relevant evidence-based explanations for medical questions.
+</details>
+<details>
+<summary>摘要</summary>
+Currently, developing technology to assist medical experts in their daily activities is a hot topic in the field of Artificial Intelligence research. To facilitate information extraction in Evidence-Based Medicine (EBM) using natural language as a tool for human-AI interaction, several large language models (LLMs) and automated benchmarks have been proposed. However, these benchmarks are limited to either multiple-choice or long-form answers and are only available in English.To address these shortcomings, we present a new dataset in this paper. Our dataset includes not only explanatory arguments for the correct answer, but also arguments to reason why the incorrect answers are not correct. The explanations were written originally by medical doctors to answer questions from the Spanish Residency Medical Exams. Additionally, our new benchmark allows us to set up a novel extractive task, which consists of identifying the explanation of the correct answer written by medical doctors. This approach allows us to automatically evaluate the performance of LLMs without relying on costly manual evaluation by medical experts.Our comprehensive experimentation with language models for Spanish shows that sometimes multilingual models perform better than monolingual ones, even outperforming models that have been adapted to the medical domain. Moreover, the results of the monolingual models are mixed, with smaller and inferior models performing competitively. Regardless, the obtained results demonstrate that our novel dataset and approach can be an effective technique to help medical practitioners identify relevant evidence-based explanations for medical questions.
+</details></li>
+</ul>
+<hr>
+<h2 id="Improving-Unsupervised-Relation-Extraction-by-Augmenting-Diverse-Sentence-Pairs"><a href="#Improving-Unsupervised-Relation-Extraction-by-Augmenting-Diverse-Sentence-Pairs" class="headerlink" title="Improving Unsupervised Relation Extraction by Augmenting Diverse Sentence Pairs"></a>Improving Unsupervised Relation Extraction by Augmenting Diverse Sentence Pairs</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00552">http://arxiv.org/abs/2312.00552</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/qingwang-isu/augure">https://github.com/qingwang-isu/augure</a></li>
+<li>paper_authors: Qing Wang, Kang Zhou, Qiao Qiao, Yuepei Li, Qi Li</li>
+<li>for: 提高无监督关系提取（URE）的性能，并且解决现有的方法缺乏多样性和适当的损失函数问题。</li>
+<li>methods: 提出了具有增强多样性和提高抑制力的对比学习策略，并且应用了多句子对比以增加正例对的多样性。同时，提出了margin损失函数来更好地衡量对话对的分布。</li>
+<li>results: 在NYT-FB和TACRED数据集上进行了实验，并取得了当前最佳性能。<details>
+<summary>Abstract</summary>
+Unsupervised relation extraction (URE) aims to extract relations between named entities from raw text without requiring manual annotations or pre-existing knowledge bases. In recent studies of URE, researchers put a notable emphasis on contrastive learning strategies for acquiring relation representations. However, these studies often overlook two important aspects: the inclusion of diverse positive pairs for contrastive learning and the exploration of appropriate loss functions. In this paper, we propose AugURE with both within-sentence pairs augmentation and augmentation through cross-sentence pairs extraction to increase the diversity of positive pairs and strengthen the discriminative power of contrastive learning. We also identify the limitation of noise-contrastive estimation (NCE) loss for relation representation learning and propose to apply margin loss for sentence pairs. Experiments on NYT-FB and TACRED datasets demonstrate that the proposed relation representation learning and a simple K-Means clustering achieves state-of-the-art performance.
+</details>
+<details>
+<summary>摘要</summary>
+Unsupervised关系提取（URE）的目标是从 raw 文本中提取名称实体之间的关系，无需人工标注或先有知识库。在 latest studies of URE，研究人员强调了对冲学策略的应用，但是这些研究经常忽略了两个重要方面：包括多样化的正例对和适当的损失函数。在这篇论文中，我们提议了 AugURE，它通过在同句对和跨句对之间增加多样化的正例对，以增强对冲学策略的推理力。我们还发现了对于关系表示学习，雷达度估计（NCE）损失函数有限制，我们提议使用边缘损失函数来对 sentence pairs 进行学习。在 NYT-FB 和 TACRED 数据集上的实验表明，我们的提案的关系表示学习方法和简单的 K-Means 聚类算法可以达到状态艺术性的性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="Trained-MT-Metrics-Learn-to-Cope-with-Machine-translated-References"><a href="#Trained-MT-Metrics-Learn-to-Cope-with-Machine-translated-References" class="headerlink" title="Trained MT Metrics Learn to Cope with Machine-translated References"></a>Trained MT Metrics Learn to Cope with Machine-translated References</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00536">http://arxiv.org/abs/2312.00536</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/amazon-science/prism-finetuned">https://github.com/amazon-science/prism-finetuned</a></li>
+<li>paper_authors: Jannis Vamvas, Tobias Domhan, Sony Trenous, Rico Sennrich, Eva Hasler</li>
+<li>for: 这个论文是为了研究基于人类评估的神经网络指标是如何 corr related with human judgments。</li>
+<li>methods: 作者使用了一个基eline metric（Prism）和一个已经训练过的版本（Prism+FT），并进行了控制性的实验，以比较这两个指标在机器翻译引用问题上的表现。</li>
+<li>results:  surprisingly, Prism+FT在机器翻译引用问题上变得更加稳定，这表明 metric 训练的效果不仅仅是改善总体与人类评估的相关性。<details>
+<summary>Abstract</summary>
+Neural metrics trained on human evaluations of MT tend to correlate well with human judgments, but their behavior is not fully understood. In this paper, we perform a controlled experiment and compare a baseline metric that has not been trained on human evaluations (Prism) to a trained version of the same metric (Prism+FT). Surprisingly, we find that Prism+FT becomes more robust to machine-translated references, which are a notorious problem in MT evaluation. This suggests that the effects of metric training go beyond the intended effect of improving overall correlation with human judgments.
+</details>
+<details>
+<summary>摘要</summary>
+neural 度量经过人评估MT的结果往往呈现良好的相关性，但它们的行为还不够了解。在这篇论文中，我们进行了控制实验，并将基eline度量metric（Prism）与已经训练过的同一个度量metric（Prism+FT）进行比较。我们惊奇地发现，Prism+FT在机器翻译引用中变得更加稳定，这表示度量训练的效果超出了改善总体与人类判断相关性的目的。
+</details></li>
+</ul>
+<hr>
+<h2 id="RLHF-V-Towards-Trustworthy-MLLMs-via-Behavior-Alignment-from-Fine-grained-Correctional-Human-Feedback"><a href="#RLHF-V-Towards-Trustworthy-MLLMs-via-Behavior-Alignment-from-Fine-grained-Correctional-Human-Feedback" class="headerlink" title="RLHF-V: Towards Trustworthy MLLMs via Behavior Alignment from Fine-grained Correctional Human Feedback"></a>RLHF-V: Towards Trustworthy MLLMs via Behavior Alignment from Fine-grained Correctional Human Feedback</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00849">http://arxiv.org/abs/2312.00849</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/rlhf-v/rlhf-v">https://github.com/rlhf-v/rlhf-v</a></li>
+<li>paper_authors: Tianyu Yu, Yuan Yao, Haoye Zhang, Taiwen He, Yifeng Han, Ganqu Cui, Jinyi Hu, Zhiyuan Liu, Hai-Tao Zheng, Maosong Sun, Tat-Seng Chua</li>
+<li>For:  Addresses the challenge of serious hallucination problems in existing MLLMs, which make them untrustworthy and impractical in real-world applications.* Methods:  Uses behavior alignment from fine-grained correctional human feedback to enhance the trustworthiness of MLLMs. Specifically, it collects human preference in the form of segment-level corrections on hallucinations and performs dense direct preference optimization over the human feedback.* Results:  Achieves substantially more trustworthy MLLM behaviors with promising data and computation efficiency, outperforming the concurrent LLaVA-RLHF trained on 10k annotated data. The final model achieves state-of-the-art performance in trustworthiness among open-source MLLMs and shows better robustness than GPT-4V in preventing hallucinations aroused from over-generalization.<details>
+<summary>Abstract</summary>
+Multimodal Large Language Models (MLLMs) have recently demonstrated impressive capabilities in multimodal understanding, reasoning, and interaction. However, existing MLLMs prevalently suffer from serious hallucination problems, generating text that is not factually grounded in associated images. The problem makes existing MLLMs untrustworthy and thus impractical in real-world (especially high-stakes) applications. To address the challenge, we present RLHF-V, which enhances MLLM trustworthiness via behavior alignment from fine-grained correctional human feedback. Specifically, RLHF-V collects human preference in the form of segment-level corrections on hallucinations, and performs dense direct preference optimization over the human feedback. Comprehensive experiments on five benchmarks in both automatic and human evaluation show that, RLHF-V can enable substantially more trustworthy MLLM behaviors with promising data and computation efficiency. Remarkably, using 1.4k annotated data samples, RLHF-V significantly reduces the hallucination rate of the base MLLM by 34.8%, outperforming the concurrent LLaVA-RLHF trained on 10k annotated data. The final model achieves state-of-the-art performance in trustworthiness among open-source MLLMs, and shows better robustness than GPT-4V in preventing hallucinations aroused from over-generalization. We open-source our code, model, and data at https://github.com/RLHF-V/RLHF-V.
+</details>
+<details>
+<summary>摘要</summary>
+多模态大语言模型（MLLM）最近表现出了很强的多模态理解、思维和互动能力。然而，现有的 MLLM 受到严重的幻觉问题困扰，生成的文本与关联的图像不具有实际基础。这个问题使得现有的 MLLM 不可靠，无法应用于真实世界中的高风险应用程序。为解决这个挑战，我们提出了 RLHF-V，它通过精细的人类反馈进行行为Alignment，提高 MLLM 的可靠性。RLHF-V 收集人类的偏好为 segment-level  corrections，并通过人类反馈进行紧密的直接偏好优化。我们在五个 benchmark 上进行了全面的自动和人类评估，结果显示，RLHF-V 可以生成可靠的 MLLM 行为，并且具有可行的数据和计算效率。特别是，使用 1.4k 注解数据样本，RLHF-V 可以减少基础 MLLM 的幻觉率 by 34.8%，超过了同时期的 LLaVA-RLHF 在 10k 注解数据上的表现。最终模型在开源 MLLM 中表现出了状态的可靠性，并且在防止由过泛化引起的幻觉方面表现出了更好的Robustness。我们将代码、模型和数据公开在 GitHub 上，请参考 https://github.com/RLHF-V/RLHF-V。
+</details></li>
+</ul>
+<hr>
+<h2 id="Summarization-based-Data-Augmentation-for-Document-Classification"><a href="#Summarization-based-Data-Augmentation-for-Document-Classification" class="headerlink" title="Summarization-based Data Augmentation for Document Classification"></a>Summarization-based Data Augmentation for Document Classification</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00513">http://arxiv.org/abs/2312.00513</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/etsurin/summaug">https://github.com/etsurin/summaug</a></li>
+<li>paper_authors: Yueguan Wang, Naoki Yoshinaga</li>
+<li>for: 提高文档分类 task 的稳定性和准确率</li>
+<li>methods: 使用 summarization-based data augmentation，通过将输入文档简化为易于学习的示例，然后使用生成的 pseudo 示例进行课程学习</li>
+<li>results: 在两个 datasets 上实验结果表明，我们的方法比现有基线方法在稳定性和准确率方面具有优势<details>
+<summary>Abstract</summary>
+Despite the prevalence of pretrained language models in natural language understanding tasks, understanding lengthy text such as document is still challenging due to the data sparseness problem. Inspired by that humans develop their ability of understanding lengthy text from reading shorter text, we propose a simple yet effective summarization-based data augmentation, SUMMaug, for document classification. We first obtain easy-to-learn examples for the target document classification task by summarizing the input of the original training examples, while optionally merging the original labels to conform to the summarized input. We then use the generated pseudo examples to perform curriculum learning. Experimental results on two datasets confirmed the advantage of our method compared to existing baseline methods in terms of robustness and accuracy. We release our code and data at https://github.com/etsurin/summaug.
+</details>
+<details>
+<summary>摘要</summary>
+尽管预训言语模型在自然语言理解任务中广泛应用，但理解长文档仍然困难，主要因为数据稀缺问题。人类在阅读短文时发展出了理解长文档的能力，我们则提出了一种简单 yet effective的概要基于数据增强方法，SUMMaug，用于文档分类。我们首先通过概要输入原始训练示例，生成容易学习的示例，并可选地将原始标签与概要输入保持一致。然后，我们使用生成的假示例进行课程学习。两个数据集的实验结果表明，我们的方法与现有基eline方法相比，在Robustness和准确性方面具有优势。我们在GitHub上发布了代码和数据，请参考<https://github.com/etsurin/summaug>。
+</details></li>
+</ul>
+<hr>
+<h2 id="CoLLiE-Collaborative-Training-of-Large-Language-Models-in-an-Efficient-Way"><a href="#CoLLiE-Collaborative-Training-of-Large-Language-Models-in-an-Efficient-Way" class="headerlink" title="CoLLiE: Collaborative Training of Large Language Models in an Efficient Way"></a>CoLLiE: Collaborative Training of Large Language Models in an Efficient Way</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00407">http://arxiv.org/abs/2312.00407</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/openlmlab/collie">https://github.com/openlmlab/collie</a></li>
+<li>paper_authors: Kai Lv, Shuo Zhang, Tianle Gu, Shuhao Xing, Jiawei Hong, Keyu Chen, Xiaoran Liu, Yuqing Yang, Honglin Guo, Tengxiao Liu, Yu Sun, Qipeng Guo, Hang Yan, Xipeng Qiu</li>
+<li>for: 本研究旨在提出一个高效的库，用于联合训练大型自然语言处理模型（LLM），以提高性能。</li>
+<li>methods: 本研究使用了3D平行性、参数高效精致化（PEFT）方法和优化器如狮子、阿达、索菲亚、LOMO和阿达洛莫。</li>
+<li>results: 比较 convention 的解决方案，CoLLiE 在预训和精致化情况下证明了更高的训练效率。 另外，我们也提供了对不同优化器和 PEFT 方法的比较。<details>
+<summary>Abstract</summary>
+Large language models (LLMs) are increasingly pivotal in a wide range of natural language processing tasks. Access to pre-trained models, courtesy of the open-source community, has made it possible to adapt these models to specific applications for enhanced performance. However, the substantial resources required for training these models necessitate efficient solutions. This paper introduces CoLLiE, an efficient library that facilitates collaborative training of large language models using 3D parallelism, parameter-efficient fine-tuning (PEFT) methods, and optimizers such as Lion, Adan, Sophia, LOMO and AdaLomo. With its modular design and comprehensive functionality, CoLLiE offers a balanced blend of efficiency, ease of use, and customization. CoLLiE has proven superior training efficiency in comparison with prevalent solutions in pre-training and fine-tuning scenarios. Furthermore, we provide an empirical evaluation of the correlation between model size and GPU memory consumption under different optimization methods, as well as an analysis of the throughput. Lastly, we carry out a comprehensive comparison of various optimizers and PEFT methods within the instruction-tuning context. CoLLiE is available at https://github.com/OpenLMLab/collie.
+</details>
+<details>
+<summary>摘要</summary>
+大型自然语言处理任务中的语言模型（LLM）在不断增长的应用领域中扮演着越来越重要的角色。通过开源社区提供的预训练模型，现在可以将这些模型适应特定应用场景，以提高性能。然而，训练这些模型需要很大的资源。这篇论文介绍了CoLLiE，一个高效的库，它通过三维并行、参数高效调教（PEFT）方法和优化器，如狮子、阿达、索фи亚、LOMO和阿达朗蒂等，实现了高效的模型训练。CoLLiE具有可编程的设计和完整的功能，可以带来高效、易用和自定义的 equilibrio。CoLLiE在预训练和细化场景中证明了更高的训练效率，并对不同优化方法和PEFT方法在指令调教上进行了广泛的比较。CoLLiE可以在https://github.com/OpenLMLab/collie上下载。
+</details></li>
+</ul>
+<hr>
+<h2 id="Event-driven-Real-time-Retrieval-in-Web-Search"><a href="#Event-driven-Real-time-Retrieval-in-Web-Search" class="headerlink" title="Event-driven Real-time Retrieval in Web Search"></a>Event-driven Real-time Retrieval in Web Search</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00372">http://arxiv.org/abs/2312.00372</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Nan Yang, Shusen Zhang, Yannan Zhang, Xiaoling Bai, Hualong Deng, Tianhua Zhou, Jin Ma</li>
+<li>for: 提高实时搜索中的信息检索效果，特别是面对突发新闻事件的搜索意图。</li>
+<li>methods: 将事件信息综合到查询中，通过cross-attention机制与时间上下文query representation进行集成，并通过多任务训练提升事件表示能力。</li>
+<li>results: 与现有基eline方法比较，提出的方法在一百万级生产 dataset 上的Offline实验中表现出色，并在在线系统中进行A&#x2F;B测试，证明了方法的有效性。<details>
+<summary>Abstract</summary>
+Information retrieval in real-time search presents unique challenges distinct from those encountered in classical web search. These challenges are particularly pronounced due to the rapid change of user search intent, which is influenced by the occurrence and evolution of breaking news events, such as earthquakes, elections, and wars. Previous dense retrieval methods, which primarily focused on static semantic representation, lack the capacity to capture immediate search intent, leading to inferior performance in retrieving the most recent event-related documents in time-sensitive scenarios. To address this issue, this paper expands the query with event information that represents real-time search intent. The Event information is then integrated with the query through a cross-attention mechanism, resulting in a time-context query representation. We further enhance the model's capacity for event representation through multi-task training. Since publicly available datasets such as MS-MARCO do not contain any event information on the query side and have few time-sensitive queries, we design an automatic data collection and annotation pipeline to address this issue, which includes ModelZoo-based Coarse Annotation and LLM-driven Fine Annotation processes. In addition, we share the training tricks such as two-stage training and hard negative sampling. Finally, we conduct a set of offline experiments on a million-scale production dataset to evaluate our approach and deploy an A/B testing in a real online system to verify the performance. Extensive experimental results demonstrate that our proposed approach significantly outperforms existing state-of-the-art baseline methods.
+</details>
+<details>
+<summary>摘要</summary>
+信息检索在实时搜索中存在独特的挑战，与 классиical web搜索不同。这些挑战尤其在用户搜索意图的快速变化中表现出来，这与地震、选举和战争等事件的发生和发展有关。先前的紧凑检索方法，主要关注于静态semantic表示，无法捕捉实时搜索意图，导致在时间敏感场景中 Retrieval最新的事件相关文档的性能下降。为解决这个问题，这篇论文将查询扩展到包含事件信息，表示实时搜索意图。事件信息然后通过交叉注意机制与查询集成，得到时间上下文查询表示。我们还通过多任务训练进一步增强事件表示能力。由于公开的 dataset 如 MS-MARCO 中没有查询Side的事件信息，我们设计了自动数据采集和注释管道，包括 ModelZoo 基于 Coarse Annotation 和 LLM 驱动 Fine Annotation 过程。此外，我们还分享了训练技巧，如两个阶段训练和困难的负例抽样。最后，我们在一百万级生产 dataset 上进行了OFFLINE 实验，并在真实在线系统中进行了 A/B 测试，以证明我们的方法的性能。广泛的实验结果表明，我们的提议方法在已有的基eline方法之上显著提高了性能。
+</details></li>
+</ul>
+<hr>
+<h2 id="RTQ-Rethinking-Video-language-Understanding-Based-on-Image-text-Model"><a href="#RTQ-Rethinking-Video-language-Understanding-Based-on-Image-text-Model" class="headerlink" title="RTQ: Rethinking Video-language Understanding Based on Image-text Model"></a>RTQ: Rethinking Video-language Understanding Based on Image-text Model</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00347">http://arxiv.org/abs/2312.00347</a></li>
+<li>repo_url: <a target="_blank" rel="noopener" href="https://github.com/SCZwangxiao/RTQ-MM2023">https://github.com/SCZwangxiao/RTQ-MM2023</a></li>
+<li>paper_authors: Xiao Wang, Yaoyu Li, Tian Gan, Zheng Zhang, Jingjing Lv, Liqiang Nie</li>
+<li>for: 提高视频语言理解的精度和效果，强化视频语言理解的基础知识。</li>
+<li>methods: 提出一种新的框架RTQ（纠偏、时间模型和查询），通过纠偏内帧的重复信息、模型时间关系和查询任务特定信息来解决视频语言理解的挑战。</li>
+<li>results: 对比现有方法，我们的模型在不具备视频语言预训练的情况下表现出色，并且与或超过了现状态的预训练方法的效果。<details>
+<summary>Abstract</summary>
+Recent advancements in video-language understanding have been established on the foundation of image-text models, resulting in promising outcomes due to the shared knowledge between images and videos. However, video-language understanding presents unique challenges due to the inclusion of highly complex semantic details, which result in information redundancy, temporal dependency, and scene complexity. Current techniques have only partially tackled these issues, and our quantitative analysis indicates that some of these methods are complementary. In light of this, we propose a novel framework called RTQ (Refine, Temporal model, and Query), which addresses these challenges simultaneously. The approach involves refining redundant information within frames, modeling temporal relations among frames, and querying task-specific information from the videos. Remarkably, our model demonstrates outstanding performance even in the absence of video-language pre-training, and the results are comparable with or superior to those achieved by state-of-the-art pre-training methods.
+</details>
+<details>
+<summary>摘要</summary></li>
+</ul>
+</details>
+
+
+<hr>
+<h2 id="PsyAttention-Psychological-Attention-Model-for-Personality-Detection"><a href="#PsyAttention-Psychological-Attention-Model-for-Personality-Detection" class="headerlink" title="PsyAttention: Psychological Attention Model for Personality Detection"></a>PsyAttention: Psychological Attention Model for Personality Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00293">http://arxiv.org/abs/2312.00293</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Baohua Zhang, Yongyi Huang, Wenyao Cui, Huaping Zhang, Jianyun Shang</li>
+<li>for: 本研究旨在提出一种基于不同心理模型的人格检测方法，以减少干扰和提高性能。</li>
+<li>methods: 该方法基于提档Attention机制，可以有效地编码心理特征，减少心理特征的数量85%。</li>
+<li>results: 在Big Five和MBTI模型中，提档Attention方法实现了65.66%和86.30%的准确率，超过了现有方法的性能， indicating that it is effective at encoding psychological features.<details>
+<summary>Abstract</summary>
+Work on personality detection has tended to incorporate psychological features from different personality models, such as BigFive and MBTI. There are more than 900 psychological features, each of which is helpful for personality detection. However, when used in combination, the application of different calculation standards among these features may result in interference between features calculated using distinct systems, thereby introducing noise and reducing performance. This paper adapts different psychological models in the proposed PsyAttention for personality detection, which can effectively encode psychological features, reducing their number by 85%. In experiments on the BigFive and MBTI models, PysAttention achieved average accuracy of 65.66% and 86.30%, respectively, outperforming state-of-the-art methods, indicating that it is effective at encoding psychological features.
+</details>
+<details>
+<summary>摘要</summary>
+在人格检测方面的工作通常会结合不同的人格模型，如BigFive和MBTI。有超过900个心理特征，每个特征都有助于人格检测。然而，当这些特征在组合使用时，不同的计算标准之间的干扰可能会导致特征计算结果之间的干扰，从而引入噪声并降低性能。这篇论文在提议的PsyAttention中采用了不同的心理模型，可以有效地编码心理特征，减少它们的数量 by 85%。在BigFive和MBTI模型的实验中，PsyAttention实现了65.66%和86.30%的平均准确率，分别超过了现有方法，表明它有效地编码心理特征。
+</details></li>
+</ul>
+<hr>
+<h2 id="SEPSIS-I-Can-Catch-Your-Lies-–-A-New-Paradigm-for-Deception-Detection"><a href="#SEPSIS-I-Can-Catch-Your-Lies-–-A-New-Paradigm-for-Deception-Detection" class="headerlink" title="SEPSIS: I Can Catch Your Lies – A New Paradigm for Deception Detection"></a>SEPSIS: I Can Catch Your Lies – A New Paradigm for Deception Detection</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00292">http://arxiv.org/abs/2312.00292</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Anku Rani, Dwip Dalal, Shreya Gautam, Pankaj Gupta, Vinija Jain, Aman Chadha, Amit Sheth, Amitava Das<br>for:This paper aims to explore the problem of deception through the lens of psychology, with a focus on lies of omission, and to propose a novel framework for deception detection using NLP techniques.methods:The authors use a multi-task learning pipeline that leverages fine-tuned language models to address the deception detection task, and they curate an annotated dataset of 876,784 samples by combining a popular fake news dataset and scraped news headlines from Twitter.results:The proposed model achieved an F1 score of 0.87, demonstrating strong performance across all layers of deceptive content, including the type, color, intention, and topic aspects. The authors also explore the relationship between lies of omission and propaganda techniques, and uncover significant correlations between loaded language and opinion.<details>
+<summary>Abstract</summary>
+Deception is the intentional practice of twisting information. It is a nuanced societal practice deeply intertwined with human societal evolution, characterized by a multitude of facets. This research explores the problem of deception through the lens of psychology, employing a framework that categorizes deception into three forms: lies of omission, lies of commission, and lies of influence. The primary focus of this study is specifically on investigating only lies of omission. We propose a novel framework for deception detection leveraging NLP techniques. We curated an annotated dataset of 876,784 samples by amalgamating a popular large-scale fake news dataset and scraped news headlines from the Twitter handle of Times of India, a well-known Indian news media house. Each sample has been labeled with four layers, namely: (i) the type of omission (speculation, bias, distortion, sounds factual, and opinion), (ii) colors of lies(black, white, etc), and (iii) the intention of such lies (to influence, etc) (iv) topic of lies (political, educational, religious, etc). We present a novel multi-task learning pipeline that leverages the dataless merging of fine-tuned language models to address the deception detection task mentioned earlier. Our proposed model achieved an F1 score of 0.87, demonstrating strong performance across all layers including the type, color, intent, and topic aspects of deceptive content. Finally, our research explores the relationship between lies of omission and propaganda techniques. To accomplish this, we conducted an in-depth analysis, uncovering compelling findings. For instance, our analysis revealed a significant correlation between loaded language and opinion, shedding light on their interconnectedness. To encourage further research in this field, we will be making the models and dataset available with the MIT License, making it favorable for open-source research.
+</details>
+<details>
+<summary>摘要</summary>
+<<SYS>>TRANSLATE_TEXT欺骗是人类社会演化中的一种Intentional Practice，具有多种方面。这项研究通过心理学领域的框架来研究欺骗，将其分为三种形式：掩饰、谎言和影响。本研究专门关注掩饰的问题，并提出了一种基于自然语言处理（NLP）技术的欺骗检测方法。我们组织了876,784个样本的注释集，通过粘贴大规模的假新闻数据集和Twitter上的时代新闻报道来混合。每个样本都被标记为四层，即：1. 掩饰类型（推测、偏见、扭曲、看起来是事实、意见）2. 颜色的谎言（黑、白等）3. 谎言的意图（以影响等）4. 谎言的主题（政治、教育、宗教等）我们提出了一种多任务学习管道，通过粘贴精度调整的语言模型来解决欺骗检测问题。我们的提案的模型在四个层次上都达到了优秀的性能，包括类型、颜色、意图和主题方面。最后，我们的研究探讨了掩饰和宣传技巧之间的关系。为此，我们进行了深入分析，发现了一些吸引人的发现。例如，我们发现了荟词和意见之间的相关性，这提供了对它们之间的相互关系的更多的了解。为了促进这一领域的研究，我们将会将模型和数据集发布于MIT许可，使其更有利于开源研究。
+</details></li>
+</ul>
+<hr>
+<h2 id="Text-Attribute-Control-via-Closed-Loop-Disentanglement"><a href="#Text-Attribute-Control-via-Closed-Loop-Disentanglement" class="headerlink" title="Text Attribute Control via Closed-Loop Disentanglement"></a>Text Attribute Control via Closed-Loop Disentanglement</h2><ul>
+<li>paper_url: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.00277">http://arxiv.org/abs/2312.00277</a></li>
+<li>repo_url: None</li>
+<li>paper_authors: Lei Sha, Thomas Lukasiewicz</li>
+<li>for: 这篇论文的目的是提出一种robust控制特征的方法，以便在文本中改变特征而保持内容完整。</li>
+<li>methods: 这篇论文使用了一种semi-supervised contrastive learning方法，通过在latent space中强制实施特征分离，以便实现robust控制特征的目的。</li>
+<li>results: 实验结果表明，这种方法能够有效地改变文本中的特征，同时保持内容完整。<details>
+<summary>Abstract</summary>
+Changing an attribute of a text without changing the content usually requires to first disentangle the text into irrelevant attributes and content representations. After that, in the inference phase, the representation of one attribute is tuned to a different value, expecting that the corresponding attribute of the text can also be changed accordingly. The usual way of disentanglement is to add some constraints on the latent space of an encoder-decoder architecture, including adversarial-based constraints and mutual-information-based constraints. However, the previous semi-supervised processes of attribute change are usually not enough to guarantee the success of attribute change and content preservation. In this paper, we propose a novel approach to achieve a robust control of attributes while enhancing content preservation. In this approach, we use a semi-supervised contrastive learning method to encourage the disentanglement of attributes in latent spaces. Differently from previous works, we re-disentangle the reconstructed sentence and compare the re-disentangled latent space with the original latent space, which makes a closed-loop disentanglement process. This also helps content preservation. In addition, the contrastive learning method is also able to replace the role of minimizing mutual information and adversarial training in the disentanglement process, which alleviates the computation cost. We conducted experiments on three text datasets, including the Yelp Service review dataset, the Amazon Product review dataset, and the GoEmotions dataset. The experimental results show the effectiveness of our model.
+</details>
+<details>
+<summary>摘要</summary>
+通常需要分解文本中的特征而不改变内容，需要先从文本中提取无关特征和内容表示。在推理阶段，对文本特征的表示进行调整，期望文本中的相应特征也会随之改变。常见的分解方法包括在encoder-decoder架构中添加对 latent space 的约束，包括对敌对学习和共享信息的约束。然而，以前的半supervised进程通常不够保证特征变化和内容保持。在这篇论文中，我们提出了一种新的方法来实现特征控制的稳定性，同时提高内容保持。我们使用半supervised contrastive learning方法来促进特征分解。与前作不同，我们重新分解重构后的句子，并与原始 latent space 进行比较，形成一个封闭的分解过程，这也有助于内容保持。此外，对比学习方法还能替代降低对 mutual information 和对敌对训练的计算成本，这也使得分解过程更加简单。我们在 Yelp Service 评论数据集、Amazon Product 评论数据集和 GoEmotions 数据集进行了实验，实验结果表明我们的模型的效果。
+</details></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="https://nullscc.github.io/2023/12/01/cs.CL_2023_12_01/" data-id="clq0ru6si00h4to88bne71g20" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/12/01/cs.AI_2023_12_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cs.AI - 2023-12-01
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/12/01/cs.LG_2023_12_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">cs.LG - 2023-12-01</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+      
+      <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/cs-AI/">cs.AI</a><span class="category-list-count">158</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CL/">cs.CL</a><span class="category-list-count">158</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-CV/">cs.CV</a><span class="category-list-count">158</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-LG/">cs.LG</a><span class="category-list-count">158</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs-SD/">cs.SD</a><span class="category-list-count">142</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-AS/">eess.AS</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-IV/">eess.IV</a><span class="category-list-count">140</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/eess-SP/">eess.SP</a><span class="category-list-count">98</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a><span class="archive-list-count">49</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a><span class="archive-list-count">214</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">231</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">212</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">175</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a><span class="archive-list-count">208</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 nullscc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+<!-- add calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('en', $.extend('{"months":["January","February","March","April","May","June","July","August","September","October","November","December"],"dayOfWeekShort":["S","M","T","W","T","F","S"],"dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}', {single:'true', root:'calendar/'}));
+    
+    });
+  </script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
